@@ -17,5 +17,6 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
-  "types": ["node", "jest", "@testing-library/jest-dom"]
+  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "exclude": ["**/*.cy.ts"]
 }
