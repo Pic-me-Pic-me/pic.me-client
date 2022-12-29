@@ -16069,7 +16069,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["hoist-non-react-statics", "npm:3.3.2"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:18.2.0"],\
-            ["react-is", null],\
+            ["react-is", "npm:18.2.0"],\
             ["shallowequal", "npm:1.1.0"],\
             ["supports-color", "npm:5.5.0"]\
           ],\
@@ -16078,7 +16078,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/react-is",\
             "@types/react",\
             "react-dom",\
-            "react-is",\
             "react"\
           ],\
           "linkType": "HARD"\
