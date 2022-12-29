@@ -52,29 +52,18 @@
     "simple-import-sort/exports": "error",
     "import/no-unresolved": "off",
     "import/no-duplicates": "error",
-    "import/order": [
-      "error",
-      {
-        "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"], "unknown"],
-        "pathGroups": [
-          {
-            "pattern": "angular",
-            "group": "external",
-            "position": "before"
-          }
-        ],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        },
-        "newlines-between": "always"
-      }
-    ]
+    "import/newline-after-import": "error", // import 다음에 빈줄 추가
+    "arrow-body-style": ["error", "as-needed"], // 한 줄일 때는 {} 없이, 두 줄 이상이면 {} 포함
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }], // function 및 arrow function 사용
+    "no-else-return": "error", // if(cond) return a; else return b; 대신에 if(cond) return a; return b; 사용
+    "object-shorthand": ["error", "always"], // const obj = {a, b} 가능
+    "arrow-parens": ["error", "always"], // arrow-function 인자가 2개 이상이면 괄호 필수
+    "no-multi-spaces": "error" // 스페이스 여러개 금지
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "moduleDirectory": ["node_modules", "src/"],
+        "moduleDirectory": ["src/"],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     },
