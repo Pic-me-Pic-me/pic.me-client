@@ -1,15 +1,17 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Router from './components/Router';
+import GlobalStyle from './styles/globalStyle';
+import theme from './styles/theme';
+
+const App = () => (
+  <>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Router />
+    </ThemeProvider>
+  </>
+);
 
 export default App;
