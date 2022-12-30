@@ -17,7 +17,7 @@
     "jsx": "react-jsx"
   },
   "baseUrl": "./src",
-  "include": ["src", "**/*.ts", "**/*.tsx"],
+  "include": ["src", "**/*.ts", "**/*.tsx", "src/asset/asset.d.ts", "webpack.config.js"],
   "types": ["node", "jest", "@testing-library/jest-dom"],
   "exclude": ["node_modules"]
 }
