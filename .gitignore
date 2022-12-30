@@ -7,7 +7,6 @@
 !.yarn/sdks
 !.yarn/versions
 
-
 # dependencies
 /node_modules
 /.pnp
