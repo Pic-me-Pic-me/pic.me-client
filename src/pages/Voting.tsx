@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
 
 import { Error, Loading } from '../components/common';
 import { Header } from '../components/Voting';
@@ -22,7 +23,13 @@ const Voting = () => {
     <div>
       <p>{newVotingInfo.vote_title}</p>
       <Header />
+      <StName>Happee의 사진을 골라죠💛</StName>
     </div>
   );
 };
 export default Voting;
+
+const StName = styled.p`
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20}
+`;
