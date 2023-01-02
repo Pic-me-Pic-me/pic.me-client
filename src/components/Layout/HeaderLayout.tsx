@@ -40,8 +40,6 @@ const StHeader = styled.header<{ isWhite: boolean }>`
   height: 4.375rem;
   margin: 0 0 2.4375rem;
 
-  background-color: ${({ isWhite, theme }) => (isWhite ? theme.colors.picme_black : theme.colors.picme_blue)};
-
   & > form {
     width: 68rem;
     height: 2.625rem;
