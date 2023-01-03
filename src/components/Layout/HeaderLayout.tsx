@@ -28,7 +28,7 @@ const StHeader = styled.header`
   align-items: center;
 
   height: 6.2rem;
-  margin: 0 2rem 2.6rem 2rem;
+  margin: 0 2rem 0 2rem;
 
   & > h1 {
     ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20}
