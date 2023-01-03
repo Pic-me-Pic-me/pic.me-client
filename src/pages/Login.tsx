@@ -1,5 +1,11 @@
 import React from 'react';
 
-const Login = () => <div>로그인</div>;
+import { KakaoLogin } from '../components/Auth';
+
+const Login = () => (
+  <div>
+    <KakaoLogin></KakaoLogin>
+  </div>
+);
 
 export default Login;
