@@ -16,10 +16,8 @@ const StickerVoting = () => {
 
   const stickerImgRef = useRef<HTMLImageElement>(null);
 
-  const [coordinatesList, setCoordinatesList] = useState([]);
-  const handleStickerAttach = (e: React.MouseEvent<HTMLImageElement>) => {
+  const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
     if (stickerImgRef.current) {
-      const { offsetWidth, offsetHeight } = stickerImgRef.current;
       const { offsetX, offsetY } = e.nativeEvent;
       const newSticker: StickerLocation = { x: offsetX / 10 - 2.65, y: offsetY / 10 - 2.65 };
       setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
@@ -28,7 +26,7 @@ const StickerVoting = () => {
 
   return (
     <StStickerVotingWrapper>
-      <StStickerImg src={StickerTest} ref={stickerImgRef} alt="selected_img" onClick={handleStickerAttach} />
+      <StStickerImg src={StickerTest} alt="selected_img" onClick={handleAttachSticker} />
       {stickerList.map((sticker) => (
         <StEmojiIcon key={sticker.x} location={sticker}>
           {STICKER_LIST[emoji - 1].icon()}
