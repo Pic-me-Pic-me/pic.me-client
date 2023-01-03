@@ -16,14 +16,14 @@ const HeaderLayout = (props: LayoutProps) => {
     <>
       <StHeader isBanner={isBanner}>
         <IcGoback />
-        <StTitleWrapper isBanner={isBanner}>
+        <StTitle isBanner={isBanner}>
           <h1>{HeaderTitle}</h1>
-        </StTitleWrapper>
+        </StTitle>
       </StHeader>
       {isBanner && (
-        <SignUpBannerWrapper>
+        <SignUpBanner>
           <ImgSignUpBanner />
-        </SignUpBannerWrapper>
+        </SignUpBanner>
       )}
     </>
   );
@@ -50,7 +50,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   }
 `;
 
-const StTitleWrapper = styled.div<{ isBanner?: boolean }>`
+const StTitle = styled.div<{ isBanner?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,7 +63,7 @@ const StTitleWrapper = styled.div<{ isBanner?: boolean }>`
   }
 `;
 
-const SignUpBannerWrapper = styled.div`
+const SignUpBanner = styled.div`
   position: absolute;
   top: 0rem;
   z-index: -1;
