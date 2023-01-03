@@ -3,7 +3,7 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { StickerTest } from '../../../asset/image';
-import { STICKER_LIST } from '../../../asset/StickerIconList';
+import { STICKER_LIST } from '../../../constant/StickerIconList';
 import { stickerInfoState } from '../../../recoil/player/atom';
 import { StickerLocation } from '../../../types/voting';
 
