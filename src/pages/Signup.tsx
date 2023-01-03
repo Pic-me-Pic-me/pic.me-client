@@ -43,29 +43,6 @@ const StTitle = styled.h2`
   margin-top: 5.3rem;
 `;
 
-const StInput = styled.input<{ isSecondInput?: boolean }>`
-  width: 38.8rem;
-  height: 2.9rem;
-
-  margin-top: 2.7rem;
-  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
-
-  border-left-width: 0;
-  border-right-width: 0;
-  border-top-width: 0;
-  border-bottom-width: 1;
-
-  border-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-
-  outline: none;
-
-  ${(isSecondInput) =>
-    isSecondInput &&
-    css`
-      margin-top: 1.7rem;
-    `}
-`;
-
 const StSubmitBtn = styled.button<{ isWrong?: boolean }>`
   width: 39rem;
   height: 5.8rem;
