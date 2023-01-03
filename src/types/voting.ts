@@ -17,9 +17,13 @@ export interface PictureInfo {
   count: number;
 }
 
+export interface StickerLocation {
+  x: number;
+  y: number;
+}
+
 export interface StickerInfo {
-  sticker_id: number;
-  picture_id: number;
-  location: string;
+  pictureId: number;
+  location: StickerLocation[];
   emoji: number;
 }
