@@ -1,29 +1,30 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { ImageAdd } from '../../asset/image';
+import { IcImageAdd } from '../../asset/icon';
 
 interface ImageInputProps {
   input: string;
 }
 
 const ImageInput = (props: ImageInputProps) => {
-  const [isComplete, setIsComplete] = useState(false);
+  const [isToggle, setIsToggle] = useState({
+    firstToggle: true,
+    secondToggle: true,
+  });
   const [imageUrl, setImageUrl] = useState({
     firstImageUrl: '',
     secondImageUrl: '',
   });
+  const [isComplete, setIsComplete] = useState(false);
 
   const { input } = props;
   const { firstImageUrl, secondImageUrl } = imageUrl;
+  const { firstToggle, secondToggle } = isToggle;
 
   useEffect(() => {
     handleCheckImageObj();
   }, [input, firstImageUrl, secondImageUrl]);
-
-  const onClick = () => {
-    console.log(true);
-  };
 
   const handleReadFirstFileUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -49,13 +50,22 @@ const ImageInput = (props: ImageInputProps) => {
         <StImageInputLabel>
           <StImageTextBlock>
             <StImage src={firstImageUrl} alt="첫번째 이미지" />
+            {firstToggle ? (
+              <StModifyImageButton
+                type="button"
+                onClick={() => setIsToggle({ ...isToggle, firstToggle: !firstToggle })}>
+                수정
+              </StModifyImageButton>
+            ) : (
+              <StModifyBlock />
+            )}
           </StImageTextBlock>
         </StImageInputLabel>
       ) : (
         <StImageInputLabel>
           <StImageInput type="file" name="firstImg" accept="image/*" onChange={handleReadFirstFileUrl} />
           <StImageTextBlock>
-            <ImageAdd />
+            <IcImageAdd />
             <StImageText>여기에 사진을 넣어주세요!</StImageText>
           </StImageTextBlock>
         </StImageInputLabel>
@@ -64,18 +74,30 @@ const ImageInput = (props: ImageInputProps) => {
         <StImageInputLabel>
           <StImageTextBlock>
             <StImage src={secondImageUrl} alt="두번째 이미지" />
+            {secondToggle ? (
+              <StModifyImageButton
+                type="button"
+                onClick={() => setIsToggle({ ...isToggle, secondToggle: !secondToggle })}>
+                수정
+              </StModifyImageButton>
+            ) : (
+              <StModifyBlock>
+                <StDeleteImageBtn type="button">삭제</StDeleteImageBtn>
+                <StCropImageBtn type="button">수정</StCropImageBtn>
+              </StModifyBlock>
+            )}
           </StImageTextBlock>
         </StImageInputLabel>
       ) : (
         <StImageInputLabel>
           <StImageInput type="file" name="secondImg" accept="image/*" onChange={handleReadSecondFileUrl} />
           <StImageTextBlock>
-            <ImageAdd />
+            <IcImageAdd />
             <StImageText>여기에 사진을 넣어주세요!</StImageText>
           </StImageTextBlock>
         </StImageInputLabel>
       )}
-      <StImageSubmitButton type="button" isComplete={isComplete} disabled={!isComplete} onClick={onClick}>
+      <StImageSubmitButton type="button" isComplete={isComplete} disabled={!isComplete}>
         투표 만들기 완료
       </StImageSubmitButton>
     </StImageInputWrapper>
@@ -96,13 +118,12 @@ const StImageInputLabel = styled.label`
 
   width: 100%;
   height: 52rem;
-
-  border-radius: 1.2rem;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
-
   & + & {
     margin-top: 2rem;
   }
+
+  border-radius: 1.2rem;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 
   cursor: pointer;
 `;
@@ -117,6 +138,7 @@ const StImageTextBlock = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   width: 100%;
 `;
@@ -151,3 +173,34 @@ const StImageSubmitButton = styled.button<{ isComplete: boolean }>`
           background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
         `}
 `;
+const StModifyImageButton = styled.button`
+  position: absolute;
+  right: 2.1rem;
+  bottom: 2.1rem;
+
+  width: 6rem;
+  height: 6rem;
+
+  border: none;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+
+  cursor: pointer;
+`;
+const StModifyBlock = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  right: 2.1rem;
+  bottom: 2.1rem;
+
+  width: 6rem;
+  height: 12rem;
+
+  border-radius: 6rem;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+`;
+const StDeleteImageBtn = styled.button``;
+const StCropImageBtn = styled.button``;
