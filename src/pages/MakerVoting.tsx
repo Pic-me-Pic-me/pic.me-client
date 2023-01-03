@@ -1,9 +1,8 @@
-import { ImageInput, TitleInput } from '../components/MakerVoting';
+import { MakerVotingLayout } from '../components/MakerVoting';
 
 const MakerVoting = () => (
   <div>
-    <TitleInput />
-    <ImageInput />
+    <MakerVotingLayout />
   </div>
 );
 
