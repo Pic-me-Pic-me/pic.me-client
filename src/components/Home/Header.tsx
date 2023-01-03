@@ -1,9 +1,9 @@
-import { IcGoback } from '../../asset/icon';
+// import { IcGoback } from '../../asset/icon';
 import { HeaderLayout } from '../Layout';
 
 const Header = () => (
   <>
-    <HeaderLayout HeaderTitle="회원가입" GobackIcon={<IcGoback />} />
+    <HeaderLayout HeaderTitle="현재 진행 중인 투표" />
   </>
 );
 

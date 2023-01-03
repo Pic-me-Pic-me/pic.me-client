@@ -1,30 +1,30 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-// import { ImgSignUpBanner } from '../../asset/image';
+import { IcGoback } from '../../asset/icon';
+import { ImgSignUpBanner } from '../../asset/image';
 
 interface LayoutProps {
-  GobackIcon: ReactNode;
   HeaderTitle: ReactNode;
   isBanner?: boolean;
 }
 
 const HeaderLayout = (props: LayoutProps) => {
-  const { GobackIcon, HeaderTitle, isBanner } = props;
+  const { HeaderTitle, isBanner } = props;
 
   return (
     <>
       <StHeader isBanner={isBanner}>
-        {GobackIcon}
+        <IcGoback />
         <StTitleWrapper isBanner={isBanner}>
           <h1>{HeaderTitle}</h1>
         </StTitleWrapper>
       </StHeader>
-      {/* {isBanner && (
+      {isBanner && (
         <SignUpBannerWrapper>
           <ImgSignUpBanner />
         </SignUpBannerWrapper>
-      )} */}
+      )}
     </>
   );
 };
@@ -64,8 +64,8 @@ const StTitleWrapper = styled.div<{ isBanner?: boolean }>`
   }
 `;
 
-// const SignUpBannerWrapper = styled.div`
-//   position: absolute;
-//   top: 0rem;
-//   z-index: -1;
-// `;
+const SignUpBannerWrapper = styled.div`
+  position: absolute;
+  top: 0rem;
+  z-index: -1;
+`;
