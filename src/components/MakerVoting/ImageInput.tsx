@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcImageAdd } from '../../asset/icon';
+import { votingImageState } from '../../recoil/maker/atom';
 
 interface ImageInputProps {
   input: string;
@@ -12,10 +14,7 @@ const ImageInput = (props: ImageInputProps) => {
     firstToggle: true,
     secondToggle: true,
   });
-  const [imageUrl, setImageUrl] = useState({
-    firstImageUrl: '',
-    secondImageUrl: '',
-  });
+  const [imageUrl, setImageUrl] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
 
   const { input } = props;
