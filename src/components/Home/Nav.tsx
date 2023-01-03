@@ -1,28 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { IcHamburger } from '../../asset/icon';
+import { IcClose, IcHamburger } from '../../asset/icon';
 import { HomeLogo } from '../../asset/image';
+import Hamburger from './Hamburger';
 
-const Nav = () => (
-  <StHomeNav>
-    <img src={HomeLogo} alt="홈 로고" />
-    <StHambergerWrapper>
-      <StLogoutBtn type="button">로그아웃</StLogoutBtn>
-      <StHamburgerBtn type="button">
-        <IcHamburger width="2.13rem" height="1.4rem" />
-      </StHamburgerBtn>
-    </StHambergerWrapper>
-  </StHomeNav>
-);
+const Nav = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleHamburger = () => {
+    setIsOpen((isOpen) => !isOpen);
+  };
+  return (
+    <>
+      <StHomeNav>
+        <img src={HomeLogo} alt="홈 로고" />
+        <StHambergerWrapper>
+          <StLogoutBtn type="button">로그아웃</StLogoutBtn>
+          <StHamburgerBtn type="button" onClick={handleHamburger}>
+            {isOpen ? <IcClose width="1.5rem" height="1.5rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
+          </StHamburgerBtn>
+        </StHambergerWrapper>
+      </StHomeNav>
+      <Hamburger isOpen={isOpen} />
+    </>
+  );
+};
 
 export default Nav;
 
 const StHomeNav = styled.nav`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 100;
 
+  background-color: white;
   height: 8.8rem;
   padding: 2.7rem 0rem 0.7rem 1.8rem;
 
