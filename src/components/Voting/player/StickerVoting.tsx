@@ -26,7 +26,7 @@ const StickerVoting = () => {
 
   return (
     <StStickerVotingWrapper>
-      <StStickerImg src={StickerTest} alt="selected_img" onClick={handleAttachSticker} />
+      <StStickerImg src={StickerTest} ref={stickerImgRef} alt="selected_img" onClick={handleAttachSticker} />
       {stickerList.map((sticker) => (
         <StEmojiIcon key={sticker.x} location={sticker}>
           {STICKER_LIST[emoji - 1].icon()}
