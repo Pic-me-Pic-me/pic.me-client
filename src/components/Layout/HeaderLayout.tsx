@@ -2,18 +2,18 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface LayoutProps {
-  Logo: ReactNode;
+  GobackIcon: ReactNode;
   HeaderTitle: ReactNode;
   ShareIcon: ReactNode;
   isShare: boolean;
 }
 
 const HeaderLayout = (props: LayoutProps) => {
-  const { Logo, HeaderTitle, ShareIcon, isShare } = props;
+  const { GobackIcon, HeaderTitle, ShareIcon, isShare } = props;
 
   return (
     <StHeader>
-      <StGobackIcon>{Logo}</StGobackIcon>
+      <StGobackIcon>{GobackIcon}</StGobackIcon>
       <h1>{HeaderTitle}</h1>
       {isShare ? <StShareIcon>{ShareIcon}</StShareIcon> : <div></div>}
     </StHeader>

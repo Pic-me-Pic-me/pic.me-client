@@ -3,7 +3,7 @@ import { HeaderLayout } from '../Layout';
 
 const Header = () => (
   <>
-    <HeaderLayout HeaderTitle="현재 진행중인 투표" ShareIcon={<IcShare />} Logo={<IcGoback />} isShare={true} />
+    <HeaderLayout HeaderTitle="현재 진행중인 투표" ShareIcon={<IcShare />} GobackIcon={<IcGoback />} isShare={true} />
   </>
 );
 
