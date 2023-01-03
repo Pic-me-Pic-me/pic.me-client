@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
-const TitleInput = () => {
-  const [input, setInput] = useState('');
+interface TitleInputProps {
+  input: string;
+  handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
+const TitleInput = (props: TitleInputProps) => {
+  const { input, handleChangeInput } = props;
 
   return (
     <StTitleInputWrapper>
@@ -22,7 +22,6 @@ const TitleInput = () => {
     </StTitleInputWrapper>
   );
 };
-
 export default TitleInput;
 
 const StTitleInputWrapper = styled.header`
