@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+import { AfterCheckbox, BeforeCheckbox } from '../../asset/icon';
+
 const Nickname = () => (
   <>
     <StContainer>
@@ -13,8 +15,13 @@ const Nickname = () => (
         </StInputContainer>
 
         <StTermContainer>
-          <StAllCheckContainer></StAllCheckContainer>
+          <StAllCheckContainer>
+            <BeforeCheckbox />
+            <StTermContent>전체 동의</StTermContent>
+          </StAllCheckContainer>
         </StTermContainer>
+
+        <StSubmitBtn>계정 만들기</StSubmitBtn>
       </StForm>
     </StContainer>
   </>
@@ -42,9 +49,9 @@ const StInputContainer = styled.div`
 `;
 
 const StInput = styled.input`
-  width: 29.3rem;
-  height: 3rem;
-  margin-top: 2.7rem;
+  width: 30rem;
+  height: 6rem;
+  margin-top: 1.4rem;
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 
   border-left-width: 0;
@@ -60,18 +67,18 @@ const StCheckDuplicationBtn = styled.button`
   align-self: flex-end;
 
   width: 8rem;
-  height: 3rem;
-  margin-left: 1.6rem;
+  height: 6rem;
+  margin-left: 1rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   color: ${({ theme }) => theme.colors.Pic_Color_White};
 
-  border-radius: 2.2rem;
+  border-radius: 0.6rem;
   border: none;
 `;
 
 const StTermContainer = styled.article`
-  margin-top: 21.9rem;
+  margin-top: 18.2rem;
 
   display: flex;
   flex-direction: column;
@@ -91,4 +98,27 @@ const StAllCheckContainer = styled.section`
   border-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
 `;
 
+const StTermContent = styled.p`
+  ${({ theme }) => theme.fonts.Pic_body1_Pretendard_Medium_16};
+`;
+
+const StSubmitBtn = styled.button`
+  width: 39rem;
+  height: 5.8rem;
+
+  margin-top: 7.2rem;
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+
+  border-radius: 0.9rem;
+  border: none;
+
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
+
+  cursor: pointer;
+
+  &.activated {
+    transform: translateX(0);
+  }
+`;
 export default Nickname;
