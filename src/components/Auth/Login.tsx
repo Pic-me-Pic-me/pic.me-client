@@ -1,102 +1,149 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { kakaologinbtn, logo } from '../../asset/image';
+import { kakaologinbtn, LoginBanner, Logo } from '../../asset/image';
 
 const Login = () => (
   <>
-    <StLoginHeader>
-      <img src={logo} alt="로고" />
-    </StLoginHeader>
-    <StLoginForm>
-      <h1>로그인</h1>
-      <StLoginInput type="email" placeholder="이메일을 입력해주세요" />
-      <StLoginInput type="password" placeholder="비밀번호를 입력해주세요" />
-      <StAuthBtn type="submit">로그인</StAuthBtn>
-    </StLoginForm>
-    <StSignUpWrapper>
-      <StAuthBtn type="submit" isSignUp>
-        회원가입
-      </StAuthBtn>
-      <p>간편 로그인</p>
-      <StAuthBtn type="submit">
-        <img src={kakaologinbtn} alt="카카오계정으로 계속하기" />
-      </StAuthBtn>
-    </StSignUpWrapper>
+    <StBannerWrapper>
+      <img src={LoginBanner} alt="로그인 배너" />
+    </StBannerWrapper>
+    <StWhiteSection>
+      <StContainer>
+        <StForm>
+          <StTitle>로그인</StTitle>
+          <StInput type="email" placeholder="이메일을 입력해주세요" />
+          <StInput type="password" placeholder="비밀번호를 입력해주세요" />
+          <StAuthBtn type="submit">로그인</StAuthBtn>
+        </StForm>
+        <StAuthBtn type="submit" isSignUp>
+          회원가입
+        </StAuthBtn>
+        <StKaKaoLogin>
+          <StDivider className="line">간편 로그인</StDivider>
+          <button type="button">
+            <img src={kakaologinbtn} alt="카카오계정으로 계속하기" />
+          </button>
+        </StKaKaoLogin>
+      </StContainer>
+    </StWhiteSection>
   </>
 );
 
 export default Login;
 
-const StLoginHeader = styled.header`
-  height: 22.1rem;
+const StDivider = styled.div`
+  padding: 2.4rem 2.4rem 1.6rem 2.4rem;
 
-  padding: 5.3rem 0rem 0rem 2rem;
+  &.line {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+  }
+  &.line::before {
+    content: '';
+    flex-grow: 1;
+    margin-right: 1rem;
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    height: 0.05rem;
+    font-size: 0px;
+    line-height: 0px;
+  }
+  &.line::after {
+    content: '';
+    flex-grow: 1;
+    margin-left: 1rem;
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    height: 0.05rem;
+    font-size: 0px;
+    line-height: 0px;
+  }
+  > p {
+    padding-top: 1.6rem;
 
-  > img {
-    margin-bottom: 5.5rem;
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    font-size: 1.5rem;
+  }
+`;
+const StKaKaoLogin = styled.div`
+  margin: 0 auto;
+
+  > button {
+    background: inherit;
+    border: none;
   }
 `;
 
-const StLoginForm = styled.form`
+const StBannerWrapper = styled.div`
+  position: absolute;
+  top: 0rem;
+  z-index: -1;
+`;
+
+const StWhiteSection = styled.section`
+  position: fixed;
+  bottom: 0;
+
+  width: 43rem;
+  height: 75.3rem;
+
+  border-radius: 1.4rem 1.4rem 0rem 0rem;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
+`;
+
+const StContainer = styled.article`
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 4.2rem;
+`;
+
+const StForm = styled.form`
   display: flex;
   flex-direction: column;
 
   padding: 0rem 2rem;
 
-  > h1 {
-    margin-bottom: 2.7rem;
-
-    color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-    ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
-  }
-
-  > p {
-    margin-top: 2.4rem;
-    margin-bottom: 1.7rem;
-  }
-
   input:nth-child(3) {
-    margin-bottom: 8.8rem;
+    margin-bottom: 6.5rem;
   }
 `;
 
-const StLoginInput = styled.input`
-  padding-bottom: 0.8rem;
-  margin-bottom: 2.2rem;
+const StInput = styled.input`
+  width: 39rem;
+  height: 6rem;
+  margin-top: 1.4rem;
+  padding-left: 1.9rem;
 
-  height: 2.9rem;
+  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border-radius: 0.6rem;
+  outline: none;
 
-  border: none;
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18}
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18}
-  }
+  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 
   &:focus {
-    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 `;
 
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
-  width: 100%;
-  height: 60px;
+  width: 39rem;
+  height: 6rem;
 
-  margin-bottom: 8px;
-  padding: 0;
+  margin: 0 auto;
 
   border: none;
   border-radius: 9px;
-  color: white;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  font-size: 16px;
+  color: white;
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   ${({ isSignUp }) =>
     isSignUp &&
     css`
+      margin-top: 0.8rem;
       background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
     `}
 
@@ -106,19 +153,7 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
   }
 `;
 
-const StSignUpWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  padding: 0rem 2rem;
-
-  > p {
-    margin: 0 auto;
-
-    padding-top: 1.6rem;
-    padding-bottom: 1.7rem;
-
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
-    font-size: 1.5rem;
-  }
+const StTitle = styled.h2`
+  margin-top: 2rem;
+  ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
 `;
