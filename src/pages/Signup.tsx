@@ -1,16 +1,36 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import logo from '../asset/icon/picme_logo.svg';
+import { SignupBanner } from '../asset/icon';
 import AddAccount from '../components/Signup/AddAccount';
+import Nickname from '../components/Signup/Nickname';
 
 const Signup = () => (
   <>
-    <StLogo src={logo} />
-    <AddAccount></AddAccount>
+    <StBannerWrapper>
+      <SignupBanner />
+    </StBannerWrapper>
+    <StWhiteSection>
+      <AddAccount></AddAccount>
+      {/* <Nickname></Nickname> */}
+    </StWhiteSection>
   </>
 );
-const StLogo = styled.img`
-  padding: 5.203rem 0rem 0.097rem 2rem;
+
+const StBannerWrapper = styled.div`
+  position: absolute;
+  top: 0rem;
+  z-index: -1;
 `;
+const StWhiteSection = styled.section`
+  position: fixed;
+  bottom: 0;
+
+  width: 43rem;
+  height: 75.3rem;
+
+  border-radius: 1.4rem 1.4rem 0rem 0rem;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
+`;
+
 export default Signup;

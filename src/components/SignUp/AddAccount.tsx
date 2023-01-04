@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
-import { SignUpInfo } from '../../types/auth';
+import { NicknameInfo, SignUpInfo } from '../../types/auth';
 
 const AddAccount = () => {
   const {

@@ -149,8 +149,10 @@ export const GlobalStyle = createGlobalStyle`
 ${reset}
 
 #root, body, html {
-    width: 100%;
-    height: 100vh;
+    /* width: 100%;
+    height: 100vh; */
+    width: 43rem;
+    height: 92.6rem;
 }
 * {
     box-sizing: border-box;
