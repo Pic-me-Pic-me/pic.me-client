@@ -1,31 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
 import { AfterCheckbox, BeforeCheckbox } from '../../asset/icon';
+import { NicknameInfo } from '../../types/auth';
 
-const Nickname = () => (
-  <>
-    <StContainer>
-      <StForm>
-        <StTitle>닉네임을 입력해주세요!</StTitle>
+const Nickname = () => {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+    watch,
+  } = useForm<NicknameInfo>({ mode: 'onSubmit' });
 
-        <StInputContainer>
-          <StInput placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
-          <StCheckDuplicationBtn>중복 확인</StCheckDuplicationBtn>
-        </StInputContainer>
+  const onValid = (data: NicknameInfo) => {
+    console.log(data);
+  };
 
-        <StTermContainer>
-          <StAllCheckContainer>
-            <BeforeCheckbox />
-            <StTermContent>전체 동의</StTermContent>
-          </StAllCheckContainer>
-        </StTermContainer>
+  console.log(errors);
 
-        <StSubmitBtn>계정 만들기</StSubmitBtn>
-      </StForm>
-    </StContainer>
-  </>
-);
+  return (
+    <>
+      <StContainer>
+        <StForm onSubmit={handleSubmit(onValid)}>
+          <StTitle>닉네임을 입력해주세요!</StTitle>
+
+          <StInputContainer>
+            <StInput
+              type="text"
+              {...register('nickname', { required: '닉네임은 필수 입력 요소입니다!' })}
+              placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
+
+            <StCheckDuplicationBtn type="button">중복 확인</StCheckDuplicationBtn>
+          </StInputContainer>
+
+          <StTermContainer>
+            <StAllCheckContainer>
+              <BeforeCheckbox />
+              <StTermContent>
+                <p>전체 동의</p>
+              </StTermContent>
+            </StAllCheckContainer>
+
+            <StDetailTermContainer>
+              <StDetailTerm>
+                <BeforeCheckbox />
+                <StTermContent>
+                  <span>(필수) </span>
+                  <span>만 14세 이상이에요 </span>
+                </StTermContent>
+              </StDetailTerm>
+
+              <StDetailTerm>
+                <BeforeCheckbox />
+                <StTermContent>
+                  <span>(필수) </span>
+                  <span>이용약관 및 개인정보수집이용 동의</span>
+                </StTermContent>
+              </StDetailTerm>
+            </StDetailTermContainer>
+          </StTermContainer>
+
+          <StSubmitBtn className={watch().nickname !== '' ? 'activated' : ''} disabled={errors.nickname ? true : false}>
+            계정 만들기
+          </StSubmitBtn>
+        </StForm>
+      </StContainer>
+    </>
+  );
+};
 
 const StContainer = styled.article`
   display: flex;
@@ -54,13 +98,19 @@ const StInput = styled.input`
   margin-top: 1.4rem;
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 
-  border-left-width: 0;
-  border-right-width: 0;
-  border-top-width: 0;
-  border-bottom-width: 1;
-  border-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border-radius: 0.6rem;
+
+  padding-left: 1.9rem;
 
   outline: none;
+`;
+
+const StInputDesc = styled.p`
+  margin-top: 0.6rem;
+
+  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 `;
 
 const StCheckDuplicationBtn = styled.button`
@@ -75,6 +125,10 @@ const StCheckDuplicationBtn = styled.button`
 
   border-radius: 0.6rem;
   border: none;
+
+  &.activated {
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  }
 `;
 
 const StTermContainer = styled.article`
@@ -82,7 +136,6 @@ const StTermContainer = styled.article`
 
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const StAllCheckContainer = styled.section`
@@ -91,15 +144,52 @@ const StAllCheckContainer = styled.section`
   width: 38.8rem;
   height: 3.2rem;
 
-  border-left-width: 0;
-  border-right-width: 0;
-  border-top-width: 0;
-  border-bottom-width: 1;
-  border-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border-left-width: 0rem;
+  border-right-width: 0rem;
+  border-top-width: 0rem;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
 `;
 
-const StTermContent = styled.p`
-  ${({ theme }) => theme.fonts.Pic_body1_Pretendard_Medium_16};
+const StTermContent = styled.div`
+  width: 30rem;
+  height: 2.2rem;
+  margin-left: 0.9rem;
+
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+
+  p {
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  }
+
+  span {
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+  }
+
+  span:first-child {
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  }
+
+  span:last-child {
+    margin-left: 0.3rem;
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+  }
+`;
+
+const StDetailTermContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1.6rem;
+
+  gap: 1.3rem;
+`;
+
+const StDetailTerm = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const StSubmitBtn = styled.button`
@@ -118,7 +208,7 @@ const StSubmitBtn = styled.button`
   cursor: pointer;
 
   &.activated {
-    transform: translateX(0);
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 `;
 export default Nickname;
