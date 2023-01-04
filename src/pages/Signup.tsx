@@ -11,8 +11,8 @@ const Signup = () => (
       <SignupBanner />
     </StBannerWrapper>
     <StWhiteSection>
-      <AddAccount></AddAccount>
-      {/* <Nickname></Nickname> */}
+      {/* <AddAccount></AddAccount> */}
+      <Nickname></Nickname>
     </StWhiteSection>
   </>
 );
