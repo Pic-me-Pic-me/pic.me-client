@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { SignUpInfo } from '../../types/signup';
+import { NicknameInfo, SignUpInfo } from '../../types/signup';
 
 const AddAccount = () => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -15,18 +12,16 @@ const AddAccount = () => {
     getValues,
   } = useForm<SignUpInfo>({ mode: 'onBlur' });
 
-  const handleSubmitSignupInfo = (data: SignUpInfo) => {
-    navigate(`/signup/nickname`);
+  const handleValid = (data: SignUpInfo) => {
     console.log(data);
   };
-
   return (
     <>
       <StContainer>
-        <StForm onSubmit={handleSubmit(handleSubmitSignupInfo)}>
+        <StForm onSubmit={handleSubmit(handleValid)}>
           <StTitle>아이디</StTitle>
           <StInput
-            type="email"
+            type="text"
             {...register('user_id', {
               required: '아이디를 입력하지 않았습니다',
               pattern: {
@@ -40,7 +35,6 @@ const AddAccount = () => {
 
           <StTitle>비밀번호</StTitle>
           <StInput
-            type="password"
             {...register('password', {
               required: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
               minLength: {
@@ -62,7 +56,6 @@ const AddAccount = () => {
 
           <StTitle>비밀번호 재확인</StTitle>
           <StInput
-            type="password"
             {...register('passwordConfirm', {
               required: '비밀번호 확인이 필요합니다',
               validate: {
@@ -76,9 +69,7 @@ const AddAccount = () => {
           />
           <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
 
-          <StSubmitBtn disabled={errors.user_id || errors.password || errors.passwordConfirm ? true : false}>
-            다음 단계로 이동
-          </StSubmitBtn>
+          <StSubmitBtn>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StContainer>
     </>
@@ -127,7 +118,7 @@ const StInputDesc = styled.p`
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 `;
 
-const StSubmitBtn = styled.button<{ disabled: boolean }>`
+const StSubmitBtn = styled.button`
   width: 39rem;
   height: 6rem;
   margin-top: 7.8rem;
@@ -140,14 +131,9 @@ const StSubmitBtn = styled.button<{ disabled: boolean }>`
 
   cursor: pointer;
 
-  ${({ disabled }) =>
-    disabled
-      ? css`
-          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-        `
-      : css`
-          background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-        `}
+  &.activated {
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+  }
 `;
 
 export default AddAccount;
