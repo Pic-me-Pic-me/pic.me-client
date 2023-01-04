@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { votingTitleState } from '../../recoil/maker/atom';
 import ImageInput from './ImageInput';
 import TitleInput from './TitleInput';
 
 const MakerVotingLayout = () => {
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useRecoilState(votingTitleState);
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);

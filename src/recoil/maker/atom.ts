@@ -7,6 +7,12 @@ interface VotingImage {
 }
 //페이지가 변경되더라도 상태관리를 유지
 const { persistAtom } = recoilPersist();
+
+export const votingTitleState = atom({
+  key: 'votingTitle',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
 export const votingImageState = atom<VotingImage>({
   key: 'votingImage',
   default: {
