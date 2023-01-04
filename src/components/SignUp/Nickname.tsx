@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
@@ -6,6 +6,10 @@ import { AfterCheckbox, BeforeCheckbox } from '../../asset/icon';
 import { NicknameInfo } from '../../types/auth';
 
 const Nickname = () => {
+  const [isNicknameDp, setIsNicknameDp] = useState(false);
+
+  const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
+  const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
   const {
     register,
     handleSubmit,
@@ -15,6 +19,27 @@ const Nickname = () => {
 
   const handleValid = (data: NicknameInfo) => {
     console.log(data);
+  };
+
+  const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
+    const target = e.target as HTMLInputElement;
+    console.log(target.name);
+    if (target.name === 'all') {
+      isChecked[0] ? setIsChecked([false, false, false]) : setIsChecked([true, true, true]);
+    } else {
+      if (idx) {
+        isChecked[idx] = !isChecked[idx];
+        isChecked[0] = isChecked[1] && isChecked[2] ? true : false;
+        console.log('첫번째 두번째', isChecked);
+        setIsChecked([...isChecked]);
+      }
+    }
+  };
+  const isAllChecked = () => {
+    const isAllCheck = isChecked.find((isCheck) => isCheck == false);
+    if (!isAllCheck) {
+      setIsChecked([true, true, true]);
+    }
   };
 
   return (
@@ -34,28 +59,26 @@ const Nickname = () => {
 
           <StTermContainer>
             <StAllCheckContainer>
-              <BeforeCheckbox />
+              <StCheckboxBtn type="button" name="all" onClick={handleCheck}>
+                {isChecked[0] ? <AfterCheckbox /> : <BeforeCheckbox />}
+              </StCheckboxBtn>
+
               <StTermContent>
                 <p>전체 동의</p>
               </StTermContent>
             </StAllCheckContainer>
-
             <StDetailTermContainer>
-              <StDetailTerm>
-                <BeforeCheckbox />
-                <StTermContent>
-                  <span>(필수) </span>
-                  <span>만 14세 이상이에요 </span>
-                </StTermContent>
-              </StDetailTerm>
-
-              <StDetailTerm>
-                <BeforeCheckbox />
-                <StTermContent>
-                  <span>(필수) </span>
-                  <span>이용약관 및 개인정보수집이용 동의</span>
-                </StTermContent>
-              </StDetailTerm>
+              {termList.map((term, idx) => (
+                <StDetailTerm key={term}>
+                  <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, idx + 1)}>
+                    {isChecked[idx + 1] ? <AfterCheckbox /> : <BeforeCheckbox />}
+                  </StCheckboxBtn>
+                  <StTermContent>
+                    <span>(필수) </span>
+                    <span>{term}</span>
+                  </StTermContent>
+                </StDetailTerm>
+              ))}
             </StDetailTermContainer>
           </StTermContainer>
 
@@ -143,6 +166,20 @@ const StAllCheckContainer = styled.section`
   border-right-width: 0rem;
   border-top-width: 0rem;
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+`;
+
+const StCheckboxBtn = styled.button`
+  height: 2.2rem;
+
+  border: none;
+  background-color: transparent;
+
+  margin: 0;
+  padding: 0;
+
+  svg {
+    pointer-events: none;
+  }
 `;
 
 const StTermContent = styled.div`
