@@ -16,6 +16,10 @@ const Share = () => {
     setTimeout(() => setIsModal(false), 2000);
   };
 
+  const handleDeepLink = () => {
+    window.location.replace('instagram-stories://share');
+  };
+
   return (
     <>
       {isModal && <StShareModal>링크가 복사되었습니다!</StShareModal>}
@@ -37,7 +41,9 @@ const Share = () => {
           <ImgShareCapture />
         </StCaptureScreen>
         <StBtnLayout>
-          <StGoInstagramBtn type="button">인스타그램으로 공유해보기</StGoInstagramBtn>
+          <StGoInstagramBtn type="button" onClick={handleDeepLink}>
+            인스타그램으로 공유해보기
+          </StGoInstagramBtn>
           <StGoHomeBtn type="button" onClick={() => navigate('/')}>
             홈으로 가기
           </StGoHomeBtn>
