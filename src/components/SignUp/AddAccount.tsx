@@ -1,4 +1,3 @@
-import { watch } from 'fs';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
@@ -13,13 +12,13 @@ const AddAccount = () => {
     getValues,
   } = useForm<SignUpInfo>({ mode: 'onBlur' });
 
-  const onValid = (data: SignUpInfo) => {
+  const handleValid = (data: SignUpInfo) => {
     console.log(data);
   };
   return (
     <>
       <StContainer>
-        <StForm onSubmit={handleSubmit(onValid)}>
+        <StForm onSubmit={handleSubmit(handleValid)}>
           <StTitle>아이디</StTitle>
           <StInput
             type="text"

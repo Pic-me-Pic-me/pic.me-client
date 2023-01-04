@@ -13,14 +13,14 @@ const Nickname = () => {
     watch,
   } = useForm<NicknameInfo>({ mode: 'onSubmit' });
 
-  const onValid = (data: NicknameInfo) => {
+  const handleValid = (data: NicknameInfo) => {
     console.log(data);
   };
 
   return (
     <>
       <StContainer>
-        <StForm onSubmit={handleSubmit(onValid)}>
+        <StForm onSubmit={handleSubmit(handleValid)}>
           <StTitle>닉네임을 입력해주세요!</StTitle>
 
           <StInputContainer>
