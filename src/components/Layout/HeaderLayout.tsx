@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { IcGoback } from '../../asset/icon';
-import { ImgSignUpBanner } from '../../asset/image';
 
 interface LayoutProps {
   HeaderTitle: ReactNode;
@@ -20,11 +19,6 @@ const HeaderLayout = (props: LayoutProps) => {
           <h1>{HeaderTitle}</h1>
         </StTitle>
       </StHeader>
-      {isBanner && (
-        <SignUpBanner>
-          <ImgSignUpBanner />
-        </SignUpBanner>
-      )}
     </>
   );
 };
@@ -61,10 +55,4 @@ const StTitle = styled.div<{ isBanner?: boolean }>`
     ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20};
     color: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
   }
-`;
-
-const SignUpBanner = styled.div`
-  position: absolute;
-  top: 0rem;
-  z-index: -1;
 `;
