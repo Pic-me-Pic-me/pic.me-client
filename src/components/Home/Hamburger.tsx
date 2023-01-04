@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
@@ -25,9 +25,8 @@ const Hamburger = (props: HambergerProps) => {
 export default Hamburger;
 
 const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
-  position: absolute;
+  position: fixed;
   left: 0;
-  z-index: -1;
 
   width: 100%;
   height: 20.3rem;
@@ -44,9 +43,9 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
           transition: 0.5s ease;
         `
       : css`
-          top: -250%;
+          top: -200%;
 
-          transition: 0.5s ease;
+          transition: 2s ease;
         `}
 `;
 

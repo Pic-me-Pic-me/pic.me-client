@@ -143,18 +143,23 @@ export const reset = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  button {
+    cursor: pointer;
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
 
 #root, body, html {
-    width: 100%;
+    /* width: 100%; */
+    width: 43rem;
     height: 100vh;
 }
 * {
     box-sizing: border-box;
-    }
+}
+
 @font-face{
   font-family: "PretendardBlack";
   src: url(${PretendardBlack}) format("woff");

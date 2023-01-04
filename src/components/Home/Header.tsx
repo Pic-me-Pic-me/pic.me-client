@@ -24,7 +24,7 @@ const StBannerWrapper = styled.header`
 
   width: 39rem;
   height: 26.4rem;
-  margin: 0rem 2rem 1.5rem 2rem;
+  margin: 8.8rem 2rem 1.5rem 2rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};

@@ -10,17 +10,24 @@ const Nav = () => {
   const handleHamburger = () => {
     setIsOpen((isOpen) => !isOpen);
   };
+  const handleReLoad = () => {
+    window.location.reload();
+  };
   return (
-    <StHomeNav>
-      <img src={HomeLogo} alt="홈 로고" />
-      <StHambergerWrapper>
-        <StLogoutBtn type="button">로그아웃</StLogoutBtn>
-        <StHamburgerBtn type="button" onClick={handleHamburger}>
-          {isOpen ? <IcClose width="1.5rem" height="1.5rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
-        </StHamburgerBtn>
-      </StHambergerWrapper>
+    <>
+      <StHomeNav>
+        <StLogoBtn onClick={handleReLoad}>
+          <img src={HomeLogo} alt="홈 로고" />
+        </StLogoBtn>
+        <StHambergerWrapper>
+          <StLogoutBtn type="button">로그아웃</StLogoutBtn>
+          <StHamburgerBtn type="button" onClick={handleHamburger}>
+            {isOpen ? <IcClose width="1.5rem" height="1.5rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
+          </StHamburgerBtn>
+        </StHambergerWrapper>
+      </StHomeNav>
       <Hamburger isOpen={isOpen} />
-    </StHomeNav>
+    </>
   );
 };
 
@@ -30,17 +37,19 @@ const StHomeNav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 1;
 
   width: 100%;
   height: 8.8rem;
   padding: 2.7rem 0rem 0.7rem 1.8rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
+`;
 
+const StLogoBtn = styled.a`
   > img {
     width: 11.1rem;
     height: 5.4rem;

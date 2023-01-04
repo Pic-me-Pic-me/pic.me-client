@@ -38,6 +38,8 @@ const StVoteListWrapper = styled.main`
   margin-left: 2.1rem;
   margin-top: 5.1rem;
 
+  cursor: pointer;
+
   > h1 {
     margin: 0rem 0rem 1.3rem 0rem;
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
@@ -67,7 +69,6 @@ const StVoteData = styled.article`
   border-radius: 1.2rem 0rem 0rem 1.2rem;
 
   > h3 {
-    /* padding: 0rem 1.6rem 1rem 1.4rem; */
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
     ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
   }
