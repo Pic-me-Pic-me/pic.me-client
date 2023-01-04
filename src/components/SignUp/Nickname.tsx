@@ -9,7 +9,6 @@ const Nickname = () => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
     watch,
   } = useForm<NicknameInfo>({ mode: 'onSubmit' });
@@ -96,14 +95,13 @@ const StInput = styled.input`
   width: 30rem;
   height: 6rem;
   margin-top: 1.4rem;
-  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
+  padding-left: 1.9rem;
 
   border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   border-radius: 0.6rem;
-
-  padding-left: 1.9rem;
-
   outline: none;
+
+  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 `;
 
 const StInputDesc = styled.p`
@@ -122,7 +120,6 @@ const StCheckDuplicationBtn = styled.button`
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-
   border-radius: 0.6rem;
   border: none;
 
@@ -132,10 +129,10 @@ const StCheckDuplicationBtn = styled.button`
 `;
 
 const StTermContainer = styled.article`
-  margin-top: 18.2rem;
-
   display: flex;
   flex-direction: column;
+
+  margin-top: 18.2rem;
 `;
 
 const StAllCheckContainer = styled.section`
@@ -151,12 +148,13 @@ const StAllCheckContainer = styled.section`
 `;
 
 const StTermContent = styled.div`
+  display: flex;
+  align-items: center;
+
   width: 30rem;
   height: 2.2rem;
   margin-left: 0.9rem;
 
-  display: flex;
-  align-items: center;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
   p {
@@ -195,15 +193,14 @@ const StDetailTerm = styled.div`
 const StSubmitBtn = styled.button`
   width: 39rem;
   height: 5.8rem;
-
   margin-top: 7.2rem;
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   border-radius: 0.9rem;
   border: none;
-
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+
   color: ${({ theme }) => theme.colors.Pic_Color_White};
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   cursor: pointer;
 

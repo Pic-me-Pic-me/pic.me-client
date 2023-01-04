@@ -104,12 +104,11 @@ const StInput = styled.input`
   height: 6rem;
   margin-top: 1.4rem;
   padding-left: 1.9rem;
-  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 
   border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   border-radius: 0.6rem;
-
   outline: none;
+  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 
   &:focus {
     border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Coral};
@@ -117,9 +116,8 @@ const StInput = styled.input`
 `;
 
 const StInputDesc = styled.p`
-  margin-top: 0.6rem;
-
   height: 1.7rem;
+  margin-top: 0.6rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
@@ -128,15 +126,13 @@ const StInputDesc = styled.p`
 const StSubmitBtn = styled.button`
   width: 39rem;
   height: 6rem;
-
   margin-top: 7.8rem;
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   border-radius: 0.9rem;
   border: none;
-
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   color: ${({ theme }) => theme.colors.Pic_Color_White};
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   cursor: pointer;
 

@@ -11,7 +11,7 @@ const Signup = () => (
       <SignupBanner />
     </StBannerWrapper>
     <StWhiteSection>
-      {/* <AddAccount></AddAccount> */}
+      <AddAccount></AddAccount>
       <Nickname></Nickname>
     </StWhiteSection>
   </>
@@ -23,15 +23,14 @@ const StBannerWrapper = styled.div`
   z-index: -1;
 `;
 const StWhiteSection = styled.section`
+  position: fixed;
+  bottom: 0;
+
   width: 43rem;
   height: 75.3rem;
 
-  position: fixed;
-  bottom: 0;
-  border: 1px solid black;
-
-  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
   border-radius: 1.4rem 1.4rem 0rem 0rem;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;
 
 export default Signup;
