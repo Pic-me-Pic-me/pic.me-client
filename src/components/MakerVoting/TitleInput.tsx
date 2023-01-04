@@ -21,7 +21,7 @@ const TitleInput = (props: TitleInputProps) => {
 };
 export default TitleInput;
 
-const StTitleInputWrapper = styled.header`
+const StTitleInputWrapper = styled.div`
   text-align: center;
 `;
 const StTitleInput = styled.input`

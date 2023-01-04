@@ -1,21 +1,15 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-interface VotingImage {
-  firstImageUrl: string;
-  secondImageUrl: string;
-}
+import { VotingImageInfo } from '../../types/votingImage';
+
 //페이지가 변경되더라도 상태관리를 유지
 const { persistAtom } = recoilPersist();
 
-export const votingTitleState = atom({
-  key: 'votingTitle',
-  default: '',
-  effects_UNSTABLE: [persistAtom],
-});
-export const votingImageState = atom<VotingImage>({
-  key: 'votingImage',
+export const votingImageState = atom<VotingImageInfo>({
+  key: 'votingForm',
   default: {
+    title: '',
     firstImageUrl: '',
     secondImageUrl: '',
   },
