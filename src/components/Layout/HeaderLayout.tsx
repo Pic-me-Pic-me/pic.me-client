@@ -6,15 +6,16 @@ import { IcGoback } from '../../asset/icon';
 interface LayoutProps {
   HeaderTitle: ReactNode;
   isBanner?: boolean;
+  handleGoback: React.MouseEventHandler;
 }
 
 const HeaderLayout = (props: LayoutProps) => {
-  const { HeaderTitle, isBanner } = props;
+  const { HeaderTitle, isBanner, handleGoback } = props;
 
   return (
     <>
       <StHeader isBanner={isBanner}>
-        <IcGoback />
+        <IcGoback onClick={handleGoback} />
         <StTitle isBanner={isBanner}>
           <h1>{HeaderTitle}</h1>
         </StTitle>
