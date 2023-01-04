@@ -10,14 +10,14 @@ interface ImageInputProps {
 }
 
 const ImageInput = (props: ImageInputProps) => {
+  const { input } = props;
+
   const [isToggle, setIsToggle] = useState({
     firstToggle: true,
     secondToggle: true,
   });
   const [imageUrl, setImageUrl] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
-
-  const { input } = props;
   const { firstImageUrl, secondImageUrl } = imageUrl;
   const { firstToggle, secondToggle } = isToggle;
 
@@ -39,7 +39,7 @@ const ImageInput = (props: ImageInputProps) => {
   };
 
   const handleCheckImageObj = () => {
-    if (input !== '' && firstImageUrl !== '' && secondImageUrl !== '') {
+    if (input && firstImageUrl && secondImageUrl) {
       setIsComplete(true);
     }
   };
