@@ -5,53 +5,67 @@ import styled, { css } from 'styled-components';
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../asset/icon';
 import { votingImageState } from '../../recoil/maker/atom';
 
+type ToggleProps = {
+  firstToggle: boolean;
+  secondToggle: boolean;
+};
 interface ImageInputProps {
   input: string;
   handleCropImageToggle: React.MouseEventHandler;
+  handleToggleModify: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isToggle: ToggleProps;
 }
 
 const ImageInput = (props: ImageInputProps) => {
-  const [isToggle, setIsToggle] = useState({
-    firstToggle: true,
-    secondToggle: true,
-  });
   const [imageUrl, setImageUrl] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
-  const { input, handleCropImageToggle } = props;
+  const { input, handleCropImageToggle, handleToggleModify, isToggle } = props;
   const { firstImageUrl, secondImageUrl } = imageUrl;
   const { firstToggle, secondToggle } = isToggle;
 
   useEffect(() => {
     handleCheckImageObj();
-  }, [input, firstImageUrl, secondImageUrl]);
+  }, [input, imageUrl]);
 
   const handleReadFirstFileUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setImageUrl({ ...imageUrl, firstImageUrl: URL.createObjectURL(e.target.files[0]) });
-      setIsToggle({ ...isToggle, firstToggle: true });
+      const fileBlob = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(fileBlob);
+      return new Promise<void>((resolve) => {
+        reader.onload = () => {
+          const result = reader.result as string;
+          setImageUrl({ ...imageUrl, firstImageUrl: result });
+          console.log(imageUrl);
+          resolve();
+        };
+      });
     }
   };
 
   const handleReadSecondFileUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setImageUrl({ ...imageUrl, secondImageUrl: URL.createObjectURL(e.target.files[0]) });
+      const fileBlob = e.target.files[0];
+      console.log(fileBlob);
+      const reader = new FileReader();
+      reader.readAsDataURL(fileBlob);
+      return new Promise<void>((resolve) => {
+        reader.onload = () => {
+          const result = reader.result as string;
+          console.log(result);
+          if (result) {
+            setImageUrl({ ...imageUrl, secondImageUrl: result });
+          }
+          console.log(imageUrl);
+          resolve();
+        };
+      });
     }
   };
 
   const handleCheckImageObj = () => {
-    if (input !== '' && firstImageUrl !== '' && secondImageUrl !== '') {
+    if (input !== '' && imageUrl.firstImageUrl !== '' && secondImageUrl !== '') {
       setIsComplete(true);
-    }
-  };
-
-  const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (target) {
-      if (target.value === 'firstModify') {
-        setIsToggle({ ...isToggle, firstToggle: !firstToggle });
-      } else {
-        setIsToggle({ ...isToggle, secondToggle: !secondToggle });
-      }
     }
   };
 
@@ -157,9 +171,9 @@ const StImageInputLabel = styled.label`
   cursor: pointer;
 `;
 const StImage = styled.img`
+  width: 100%;
+  height: 100%;
   border-radius: 1.2rem;
-
-  overflow: hidden;
 `;
 const StImageTextBlock = styled.div`
   display: flex;
