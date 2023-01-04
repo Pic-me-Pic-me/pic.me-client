@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { SignupBanner } from '../asset/icon';
+import { SignupBanner } from '../asset/image';
 import AddAccount from '../components/Signup/AddAccount';
 import Nickname from '../components/Signup/Nickname';
 
@@ -11,15 +11,15 @@ const Signup = () => (
       <SignupBanner />
     </StBannerWrapper>
     <StWhiteSection>
-      {/* <AddAccount></AddAccount> */}
-      <Nickname></Nickname>
+      <AddAccount></AddAccount>
+      {/* <Nickname></Nickname> */}
     </StWhiteSection>
   </>
 );
 
 const StBannerWrapper = styled.div`
   position: absolute;
-  top: 0rem;
+  top: 0;
   z-index: -1;
 `;
 const StWhiteSection = styled.section`
