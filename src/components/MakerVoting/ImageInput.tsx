@@ -7,6 +7,7 @@ import { votingImageState } from '../../recoil/maker/atom';
 
 interface ImageInputProps {
   input: string;
+  handleCropImageToggle: React.MouseEventHandler;
 }
 
 const ImageInput = (props: ImageInputProps) => {
@@ -16,8 +17,7 @@ const ImageInput = (props: ImageInputProps) => {
   });
   const [imageUrl, setImageUrl] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
-
-  const { input } = props;
+  const { input, handleCropImageToggle } = props;
   const { firstImageUrl, secondImageUrl } = imageUrl;
   const { firstToggle, secondToggle } = isToggle;
 
@@ -47,7 +47,6 @@ const ImageInput = (props: ImageInputProps) => {
   const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLInputElement;
     if (target) {
-      console.log(target.value);
       if (target.value === 'firstModify') {
         setIsToggle({ ...isToggle, firstToggle: !firstToggle });
       } else {
@@ -68,72 +67,77 @@ const ImageInput = (props: ImageInputProps) => {
       }
     }
   };
+
   return (
-    <StImageInputWrapper>
-      {firstImageUrl ? (
-        <StImageTextBlock>
-          <StImage src={firstImageUrl} alt="첫번째 이미지" />
-          {firstToggle ? (
-            <StModifyImageButton type="button" value="firstModify" onClick={handleToggleModify}>
-              <IcModify />
-            </StModifyImageButton>
-          ) : (
-            <StModifyBlock>
-              <StModifyDepthBtn type="button" value="firstRemove" onClick={handleRemoveImg}>
-                <IcRemoveImg />
-              </StModifyDepthBtn>
-              <StModifyDepthBtn>
-                <IcCropImg />
-              </StModifyDepthBtn>
-            </StModifyBlock>
-          )}
-        </StImageTextBlock>
-      ) : (
-        <StImageInputLabel>
-          <StImageInput type="file" name="firstImg" accept="image/*" onChange={handleReadFirstFileUrl} />
+    <>
+      <StImageInputWrapper>
+        {firstImageUrl ? (
           <StImageTextBlock>
-            <IcImageAdd />
-            <StImageText>여기에 사진을 넣어주세요!</StImageText>
+            <StImage src={firstImageUrl} alt="첫번째 이미지" />
+            {firstToggle ? (
+              <StModifyImageButton type="button" value="firstModify" onClick={handleToggleModify}>
+                <IcModify />
+              </StModifyImageButton>
+            ) : (
+              <StModifyBlock>
+                <StModifyDepthBtn type="button" value="firstRemove" onClick={handleRemoveImg}>
+                  <IcRemoveImg />
+                </StModifyDepthBtn>
+                <StModifyDepthBtn type="button" value="firstCrop" onClick={handleCropImageToggle}>
+                  <IcCropImg />
+                </StModifyDepthBtn>
+              </StModifyBlock>
+            )}
           </StImageTextBlock>
-        </StImageInputLabel>
-      )}
-      {secondImageUrl ? (
-        <StImageTextBlock>
-          <StImage src={secondImageUrl} alt="두번째 이미지" />
-          {secondToggle ? (
-            <StModifyImageButton type="button" value="secondModify" onClick={handleToggleModify}>
-              <IcModify />
-            </StModifyImageButton>
-          ) : (
-            <StModifyBlock>
-              <StModifyDepthBtn type="button" value="secondRemove" onClick={handleRemoveImg}>
-                <IcRemoveImg />
-              </StModifyDepthBtn>
-              <StModifyDepthBtn>
-                <IcCropImg />
-              </StModifyDepthBtn>
-            </StModifyBlock>
-          )}
-        </StImageTextBlock>
-      ) : (
-        <StImageInputLabel>
-          <StImageInput type="file" name="secondImg" accept="image/*" onChange={handleReadSecondFileUrl} />
+        ) : (
+          <StImageInputLabel>
+            <StImageInput type="file" name="firstImg" accept="image/*" onChange={handleReadFirstFileUrl} />
+            <StImageTextBlock>
+              <IcImageAdd />
+              <StImageText>여기에 사진을 넣어주세요!</StImageText>
+            </StImageTextBlock>
+          </StImageInputLabel>
+        )}
+        {secondImageUrl ? (
           <StImageTextBlock>
-            <IcImageAdd />
-            <StImageText>여기에 사진을 넣어주세요!</StImageText>
+            <StImage src={secondImageUrl} alt="두번째 이미지" />
+            {secondToggle ? (
+              <StModifyImageButton type="button" value="secondModify" onClick={handleToggleModify}>
+                <IcModify />
+              </StModifyImageButton>
+            ) : (
+              <StModifyBlock>
+                <StModifyDepthBtn type="button" value="secondRemove" onClick={handleRemoveImg}>
+                  <IcRemoveImg />
+                </StModifyDepthBtn>
+                <StModifyDepthBtn type="button" value="secondCrop" onClick={handleCropImageToggle}>
+                  <IcCropImg />
+                </StModifyDepthBtn>
+              </StModifyBlock>
+            )}
           </StImageTextBlock>
-        </StImageInputLabel>
-      )}
-      <StImageSubmitButton type="button" isComplete={isComplete} disabled={!isComplete}>
-        투표 만들기 완료
-      </StImageSubmitButton>
-    </StImageInputWrapper>
+        ) : (
+          <StImageInputLabel>
+            <StImageInput type="file" name="secondImg" accept="image/*" onChange={handleReadSecondFileUrl} />
+            <StImageTextBlock>
+              <IcImageAdd />
+              <StImageText>여기에 사진을 넣어주세요!</StImageText>
+            </StImageTextBlock>
+          </StImageInputLabel>
+        )}
+        <StImageSubmitButton type="button" isComplete={isComplete} disabled={!isComplete}>
+          투표 만들기 완료
+        </StImageSubmitButton>
+      </StImageInputWrapper>
+    </>
   );
 };
 
 export default ImageInput;
 
 const StImageInputWrapper = styled.section`
+  position: relative;
+
   width: 100%;
   margin-top: 4.1rem;
 `;
@@ -153,10 +157,9 @@ const StImageInputLabel = styled.label`
   cursor: pointer;
 `;
 const StImage = styled.img`
-  width: 100%;
-  height: 100%;
-
   border-radius: 1.2rem;
+
+  overflow: hidden;
 `;
 const StImageTextBlock = styled.div`
   display: flex;
@@ -168,6 +171,8 @@ const StImageTextBlock = styled.div`
   width: 100%;
   height: 52rem;
   margin-bottom: 2rem;
+
+  overflow: hidden;
 `;
 const StImageText = styled.span`
   margin-top: 2.827rem;
