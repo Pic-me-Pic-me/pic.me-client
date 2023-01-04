@@ -8,23 +8,19 @@ import { NicknameInfo } from '../../types/signup';
 const Nickname = () => {
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<NicknameInfo>({ mode: 'onSubmit' });
+  } = useForm<NicknameInfo>({ mode: 'onChange' });
 
   const handleSubmitInfo = () => {
     //서버 통신 코드 작성할 부분입니다.
-
-    console.log(JSON.stringify(isChecked));
-    console.log(JSON.stringify([true, true, true]));
+    console.log(errors);
   };
-  console.log(errors);
-
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
     const target = e.target as HTMLInputElement;
-    console.log(target.name);
     if (target.name === 'all') {
       isChecked[0] ? setIsChecked([false, false, false]) : setIsChecked([true, true, true]);
     } else {

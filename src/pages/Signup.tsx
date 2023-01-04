@@ -1,18 +1,17 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { SignupBanner } from '../asset/image';
-import AddAccount from '../components/Signup/AddAccount';
-import Nickname from '../components/Signup/Nickname';
 
 const Signup = () => (
   <>
     <StBannerWrapper>
       <SignupBanner />
     </StBannerWrapper>
+
     <StWhiteSection>
-      <AddAccount></AddAccount>
-      {/* <Nickname></Nickname> */}
+      <Outlet />
     </StWhiteSection>
   </>
 );
