@@ -1,3 +1,13 @@
+export interface SignUpInfo {
+  user_id: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+export interface NicknameInfo {
+  nickname: string;
+}
+
 export interface UserInfo {
   user_id: number;
   user_name: string;
