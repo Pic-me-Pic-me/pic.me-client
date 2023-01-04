@@ -26,7 +26,7 @@ const AddAccount = () => {
         <StForm onSubmit={handleSubmit(handleSubmitSignupInfo)}>
           <StTitle>아이디</StTitle>
           <StInput
-            type="text"
+            type="email"
             {...register('user_id', {
               required: '아이디를 입력하지 않았습니다',
               pattern: {
