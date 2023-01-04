@@ -17,8 +17,6 @@ const Nickname = () => {
     console.log(data);
   };
 
-  console.log(errors);
-
   return (
     <>
       <StContainer>

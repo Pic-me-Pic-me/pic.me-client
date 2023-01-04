@@ -6,8 +6,6 @@ import styled, { css } from 'styled-components';
 import { NicknameInfo, SignUpInfo } from '../../types/auth';
 
 const AddAccount = () => {
-  const [isActivated, setIsActivated] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -72,9 +70,7 @@ const AddAccount = () => {
           />
           <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
 
-          <StSubmitBtn className={isActivated ? 'activated' : ''} disabled={isActivated ? false : true}>
-            다음 단계로 이동
-          </StSubmitBtn>
+          <StSubmitBtn>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StContainer>
     </>
