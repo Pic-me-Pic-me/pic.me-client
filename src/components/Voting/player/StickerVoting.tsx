@@ -19,11 +19,16 @@ const StickerVoting = () => {
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
     if (stickerImgRef.current) {
       const { offsetX, offsetY } = e.nativeEvent;
-      const newSticker: StickerLocation = { x: offsetX / 10 - 2.65, y: offsetY / 10 - 2.65 };
+
+      const newSticker: StickerLocation = {
+        x: Math.round((offsetX / 10 - 2.65) * 100) / 100,
+        y: Math.round((offsetY / 10 - 2.65) * 100) / 100,
+      };
       setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
     }
   };
 
+  console.log(stickerVotingInfo);
   return (
     <StStickerVotingWrapper>
       <StStickerImg src={StickerTest} ref={stickerImgRef} alt="selected_img" onClick={handleAttachSticker} />
