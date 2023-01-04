@@ -16,9 +16,6 @@ const TitleInput = (props: TitleInputProps) => {
         onChange={handleChangeInput}
         placeholder="투표에 어울리는 제목을 입력해주세요!"
       />
-      <StTitleInputMaxBlock>
-        <StTitleInputMax>(최대 22자)</StTitleInputMax>
-      </StTitleInputMaxBlock>
     </StTitleInputWrapper>
   );
 };
@@ -39,14 +36,4 @@ const StTitleInput = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
   }
-`;
-const StTitleInputMaxBlock = styled.div`
-  width: 29.7rem;
-  margin: 0.8rem auto;
-
-  text-align: right;
-`;
-const StTitleInputMax = styled.span`
-  color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
 `;
