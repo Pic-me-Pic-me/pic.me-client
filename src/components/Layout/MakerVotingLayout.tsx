@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { Area } from 'react-easy-crop/types';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose } from '../../asset/icon';
-import { votingTitleState } from '../../recoil/maker/atom';
+import { votingImageState, votingTitleState } from '../../recoil/maker/atom';
 import { ImageCrop, ImageInput, TitleInput } from '../MakerVoting';
+import GetCroppedImg from '../MakerVoting/GetCroppedImg';
 
 const MakerVotingLayout = () => {
   const [input, setInput] = useRecoilState(votingTitleState);
@@ -12,8 +14,65 @@ const MakerVotingLayout = () => {
     firstCrop: false,
     secondCrop: false,
   });
-
+  const [isToggle, setIsToggle] = useState({
+    firstToggle: true,
+    secondToggle: true,
+  });
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useRecoilState(votingImageState);
+  const [rotation, setRotation] = useState(0);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
+  const { firstImageUrl, secondImageUrl } = imageUrl;
   const { firstCrop, secondCrop } = isCropToggle;
+  const { firstToggle, secondToggle } = isToggle;
+
+  const handleCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  // base64를 file 타입으로 변환하는 함수
+  // function handleDataURLtoFile(dataurl: string, filename: string) {
+  //   const arr = dataurl.split(',');
+  //   if (arr) {
+  //     const mime = arr[0].slice(5, 15);
+  //     const bstr = window.atob(arr[1]);
+  //     let n = bstr.length;
+  //     const u8arr = new Uint8Array(n);
+  //     while (n--) {
+  //       u8arr[n] = bstr.charCodeAt(n);
+  //     }
+  //     return new File([u8arr], filename, {
+  //       type: mime,
+  //     });
+  //   }
+  // }
+  const handleShowCroppedImage = useCallback(async () => {
+    if (firstCrop) {
+      try {
+        const crop = await GetCroppedImg(firstImageUrl, croppedAreaPixels, rotation);
+        if (crop) {
+          setImageUrl({ ...imageUrl, firstImageUrl: crop });
+          setCroppedImage(croppedImage);
+          setIsCropToggle({ ...isCropToggle, firstCrop: false });
+          setIsToggle({ ...isToggle, firstToggle: !firstToggle });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      try {
+        const crop = await GetCroppedImg(secondImageUrl, croppedAreaPixels, rotation);
+        if (crop) {
+          setImageUrl({ ...imageUrl, secondImageUrl: crop });
+          setCroppedImage(croppedImage);
+          setIsCropToggle({ ...isCropToggle, secondCrop: false });
+          setIsToggle({ ...isToggle, secondToggle: !secondToggle });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [croppedAreaPixels, rotation]);
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -28,8 +87,27 @@ const MakerVotingLayout = () => {
     if (target) {
       if (target.value === 'firstCrop') {
         setIsCropToggle({ firstCrop: !firstCrop, secondCrop: false });
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
       } else {
         setIsCropToggle({ firstCrop: false, secondCrop: !secondCrop });
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
+
+  const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target) {
+      if (target.value === 'firstModify') {
+        setIsToggle({ ...isToggle, firstToggle: !firstToggle });
+      } else {
+        setIsToggle({ ...isToggle, secondToggle: !secondToggle });
       }
     }
   };
@@ -43,16 +121,26 @@ const MakerVotingLayout = () => {
               <IcClose />
             </StCloseBtn>
           </StHeader>
-          <ImageCrop firstCrop={firstCrop} />
+          <ImageCrop
+            firstCrop={firstCrop}
+            handleCropComplete={handleCropComplete}
+            setRotation={setRotation}
+            rotation={rotation}
+          />
           <StCropDescription>좌우로 위치를 옮겨보세요!</StCropDescription>
           <StFooter>
-            <StCropBtn onClick={() => console.log(1)}>완료</StCropBtn>
+            <StCropBtn onClick={handleShowCroppedImage}>완료</StCropBtn>
           </StFooter>
         </StImageCropLayoutWrapper>
       )}
       <StMakerVotingLayoutWrapper>
         <TitleInput input={input} handleChangeInput={handleChangeInput} />
-        <ImageInput input={input} handleCropImageToggle={handleCropImageToggle} />
+        <ImageInput
+          input={input}
+          handleCropImageToggle={handleCropImageToggle}
+          handleToggleModify={handleToggleModify}
+          isToggle={isToggle}
+        />
       </StMakerVotingLayoutWrapper>
     </>
   );
