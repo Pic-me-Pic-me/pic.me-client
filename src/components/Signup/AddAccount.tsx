@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
-import { NicknameInfo, SignUpInfo } from '../../types/auth';
+import { SignUpInfo } from '../../types/signup';
 
 const AddAccount = () => {
   const {
@@ -15,6 +15,7 @@ const AddAccount = () => {
   const handleValid = (data: SignUpInfo) => {
     console.log(data);
   };
+
   return (
     <>
       <StContainer>
@@ -35,6 +36,7 @@ const AddAccount = () => {
 
           <StTitle>비밀번호</StTitle>
           <StInput
+            type="password"
             {...register('password', {
               required: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
               minLength: {
@@ -56,6 +58,7 @@ const AddAccount = () => {
 
           <StTitle>비밀번호 재확인</StTitle>
           <StInput
+            type="password"
             {...register('passwordConfirm', {
               required: '비밀번호 확인이 필요합니다',
               validate: {
@@ -69,7 +72,9 @@ const AddAccount = () => {
           />
           <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
 
-          <StSubmitBtn>다음 단계로 이동</StSubmitBtn>
+          <StSubmitBtn disabled={errors.user_id || errors.password || errors.passwordConfirm ? true : false}>
+            다음 단계로 이동
+          </StSubmitBtn>
         </StForm>
       </StContainer>
     </>
@@ -118,7 +123,7 @@ const StInputDesc = styled.p`
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 `;
 
-const StSubmitBtn = styled.button`
+const StSubmitBtn = styled.button<{ disabled: boolean }>`
   width: 39rem;
   height: 6rem;
   margin-top: 7.8rem;
@@ -131,9 +136,14 @@ const StSubmitBtn = styled.button`
 
   cursor: pointer;
 
-  &.activated {
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  }
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+        `
+      : css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+        `}
 `;
 
 export default AddAccount;

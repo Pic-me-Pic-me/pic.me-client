@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
-import { AfterCheckbox, BeforeCheckbox } from '../../asset/icon';
-import { NicknameInfo } from '../../types/auth';
+import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
+import { NicknameInfo } from '../../types/signup';
 
 const Nickname = () => {
-  const [isNicknameDp, setIsNicknameDp] = useState(false);
-
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
   const {
     register,
-    handleSubmit,
     formState: { errors },
-    watch,
+    handleSubmit,
   } = useForm<NicknameInfo>({ mode: 'onSubmit' });
 
-  const handleValid = (data: NicknameInfo) => {
-    console.log(data);
+  const handleSubmitInfo = () => {
+    //서버 통신 코드 작성할 부분입니다.
+
+    console.log(JSON.stringify(isChecked));
+    console.log(JSON.stringify([true, true, true]));
   };
+  console.log(errors);
 
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
     const target = e.target as HTMLInputElement;
@@ -35,32 +36,27 @@ const Nickname = () => {
       }
     }
   };
-  const isAllChecked = () => {
-    const isAllCheck = isChecked.find((isCheck) => isCheck == false);
-    if (!isAllCheck) {
-      setIsChecked([true, true, true]);
-    }
-  };
-
   return (
     <>
       <StContainer>
-        <StForm onSubmit={handleSubmit(handleValid)}>
+        <StForm onSubmit={handleSubmit(handleSubmitInfo)}>
           <StTitle>닉네임을 입력해주세요!</StTitle>
 
-          <StInputContainer>
-            <StInput
-              type="text"
-              {...register('nickname', { required: '닉네임은 필수 입력 요소입니다!' })}
-              placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
-
+          <StNicknameWrapper>
+            <StInputWrapper>
+              <StInput
+                type="text"
+                {...register('nickname', { required: '닉네임은 필수 입력 요소입니다!' })}
+                placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
+            </StInputWrapper>
             <StCheckDuplicationBtn type="button">중복 확인</StCheckDuplicationBtn>
-          </StInputContainer>
+          </StNicknameWrapper>
+          <StInputDesc>이미 사용 중인 닉네임입니다.</StInputDesc>
 
           <StTermContainer>
             <StAllCheckContainer>
               <StCheckboxBtn type="button" name="all" onClick={handleCheck}>
-                {isChecked[0] ? <AfterCheckbox /> : <BeforeCheckbox />}
+                {isChecked[0] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
               </StCheckboxBtn>
 
               <StTermContent>
@@ -71,7 +67,7 @@ const Nickname = () => {
               {termList.map((term, idx) => (
                 <StDetailTerm key={term}>
                   <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, idx + 1)}>
-                    {isChecked[idx + 1] ? <AfterCheckbox /> : <BeforeCheckbox />}
+                    {isChecked[idx + 1] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
                   </StCheckboxBtn>
                   <StTermContent>
                     <span>(필수) </span>
@@ -82,7 +78,10 @@ const Nickname = () => {
             </StDetailTermContainer>
           </StTermContainer>
 
-          <StSubmitBtn className={watch().nickname !== '' ? 'activated' : ''} disabled={errors.nickname ? true : false}>
+          <StSubmitBtn
+            disabled={
+              errors.nickname || JSON.stringify(isChecked) !== JSON.stringify([true, true, true]) ? true : false
+            }>
             계정 만들기
           </StSubmitBtn>
         </StForm>
@@ -107,9 +106,15 @@ const StTitle = styled.h2`
   ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
 `;
 
-const StInputContainer = styled.div`
+const StNicknameWrapper = styled.div`
   display: flex;
-  justify-content: ;
+`;
+
+const StInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  width: 30rem;
 `;
 
 const StInput = styled.input`
@@ -144,9 +149,7 @@ const StCheckDuplicationBtn = styled.button`
   border-radius: 0.6rem;
   border: none;
 
-  &.activated {
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  }
+  cursor: pointer;
 `;
 
 const StTermContainer = styled.article`
@@ -225,22 +228,26 @@ const StDetailTerm = styled.div`
   align-items: center;
 `;
 
-const StSubmitBtn = styled.button`
+const StSubmitBtn = styled.button<{ disabled: boolean }>`
   width: 39rem;
   height: 5.8rem;
   margin-top: 7.2rem;
 
   border-radius: 0.9rem;
   border: none;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   cursor: pointer;
 
-  &.activated {
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  }
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+        `
+      : css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+        `}
 `;
 export default Nickname;
