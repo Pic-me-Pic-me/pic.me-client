@@ -29,9 +29,13 @@ export default HeaderLayout;
 const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
+  position: sticky;
 
+  top: 0rem;
   height: 6.2rem;
   padding: 0 2.8rem 0 2rem;
+
+  background: none;
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 
