@@ -22,7 +22,7 @@ const StBannerWrapper = styled.header`
   display: flex;
   flex-direction: column;
 
-  width: 39rem;
+  width: 39rem%;
   height: 26.4rem;
   margin: 8.8rem 2rem 1.5rem 2rem;
 
@@ -35,7 +35,7 @@ const StGuideBtn = styled.button`
   justify-content: space-between;
   align-items: center;
 
-  width: 39rem;
+  width: 100%;
   height: 7.4rem;
   padding: 2.8rem 2.9rem 2.7rem 2.4rem;
 
