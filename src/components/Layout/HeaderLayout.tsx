@@ -44,7 +44,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
     display: flex;
     align-items: center;
 
-    stroke: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_2)};
+    stroke: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
 
     cursor: pointer;
   }
@@ -59,7 +59,7 @@ const StTitle = styled.div<{ isBanner?: boolean }>`
 
   & > h1 {
     ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20};
-    color: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_2)};
+    color: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
   }
 `;
 
