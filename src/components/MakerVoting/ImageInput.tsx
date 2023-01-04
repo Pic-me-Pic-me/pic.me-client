@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcImageAdd } from '../../asset/icon';
+import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../asset/icon';
 import { votingImageState } from '../../recoil/maker/atom';
 
 interface ImageInputProps {
@@ -28,6 +28,7 @@ const ImageInput = (props: ImageInputProps) => {
   const handleReadFirstFileUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImageUrl({ ...imageUrl, firstImageUrl: URL.createObjectURL(e.target.files[0]) });
+      setIsToggle({ ...isToggle, firstToggle: true });
     }
   };
 
@@ -43,23 +44,50 @@ const ImageInput = (props: ImageInputProps) => {
     }
   };
 
+  const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target) {
+      console.log(target.value);
+      if (target.value === 'firstModify') {
+        setIsToggle({ ...isToggle, firstToggle: !firstToggle });
+      } else {
+        setIsToggle({ ...isToggle, secondToggle: !secondToggle });
+      }
+    }
+  };
+
+  const handleRemoveImg = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target) {
+      if (target.value === 'firstRemove') {
+        setImageUrl({ ...imageUrl, firstImageUrl: '' });
+        location.reload();
+      } else {
+        setImageUrl({ ...imageUrl, secondImageUrl: '' });
+        location.reload();
+      }
+    }
+  };
   return (
     <StImageInputWrapper>
       {firstImageUrl ? (
-        <StImageInputLabel>
-          <StImageTextBlock>
-            <StImage src={firstImageUrl} alt="첫번째 이미지" />
-            {firstToggle ? (
-              <StModifyImageButton
-                type="button"
-                onClick={() => setIsToggle({ ...isToggle, firstToggle: !firstToggle })}>
-                수정
-              </StModifyImageButton>
-            ) : (
-              <StModifyBlock />
-            )}
-          </StImageTextBlock>
-        </StImageInputLabel>
+        <StImageTextBlock>
+          <StImage src={firstImageUrl} alt="첫번째 이미지" />
+          {firstToggle ? (
+            <StModifyImageButton type="button" value="firstModify" onClick={handleToggleModify}>
+              <IcModify />
+            </StModifyImageButton>
+          ) : (
+            <StModifyBlock>
+              <StModifyDepthBtn type="button" value="firstRemove" onClick={handleRemoveImg}>
+                <IcRemoveImg />
+              </StModifyDepthBtn>
+              <StModifyDepthBtn>
+                <IcCropImg />
+              </StModifyDepthBtn>
+            </StModifyBlock>
+          )}
+        </StImageTextBlock>
       ) : (
         <StImageInputLabel>
           <StImageInput type="file" name="firstImg" accept="image/*" onChange={handleReadFirstFileUrl} />
@@ -70,23 +98,23 @@ const ImageInput = (props: ImageInputProps) => {
         </StImageInputLabel>
       )}
       {secondImageUrl ? (
-        <StImageInputLabel>
-          <StImageTextBlock>
-            <StImage src={secondImageUrl} alt="두번째 이미지" />
-            {secondToggle ? (
-              <StModifyImageButton
-                type="button"
-                onClick={() => setIsToggle({ ...isToggle, secondToggle: !secondToggle })}>
-                수정
-              </StModifyImageButton>
-            ) : (
-              <StModifyBlock>
-                <StDeleteImageBtn type="button">삭제</StDeleteImageBtn>
-                <StCropImageBtn type="button">수정</StCropImageBtn>
-              </StModifyBlock>
-            )}
-          </StImageTextBlock>
-        </StImageInputLabel>
+        <StImageTextBlock>
+          <StImage src={secondImageUrl} alt="두번째 이미지" />
+          {secondToggle ? (
+            <StModifyImageButton type="button" value="secondModify" onClick={handleToggleModify}>
+              <IcModify />
+            </StModifyImageButton>
+          ) : (
+            <StModifyBlock>
+              <StModifyDepthBtn type="button" value="secondRemove" onClick={handleRemoveImg}>
+                <IcRemoveImg />
+              </StModifyDepthBtn>
+              <StModifyDepthBtn>
+                <IcCropImg />
+              </StModifyDepthBtn>
+            </StModifyBlock>
+          )}
+        </StImageTextBlock>
       ) : (
         <StImageInputLabel>
           <StImageInput type="file" name="secondImg" accept="image/*" onChange={handleReadSecondFileUrl} />
@@ -117,9 +145,7 @@ const StImageInputLabel = styled.label`
 
   width: 100%;
   height: 52rem;
-  & + & {
-    margin-top: 2rem;
-  }
+  margin-bottom: 2rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
@@ -128,7 +154,7 @@ const StImageInputLabel = styled.label`
 `;
 const StImage = styled.img`
   width: 100%;
-  height: 52rem;
+  height: 100%;
 
   border-radius: 1.2rem;
 `;
@@ -140,6 +166,8 @@ const StImageTextBlock = styled.div`
   position: relative;
 
   width: 100%;
+  height: 52rem;
+  margin-bottom: 2rem;
 `;
 const StImageText = styled.span`
   margin-top: 2.827rem;
@@ -182,9 +210,12 @@ const StModifyImageButton = styled.button`
 
   border: none;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
 
   cursor: pointer;
+  svg {
+    pointer-events: none;
+  }
 `;
 const StModifyBlock = styled.div`
   display: flex;
@@ -199,7 +230,17 @@ const StModifyBlock = styled.div`
   height: 12rem;
 
   border-radius: 6rem;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+
+  z-index: 10;
 `;
-const StDeleteImageBtn = styled.button``;
-const StCropImageBtn = styled.button``;
+const StModifyDepthBtn = styled.button`
+  border: none;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+
+  outline: none;
+  cursor: pointer;
+  svg {
+    pointer-events: none;
+  }
+`;
