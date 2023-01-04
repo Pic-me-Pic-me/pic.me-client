@@ -10,24 +10,16 @@ const VoteList = () => {
       {voteList ? (
         <StVoteListWrapper>
           <h1>현재 진행중인 투표</h1>
-          <StVoteList>
-            <StVoteItem>
-              <StVoteData>
+          <StVoteItem>
+            <StVoteData>
+              <StTitleWrapper>
                 <h1>어제 연남동 가서 찍은...</h1>
                 <h2>15명 투표 중</h2>
-                <h3>43분 전</h3>
-              </StVoteData>
-              <StPreviewImg />
-            </StVoteItem>
-            <StVoteItem>
-              <StVoteData>
-                <h1>어제 연남동 가서 찍은...</h1>
-                <h2>15명 투표 중</h2>
-                <h3>43분 전</h3>
-              </StVoteData>
-              <StPreviewImg />
-            </StVoteItem>
-          </StVoteList>
+              </StTitleWrapper>
+              <h3>43분 전</h3>
+            </StVoteData>
+            <StPreviewImg />
+          </StVoteItem>
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
@@ -53,9 +45,6 @@ const StVoteListWrapper = styled.main`
   }
 `;
 
-const StVoteList = styled.main`
-  display: flex;
-`;
 const StVoteItem = styled.section`
   display: flex;
 
@@ -68,12 +57,25 @@ const StVoteItem = styled.section`
 `;
 
 const StVoteData = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   width: 10.3rem;
+  padding: 1.3rem 1.6rem 1rem 1.4rem;
+
   border-radius: 1.2rem 0rem 0rem 1.2rem;
 
-  > h1 {
-    padding: 1.3rem 1.6rem 0.7rem 1.4rem;
+  > h3 {
+    /* padding: 0rem 1.6rem 1rem 1.4rem; */
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+  }
+`;
 
+const StTitleWrapper = styled.div`
+  > h1 {
+    padding-bottom: 0.7rem;
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     font-family: 'Pretendard';
     font-style: normal;
@@ -82,17 +84,9 @@ const StVoteData = styled.article`
     line-height: 1.9rem;
   }
   > h2 {
-    padding: 0rem 1.6rem 5.8rem 1.4rem;
-
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
     opacity: 0.5;
-  }
-  > h3 {
-    padding: 0rem 1.6rem 0rem 1.4rem;
-
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
   }
 `;
 

@@ -23,11 +23,13 @@ const Hamburger = (props: HambergerProps) => {
 };
 
 export default Hamburger;
-const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
-  position: fixed;
-  z-index: 10;
 
-  width: 43rem;
+const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
+  position: absolute;
+  left: 0;
+  z-index: -1;
+
+  width: 100%;
   height: 20.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
@@ -42,14 +44,14 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
           transition: 0.5s ease;
         `
       : css`
-          top: -20%;
+          top: -250%;
 
           transition: 0.5s ease;
         `}
 `;
 
 const StHamburgerMenu = styled.li`
-  padding: 2rem 0rem 2rem 2.8rem;
+  padding: 2rem 2.8rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
   font-family: 'Pretendard';

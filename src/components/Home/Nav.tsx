@@ -11,33 +11,35 @@ const Nav = () => {
     setIsOpen((isOpen) => !isOpen);
   };
   return (
-    <>
-      <StHomeNav>
-        <img src={HomeLogo} alt="홈 로고" />
-        <StHambergerWrapper>
-          <StLogoutBtn type="button">로그아웃</StLogoutBtn>
-          <StHamburgerBtn type="button" onClick={handleHamburger}>
-            {isOpen ? <IcClose width="1.5rem" height="1.5rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
-          </StHamburgerBtn>
-        </StHambergerWrapper>
-      </StHomeNav>
+    <StHomeNav>
+      <img src={HomeLogo} alt="홈 로고" />
+      <StHambergerWrapper>
+        <StLogoutBtn type="button">로그아웃</StLogoutBtn>
+        <StHamburgerBtn type="button" onClick={handleHamburger}>
+          {isOpen ? <IcClose width="1.5rem" height="1.5rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
+        </StHamburgerBtn>
+      </StHambergerWrapper>
       <Hamburger isOpen={isOpen} />
-    </>
+    </StHomeNav>
   );
 };
 
 export default Nav;
 
 const StHomeNav = styled.nav`
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 0;
 
-  background-color: white;
+  width: 100%;
   height: 8.8rem;
   padding: 2.7rem 0rem 0.7rem 1.8rem;
+
+  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 
   > img {
     width: 11.1rem;
