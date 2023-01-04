@@ -14,6 +14,7 @@ const Login = () => (
           <StTitle>로그인</StTitle>
           <StInput type="email" placeholder="이메일을 입력해주세요" />
           <StInput type="password" placeholder="비밀번호를 입력해주세요" />
+          <StInputDesc>아이디 또는 비밀번호를 잘못 입력했습니다.</StInputDesc>
           <StAuthBtn type="submit">로그인</StAuthBtn>
         </StForm>
         <StAuthBtn type="submit" isSignUp>
@@ -67,6 +68,7 @@ const StDivider = styled.div`
     font-size: 1.5rem;
   }
 `;
+
 const StKaKaoLogin = styled.div`
   margin: 0 auto;
 
@@ -78,7 +80,7 @@ const StKaKaoLogin = styled.div`
 
 const StBannerWrapper = styled.div`
   position: absolute;
-  top: 0rem;
+  top: 0;
   z-index: -1;
 `;
 
@@ -106,8 +108,8 @@ const StForm = styled.form`
 
   padding: 0rem 2rem;
 
-  input:nth-child(3) {
-    margin-bottom: 6.5rem;
+  p:nth-child(4) {
+    margin-bottom: 4.6rem;
   }
 `;
 
@@ -126,6 +128,15 @@ const StInput = styled.input`
   &:focus {
     border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
+`;
+
+const StInputDesc = styled.p`
+  height: 1.7rem;
+  margin-top: 1rem;
+  padding-left: 0.9rem;
+  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
 `;
 
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
