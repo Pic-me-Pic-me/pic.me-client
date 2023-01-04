@@ -29,5 +29,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+ .yarn/cache/react-hook-form-npm-7.41.5-202ce9fe72-ca28b2deb4.zip
+
 # env
 .env
