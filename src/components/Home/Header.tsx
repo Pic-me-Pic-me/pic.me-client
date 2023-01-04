@@ -22,7 +22,7 @@ const StBannerWrapper = styled.header`
   display: flex;
   flex-direction: column;
 
-  width: 39rem%;
+  width: 39rem;
   height: 26.4rem;
   margin: 8.8rem 2rem 1.5rem 2rem;
 

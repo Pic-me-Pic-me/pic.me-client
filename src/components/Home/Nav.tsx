@@ -22,7 +22,7 @@ const Nav = () => {
         <StHambergerWrapper>
           <StLogoutBtn type="button">로그아웃</StLogoutBtn>
           <StHamburgerBtn type="button" onClick={handleHamburger}>
-            {isOpen ? <IcClose width="1.5rem" height="1.5rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
+            {isOpen ? <IcClose /> : <IcHamburger width="2.13rem" height="1.4rem" />}
           </StHamburgerBtn>
         </StHambergerWrapper>
       </StHomeNav>
@@ -76,4 +76,9 @@ const StHamburgerBtn = styled.button`
 
   background: inherit;
   border: none;
+
+  > svg {
+    width: 2.133rem;
+    height: 1.4rem;
+  }
 `;

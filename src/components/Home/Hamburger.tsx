@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-interface HambergerProps {
+interface HamburgerProps {
   isOpen: boolean;
 }
-const Hamburger = (props: HambergerProps) => {
+const Hamburger = (props: HamburgerProps) => {
   const { isOpen } = props;
   const navigate = useNavigate();
 
@@ -56,6 +56,6 @@ const StHamburgerMenu = styled.li`
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
+  font-size: 1.8rem;
+  line-height: 2.1rem;
 `;
