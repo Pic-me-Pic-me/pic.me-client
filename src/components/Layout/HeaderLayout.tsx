@@ -33,19 +33,22 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
 
   top: 0rem;
   height: 6.2rem;
-  padding: 0 2.8rem 0 2rem;
+  padding-right: 5.4rem;
 
   background: none;
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 
-  & > svg > path {
-    display: flex;
-    align-items: center;
-
-    stroke: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
+  & > svg {
+    width: 5.4rem;
 
     cursor: pointer;
+    & > path {
+      display: flex;
+      align-items: center;
+
+      stroke: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
+    }
   }
 `;
 
