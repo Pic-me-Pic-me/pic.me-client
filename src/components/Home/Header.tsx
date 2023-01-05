@@ -1,5 +1,6 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const Header = () => <div></div>;
+const Header = () => <></>;
 
 export default Header;
