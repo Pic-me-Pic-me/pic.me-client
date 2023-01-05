@@ -6,18 +6,20 @@ import { StickerTest } from '../../../asset/image';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
 import { stickerInfoState } from '../../../recoil/player/atom';
 import { StickerLocation } from '../../../types/voting';
+import StickerGuide from './StickerGuide';
 
 const StickerVoting = () => {
+  const [isStickerGuide, setIsStickerGuide] = useState<boolean>(true);
   const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(stickerInfoState);
-  // const s = useResetRecoilState(stickerInfoState);
-  // s();
+  const s = useResetRecoilState(stickerInfoState);
+  s();
   const { location: stickerList } = stickerVotingInfo;
   const emoji = stickerVotingInfo.emoji;
 
   const stickerImgRef = useRef<HTMLImageElement>(null);
 
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (stickerImgRef.current && stickerList.length !== 3) {
+    if (!isStickerGuide && stickerImgRef.current && stickerList.length !== 3) {
       const { offsetX, offsetY } = e.nativeEvent;
 
       const newSticker: StickerLocation = {
@@ -27,10 +29,14 @@ const StickerVoting = () => {
       setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
     }
   };
+  const handleStickerGuide = () => {
+    if (isStickerGuide) setIsStickerGuide(!isStickerGuide);
+  };
 
   return (
     <>
-      <StStickerVotingWrapper>
+      <StStickerVotingWrapper onClick={handleStickerGuide}>
+        {isStickerGuide && <StickerGuide />}
         <h3>( {3 - stickerList.length}회 남음 )</h3>
         <StStickerImg src={StickerTest} ref={stickerImgRef} alt="selected_img" onClick={handleAttachSticker} />
         {stickerList.map((sticker) => (
