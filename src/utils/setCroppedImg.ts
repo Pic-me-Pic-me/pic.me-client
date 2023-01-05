@@ -1,3 +1,5 @@
+import { Area } from 'react-easy-crop/types';
+
 export const createImage = (url: string) =>
   new Promise((resolve, reject) => {
     const image = new Image();
@@ -26,9 +28,9 @@ export function rotateSize(width: number, height: number, rotation: number) {
 /**
  * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
  */
-export default async function GetCroppedImg(
+export default async function setCroppedImg(
   imageSrc: string,
-  pixelCrop: any,
+  pixelCrop?: Area,
   rotation = 0,
   flip = { horizontal: false, vertical: false },
 ) {
@@ -60,15 +62,16 @@ export default async function GetCroppedImg(
 
   // croppedAreaPixels values are bounding box relative
   // extract the cropped image using these values
-  const data = ctx.getImageData(pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height);
+  if (pixelCrop) {
+    const data = ctx.getImageData(pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height);
+    // set canvas width to final desired crop size - this will clear existing context
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
 
-  // set canvas width to final desired crop size - this will clear existing context
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
+    // paste generated rotate image at the top left corner
+    ctx.putImageData(data, 0, 0);
 
-  // paste generated rotate image at the top left corner
-  ctx.putImageData(data, 0, 0);
-
-  // As Base64 string
-  return canvas.toDataURL('image/jpeg');
+    // As Base64 string
+    return canvas.toDataURL('image/jpeg');
+  }
 }
