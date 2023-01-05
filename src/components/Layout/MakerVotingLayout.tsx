@@ -1,15 +1,15 @@
+import imageCompression from 'browser-image-compression';
 import { useCallback, useState } from 'react';
 import { Area } from 'react-easy-crop/types';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose } from '../../asset/icon';
-import { votingImageState, votingTitleState } from '../../recoil/maker/atom';
+import { votingImageState } from '../../recoil/maker/atom';
 import { ImageCrop, ImageInput, TitleInput } from '../MakerVoting';
 import GetCroppedImg from '../MakerVoting/GetCroppedImg';
 
 const MakerVotingLayout = () => {
-  const [input, setInput] = useRecoilState(votingTitleState);
   const [isCropToggle, setIsCropToggle] = useState({
     firstCrop: false,
     secondCrop: false,
@@ -19,10 +19,10 @@ const MakerVotingLayout = () => {
     secondToggle: true,
   });
   const [croppedImage, setCroppedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useRecoilState(votingImageState);
+  const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
-  const { firstImageUrl, secondImageUrl } = imageUrl;
+  const { title, firstImageUrl, secondImageUrl } = votingForm;
   const { firstCrop, secondCrop } = isCropToggle;
   const { firstToggle, secondToggle } = isToggle;
 
@@ -31,30 +31,52 @@ const MakerVotingLayout = () => {
   }, []);
 
   // base64를 file 타입으로 변환하는 함수
-  // function handleDataURLtoFile(dataurl: string, filename: string) {
-  //   const arr = dataurl.split(',');
-  //   if (arr) {
-  //     const mime = arr[0].slice(5, 15);
-  //     const bstr = window.atob(arr[1]);
-  //     let n = bstr.length;
-  //     const u8arr = new Uint8Array(n);
-  //     while (n--) {
-  //       u8arr[n] = bstr.charCodeAt(n);
-  //     }
-  //     return new File([u8arr], filename, {
-  //       type: mime,
-  //     });
-  //   }
-  // }
+  const handleDataURLtoFile = (dataurl: string, filename: string) => {
+    const arr = dataurl.split(',');
+    if (arr) {
+      const mime = arr[0].slice(5, 15);
+      const bstr = window.atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new File([u8arr], filename, {
+        type: mime,
+      });
+    }
+  };
+
+  const handleActionImgCompress = async (fileSrc: File) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(fileSrc, options);
+      return compressedFile;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleShowCroppedImage = useCallback(async () => {
     if (firstCrop) {
       try {
         const crop = await GetCroppedImg(firstImageUrl, croppedAreaPixels, rotation);
         if (crop) {
-          setImageUrl({ ...imageUrl, firstImageUrl: crop });
-          setCroppedImage(croppedImage);
-          setIsCropToggle({ ...isCropToggle, firstCrop: false });
-          setIsToggle({ ...isToggle, firstToggle: !firstToggle });
+          const baseToFile = handleDataURLtoFile(crop, 'file') as File;
+          const reader = new FileReader();
+          const compressedImg = (await handleActionImgCompress(baseToFile)) as File;
+          reader.readAsDataURL(compressedImg);
+          reader.onloadend = () => {
+            const base64data = reader.result as string;
+            setVotingForm({ ...votingForm, firstImageUrl: base64data });
+            setCroppedImage(croppedImage);
+            setIsCropToggle({ ...isCropToggle, firstCrop: false });
+            setIsToggle({ ...isToggle, firstToggle: !firstToggle });
+          };
         }
       } catch (e) {
         console.error(e);
@@ -63,10 +85,17 @@ const MakerVotingLayout = () => {
       try {
         const crop = await GetCroppedImg(secondImageUrl, croppedAreaPixels, rotation);
         if (crop) {
-          setImageUrl({ ...imageUrl, secondImageUrl: crop });
-          setCroppedImage(croppedImage);
-          setIsCropToggle({ ...isCropToggle, secondCrop: false });
-          setIsToggle({ ...isToggle, secondToggle: !secondToggle });
+          const baseToFile = handleDataURLtoFile(crop, 'file') as File;
+          const reader = new FileReader();
+          const compressedImg = (await handleActionImgCompress(baseToFile)) as File;
+          reader.readAsDataURL(compressedImg);
+          reader.onloadend = () => {
+            const base64data = reader.result as string;
+            setVotingForm({ ...votingForm, secondImageUrl: base64data });
+            setCroppedImage(croppedImage);
+            setIsCropToggle({ ...isCropToggle, secondCrop: false });
+            setIsToggle({ ...isToggle, secondToggle: !secondToggle });
+          };
         }
       } catch (e) {
         console.error(e);
@@ -75,7 +104,7 @@ const MakerVotingLayout = () => {
   }, [croppedAreaPixels, rotation]);
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+    setVotingForm({ ...votingForm, title: e.target.value });
   };
 
   const handleCloseModal = () => {
@@ -134,9 +163,9 @@ const MakerVotingLayout = () => {
         </StImageCropLayoutWrapper>
       )}
       <StMakerVotingLayoutWrapper>
-        <TitleInput input={input} handleChangeInput={handleChangeInput} />
+        <TitleInput title={title} handleChangeInput={handleChangeInput} />
         <ImageInput
-          input={input}
+          title={title}
           handleCropImageToggle={handleCropImageToggle}
           handleToggleModify={handleToggleModify}
           isToggle={isToggle}

@@ -1,3 +1,4 @@
+import imageCompression from 'browser-image-compression';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
@@ -9,63 +10,57 @@ type ToggleProps = {
   firstToggle: boolean;
   secondToggle: boolean;
 };
+
 interface ImageInputProps {
-  input: string;
+  title: string;
   handleCropImageToggle: React.MouseEventHandler;
   handleToggleModify: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isToggle: ToggleProps;
 }
 
 const ImageInput = (props: ImageInputProps) => {
-  const [imageUrl, setImageUrl] = useRecoilState(votingImageState);
+  const { title, handleCropImageToggle, handleToggleModify, isToggle } = props;
+
+  const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
-  const { input, handleCropImageToggle, handleToggleModify, isToggle } = props;
-  const { firstImageUrl, secondImageUrl } = imageUrl;
+  const { firstImageUrl, secondImageUrl } = votingForm;
   const { firstToggle, secondToggle } = isToggle;
 
   useEffect(() => {
     handleCheckImageObj();
-  }, [input, imageUrl]);
+  }, [title, votingForm]);
 
-  const handleReadFirstFileUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const fileBlob = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(fileBlob);
-      return new Promise<void>((resolve) => {
-        reader.onload = () => {
-          const result = reader.result as string;
-          setImageUrl({ ...imageUrl, firstImageUrl: result });
-          console.log(imageUrl);
-          resolve();
-        };
-      });
+  const handleActionImgCompress = async (fileSrc: File) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    try {
+      const compressedFile = await imageCompression(fileSrc, options);
+      return compressedFile;
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleReadSecondFileUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReadFileUrl = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileBlob = e.target.files[0];
-      console.log(fileBlob);
+      const compressedImg = await handleActionImgCompress(fileBlob);
+
       const reader = new FileReader();
-      reader.readAsDataURL(fileBlob);
-      return new Promise<void>((resolve) => {
-        reader.onload = () => {
-          const result = reader.result as string;
-          console.log(result);
-          if (result) {
-            setImageUrl({ ...imageUrl, secondImageUrl: result });
+      if (compressedImg) {
+        reader.readAsDataURL(compressedImg);
+        reader.onloadend = () => {
+          const base64data = reader.result as string;
+          if (e.target.name === 'firstImg') {
+            setVotingForm({ ...votingForm, firstImageUrl: base64data });
+          } else {
+            setVotingForm({ ...votingForm, secondImageUrl: base64data });
           }
-          console.log(imageUrl);
-          resolve();
         };
-      });
-    }
-  };
-
-  const handleCheckImageObj = () => {
-    if (input !== '' && imageUrl.firstImageUrl !== '' && secondImageUrl !== '') {
-      setIsComplete(true);
+      }
     }
   };
 
@@ -73,12 +68,18 @@ const ImageInput = (props: ImageInputProps) => {
     const target = e.target as HTMLInputElement;
     if (target) {
       if (target.value === 'firstRemove') {
-        setImageUrl({ ...imageUrl, firstImageUrl: '' });
-        location.reload();
+        setVotingForm({ ...votingForm, firstImageUrl: '' });
+        window.location.reload();
       } else {
-        setImageUrl({ ...imageUrl, secondImageUrl: '' });
-        location.reload();
+        setVotingForm({ ...votingForm, secondImageUrl: '' });
+        window.location.reload();
       }
+    }
+  };
+
+  const handleCheckImageObj = () => {
+    if (title && firstImageUrl && secondImageUrl) {
+      setIsComplete(true);
     }
   };
 
@@ -105,7 +106,7 @@ const ImageInput = (props: ImageInputProps) => {
           </StImageTextBlock>
         ) : (
           <StImageInputLabel>
-            <StImageInput type="file" name="firstImg" accept="image/*" onChange={handleReadFirstFileUrl} />
+            <StImageInput type="file" name="firstImg" accept="image/*" onChange={handleReadFileUrl} />
             <StImageTextBlock>
               <IcImageAdd />
               <StImageText>여기에 사진을 넣어주세요!</StImageText>
@@ -132,7 +133,7 @@ const ImageInput = (props: ImageInputProps) => {
           </StImageTextBlock>
         ) : (
           <StImageInputLabel>
-            <StImageInput type="file" name="secondImg" accept="image/*" onChange={handleReadSecondFileUrl} />
+            <StImageInput type="file" name="secondImg" accept="image/*" onChange={handleReadFileUrl} />
             <StImageTextBlock>
               <IcImageAdd />
               <StImageText>여기에 사진을 넣어주세요!</StImageText>
