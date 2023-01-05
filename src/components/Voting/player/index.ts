@@ -1,1 +1,1 @@
-export { default as DragReason } from './DragReason';
+export { default as ReasonSlider } from './ReasonSlider';
