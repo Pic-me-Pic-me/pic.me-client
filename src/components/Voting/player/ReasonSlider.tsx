@@ -5,22 +5,48 @@ import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu } from '../../../
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
-const menuIconList: JSX.Element[] = [
-  <IcFaceMenu key="face" />,
-  <IcAngleMenu key="angle" />,
-  <IcBackgroundMenu key="background" />,
-  <IcJustMenu key="just" />,
-];
-
 const ReasonSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
 
+  const menuIconList: JSX.Element[] = [
+    <IcFaceMenu key="face" />,
+    <IcAngleMenu key="angle" />,
+    <IcBackgroundMenu key="background" />,
+    <IcJustMenu key="just" />,
+  ];
+
   return (
     <>
       <StDragWReasonWrapper ref={ref}>
-        <StDragWReasonUl currentIdx={currentIdx} dragItemWidth={170} transX={transX}>
+        <StDragWReasonUl
+          currentIdx={currentIdx}
+          dragItemWidth={170}
+          transX={transX}
+          {...picmeSliderEvent({
+            onDragChange: (deltaX) => {
+              setTransX(modifySliderRange(deltaX, -width, width));
+            },
+            onDragEnd: (deltaX) => {
+              const maxIndex = menuIconList.length - 1;
+              Array(3)
+                .fill(0)
+                .map((v, i) => 3 - i)
+                .some((num) => {
+                  if (deltaX < -156 * num) {
+                    setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
+                    return true;
+                  }
+                  if (deltaX > 156 * num) {
+                    setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
+                    return true;
+                  }
+                });
+
+              setTransX(0);
+            },
+          })}>
           {menuIconList.map((menu, idx) =>
             idx !== currentIdx ? (
               <li key={idx} className="select_item">
