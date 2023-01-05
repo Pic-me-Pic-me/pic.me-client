@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 interface TitleInputProps {
   title: string;
-  handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeInput: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const TitleInput = (props: TitleInputProps) => {
@@ -11,10 +11,10 @@ const TitleInput = (props: TitleInputProps) => {
   return (
     <StTitleInputWrapper>
       <StTitleInput
-        type="text"
         value={title}
         onChange={handleChangeInput}
         placeholder="투표에 어울리는 제목을 입력해주세요!"
+        maxLength={22}
       />
     </StTitleInputWrapper>
   );
@@ -24,9 +24,9 @@ export default TitleInput;
 const StTitleInputWrapper = styled.div`
   text-align: center;
 `;
-const StTitleInput = styled.input`
+const StTitleInput = styled.textarea`
   width: 32.7rem;
-  height: 2.6rem;
+  height: 5.6rem;
 
   border: none;
   outline: none;
