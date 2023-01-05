@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { SignUpInfo } from '../../types/signup';
+import { emailErrorPatterns, passwordErrorPatterns, SignUpInfo } from '../../types/signup';
 
 const AddAccount = () => {
   const navigate = useNavigate();
@@ -27,13 +27,7 @@ const AddAccount = () => {
           <StTitle>아이디</StTitle>
           <StInput
             type="email"
-            {...register('user_id', {
-              required: '아이디를 입력하지 않았습니다',
-              pattern: {
-                value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                message: '이메일 형식이 맞지 않습니다',
-              },
-            })}
+            {...register('user_id', emailErrorPatterns)}
             placeholder="아이디로 이용할 이메일을 적어주세요!"
           />
           <StInputDesc>{errors.user_id ? errors.user_id.message : ' '}</StInputDesc>
@@ -41,21 +35,7 @@ const AddAccount = () => {
           <StTitle>비밀번호</StTitle>
           <StInput
             type="password"
-            {...register('password', {
-              required: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
-              minLength: {
-                value: 10,
-                message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
-              },
-              maxLength: {
-                value: 16,
-                message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
-              },
-              pattern: {
-                value: /^[A-za-z0-9]{0,16}$/,
-                message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
-              },
-            })}
+            {...register('password', passwordErrorPatterns)}
             placeholder="비밀번호를 입력해주세요"
           />
           <StInputDesc>{errors.password ? errors.password.message : ' '}</StInputDesc>
