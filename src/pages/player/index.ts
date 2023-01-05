@@ -1,2 +1,2 @@
-export { default as ImgChoice } from './ImgChoice';
-export { default as PlayerVoting } from './Voting';
+export { default as PictureVoting } from './PictureVoting';
+export { default as StickerAttachment } from './StickerAttachment';
