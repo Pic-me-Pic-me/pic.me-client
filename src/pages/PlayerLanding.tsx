@@ -25,7 +25,7 @@ const Modal = (props: ModalProps) => {
                 취소
               </button>
               <button type="button" onClick={handleConfirm}>
-                확인
+                확인dd
               </button>
             </StButtonWrapper>
           </StModal>
