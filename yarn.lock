@@ -4186,6 +4186,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browser-image-compression@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "browser-image-compression@npm:2.0.0"
+  dependencies:
+    uzip: 0.20201231.0
+  checksum: c95b3ad5d6d32999d5e8cd04c7de9e071a301644ed561f001a18d4fbd5202925daeba14d8bf98ff5965fefc21c63f7a3cbb1879bf754d68654f72f492916d13c
+  languageName: node
+  linkType: hard
+
 "browser-process-hrtime@npm:^1.0.0":
   version: 1.0.0
   resolution: "browser-process-hrtime@npm:1.0.0"
@@ -9857,6 +9866,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.47.1
     axios: ^1.2.2
+    browser-image-compression: ^2.0.0
     eslint: ^8.30.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-import: ^2.26.0
@@ -13052,6 +13062,13 @@ __metadata:
   bin:
     uuid: dist/bin/uuid
   checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
+  languageName: node
+  linkType: hard
+
+"uzip@npm:0.20201231.0":
+  version: 0.20201231.0
+  resolution: "uzip@npm:0.20201231.0"
+  checksum: 34253f4c3d996571b10b659eea415bec952bde940e1fd44090ce19687b6dbaae411d8e6321b9028e44aa442379659d71bb39e95ba15de0626cfe970d90b24f40
   languageName: node
   linkType: hard
 
