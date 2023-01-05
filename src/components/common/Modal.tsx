@@ -21,8 +21,12 @@ const Modal = (props: ModalProps) => {
               *마감된 투표는 <span>라이브러리</span>에서 확인 가능해요!
             </StModalSubContent>
             <StButtonWrapper>
-              <button onClick={handleHide}>취소</button>
-              <button onClick={handleConfirm}>확인</button>
+              <button type="button" onClick={handleHide}>
+                취소
+              </button>
+              <button type="button" onClick={handleConfirm}>
+                확인
+              </button>
             </StButtonWrapper>
           </StModal>
         </StModalWrapper>
@@ -70,6 +74,7 @@ const StModalContent = styled.p`
 `;
 
 const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
+  display: ${({ isFinishing }) => (isFinishing ? 'block' : 'none')};
   margin-top: 0.5rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
@@ -82,14 +87,6 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
   > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
-  ${({ isFinishing }) =>
-    isFinishing
-      ? css`
-          display: block;
-        `
-      : css`
-          display: none;
-        `}
 `;
 
 const StButtonWrapper = styled.div`
