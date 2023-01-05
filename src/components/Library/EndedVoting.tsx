@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
+import { VoteInfo } from '../../types/library';
 
-interface iVotingProps {
-  number: number;
+interface votingProps {
+  voteData: VoteInfo;
 }
 
-const EndedVoting = (props: iVotingProps) => {
-  const { number } = props;
+const EndedVoting = (props: votingProps) => {
+  const { voteData } = props;
+
   return (
     <>
       <StVotingWrapper>
-        <StVotingPic />
+        <StVotingPic src={voteData.url} />
         <StDeleteBtnWrapper type="button">
           <IcDelete />
         </StDeleteBtnWrapper>
         <StVotingDesc>
-          <StVotingTitle>얘들아 와다 예쁘다 {number}</StVotingTitle>
-          <StVotingDate>1월 3일 </StVotingDate>
-          <StVotingPeopleNum>15명 투표 중</StVotingPeopleNum>
+          <StVotingTitle>{voteData.title}</StVotingTitle>
+          <StVotingDate>{voteData.createAt}</StVotingDate>
+          <StVotingPeopleNum>{voteData.count}명 투표 완</StVotingPeopleNum>
         </StVotingDesc>
       </StVotingWrapper>
     </>
