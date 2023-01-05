@@ -2,12 +2,12 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { SignupBanner } from '../asset/image';
+import { IcSignupBanner } from '../asset/icon';
 
 const Signup = () => (
   <>
     <StBannerWrapper>
-      <SignupBanner />
+      <IcSignupBanner />
     </StBannerWrapper>
 
     <StWhiteSection>
