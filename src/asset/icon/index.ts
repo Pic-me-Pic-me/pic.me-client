@@ -1,3 +1,4 @@
+export { ReactComponent as IcGoback } from './IcGoback.svg';
 export { ReactComponent as IcAngleSticker } from './ic_angle.svg';
 export { ReactComponent as IcBackGroundSticker } from './ic_back_ground.svg';
 export { ReactComponent as IcFaceSticker } from './ic_face.svg';
