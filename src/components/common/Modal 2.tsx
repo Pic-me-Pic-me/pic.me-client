@@ -13,7 +13,7 @@ const Modal = (props: ModalProps) => {
   const { isShowing, message, handleHide, handleConfirm, isFinishing } = props;
   return (
     <>
-      {isShowing && (
+      {isShowing ? (
         <StModalWrapper>
           <StModal>
             <StModalContent>{message}</StModalContent>
@@ -21,12 +21,16 @@ const Modal = (props: ModalProps) => {
               *마감된 투표는 <span>라이브러리</span>에서 확인 가능해요!
             </StModalSubContent>
             <StButtonWrapper>
-              <button onClick={handleHide}>취소</button>
-              <button onClick={handleConfirm}>확인</button>
+              <button type="button" onClick={handleHide}>
+                취소
+              </button>
+              <button type="button" onClick={handleConfirm}>
+                확인
+              </button>
             </StButtonWrapper>
           </StModal>
         </StModalWrapper>
-      )}
+      ) : null}
     </>
   );
 };
@@ -43,10 +47,11 @@ const StModalWrapper = styled.div`
   width: 100%;
   height: 100%;
 
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   background: rgba(0, 0, 0, 0.7);
 `;
 
-const StModal = styled.section`
+const StModal = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
