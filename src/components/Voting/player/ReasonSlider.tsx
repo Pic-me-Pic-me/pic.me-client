@@ -36,7 +36,7 @@ const ReasonSlider = () => {
   );
 };
 
-export default DragReason;
+export default ReasonSlider;
 
 const StDragWReasonWrapper = styled.section`
   width: 100%;
