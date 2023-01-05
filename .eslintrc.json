@@ -31,8 +31,7 @@
     "simple-import-sort",
     "react",
     "react-hooks",
-    "prettier",
-    "import"
+    "prettier"
   ],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }], // 들여쓰기 몇 칸? 기본 2칸으로 하되, switch문에서는 1칸으로 지정
@@ -49,8 +48,8 @@
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "off", // Checks effect dependencies
     "react/react-in-jsx-scope": "off", // import React from "react"가 필수였던 시기에 필요한 규칙
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error", // import 정렬
+    "simple-import-sort/exports": "error", // export 정렬
     "import/no-unresolved": "off",
     "import/no-duplicates": "error",
     "import/newline-after-import": "error", // import 다음에 빈줄 추가
