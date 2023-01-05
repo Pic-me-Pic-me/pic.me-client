@@ -1,23 +1,39 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
-import { NicknameInfo } from '../../types/signup';
+import { checkDuplicateNickname, postSignupInfo } from '../../lib/api/signup';
+import { AddAccountInfo, NicknameInfo } from '../../types/signup';
 
 const Nickname = () => {
+  const location = useLocation();
+
+  const { user_id, password }: AddAccountInfo = location.state.dataInfo;
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
+  const [isDuplicate, setIsDuplicate] = useState(false);
+  const [nickname, setNickname] = useState<string>('');
   const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
+
+  const navigate = useNavigate();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<NicknameInfo>({ mode: 'onChange' });
+  } = useForm<NicknameInfo>({ mode: 'onBlur' });
 
-  const handleSubmitInfo = (data: NicknameInfo) => {
-    //서버 통신 코드 작성할 부분입니다.
-    console.log(data);
+  const handleCheckNickname = () => {
+    checkDuplicateNickname(nickname).then((result) => {
+      if (result?.success === true) {
+        setIsDuplicate(!result.success);
+        setNickname(nickname);
+      } else {
+        setIsDuplicate(result.success);
+      }
+      console.log(result);
+    });
   };
 
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
@@ -28,14 +44,26 @@ const Nickname = () => {
       if (idx) {
         isChecked[idx] = !isChecked[idx];
         isChecked[0] = isChecked[1] && isChecked[2] ? true : false;
+        console.log('첫번째 두번째', isChecked);
         setIsChecked([...isChecked]);
       }
     }
   };
+
+  const handleSignupInfoSubmit = () => {
+    postSignupInfo({ user_id, password }, nickname).then((result) => {
+      // if (result?.data.success === true) {
+      //   console.log(result?.data);
+      // }
+      console.log(result?.data);
+      navigate('/');
+    });
+  };
+
   return (
     <>
       <StContainer>
-        <StForm onSubmit={handleSubmit(handleSubmitInfo)}>
+        <StForm onSubmit={handleSubmit(handleSignupInfoSubmit)}>
           <StTitle>닉네임을 입력해주세요!</StTitle>
 
           <StNicknameWrapper>
@@ -45,9 +73,11 @@ const Nickname = () => {
                 {...register('nickname', { required: '닉네임은 필수 입력 요소입니다!' })}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
-            <StCheckDuplicationBtn type="button">중복 확인</StCheckDuplicationBtn>
+            <StCheckDuplicationBtn type="button" onClick={() => handleCheckNickname()}>
+              중복 확인
+            </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc>이미 사용 중인 닉네임입니다.</StInputDesc>
+          <StInputDesc>{isDuplicate ? '이미 사용 중인 닉네임입니다.' : ' '}</StInputDesc>
 
           <StTermContainer>
             <StAllCheckContainer>
