@@ -17,7 +17,7 @@ const Share = () => {
   };
 
   const handleDeepLink = () => {
-    window.location.replace('instagram-stories://share');
+    window.location.replace('instagram://');
   };
 
   return (
