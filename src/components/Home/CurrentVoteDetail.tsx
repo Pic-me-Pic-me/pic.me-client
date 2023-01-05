@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { IcVoteShareBtn } from '../../asset/icon';
 import { ImgSiru } from '../../asset/image';
 import { HeaderLayout } from '../Layout';
 
@@ -20,6 +21,7 @@ const CurrentVoteDetail = () => {
           <span>12표</span>
         </StVoteStatus>
         <img src={ImgSiru} alt="투표현황 사진" />
+        <IcVoteShareBtn />
         <StCompleteVoteBtn>투표 마감</StCompleteVoteBtn>
       </CurrentVoteDetailWrapper>
     </>
@@ -61,6 +63,15 @@ const CurrentVoteDetailWrapper = styled.section`
 
     border-radius: 1.2rem;
   }
+
+  & > svg {
+    position: fixed;
+
+    top: 56rem;
+    left: 32.8rem;
+
+    cursor: pointer;
+  }
 `;
 
 const StVoteStatus = styled.div`
@@ -97,9 +108,12 @@ const StCompleteVoteBtn = styled.button`
   width: 39rem;
   height: 6rem;
 
+  margin-top: 4.7rem;
+
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
 
   border: none;
+  border-radius: 0.9rem;
 `;
