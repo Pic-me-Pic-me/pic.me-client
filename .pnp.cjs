@@ -39,6 +39,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:5.47.1"],\
             ["@typescript-eslint/parser", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:5.47.1"],\
             ["axios", "npm:1.2.2"],\
+            ["browser-image-compression", "npm:2.0.0"],\
             ["eslint", "npm:8.30.0"],\
             ["eslint-config-prettier", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:8.5.0"],\
             ["eslint-plugin-import", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:2.26.0"],\
@@ -6388,6 +6389,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["braces", "npm:3.0.2"],\
             ["fill-range", "npm:7.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["browser-image-compression", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/browser-image-compression-npm-2.0.0-d41d5989f6-c95b3ad5d6.zip/node_modules/browser-image-compression/",\
+          "packageDependencies": [\
+            ["browser-image-compression", "npm:2.0.0"],\
+            ["uzip", "npm:0.20201231.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13136,6 +13147,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:5.47.1"],\
             ["@typescript-eslint/parser", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:5.47.1"],\
             ["axios", "npm:1.2.2"],\
+            ["browser-image-compression", "npm:2.0.0"],\
             ["eslint", "npm:8.30.0"],\
             ["eslint-config-prettier", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:8.5.0"],\
             ["eslint-plugin-import", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:2.26.0"],\
@@ -17657,6 +17669,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
           "packageDependencies": [\
             ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uzip", [\
+        ["npm:0.20201231.0", {\
+          "packageLocation": "./.yarn/cache/uzip-npm-0.20201231.0-122f770c6a-34253f4c3d.zip/node_modules/uzip/",\
+          "packageDependencies": [\
+            ["uzip", "npm:0.20201231.0"]\
           ],\
           "linkType": "HARD"\
         }]\
