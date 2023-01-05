@@ -7,12 +7,17 @@ import { HeaderLayout } from '../Layout';
 
 const CurrentVoteDetail = () => {
   const navigate = useNavigate();
-  const handlePrevpage = () => {
+
+  const handleGoHome = () => {
     navigate('/');
+  };
+
+  const handleGoShare = () => {
+    navigate('/share');
   };
   return (
     <>
-      <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={handlePrevpage} />
+      <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={handleGoHome} />
       <CurrentVoteDetailWrapper>
         <span>42분 전</span>
         <h1>어제 연남동 가서 찍은 사진 골라주ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</h1>
@@ -21,7 +26,7 @@ const CurrentVoteDetail = () => {
           <span>12표</span>
         </StVoteStatus>
         <img src={ImgSiru} alt="투표현황 사진" />
-        <IcVoteShareBtn />
+        <IcVoteShareBtn onClick={handleGoShare} />
         <StCompleteVoteBtn>투표 마감</StCompleteVoteBtn>
       </CurrentVoteDetailWrapper>
     </>
