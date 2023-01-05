@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { votingImageState } from '../../recoil/maker/atom';
+import GuidePopUp from './GuidePopUp';
 
 interface ImageCropProps {
   firstCrop: boolean;
@@ -14,15 +15,20 @@ interface ImageCropProps {
 }
 
 const ImageCrop = (props: ImageCropProps) => {
+  const { firstCrop, handleCropComplete, setRotation, rotation } = props;
+
+  const [isOpenPop, setIsOpenPop] = useState(true);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [image, setImage] = useState('');
   const imageUrl = useRecoilValue(votingImageState);
   const [zoom, setZoom] = useState(1);
-  const { firstCrop, handleCropComplete, setRotation, rotation } = props;
 
   useEffect(() => {
     handleChangeImage();
   }, [firstCrop]);
+  useEffect(() => {
+    setTimeout(() => setIsOpenPop(false), 2000);
+  }, []);
 
   const handleChangeImage = () => {
     if (firstCrop === true) {
@@ -31,23 +37,27 @@ const ImageCrop = (props: ImageCropProps) => {
       setImage(imageUrl.secondImageUrl);
     }
   };
+
   return (
-    <StImageCropWrapper>
-      <StImageCropContainer>
-        <Cropper
-          image={image}
-          crop={crop}
-          rotation={rotation}
-          zoom={zoom}
-          aspect={3 / 4}
-          onCropChange={setCrop}
-          onZoomChange={setZoom}
-          onRotationChange={setRotation}
-          onCropComplete={handleCropComplete}
-          objectFit="horizontal-cover"
-        />
-      </StImageCropContainer>
-    </StImageCropWrapper>
+    <>
+      {isOpenPop && <GuidePopUp />}
+      <StImageCropWrapper>
+        <StImageCropContainer>
+          <Cropper
+            image={image}
+            crop={crop}
+            rotation={rotation}
+            zoom={zoom}
+            aspect={3 / 4}
+            onCropChange={setCrop}
+            onZoomChange={setZoom}
+            onRotationChange={setRotation}
+            onCropComplete={handleCropComplete}
+            objectFit="horizontal-cover"
+          />
+        </StImageCropContainer>
+      </StImageCropWrapper>
+    </>
   );
 };
 
