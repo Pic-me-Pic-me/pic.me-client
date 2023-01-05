@@ -12,21 +12,23 @@ type ToggleProps = {
 };
 
 interface ImageInputProps {
-  title: string;
   handleCropImageToggle: React.MouseEventHandler;
   handleToggleModify: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isToggle: ToggleProps;
 }
 
 const ImageInput = (props: ImageInputProps) => {
-  const { title, handleCropImageToggle, handleToggleModify, isToggle } = props;
+  const { handleCropImageToggle, handleToggleModify, isToggle } = props;
 
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
-  const { firstImageUrl, secondImageUrl } = votingForm;
+  const { title, firstImageUrl, secondImageUrl } = votingForm;
   const { firstToggle, secondToggle } = isToggle;
 
   useEffect(() => {
+    if (!title) {
+      setIsComplete(false);
+    }
     handleCheckImageObj();
   }, [title, votingForm]);
 
@@ -82,6 +84,17 @@ const ImageInput = (props: ImageInputProps) => {
       setIsComplete(true);
     }
   };
+  // const handleTest = async () => {
+  //   try {
+  //     const response = await axios.post('https://2b75275e-7919-416d-b7e7-2a85c9d3cb70.mock.pstmn.io/vote', {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   return (
     <>
@@ -174,7 +187,10 @@ const StImageInputLabel = styled.label`
 const StImage = styled.img`
   width: 100%;
   height: 100%;
+
   border-radius: 1.2rem;
+
+  object-fit: cover;
 `;
 const StImageTextBlock = styled.div`
   display: flex;
@@ -202,6 +218,7 @@ const StImageSubmitButton = styled.button<{ isComplete: boolean }>`
   width: 100%;
   height: 5.8rem;
   margin-top: 3rem;
+  margin-bottom: 13.3rem;
 
   border: none;
   border-radius: 0.9rem;
