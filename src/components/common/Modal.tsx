@@ -1,17 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 
 export interface ModalProps {
   isShowing: boolean;
   message: string;
-  handleCancel: React.MouseEventHandler;
+  hide: React.MouseEventHandler;
   handleConfirm: React.MouseEventHandler;
   isFinishing?: boolean; // 투표 마감하기 버튼
 }
 
 const Modal = (props: ModalProps) => {
-  const { isShowing, message, handleCancel, handleConfirm, isFinishing } = props;
+  const { isShowing, message, hide, handleConfirm, isFinishing } = props;
   return (
     <>
       {isShowing ? (
@@ -22,7 +21,7 @@ const Modal = (props: ModalProps) => {
               *마감된 투표는 <span>라이브러리</span>에서 확인 가능해요!
             </StModalSubContent>
             <StButtonWrapper>
-              <button onClick={handleCancel}>취소</button>
+              <button onClick={hide}>취소</button>
               <button onClick={handleConfirm}>확인</button>
             </StButtonWrapper>
           </StModal>
