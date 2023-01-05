@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { IcNextArrow } from '../../asset/icon';
+import { BannerImg } from '../../asset/image';
 
 const Header = () => (
   <StBannerWrapper>
-    <StBannerImg />
+    <StBannerImg src={BannerImg} alt="배너 이미지" />
     <StGuideBtn type="button">
       <p>픽미 사용방법 A부터 Z까지</p>
       <IcNextArrow />
@@ -13,11 +14,6 @@ const Header = () => (
   </StBannerWrapper>
 );
 export default Header;
-
-const StBannerImg = styled.div`
-  height: 19rem;
-`;
-
 const StBannerWrapper = styled.header`
   display: flex;
   flex-direction: column;
@@ -28,6 +24,11 @@ const StBannerWrapper = styled.header`
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+`;
+
+const StBannerImg = styled.img`
+  height: 19rem;
+  border-radius: 1.2rem;
 `;
 
 const StGuideBtn = styled.button`
