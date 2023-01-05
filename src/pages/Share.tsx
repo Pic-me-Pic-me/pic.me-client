@@ -145,7 +145,9 @@ const StBtnStructure = styled.button`
   height: 6rem;
 
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+
   border: none;
+  border-radius: 0.9rem;
 `;
 
 const StGoInstagramBtn = styled(StBtnStructure)`
