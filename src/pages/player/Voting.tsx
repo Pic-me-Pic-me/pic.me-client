@@ -1,12 +1,22 @@
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 import { VotingLayout } from '../../components/Layout/player';
 import StickerVoting from '../../components/Voting/player/StickerVoting';
+import { postStickerData } from '../../lib/api/voting';
+import { stickerInfoState } from '../../recoil/player/atom';
 
 const PlayerVoting = () => {
+  const stickerVotingInfo = useRecoilValue(stickerInfoState);
+
   const navigate = useNavigate();
-  const handleVotingSuccess = () => {
-    navigate('/player/voting/success');
+  const handleVotingSuccess = async () => {
+    try {
+      const { data } = await postStickerData(stickerVotingInfo);
+      navigate('/player/voting/result');
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <>
