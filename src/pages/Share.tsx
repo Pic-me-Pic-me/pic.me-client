@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { IcShareBtn } from '../asset/icon';
 import { ImgShareCapture } from '../asset/image';
+import { HeaderLayout } from '../components/Layout';
 
 const Share = () => {
   const navigate = useNavigate();
@@ -20,8 +21,13 @@ const Share = () => {
     window.location.replace('instagram://');
   };
 
+  const handleGoHome = () => {
+    navigate('/');
+  };
+
   return (
     <>
+      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={handleGoHome} />
       {isModal && <StShareModal>링크가 복사되었습니다!</StShareModal>}
       <StShareWrapper>
         <StShareTitle>
