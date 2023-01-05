@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { IcSelectRound } from '../../../asset/icon';
 import { PictureId1, PictureId2 } from '../../../asset/image';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
+import SelectPicture from './SelectPicture';
 
 const PictureSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
@@ -11,9 +13,9 @@ const PictureSlider = () => {
   const { ref, width } = useCarouselSize();
 
   const pictureSrcList: string[] = [PictureId1, PictureId2];
-  console.log(currentIdx);
   return (
     <>
+      <StPictrueSubTitle>*당신의 모든 선택은 익명으로 전달됩니다</StPictrueSubTitle>
       <StSliderPictureWrapper ref={ref}>
         <StSliderPictureUl
           currentIdx={currentIdx}
@@ -44,24 +46,41 @@ const PictureSlider = () => {
           })}>
           {pictureSrcList.map((src, idx) => (
             <li key={idx}>
-              {idx !== currentIdx ? (
-                <img src={src} className="select_item" alt="투표_선택_이미지1" />
+              {idx === currentIdx ? (
+                <SelectPicture src={src} alt="투표_선택_이미지1" />
               ) : (
-                <img src={src} alt="투표_선택_이미지2" />
+                <img src={src} className="unSelect_picture" alt="투표_선택_이미지2" />
               )}
             </li>
           ))}
         </StSliderPictureUl>
       </StSliderPictureWrapper>
+
+      <StSelectRoundNav>
+        {Array(2)
+          .fill(0)
+          .map((_, idx) =>
+            idx === currentIdx ? (
+              <IcSelectRound key="select_round" fill="#FF5D5D" />
+            ) : (
+              <IcSelectRound key="unselect_round" fill="#E8EBEF" />
+            ),
+          )}
+      </StSelectRoundNav>
     </>
   );
 };
 
 export default PictureSlider;
+const StPictrueSubTitle = styled.p`
+  margin-top: 3rem;
 
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
+`;
 const StSliderPictureWrapper = styled.section`
   width: 100%;
-  height: 100vh;
+  height: 50rem;
   overflow: hidden;
 
   position: relative;
@@ -69,7 +88,7 @@ const StSliderPictureWrapper = styled.section`
 const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
   display: flex;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
   position: absolute;
   ${({ currentIdx }) =>
     currentIdx === 0
@@ -79,7 +98,6 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
       : css`
           left: 11rem;
         `}
-  top: 19.2rem;
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
       transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10}rem);
@@ -90,19 +108,26 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
     `};
   touch-action: auto;
   img {
-    width: 33.5rem;
-    height: 44.7rem;
-    margin-top: 1.7rem;
-
     border-radius: 1rem;
 
     object-fit: cover;
   }
-  .select_item {
+  img.unSelect_picture {
     width: 24.8rem;
     height: 32.5rem;
 
-    margin: 6.1rem 1.6rem;
+    margin: 6.1rem 1.6rem 0 1.6rem;
     opacity: 0.5;
   }
+`;
+
+const StSelectRoundNav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  margin-bottom: 1.8rem;
+
+  gap: 0.8rem;
 `;
