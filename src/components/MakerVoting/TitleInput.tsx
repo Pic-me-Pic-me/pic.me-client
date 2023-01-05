@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
 interface TitleInputProps {
-  input: string;
+  title: string;
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TitleInput = (props: TitleInputProps) => {
-  const { input, handleChangeInput } = props;
+  const { title, handleChangeInput } = props;
 
   return (
     <StTitleInputWrapper>
       <StTitleInput
         type="text"
-        value={input}
+        value={title}
         onChange={handleChangeInput}
         placeholder="투표에 어울리는 제목을 입력해주세요!"
       />
@@ -21,7 +21,7 @@ const TitleInput = (props: TitleInputProps) => {
 };
 export default TitleInput;
 
-const StTitleInputWrapper = styled.header`
+const StTitleInputWrapper = styled.div`
   text-align: center;
 `;
 const StTitleInput = styled.input`
