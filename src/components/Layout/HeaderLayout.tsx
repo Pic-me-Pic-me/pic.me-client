@@ -29,7 +29,6 @@ export default HeaderLayout;
 const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
-  position: sticky;
 
   top: 0rem;
   height: 6.2rem;
