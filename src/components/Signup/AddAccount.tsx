@@ -17,7 +17,6 @@ const AddAccount = () => {
 
   const handleSubmitSignupInfo = (data: SignUpInfo) => {
     navigate(`/signup/nickname`);
-    console.log(data);
   };
 
   return (
@@ -123,8 +122,8 @@ const StInputDesc = styled.p`
   height: 1.7rem;
   margin-top: 0.6rem;
 
-  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
+  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
 `;
 
 const StSubmitBtn = styled.button<{ disabled: boolean }>`
