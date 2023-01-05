@@ -28,7 +28,6 @@ const StickerVoting = () => {
     }
   };
 
-  console.log(stickerVotingInfo);
   return (
     <StStickerVotingWrapper>
       <StStickerImg src={StickerTest} ref={stickerImgRef} alt="selected_img" onClick={handleAttachSticker} />
