@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
@@ -15,10 +15,11 @@ const Nickname = () => {
     handleSubmit,
   } = useForm<NicknameInfo>({ mode: 'onChange' });
 
-  const handleSubmitInfo = () => {
+  const handleSubmitInfo = (data: NicknameInfo) => {
     //서버 통신 코드 작성할 부분입니다.
-    console.log(errors);
+    console.log(data);
   };
+
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
     const target = e.target as HTMLInputElement;
     if (target.name === 'all') {
@@ -27,7 +28,6 @@ const Nickname = () => {
       if (idx) {
         isChecked[idx] = !isChecked[idx];
         isChecked[0] = isChecked[1] && isChecked[2] ? true : false;
-        console.log('첫번째 두번째', isChecked);
         setIsChecked([...isChecked]);
       }
     }
@@ -122,15 +122,14 @@ const StInput = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   border-radius: 0.6rem;
   outline: none;
-
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 `;
 
 const StInputDesc = styled.p`
   margin-top: 0.6rem;
 
-  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
+  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
 `;
 
 const StCheckDuplicationBtn = styled.button`
@@ -141,9 +140,9 @@ const StCheckDuplicationBtn = styled.button`
   margin-left: 1rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  color: ${({ theme }) => theme.colors.Pic_Color_White};
   border-radius: 0.6rem;
   border: none;
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
 
   cursor: pointer;
 `;
@@ -169,12 +168,11 @@ const StAllCheckContainer = styled.section`
 
 const StCheckboxBtn = styled.button`
   height: 2.2rem;
+  padding: 0;
+  margin: 0;
 
   border: none;
   background-color: transparent;
-
-  margin: 0;
-  padding: 0;
 
   svg {
     pointer-events: none;
@@ -232,8 +230,8 @@ const StSubmitBtn = styled.button<{ disabled: boolean }>`
   border-radius: 0.9rem;
   border: none;
 
-  color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
 
   cursor: pointer;
 
