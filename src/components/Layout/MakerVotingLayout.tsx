@@ -1,15 +1,20 @@
 import imageCompression from 'browser-image-compression';
 import { useCallback, useState } from 'react';
 import { Area } from 'react-easy-crop/types';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose } from '../../asset/icon';
 import { votingImageState } from '../../recoil/maker/atom';
+import setCroppedImg from '../../utils/setCroppedImg';
+import { setDataURLtoFile } from '../../utils/setDataURLtoFile';
 import { ImageCrop, ImageInput, TitleInput } from '../MakerVoting';
-import GetCroppedImg from '../MakerVoting/GetCroppedImg';
+import HeaderLayout from './HeaderLayout';
 
 const MakerVotingLayout = () => {
+  const navigate = useNavigate();
+
   const [isCropToggle, setIsCropToggle] = useState({
     firstCrop: false,
     secondCrop: false,
@@ -21,7 +26,8 @@ const MakerVotingLayout = () => {
   const [croppedImage, setCroppedImage] = useState(null);
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [rotation, setRotation] = useState(0);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | undefined>();
+
   const { title, firstImageUrl, secondImageUrl } = votingForm;
   const { firstCrop, secondCrop } = isCropToggle;
   const { firstToggle, secondToggle } = isToggle;
@@ -29,23 +35,6 @@ const MakerVotingLayout = () => {
   const handleCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
-
-  // base64를 file 타입으로 변환하는 함수
-  const handleDataURLtoFile = (dataurl: string, filename: string) => {
-    const arr = dataurl.split(',');
-    if (arr) {
-      const mime = arr[0].slice(5, 15);
-      const bstr = window.atob(arr[1]);
-      let n = bstr.length;
-      const u8arr = new Uint8Array(n);
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-      return new File([u8arr], filename, {
-        type: mime,
-      });
-    }
-  };
 
   const handleActionImgCompress = async (fileSrc: File) => {
     const options = {
@@ -64,9 +53,9 @@ const MakerVotingLayout = () => {
   const handleShowCroppedImage = useCallback(async () => {
     if (firstCrop) {
       try {
-        const crop = await GetCroppedImg(firstImageUrl, croppedAreaPixels, rotation);
+        const crop = await setCroppedImg(firstImageUrl, croppedAreaPixels, rotation);
         if (crop) {
-          const baseToFile = handleDataURLtoFile(crop, 'file') as File;
+          const baseToFile = setDataURLtoFile(crop, 'file') as File;
           const reader = new FileReader();
           const compressedImg = (await handleActionImgCompress(baseToFile)) as File;
           reader.readAsDataURL(compressedImg);
@@ -83,9 +72,9 @@ const MakerVotingLayout = () => {
       }
     } else {
       try {
-        const crop = await GetCroppedImg(secondImageUrl, croppedAreaPixels, rotation);
+        const crop = await setCroppedImg(secondImageUrl, croppedAreaPixels, rotation);
         if (crop) {
-          const baseToFile = handleDataURLtoFile(crop, 'file') as File;
+          const baseToFile = setDataURLtoFile(crop, 'file') as File;
           const reader = new FileReader();
           const compressedImg = (await handleActionImgCompress(baseToFile)) as File;
           reader.readAsDataURL(compressedImg);
@@ -103,7 +92,7 @@ const MakerVotingLayout = () => {
     }
   }, [croppedAreaPixels, rotation]);
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setVotingForm({ ...votingForm, title: e.target.value });
   };
 
@@ -140,8 +129,14 @@ const MakerVotingLayout = () => {
       }
     }
   };
+
+  const handlePrevPage = () => {
+    navigate('/');
+  };
+
   return (
     <>
+      <HeaderLayout HeaderTitle="투표만들기" handleGoback={handlePrevPage} />
       {(firstCrop || secondCrop) && (
         <StImageCropLayoutWrapper>
           <StHeader>
@@ -165,7 +160,6 @@ const MakerVotingLayout = () => {
       <StMakerVotingLayoutWrapper>
         <TitleInput title={title} handleChangeInput={handleChangeInput} />
         <ImageInput
-          title={title}
           handleCropImageToggle={handleCropImageToggle}
           handleToggleModify={handleToggleModify}
           isToggle={isToggle}
@@ -180,6 +174,7 @@ export default MakerVotingLayout;
 const StMakerVotingLayoutWrapper = styled.section`
   width: 100%;
   padding: 0 2rem;
+  margin-top: 2.2rem;
 `;
 
 const StImageCropLayoutWrapper = styled.div`
@@ -192,7 +187,7 @@ const StImageCropLayoutWrapper = styled.div`
   left: 0;
 
   width: 100%;
-  height: 67.8rem;
+  height: 85rem;
   padding: 7.5rem 3.1rem 13.3rem 3.1rem;
 
   backdrop-filter: blur(70px);
