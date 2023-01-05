@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
+
 import { IcGoback } from '../../asset/icon';
 
 interface LayoutProps {
