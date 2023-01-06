@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -6,14 +7,18 @@ import styled, { css } from 'styled-components';
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { checkDuplicateNickname, postSignupInfo } from '../../lib/api/signup';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
+import { nicknameErrorPatterns } from '../../utils/check';
 
 const Nickname = () => {
   const location = useLocation();
+  const cookies = new Cookies();
 
   const { user_id, password }: AddAccountInfo = location.state.dataInfo;
+
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [nickname, setNickname] = useState<string>('');
+
   const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
 
   const navigate = useNavigate();
@@ -26,13 +31,12 @@ const Nickname = () => {
 
   const handleCheckNickname = () => {
     checkDuplicateNickname(nickname).then((result) => {
-      if (result?.success === true) {
+      if (result?.success) {
         setIsDuplicate(!result.success);
         setNickname(nickname);
       } else {
         setIsDuplicate(result.success);
       }
-      console.log(result);
     });
   };
 
@@ -44,33 +48,32 @@ const Nickname = () => {
       if (idx) {
         isChecked[idx] = !isChecked[idx];
         isChecked[0] = isChecked[1] && isChecked[2] ? true : false;
-        console.log('첫번째 두번째', isChecked);
         setIsChecked([...isChecked]);
       }
     }
   };
 
-  const handleSignupInfoSubmit = () => {
-    postSignupInfo({ user_id, password }, nickname).then((result) => {
-      // if (result?.data.success === true) {
-      //   console.log(result?.data);
-      // }
-      console.log(result?.data);
-      navigate('/');
+  const handleSignup = () => {
+    postSignupInfo({ user_id, password }, nickname).then((res) => {
+      if (res?.data.success) {
+        cookies.set('refreshToken', res.data.refreshToken);
+        localStorage.setItem('accessToken', res.data.accessToken);
+      }
     });
+    navigate('/');
   };
 
   return (
     <>
       <StContainer>
-        <StForm onSubmit={handleSubmit(handleSignupInfoSubmit)}>
+        <StForm onSubmit={handleSubmit(handleSignup)}>
           <StTitle>닉네임을 입력해주세요!</StTitle>
 
           <StNicknameWrapper>
             <StInputWrapper>
               <StInput
                 type="text"
-                {...register('nickname', { required: '닉네임은 필수 입력 요소입니다!' })}
+                {...register('nickname', nicknameErrorPatterns)}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn type="button" onClick={() => handleCheckNickname()}>

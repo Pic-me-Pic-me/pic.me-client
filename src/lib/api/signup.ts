@@ -17,7 +17,7 @@ export const postSignupInfo = async ({ user_id, password }: AddAccountInfo, nick
       password,
       nickname,
     });
-    return res;
+    return res.data;
   } catch (error) {
     console.error(error);
   }
