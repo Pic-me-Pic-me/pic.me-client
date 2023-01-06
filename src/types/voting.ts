@@ -1,3 +1,5 @@
+import { PicMeResponse } from './api';
+
 // 서버에서 pictures라고 지정해서,,우리는 복수명 안되는데! 어쩔수 없었오!
 export interface VotingInfo {
   voteId: number;
@@ -22,3 +24,5 @@ export interface StickerInfo {
   location: StickerLocation[];
   emoji: number;
 }
+
+export type GetVotingInfo = PicMeResponse<VotingInfo>;
