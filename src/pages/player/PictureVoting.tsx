@@ -15,6 +15,8 @@ const PictureVoting = () => {
   const { votingInfo, isLoading, isError } = useGetVotingInfo(Number(voteid));
   const [votingInfoAtom, setVotingInfoState] = useRecoilState(votingInfoState);
 
+  // const r = useResetRecoilState(votingInfoState);
+  // r();
   const navigate = useNavigate();
   const handleVotingSuccess = async () => {
     navigate('/player/reason_voting');
@@ -26,7 +28,7 @@ const PictureVoting = () => {
     if (votingInfo?.data.data) {
       setVotingInfoState(votingInfo.data.data);
     }
-  }, [votingInfo]);
+  }, []);
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
@@ -35,7 +37,7 @@ const PictureVoting = () => {
       <HeaderLayout HeaderTitle={<IcHeaderLogo />} handleGoback={handlePrevpage} />
 
       <VotingLayout
-        votingTitle={votingInfoAtom.voteTitle}
+        votingTitle={votingInfoAtom.vote_title}
         btnTitle="이 사진으로 하기"
         isActiveBtn={true}
         handlePlayer={handleVotingSuccess}>
