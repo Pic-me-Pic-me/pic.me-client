@@ -2,11 +2,7 @@ import { selector } from 'recoil';
 
 import { votingInfoState } from './atom';
 
-export const votingStateSelector = selector({
-  key: 'votingSelector',
-
-  get: ({ get }) => get(votingInfoState),
-  set: ({ set }, newVotingInfo) => {
-    set(votingInfoState, newVotingInfo);
-  },
+export const pictureSelector = selector({
+  key: 'pictureSelector',
+  get: ({ get }) => get(votingInfoState).picture.find((pictureInfo) => pictureInfo.isSelect),
 });
