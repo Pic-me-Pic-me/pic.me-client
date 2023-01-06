@@ -1,18 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcSelectRound } from '../../../asset/icon';
 import { PictureId1, PictureId2 } from '../../../asset/image';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
+import { stickerInfoState, votingInfoState } from '../../../recoil/player/atom';
+import { PictureInfo } from '../../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 import SelectPicture from './SelectPicture';
 
 const PictureSlider = () => {
+  const votingInfoAtom = useRecoilValue(votingInfoState);
+  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
 
-  const pictureSrcList: string[] = [PictureId1, PictureId2];
+  // const pictureInfoList: PictureInfo[] = votingInfoAtom.Picture;
+  const pictureInfoList: PictureInfo[] = [
+    { id: 1, url: PictureId1 },
+    { id: 2, url: PictureId2 },
+  ];
+
   return (
     <>
       <StPictrueSubTitle>*당신의 모든 선택은 익명으로 전달됩니다</StPictrueSubTitle>
@@ -26,7 +37,7 @@ const PictureSlider = () => {
               setTransX(modifySliderRange(deltaX, -width, width));
             },
             onDragEnd: (deltaX, deltaY) => {
-              const maxIndex = pictureSrcList.length - 1;
+              const maxIndex = pictureInfoList.length - 1;
 
               Array(2)
                 .fill(0)
@@ -44,12 +55,12 @@ const PictureSlider = () => {
               setTransX(0);
             },
           })}>
-          {pictureSrcList.map((src, idx) => (
+          {pictureInfoList.map(({ url }, idx) => (
             <li key={idx}>
               {idx === currentIdx ? (
-                <SelectPicture src={src} alt="투표_선택_이미지1" />
+                <SelectPicture src={url} alt="투표_선택_이미지1" />
               ) : (
-                <img src={src} className="unSelect_picture" alt="투표_선택_이미지2" />
+                <img src={url} className="unSelect_picture" alt="투표_선택_이미지2" />
               )}
             </li>
           ))}
@@ -93,11 +104,13 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
   ${({ currentIdx }) =>
     currentIdx === 0
       ? css`
-          left: 4.7rem;
+          left: 5.75rem;
         `
       : css`
-          left: 11rem;
+          left: 11.5rem;
         `}
+
+  width : 59.8rem;
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
       transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10}rem);
@@ -116,7 +129,7 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
     width: 24.8rem;
     height: 32.5rem;
 
-    margin: 6.1rem 1.6rem 0 1.6rem;
+    margin: 6.1rem 1.3rem 0 1.3rem;
     opacity: 0.5;
   }
 `;
