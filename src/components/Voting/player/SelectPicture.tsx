@@ -21,13 +21,16 @@ export default SelectPicture;
 
 const StSelectPictureWrapper = styled.article`
   position: relative;
+
+  width: 33.5rem;
+  height: 44.7rem;
+  margin-top: 1.7rem;
+
   & > img {
     width: 33.5rem;
     height: 44.7rem;
-    margin-top: 1.7rem;
 
     border-radius: 1rem;
-
     object-fit: cover;
   }
   svg {
