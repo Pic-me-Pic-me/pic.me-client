@@ -65,7 +65,7 @@ const Nickname = () => {
 
   return (
     <>
-      <StContainer>
+      <StWrapper>
         <StForm onSubmit={handleSubmit(handleSignup)}>
           <StTitle>닉네임을 입력해주세요!</StTitle>
 
@@ -82,8 +82,8 @@ const Nickname = () => {
           </StNicknameWrapper>
           <StInputDesc>{isDuplicate ? '이미 사용 중인 닉네임입니다.' : ' '}</StInputDesc>
 
-          <StTermContainer>
-            <StAllCheckContainer>
+          <StTermWrapper>
+            <StAllCheckWrapper>
               <StCheckboxBtn type="button" name="all" onClick={handleCheck}>
                 {isChecked[0] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
               </StCheckboxBtn>
@@ -91,8 +91,8 @@ const Nickname = () => {
               <StTermContent>
                 <p>전체 동의</p>
               </StTermContent>
-            </StAllCheckContainer>
-            <StDetailTermContainer>
+            </StAllCheckWrapper>
+            <StDetailTermWrapper>
               {termList.map((term, idx) => (
                 <StDetailTerm key={term}>
                   <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, idx + 1)}>
@@ -104,8 +104,8 @@ const Nickname = () => {
                   </StTermContent>
                 </StDetailTerm>
               ))}
-            </StDetailTermContainer>
-          </StTermContainer>
+            </StDetailTermWrapper>
+          </StTermWrapper>
 
           <StSubmitBtn
             disabled={
@@ -114,12 +114,12 @@ const Nickname = () => {
             계정 만들기
           </StSubmitBtn>
         </StForm>
-      </StContainer>
+      </StWrapper>
     </>
   );
 };
 
-const StContainer = styled.article`
+const StWrapper = styled.article`
   display: flex;
   justify-content: center;
 `;
@@ -180,14 +180,14 @@ const StCheckDuplicationBtn = styled.button`
   cursor: pointer;
 `;
 
-const StTermContainer = styled.article`
+const StTermWrapper = styled.article`
   display: flex;
   flex-direction: column;
 
   margin-top: 18.2rem;
 `;
 
-const StAllCheckContainer = styled.section`
+const StAllCheckWrapper = styled.section`
   display: flex;
 
   width: 38.8rem;
@@ -241,7 +241,7 @@ const StTermContent = styled.div`
   }
 `;
 
-const StDetailTermContainer = styled.section`
+const StDetailTermWrapper = styled.section`
   display: flex;
   flex-direction: column;
 

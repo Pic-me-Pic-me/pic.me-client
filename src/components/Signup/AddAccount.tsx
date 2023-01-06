@@ -16,7 +16,7 @@ const AddAccount = () => {
     getValues,
   } = useForm<SignUpInfo>({ mode: 'onBlur' });
 
-  const handleSubmitSignupInfo = () => {
+  const handleSubmitAccount = () => {
     const { user_id, password } = getValues();
     const dataInfo = { user_id, password };
     navigate(`/signup/nickname`, { state: { dataInfo } });
@@ -24,8 +24,8 @@ const AddAccount = () => {
 
   return (
     <>
-      <StContainer>
-        <StForm onSubmit={handleSubmit(handleSubmitSignupInfo)}>
+      <StWrapper>
+        <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
           <StTitle>아이디</StTitle>
           <StInput
             type="email"
@@ -62,12 +62,12 @@ const AddAccount = () => {
             다음 단계로 이동
           </StSubmitBtn>
         </StForm>
-      </StContainer>
+      </StWrapper>
     </>
   );
 };
 
-const StContainer = styled.article`
+const StWrapper = styled.article`
   display: flex;
   justify-content: center;
 `;
@@ -91,13 +91,13 @@ const StInput = styled.input`
   margin-top: 1.4rem;
   padding-left: 1.9rem;
 
-  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border: 0.1rem solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   border-radius: 0.6rem;
   outline: none;
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 
   &:focus {
-    border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Coral};
+    border: 0.1rem solid ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 `;
 

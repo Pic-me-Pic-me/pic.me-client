@@ -26,3 +26,7 @@ export const passwordErrorPatterns: ErrorCondition = {
     message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
   },
 };
+
+export const nicknameErrorPatterns: ErrorCondition = {
+  required: { value: true, message: '' },
+};
