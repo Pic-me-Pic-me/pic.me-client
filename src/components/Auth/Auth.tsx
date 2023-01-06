@@ -37,19 +37,25 @@ const Auth = () => {
       const isUser = data.isUser;
       const uid = data.uid;
       navigate('/nickname');
+
+      const nick = '바켜언지';
+      // 유저가 아니라면 회원가입하기
+      const signUpData = await postKakaoSignUp(uid, 'kakao', nick);
+      const resp = signUpData.data.userName;
+
       // 카카오 아이디 있는 경우
-      if (isUser) {
-        const signInData = await postKakaoSignIn(uid, 'kakao');
-        const nickname = signInData.userName;
-        localStorage.setItem('accessToken', signInData.accessToken);
-        localStorage.setItem('refreshToken', signInData.refreshToken);
-        navigate('/nickname');
-      } else {
-        const nick = '바켜언지';
-        // 유저가 아니라면 회원가입하기
-        const signUpData = await postKakaoSignUp(uid, 'kakao', nick);
-        const resp = signUpData.data.userName;
-      }
+      // if (isUser) {
+      //   const signInData = await postKakaoSignIn(uid, 'kakao');
+      //   const nickname = signInData.userName;
+      //   localStorage.setItem('accessToken', signInData.accessToken);
+      //   localStorage.setItem('refreshToken', signInData.refreshToken);
+      //   navigate('/nickname');
+      // } else {
+      //   const nick = '바켜언지';
+      //   // 유저가 아니라면 회원가입하기
+      //   const signUpData = await postKakaoSignUp(uid, 'kakao', nick);
+      //   const resp = signUpData.data.userName;
+      // }
     } catch (err) {
       console.error(err);
     }
