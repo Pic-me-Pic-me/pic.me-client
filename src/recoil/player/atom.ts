@@ -10,14 +10,10 @@ const { persistAtom } = recoilPersist();
 export const votingInfoState = atom<VotingInfo>({
   key: 'votingInfo',
   default: {
-    vote_id: 0,
-    user_id: 0,
-    vote_status: false,
-    vote_title: '',
-    pictures: [],
-    current_vote: 0,
-    maximum_vote: 0,
-    created_date: new Date(0),
+    voteId: 0,
+    voteStatus: false,
+    voteTitle: '',
+    picture: [],
   },
   effects_UNSTABLE: [persistAtom],
 });
@@ -27,7 +23,7 @@ export const stickerInfoState = atom<StickerInfo>({
   default: {
     pictureId: 0,
     location: [],
-    emoji: 1,
+    emoji: 0,
   },
   effects_UNSTABLE: [persistAtom],
 });
