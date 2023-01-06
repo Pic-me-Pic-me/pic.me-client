@@ -3,13 +3,14 @@ import qs from 'qs';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/api';
+
 const Auth = () => {
   const Kakao = window.Kakao;
   const REDIRECT_URI = `http://localhost:3000/oauth/kakao/callback`;
 
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
-
   useEffect(() => {
     getToken();
   }, []);
@@ -29,8 +30,26 @@ const Auth = () => {
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
       // access token 설정
       Kakao.Auth.setAccessToken(res.data.access_token);
-      localStorage.setItem('token', res.data.access_token);
+      console.log(res.data.access_token);
+
+      // 카카오 아이디 있는지 확인
+      const data = await postKakaoToken('kakao', res.data.access_token);
+      const isUser = data.isUser;
+      const uid = data.uid;
       navigate('/nickname');
+      // 카카오 아이디 있는 경우
+      if (isUser) {
+        const signInData = await postKakaoSignIn(uid, 'kakao');
+        const nickname = signInData.userName;
+        localStorage.setItem('accessToken', signInData.accessToken);
+        localStorage.setItem('refreshToken', signInData.refreshToken);
+        navigate('/nickname');
+      } else {
+        const nick = '바켜언지';
+        // 유저가 아니라면 회원가입하기
+        const signUpData = await postKakaoSignUp(uid, 'kakao', nick);
+        const resp = signUpData.data.userName;
+      }
     } catch (err) {
       console.error(err);
     }

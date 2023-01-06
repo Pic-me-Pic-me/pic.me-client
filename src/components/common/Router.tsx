@@ -21,7 +21,7 @@ const Router = () => (
         <Route path="/oauth/kakao/callback" element={<Auth />} />
         <Route path="/nickname" element={<Nickname />} />
         <Route path="/library" element={<Library />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
