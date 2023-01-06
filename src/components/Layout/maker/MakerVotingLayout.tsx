@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { IcClose } from '../../asset/icon';
-import { votingImageState } from '../../recoil/maker/atom';
-import setCroppedImg from '../../utils/setCroppedImg';
-import { setDataURLtoFile } from '../../utils/setDataURLtoFile';
-import { ImageCrop, ImageInput, TitleInput } from '../MakerVoting';
-import HeaderLayout from './HeaderLayout';
+import { IcClose } from '../../../asset/icon';
+import { votingImageState } from '../../../recoil/maker/atom';
+import setCroppedImg from '../../../utils/setCroppedImg';
+import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
+import { ImageCrop, ImageInput, TitleInput } from '../../Voting/maker';
+import HeaderLayout from '../HeaderLayout';
 
 const MakerVotingLayout = () => {
   const navigate = useNavigate();

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../asset/icon';
-import { votingImageState } from '../../recoil/maker/atom';
+import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
+import { votingImageState } from '../../../recoil/maker/atom';
 
 type ToggleProps = {
   firstToggle: boolean;
@@ -84,17 +84,6 @@ const ImageInput = (props: ImageInputProps) => {
       setIsComplete(true);
     }
   };
-  // const handleTest = async () => {
-  //   try {
-  //     const response = await axios.post('https://2b75275e-7919-416d-b7e7-2a85c9d3cb70.mock.pstmn.io/vote', {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   return (
     <>
@@ -269,7 +258,7 @@ const StModifyBlock = styled.div`
   border-radius: 6rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
 
-  z-index: 10;
+  z-index: 5;
 `;
 const StModifyDepthBtn = styled.button`
   border: none;

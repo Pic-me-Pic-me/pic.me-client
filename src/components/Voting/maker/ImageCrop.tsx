@@ -4,7 +4,7 @@ import { Area, Point } from 'react-easy-crop/types';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { votingImageState } from '../../recoil/maker/atom';
+import { votingImageState } from '../../../recoil/maker/atom';
 import GuidePopUp from './GuidePopUp';
 
 interface ImageCropProps {

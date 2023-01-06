@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { IcHand, IcMoveCrop } from '../../asset/icon';
+import { IcHand, IcMoveCrop } from '../../../asset/icon';
 
 const GuidePopUp = () => (
   <StGuidePopUpWrapper>
