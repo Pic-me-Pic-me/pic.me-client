@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { IcModalBG } from '../../asset/icon';
 import { Ballon } from '../../asset/image';
 
-const PlayerLandingComponent = () => (
+const VoteLanding = () => (
   <StModalWrapper>
     <StModal>
       <StTitle>
@@ -25,7 +25,7 @@ const PlayerLandingComponent = () => (
   </StModalWrapper>
 );
 
-export default PlayerLandingComponent;
+export default VoteLanding;
 
 const StModalWrapper = styled.div`
   position: fixed;
@@ -90,7 +90,6 @@ const StTitle = styled.header`
 `;
 
 const StDescription = styled.p`
-  /* height: 5.386rem; */
   margin-top: 2.5rem;
   margin-bottom: 3.4rem;
   & > p {

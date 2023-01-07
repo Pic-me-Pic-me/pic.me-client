@@ -1,2 +1,3 @@
+export { default as FinishedLanding } from './FinishedLanding';
 export { default as Header } from './Header';
-export { default as PlayerLandingComponent } from './PlayerLandingComponent';
+export { default as VoteLanding } from './VoteLanding';
