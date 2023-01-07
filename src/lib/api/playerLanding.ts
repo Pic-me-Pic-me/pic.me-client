@@ -12,13 +12,8 @@ export const client = axios.create({
 export const getVoteData = async (voteId: number) => {
   try {
     const { data } = await client.get<VoteData>(`/vote/${voteId}`);
-    if (data.status === 200) {
-      return data;
-    }
-    if (data.status === 400) {
-      return false;
-    }
+    return data;
   } catch (error) {
-    return false;
+    return null;
   }
 };
