@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { kakaologinbtn, LoginBanner, Logo } from '../../asset/image';
+import { KakaoLoginBtn, LoginBanner } from '../../asset/image';
 
 const Login = () => (
   <>
@@ -21,9 +21,9 @@ const Login = () => (
           회원가입
         </StAuthBtn>
         <StKaKaoLogin>
-          <StDivider className="line">간편 로그인</StDivider>
+          <StDivider>간편 로그인</StDivider>
           <button type="button">
-            <img src={kakaologinbtn} alt="카카오계정으로 계속하기" />
+            <img src={KakaoLoginBtn} alt="카카오계정으로 계속하기" />
           </button>
         </StKaKaoLogin>
       </StContainer>
@@ -34,38 +34,38 @@ const Login = () => (
 export default Login;
 
 const StDivider = styled.div`
+  display: flex;
+  align-items: center;
+  flex-basis: 100%;
+
   padding: 2.4rem 2.4rem 1.6rem 2.4rem;
 
-  &.line {
-    display: flex;
-    flex-basis: 100%;
-    align-items: center;
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
-  }
-  &.line::before {
-    content: '';
-    flex-grow: 1;
-    margin-right: 1rem;
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    height: 0.05rem;
-    font-size: 0px;
-    line-height: 0px;
-  }
-  &.line::after {
-    content: '';
-    flex-grow: 1;
-    margin-left: 1rem;
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    height: 0.05rem;
-    font-size: 0px;
-    line-height: 0px;
-  }
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+
   > p {
     padding-top: 1.6rem;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
     font-size: 1.5rem;
+  }
+  &::before {
+    content: '';
+    flex-grow: 1;
+    margin-right: 1rem;
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    height: 0.05rem;
+    font-size: 0rem;
+    line-height: 0rem;
+  }
+  &::after {
+    content: '';
+    flex-grow: 1;
+    margin-left: 1rem;
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    height: 0.05rem;
+    font-size: 0rem;
+    line-height: 0rem;
   }
 `;
 
