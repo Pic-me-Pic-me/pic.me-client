@@ -3,30 +3,50 @@ import styled from 'styled-components';
 
 import { IcModalBG } from '../../asset/icon';
 import { Ballon } from '../../asset/image';
+// import { VoteInfo } from '../../lib/api/playerLanding';
 
-const VoteLanding = () => (
-  <StModalWrapper>
-    <StModal>
-      <StTitle>
-        <div>
-          <h1>“얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다“</h1>
-        </div>
-      </StTitle>
-      <StContent>
-        <IcModalBG />
-        <StDescription>
-          <p>지윤님의 사진</p>
-          <p>2개 중 1개를 골라주세요!</p>
-        </StDescription>
-      </StContent>
-      <StButtonWrapper>
-        <button type="button">익명 투표 시작하기</button>
-        <button type="button">홈으로 가기</button>
-      </StButtonWrapper>
-    </StModal>
-  </StModalWrapper>
-);
+export interface VoteInfo {
+  // username: string;
+  vote_id: number;
+  vote_status: boolean;
+  vote_title: string;
+  Picture: PictureData[];
+}
 
+export interface PictureData {
+  picture_id: number;
+  url: string;
+}
+
+interface VoteProps {
+  vote: VoteInfo;
+}
+
+const VoteLanding = ({ vote }: VoteProps) => {
+  const { vote_title } = vote;
+  return (
+    <StModalWrapper>
+      <StModal>
+        <StTitle>
+          <div>
+            <h1>“{vote_title}“</h1>
+          </div>
+        </StTitle>
+        <StContent>
+          <IcModalBG />
+          <StDescription>
+            <p>지윤님의 사진</p>
+            <p>2개 중 1개를 골라주세요!</p>
+          </StDescription>
+        </StContent>
+        <StButtonWrapper>
+          <button type="button">익명 투표 시작하기</button>
+          <button type="button">홈으로 가기</button>
+        </StButtonWrapper>
+      </StModal>
+    </StModalWrapper>
+  );
+};
 export default VoteLanding;
 
 const StModalWrapper = styled.div`
