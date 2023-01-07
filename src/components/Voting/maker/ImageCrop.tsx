@@ -26,6 +26,7 @@ const ImageCrop = (props: ImageCropProps) => {
   useEffect(() => {
     handleChangeImage();
   }, [firstCrop]);
+
   useEffect(() => {
     setTimeout(() => setIsOpenPop(false), 2000);
   }, []);
