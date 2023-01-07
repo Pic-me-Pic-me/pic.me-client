@@ -1,4 +1,4 @@
-import { selector, selectorFamily } from 'recoil';
+import { selectorFamily } from 'recoil';
 
 import { votingInfoState } from './atom';
 
