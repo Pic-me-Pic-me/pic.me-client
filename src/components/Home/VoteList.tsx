@@ -2,42 +2,37 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { EmptyIcon } from '../../asset/image';
-import { getCurrentVoteData, VoteListInfo } from '../../lib/api/voting';
+import { getCurrentVoteData, VoteInfo } from '../../lib/api/voting';
 import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemIndex, setItemIndex] = useState(0);
-  const [data, setData] = useState<VoteListInfo[]>();
+  const [dataList, setDataList] = useState<VoteInfo[]>([]);
+  const [newDataList, setnewDataList] = useState<VoteInfo[]>(dataList);
 
   useEffect(() => {
-    console.log('ddd');
-    getCurrentVoteData();
+    getMoreItem();
   }, []);
 
-  //로딩 테스트를 위해서 가짜 fetch 함수를 넣었다.
-  // const getCurrentVoteData = (delay = 1000) => new Promise((res) => setTimeout(res, delay));
-
-  //현재 목업 데이터(CARD_DATA)를 사용하고 있기 때문에, 최대한 데이터를 재활용하는 코드를 작성.
-  //(0~4번 게시물, 1~5번 게시물, 2~6번 게시물 이런 식으로 가져와서 5개씩 concat함수로 붙였다.)
-  //getMoreItem 함수가 실행되면 isLoaded를 true로 만들어 로딩 컴포넌트를 보여주고,
-  //함수가 종료될 때 isLoaded를 false로 만들어 로딩컴포넌트를 숨겼다.
   const getMoreItem = async () => {
     setIsLoaded(true);
-    // const newData: VoteListInfo = await getCurrentVoteData();
-    setItemIndex((i) => i + 1);
-    // setData(newData, ...data);
+    const newData = await getCurrentVoteData();
+
+    if (newData) {
+      // newData?.map((datas, i)=>(
+      // newDataList.push(datas);
+      // newDataList = (dataList.
+      // setItemIndex((i) => i + 1);
+      // ));
+      // setDataList([...dataList, newData]);
+    }
+    console.log(newData);
     setIsLoaded(false);
   };
 
-  //intersection 콜백함수
-  //entry는 IntersectionObserverEntry 인스턴스의 배열
-  //isIntersecting: 대상 객체와 루트 영역의 교차상태를 boolean값으로 나타냄
-  //대상 객체가 루트 영역과 교차 상태로 들어갈 때(true), 나갈 때(false)
-
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
-    //보통 교차여부만 확인하는 것 같다. 코드는 로딩상태까지 확인함.
     if (entry.isIntersecting && !isLoaded) {
       observer.unobserve(entry.target);
       await getMoreItem();
@@ -45,7 +40,6 @@ const VoteList = () => {
     }
   };
 
-  //현재 대상 및 option을 props로 전달
   const { setTarget } = useIntersectionObserver({
     root: null,
     rootMargin: '0px',
@@ -53,13 +47,14 @@ const VoteList = () => {
     onIntersect,
   });
 
-  const [voteList, setVoteList] = useState<string[]>(['투표']);
   return (
     <>
-      {voteList ? (
+      {dataList ? (
         <StVoteListWrapper>
           <h1>현재 진행중인 투표</h1>
-          <VoteCard />
+          {dataList?.map((data, i) => (
+            <VoteCard voteData={data} key={i} />
+          ))}
         </StVoteListWrapper>
       ) : (
         <StEmptyView>

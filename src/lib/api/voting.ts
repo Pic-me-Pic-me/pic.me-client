@@ -3,7 +3,7 @@ import { VotingInfo } from './../../types/voting';
 
 export const postVoteData = (votingData: VotingInfo, token?: string) => client.post('/vote', votingData);
 
-export interface VoteListInfo {
+export interface VoteInfo {
   voteId: number;
   title: string;
   voteThumbnail: string;
@@ -11,23 +11,18 @@ export interface VoteListInfo {
   totalVoteCount: number;
 }
 
-export interface VoteList {
-  date: string;
-  votes: VoteListInfo;
-}
-
 export interface VoteListData {
   status: number;
   success: boolean;
   message: string;
-  data: VoteList;
+  data: VoteInfo[];
 }
 
 export const getCurrentVoteData = async () => {
   try {
-    const { data } = await client.get<VoteListData>('/vote/all');
-    console.log(data.data.votes);
-    return data.data.votes;
+    const data = await client.get<VoteListData>('/vote/current');
+    console.log(data.data.data);
+    return data.data.data;
   } catch (err) {
     console.error(err);
   }

@@ -1,18 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const VoteCard = () => (
-  <StVoteItem>
-    <StVoteData>
-      <StTitleWrapper>
-        <h1>어제 연남동 가서 찍은...</h1>
-        <h2>15명 투표 중</h2>
-      </StTitleWrapper>
-      <h3>43분 전</h3>
-    </StVoteData>
-    <StPreviewImg />
-  </StVoteItem>
-);
+import { VoteInfo } from '../../lib/api/voting';
+
+interface VoteCardProps {
+  voteData: VoteInfo;
+}
+
+const VoteCard = (props: VoteCardProps) => {
+  const { voteData } = props;
+
+  return (
+    <StVoteItem>
+      <StVoteData>
+        <StTitleWrapper>
+          <h1>{voteData.title}</h1>
+          <h2>{voteData.totalVoteCount}명 투표 중</h2>
+        </StTitleWrapper>
+        <h3>{voteData.createdAt.toString()}</h3>
+      </StVoteData>
+      <StPreviewImg src={voteData.voteThumbnail} alt="투표 썸네일" />
+    </StVoteItem>
+  );
+};
 
 export default VoteCard;
 
@@ -60,7 +70,7 @@ const StTitleWrapper = styled.div`
   }
 `;
 
-const StPreviewImg = styled.div`
+const StPreviewImg = styled.img`
   width: 15.4rem;
 
   border-top-right-radius: 1.2rem;
