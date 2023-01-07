@@ -2649,6 +2649,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "@types/cookie@npm:0.3.3"
+  checksum: 450c930d792a4fd5a93645b4123f02596368f904dbb1fe6fbb5043bce8f6ecf877a08511c6ba11c8e28168f62bc278e68d214f002fab927c9056c0bc69f21370
+  languageName: node
+  linkType: hard
+
 "@types/cookie@npm:^0.4.1":
   version: 0.4.1
   resolution: "@types/cookie@npm:0.4.1"
@@ -2738,7 +2745,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:*":
+"@types/hoist-non-react-statics@npm:*, @types/hoist-non-react-statics@npm:^3.0.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
   dependencies:
@@ -4755,7 +4762,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.4.2":
+"cookie@npm:^0.4.0, cookie@npm:^0.4.2":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
@@ -9860,6 +9867,7 @@ __metadata:
     msw: ^0.49.2
     prettier: ^2.8.1
     react: ^18.2.0
+    react-cookie: ^4.1.1
     react-dom: ^18.2.0
     react-hook-form: ^7.41.5
     react-router-dom: ^6.6.1
@@ -11020,6 +11028,19 @@ __metadata:
     regenerator-runtime: ^0.13.9
     whatwg-fetch: ^3.6.2
   checksum: 1bb031080af15397d6eb9c69a0c2e93799991f7197a086e4409ba719398f1256b542a3d6c9a34673d516c684eef3e8226c99b335982593851f58f65f6e43571b
+  languageName: node
+  linkType: hard
+
+"react-cookie@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "react-cookie@npm:4.1.1"
+  dependencies:
+    "@types/hoist-non-react-statics": ^3.0.1
+    hoist-non-react-statics: ^3.0.0
+    universal-cookie: ^4.0.0
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: b734dcad35d790ced8c8fc3b19e3eb1f546e0923c637bad888c7c0096dbe2c996668416a49b48827ec7ad2d81522f1b57567694c791e1a5fb89ca41b39158a74
   languageName: node
   linkType: hard
 
@@ -12902,6 +12923,16 @@ __metadata:
   dependencies:
     crypto-random-string: ^2.0.0
   checksum: ef68f639136bcfe040cf7e3cd7a8dff076a665288122855148a6f7134092e6ed33bf83a7f3a9185e46c98dddc445a0da6ac25612afa1a7c38b8b654d6c02498e
+  languageName: node
+  linkType: hard
+
+"universal-cookie@npm:^4.0.0":
+  version: 4.0.4
+  resolution: "universal-cookie@npm:4.0.4"
+  dependencies:
+    "@types/cookie": ^0.3.3
+    cookie: ^0.4.0
+  checksum: bb2bafa7eb7e213e5448924329572dd1a913be00e23906189be2a0dc889b0eea1750f9c33462fc1c911d89092dbd82f6e220c2d61c4057bb3f69e7665d9d8ddf
   languageName: node
   linkType: hard
 
