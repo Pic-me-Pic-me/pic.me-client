@@ -1,4 +1,6 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -9,20 +11,22 @@ import { LoginInfo } from '../../types/auth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const cookies = new Cookies();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm<LoginInfo>({ mode: 'onSubmit' });
+  const [isLoginFail, setIsLoginFail] = useState(false);
+  const { register, handleSubmit, getValues } = useForm<LoginInfo>();
 
   const handleSubmitLoginInfo = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
-      if (res.success) {
-        console.log(res.message);
+      console.log(res);
+      if (res?.data.success) {
+        cookies.set('refreshToken', res.data.data.refreshToken, { httpOnly: true });
+        localStorage.setItem('accessToken', res.data.data.accessToken);
+        console.log(localStorage);
         navigate('/');
+      } else {
+        setIsLoginFail((prev) => !prev);
       }
     });
   };
@@ -38,7 +42,7 @@ const Login = () => {
             <StTitle>로그인</StTitle>
             <StInput type="email" {...register('email')} placeholder="이메일을 입력해주세요" />
             <StInput type="password" {...register('password')} placeholder="비밀번호를 입력해주세요" />
-            <StInputDesc>아이디 또는 비밀번호를 잘못 입력했습니다.</StInputDesc>
+            <StInputDesc>{isLoginFail ? '아이디 또는 비밀번호를 잘못 입력했습니다.' : ''}</StInputDesc>
             <StAuthBtn type="submit">로그인</StAuthBtn>
           </StForm>
           <StAuthBtn type="submit" isSignUp>
@@ -175,6 +179,8 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   color: white;
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+
+  cursor: pointer;
 
   ${({ isSignUp }) =>
     isSignUp &&

@@ -8,7 +8,7 @@ export const client = axios.create({
   baseURL: 'https://ed76eca9-2182-4ba8-9458-3321e7958ab4.mock.pstmn.io',
   headers: {
     'Content-type': 'application/json',
-    // Authorization: 'Bearer ' + TOKEN,
+    Authorization: `Bearer ${TOKEN}`,
   },
 });
 
@@ -18,8 +18,7 @@ client.interceptors.request.use((config: any) => {
     accessToken: localStorage.getItem('accessToken'),
     refreshToken: cookies.get('refreshToken'),
   };
-  // console.log('req', headers);
-
+  console.log('req', headers);
   return { ...config, headers };
 });
 
@@ -43,15 +42,15 @@ client.interceptors.response.use(
           },
         },
       );
-      const accessToken = data.data.accessToken;
-      const refreshToken = data.data.refreshToken;
+      const newAccessToken = data.data.accessToken;
+      const newRefreshToken = data.data.refreshToken;
 
-      localStorage.setItem('accessToken', accessToken);
-      cookies.set('refreshToken', refreshToken);
+      localStorage.setItem('accessToken', newAccessToken);
+      cookies.set('refreshToken', newRefreshToken);
 
       originalRequest.headers = {
-        accessToken,
-        refreshToken,
+        newAccessToken,
+        newRefreshToken,
       };
       return axios(originalRequest);
     }
