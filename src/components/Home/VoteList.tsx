@@ -24,11 +24,11 @@ const VoteList = () => {
       newData.forEach((data) => {
         newDataList.push(data);
         setItemIndex((i) => i + 1);
+        setDataList(newData);
+        setIsLoaded(false);
       });
-      setDataList(newData);
     }
-    console.log(newData);
-    setIsLoaded(false);
+    console.log(dataList);
   };
 
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
@@ -54,6 +54,7 @@ const VoteList = () => {
           {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
           ))}
+          <div ref={setTarget}>{isLoaded && 'Loading'}</div>
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
