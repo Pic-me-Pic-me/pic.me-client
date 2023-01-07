@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcSelectRound } from '../../../asset/icon';
-import { PictureId1, PictureId2 } from '../../../asset/image';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { stickerInfoState, votingInfoState } from '../../../recoil/player/atom';
 import { PictureInfo } from '../../../types/voting';
@@ -18,11 +17,11 @@ const PictureSlider = () => {
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
 
-  // const pictureInfoList: PictureInfo[] = votingInfoAtom.Picture;
-  const pictureInfoList: PictureInfo[] = [
-    { id: 1, url: PictureId1 },
-    { id: 2, url: PictureId2 },
-  ];
+  const pictureInfoList: PictureInfo[] = votingInfoAtom.Picture;
+
+  useEffect(() => {
+    setStickerInfo({ ...stickerInfo, pictureId: pictureInfoList[currentIdx].id });
+  }, [transX]);
 
   return (
     <>
