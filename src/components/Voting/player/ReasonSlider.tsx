@@ -89,7 +89,7 @@ const ReasonSlider = () => {
 export default ReasonSlider;
 const StReasonSliderWrapper = styled.section`
   position: absolute;
-  top: 42.6rem;
+  top: 49rem;
   width: 43rem;
 `;
 const StDragWReasonWrapper = styled.article`
@@ -114,6 +114,7 @@ const StDragWReasonUl = styled.ul<{ currentIdx: number; dragItemWidth: number; t
 
     width: 19.6rem;
     height: 19.6rem;
+
     & > svg.menu {
       position: absolute;
       top: 14rem;
@@ -127,8 +128,6 @@ const StDragWReasonUl = styled.ul<{ currentIdx: number; dragItemWidth: number; t
       width: 12rem;
       height: 4.8rem;
 
-      background-color: #ddaadd;
-
       visibility: hidden;
     }
   }
@@ -139,6 +138,8 @@ const StSelectRoundNav = styled.nav`
   justify-content: center;
   align-items: center;
   flex-direction: row;
+
+  margin-top: 0.5rem;
 
   gap: 0.8rem;
 `;
