@@ -8,7 +8,9 @@ const VoteLanding = () => (
   <StModalWrapper>
     <StModal>
       <StTitle>
-        <h1>“얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다“</h1>
+        <div>
+          <h1>“얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다“</h1>
+        </div>
       </StTitle>
       <StContent>
         <IcModalBG />
@@ -28,30 +30,35 @@ const VoteLanding = () => (
 export default VoteLanding;
 
 const StModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+
   width: 100%;
   height: 100%;
+  padding-left: 4.2rem;
+  padding-right: 4.2rem;
+
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2rem);
 `;
 
 const StModal = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 
-  width: 34.6rem;
+  width: 100%;
   height: 54.8rem;
   padding-top: 4.9rem;
+  padding-left: 4.2rem;
+  padding-right: 4.2rem;
   margin: auto;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
@@ -76,12 +83,15 @@ const StTitle = styled.header`
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}; // Caption2로 바꿔야함!!
 
-  & > h1 {
+  & > div {
     display: flex;
+    justify-content: center;
     align-items: center;
+    text-align: center;
 
-    padding: 0rem 10.4rem;
+    width: 21.2rem;
     height: 5.386rem;
+    padding: 1rem 3.7rem;
   }
   & > svg {
     width: 21.2rem;
@@ -121,10 +131,11 @@ const StButtonWrapper = styled.div`
   align-items: center;
   gap: 0.7rem;
 
-  padding-bottom: 2.3rem;
+  /* padding: 0rem 1.9rem 2.3rem 1.8rem; */
+  width: 100%;
 
   & > button {
-    width: 25.3rem;
+    width: 100%;
     height: 5.4rem;
 
     border: none;

@@ -7,7 +7,9 @@ const FinishedLanding = () => (
   <StModalWrapper>
     <StModal>
       <StTitle>
-        <h1>“얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다“</h1>
+        <div>
+          <h1>“얘들아 다 이얘들아 다 이dddd얘들아 다 이“</h1>
+        </div>
       </StTitle>
       <StDescription>
         <p>이 투표는 마감되었습니다!</p>
@@ -22,30 +24,36 @@ const FinishedLanding = () => (
 export default FinishedLanding;
 
 const StModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+
   width: 100%;
   height: 100%;
+  padding-left: 4.2rem;
+  padding-right: 4.2rem;
+
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2rem);
 `;
 
 const StModal = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 
-  width: 34.6rem;
+  width: 100%;
   height: 28.8rem;
   padding-top: 4.9rem;
+  padding-left: 4.2rem;
+  padding-right: 4.2rem;
   margin: auto;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
@@ -70,12 +78,15 @@ const StTitle = styled.header`
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}; // Caption2로 바꿔야함!!
 
-  & > h1 {
+  & > div {
     display: flex;
+    justify-content: center;
     align-items: center;
+    text-align: center;
 
-    padding: 0rem 10.4rem;
+    width: 21.2rem;
     height: 5.386rem;
+    padding: 1rem 3.7rem;
   }
   & > svg {
     width: 21.2rem;
@@ -93,32 +104,15 @@ const StDescription = styled.p`
     ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20}
   }
 `;
-
-const StContent = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  width: 100%;
-  margin-top: 1.95rem;
-
-  & > svg {
-    margin: 0 auto;
-    width: 14.9rem;
-    height: 15.8rem;
-  }
-`;
-
 const StButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
 
-  padding-bottom: 2.3rem;
+  width: 100%;
 
   & > button {
-    width: 25.3rem;
+    width: 100%;
     height: 5.4rem;
 
     border: none;

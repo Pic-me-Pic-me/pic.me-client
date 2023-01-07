@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { FinishedLanding, VoteLanding } from '../components/Landing';
 
 const PlayerLanding = () => {
-  const [isFinished, setIsFinished] = useState(true);
+  const [isFinished, setIsFinished] = useState(false);
   return (
     <>
-      isFinished ? <VoteLanding /> : <FinishedLanding />
+      <VoteLanding />
     </>
   );
 };
