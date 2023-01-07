@@ -21,7 +21,7 @@ export const picmeSliderEvent = ({
         if (stopPropagation) touchEvent.stopPropagation();
 
         const touchMoveHandler = (moveEvent: TouchEvent) => {
-          if (moveEvent.cancelable) moveEvent.preventDefault();
+          // if (moveEvent.cancelable) moveEvent.preventDefault();
 
           const deltaX = moveEvent.touches[0].pageX - touchEvent.touches[0].pageX;
           const deltaY = moveEvent.touches[0].pageY - touchEvent.touches[0].pageY;

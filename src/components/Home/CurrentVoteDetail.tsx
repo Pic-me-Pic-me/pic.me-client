@@ -1,19 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcVoteShareBtn } from '../../asset/icon';
 import { ImgSiru } from '../../asset/image';
+import { deleteCurrentVoteData, getCurrentVoteData } from '../../lib/api/voting';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
+import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
 import { HeaderLayout } from '../Layout';
+import VoteInfo from './VoteInfo';
 
 const CurrentVoteDetail = () => {
   const navigate = useNavigate();
-
+  const [voteInfo, setVoteInfo] = useState<VoteInfoProps>();
+  const [currentVote, setCurrentVote] = useState<number>();
+  const [pictureUrl, setPictureUrl] = useState<string[]>([]);
+  const [pictureCount, setPictureCount] = useState<number[]>();
+  const [pictureInfo, setPictureInfo] = useState<PictureProps[]>([]);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
+
+  const ImgList: JSX.Element[] = [<ImgSiru key="siruone" />, <ImgSiru key="sirutwo" />];
+
+  const HandleGetCurrentVoteData = async () => {
+    const res = await getCurrentVoteData();
+    setVoteInfo({
+      voteId: res.data.id,
+      voteStatus: res.data.status,
+      voteTitle: res.data.title,
+      createDate: res.data.createdDate,
+    });
+    setCurrentVote(res.data.current);
+    setPictureInfo(res.data.Picture);
+    setPictureUrl([res.data.Picture[0].url, res.data.Picture[1].url]);
+    setPictureCount([res.data.Picture[0].count, res.data.Picture[1].count]);
+  };
+
+  useEffect(() => {
+    HandleGetCurrentVoteData();
+  }, []);
 
   const handleGoHome = () => {
     navigate('/');
@@ -23,63 +50,70 @@ const CurrentVoteDetail = () => {
     navigate('/share');
   };
 
-  const ImgList: JSX.Element[] = [<ImgSiru key="siruone" />, <ImgSiru key="sirutwo" />];
-
   return (
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={handleGoHome} />
       <CurrentVoteDetailWrapper>
-        <span>42분 전</span>
-        <h1>어제 연남동 가서 찍은 사진 골라주ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</h1>
+        <VoteInfo {...voteInfo} />
         <StVoteStatus>
-          <span>15명 투표 중</span>
+          <span>{currentVote}명 투표 중</span>
+          {/* {currentIdx === 0 ? <span>{pictureCount[0].count}표</span> : <span>{pictureCount[0].count}표</span>} */}
           <span>12표</span>
         </StVoteStatus>
-        <StImgUl
-          currentIdx={currentIdx}
-          dragItemWidth={275}
-          transX={transX}
-          {...picmeSliderEvent({
-            onDragChange: (deltaX) => {
-              setTransX(modifySliderRange(deltaX, -width, width));
-            },
-            onDragEnd: (deltaX) => {
-              const maxIndex = ImgList.length - 1;
-              Array(2)
-                .fill(0)
-                .map((v, i) => 2 - i)
-                .some((num) => {
-                  if (deltaX < 70 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
-                    return true;
-                  }
-                  if (deltaX > 70 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
-                    return true;
-                  }
-                });
+        <StImgWrapper ref={ref}>
+          <StImgUl
+            currentIdx={currentIdx}
+            dragItemWidth={275}
+            transX={transX}
+            {...picmeSliderEvent({
+              onDragChange: (deltaX) => {
+                setTransX(modifySliderRange(deltaX, -width, width));
+              },
+              onDragEnd: (deltaX) => {
+                const maxIndex = ImgList.length - 1;
+                Array(2)
+                  .fill(0)
+                  .map((v, i) => 2 - i)
+                  .some((num) => {
+                    if (deltaX < -162 * num) {
+                      setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
+                      return true;
+                    }
+                    if (deltaX > 162 * num) {
+                      setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
+                      return true;
+                    }
+                  });
 
-              setTransX(0);
-            },
-          })}>
-          <li>
-            <img src={ImgSiru} alt="투표현황 사진" />
-          </li>
-          <li>
-            <img src={ImgSiru} alt="투표현황 사진" />
-          </li>
-          {/* {ImgList.map((menu, idx) =>
-            idx !== currentIdx ? (
-              <li key={idx} className="select_item">
-                {menu}
+                setTransX(0);
+              },
+            })}>
+            {pictureUrl.map((url, idx) => (
+              <li key={idx}>
+                {currentIdx === idx ? (
+                  <StSelectedImg src={url} alt="선택된" />
+                ) : (
+                  <StUnselectedImg src={url} alt="선택되지 않은 사진" />
+                )}
               </li>
-            ) : (
-              <li key={idx}>{menu}</li>
-            ),
-          )} */}
-        </StImgUl>
+            ))}
+          </StImgUl>
+        </StImgWrapper>
+        <StDotWrapper>
+          {currentIdx === 0 ? (
+            <>
+              <StSelectedDot />
+              <StUnselectedDot />
+            </>
+          ) : (
+            <>
+              <StUnselectedDot />
+              <StSelectedDot />
+            </>
+          )}
+        </StDotWrapper>
         <IcVoteShareBtn onClick={handleGoShare} />
-        <StCompleteVoteBtn>투표 마감</StCompleteVoteBtn>
+        <StCompleteVoteBtn onClick={deleteCurrentVoteData}>투표 마감</StCompleteVoteBtn>
       </CurrentVoteDetailWrapper>
     </>
   );
@@ -93,38 +127,24 @@ const CurrentVoteDetailWrapper = styled.section`
   justify-content: center;
   align-items: center;
 
+  width: 100%;
+
   overflow: hidden;
 
-  & > span {
-    ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  }
-
-  & > h1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    margin-top: 0.8rem;
-
-    width: 34.6rem;
-    height: 5.6rem;
-
-    ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22}
-  }
+  padding-left: 2rem;
+  padding-right: 2rem;
 
   & > svg {
     position: fixed;
 
-    top: 56rem;
-    left: 32.8rem;
+    top: 62vh;
+    left: 75%;
 
     cursor: pointer;
   }
 `;
 
-const StVoteStatus = styled.div`
+const StVoteStatus = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -154,12 +174,18 @@ const StVoteStatus = styled.div`
   }
 `;
 
+const StImgWrapper = styled.article`
+  width: 100vw;
+
+  padding-left: 2rem;
+  padding-right: 2rem;
+`;
+
 const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
   display: flex;
   gap: 1.3rem;
 
-  padding-left: 2rem;
-  width: 43rem;
+  padding-right: 2rem;
 
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
@@ -167,28 +193,50 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
     `};
   ${({ transX }) =>
     css`
-      transition: transform ${transX ? 0 : 200}ms ease-in -out 3s;
+      transition: transform ${transX ? 0 : 200}ms ease-in -out 0s;
     `};
-  /* & > .select_item {
-    opacity: 0.5;
-  } */
+`;
 
-  & > li > img {
-    margin-top: 1.9rem;
+const StSelectedImg = styled.img`
+  margin-top: 1.9rem;
 
-    width: 32.5rem;
-    height: 43.4rem;
+  width: 32.5rem;
+  height: 43.4rem;
 
-    border-radius: 1.2rem;
-  }
+  border-radius: 1.2rem;
+`;
+
+const StUnselectedImg = styled(StSelectedImg)`
+  opacity: 0.5;
+`;
+
+const StDotWrapper = styled.section`
+  display: flex;
+  gap: 0.8rem;
+
+  margin-top: 1.9rem;
+`;
+
+const StDotStructure = styled.div`
+  width: 0.8rem;
+  height: 0.8rem;
+
+  border-radius: 50rem;
+`;
+
+const StSelectedDot = styled(StDotStructure)`
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+`;
+
+const StUnselectedDot = styled(StDotStructure)`
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 `;
 
 const StCompleteVoteBtn = styled.button`
-  width: 39rem;
+  width: 100%;
   height: 6rem;
 
-  margin-top: 4.7rem;
-  padding: 0;
+  margin: 2rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};

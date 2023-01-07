@@ -18,7 +18,7 @@ const Share = () => {
   };
 
   const handleDeepLink = () => {
-    window.location.replace('instagram://');
+    window.location.replace('instagram://share');
   };
 
   const handleGoHome = () => {
@@ -44,7 +44,7 @@ const Share = () => {
         </StShareInfo>
         <StCaptureScreen>
           <p>* 하단 화면을 캡쳐해서 SNS 공유에서 사용하세요!</p>
-          <ImgShareCapture />
+          <img src={ImgShareCapture} />
         </StCaptureScreen>
         <StBtnLayout>
           <StGoInstagramBtn type="button" onClick={handleDeepLink}>
@@ -65,7 +65,14 @@ const StShareWrapper = styled.section`
 `;
 
 const StShareTitle = styled.header`
-  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+
+  padding-left: 2rem;
+  padding-right: 2rem;
 
   & > h1 {
     ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
@@ -84,7 +91,11 @@ const StShareInfo = styled.article`
   display: flex;
   align-items: center;
 
-  margin: 2rem 0 0 2rem;
+  width: 100%;
+
+  margin-top: 3.9rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 
   & > input {
     width: 31.9rem;
@@ -128,10 +139,14 @@ const StCaptureScreen = styled.article`
   margin-top: 3.9rem;
 
   & > p {
-    margin: 2rem;
-
     ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  }
+
+  & > img {
+    margin-top: 2rem;
+
+    width: 100%;
   }
 `;
 
@@ -142,12 +157,16 @@ const StBtnLayout = styled.article`
   align-items: center;
   gap: 1rem;
 
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
   margin-top: 3.867rem;
   padding-bottom: 12.7rem;
 `;
 
 const StBtnStructure = styled.button`
-  width: 39rem;
+  width: 100%;
   height: 6rem;
 
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
@@ -167,14 +186,14 @@ const StGoHomeBtn = styled(StBtnStructure)`
 `;
 
 const StShareModal = styled.div`
-  position: fixed;
-
-  top: 80.8rem;
-  left: 9.5rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+
+  top: 80%;
+  left: 50vw;
+  transform: translateX(-50%);
 
   width: 24.8rem;
   height: 4.8rem;
@@ -184,4 +203,8 @@ const StShareModal = styled.div`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
 
   border-radius: 4.6rem;
+
+  /* animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: fadeOut; */
 `;

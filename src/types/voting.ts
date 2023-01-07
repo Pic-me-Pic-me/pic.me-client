@@ -23,3 +23,22 @@ export interface StickerInfo {
   location: string;
   emoji: number;
 }
+
+export interface VoteInfoProps {
+  voteId?: number;
+  voteStatus?: boolean;
+  voteTitle?: string;
+  createDate?: Date;
+}
+
+export interface PictureProps {
+  id: number;
+  url: string;
+  count: number;
+}
+
+export interface StickerProps {
+  stickerLocation: string;
+  emoji: number;
+  count: number;
+}
