@@ -7,7 +7,6 @@ import { Ballon } from '../../asset/image';
 import { VoteProps } from '../../types/vote';
 
 const VoteLanding = ({ vote }: VoteProps) => {
-  const { voteTitle, userName } = vote;
   const navigate = useNavigate();
 
   const handleGoToVoting = () => {
@@ -22,13 +21,13 @@ const VoteLanding = ({ vote }: VoteProps) => {
       <StModal>
         <StTitle>
           <div>
-            <h1>“{voteTitle}“</h1>
+            <h1>“{vote?.voteTitle}“</h1>
           </div>
         </StTitle>
         <StContent>
           <IcModalBG />
           <StDescription>
-            <p>{userName}님의 사진</p>
+            <p>{vote?.userName}님의 사진</p>
             <p>2개 중 1개를 골라주세요!</p>
           </StDescription>
         </StContent>

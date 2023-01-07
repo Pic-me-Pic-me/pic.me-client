@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import { FinishedLanding, VoteLanding } from '../components/Landing';
 import { getVoteData } from '../lib/api/playerLanding';
-import { VoteInfo } from '../types/vote';
+import { VoteData } from '../types/vote';
 
 const PlayerLanding = () => {
-  const [isFinished, setIsFinished] = useState<boolean>(false);
-  const [vote, setVote] = useState<VoteInfo>();
+  const [vote, setVote] = useState<VoteData>();
 
   const { voteId } = useParams<{ voteId: string }>();
 
@@ -19,13 +18,13 @@ const PlayerLanding = () => {
     if (voteId) {
       const data = await getVoteData(Number(voteId));
       if (data) {
-        setIsFinished(true);
-        setVote(data.data);
-        console.log(data.data);
+        setVote(data);
+        console.log(data);
       }
     }
   };
-  return <>{vote ? isFinished ? <FinishedLanding vote={vote} /> : <VoteLanding vote={vote} /> : null}</>;
+
+  return vote?.status === 400 ? <FinishedLanding vote={vote.data} /> : <VoteLanding vote={vote?.data} />;
 };
 
 export default PlayerLanding;

@@ -1,6 +1,6 @@
 export interface VoteData {
   status: number;
-  data: VoteInfo;
+  data?: VoteInfo;
 }
 
 export interface VoteInfo {
@@ -17,5 +17,5 @@ export interface PictureData {
 }
 
 export interface VoteProps {
-  vote: VoteInfo;
+  vote?: VoteInfo;
 }

@@ -6,7 +6,7 @@ import { Ballon } from '../../asset/image';
 import { VoteProps } from '../../types/vote';
 
 const FinishedLanding = ({ vote }: VoteProps) => {
-  const title = `\"${vote.voteTitle}\"`;
+  const title = `\"${vote?.voteTitle}\"`;
   const navigate = useNavigate();
 
   const handleGoToLanding = () => {
@@ -129,5 +129,7 @@ const StButtonWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+
+    cursor: pointer;
   }
 `;
