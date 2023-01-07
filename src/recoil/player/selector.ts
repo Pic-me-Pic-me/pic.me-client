@@ -1,8 +1,11 @@
-import { selector } from 'recoil';
+import { selector, selectorFamily } from 'recoil';
 
 import { votingInfoState } from './atom';
 
-export const pictureSelector = selector({
+export const pictureSelector = selectorFamily({
   key: 'pictureSelector',
-  get: ({ get }) => get(votingInfoState).picture.find((pictureInfo) => pictureInfo.isSelect),
+  get:
+    (pictureId: number) =>
+    ({ get }) =>
+      get(votingInfoState).Picture.find((info) => info.id === pictureId),
 });
