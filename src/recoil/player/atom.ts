@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
+import { PictureId1, PictureId2 } from '../../asset/image';
 import { StickerInfo, VotingInfo } from './../../types/voting';
 
 //페이지가 변경되더라도 상태관리를 유지
@@ -14,8 +15,8 @@ export const votingInfoState = atom<VotingInfo>({
     vote_status: false,
     vote_title: '',
     Picture: [
-      { id: 1, url: '' },
-      { id: 2, url: '' },
+      { id: 1, url: PictureId1 },
+      { id: 2, url: PictureId2 },
     ],
   },
   effects_UNSTABLE: [persistAtom],
