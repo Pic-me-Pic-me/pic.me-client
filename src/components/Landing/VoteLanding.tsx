@@ -1,47 +1,39 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcModalBG } from '../../asset/icon';
 import { Ballon } from '../../asset/image';
-// import { VoteInfo } from '../../lib/api/playerLanding';
-
-export interface VoteInfo {
-  // username: string;
-  vote_id: number;
-  vote_status: boolean;
-  vote_title: string;
-  Picture: PictureData[];
-}
-
-export interface PictureData {
-  picture_id: number;
-  url: string;
-}
-
-interface VoteProps {
-  vote: VoteInfo;
-}
+import { VoteProps } from '../../types/vote';
 
 const VoteLanding = ({ vote }: VoteProps) => {
-  const { vote_title } = vote;
+  const { voteTitle, userName } = vote;
+  const navigate = useNavigate();
+
+  const handleGoToLanding = () => {
+    navigate('/makerlanding');
+  };
+
   return (
     <StModalWrapper>
       <StModal>
         <StTitle>
           <div>
-            <h1>“{vote_title}“</h1>
+            <h1>“{voteTitle}“</h1>
           </div>
         </StTitle>
         <StContent>
           <IcModalBG />
           <StDescription>
-            <p>지윤님의 사진</p>
+            <p>{userName}님의 사진</p>
             <p>2개 중 1개를 골라주세요!</p>
           </StDescription>
         </StContent>
         <StButtonWrapper>
           <button type="button">익명 투표 시작하기</button>
-          <button type="button">홈으로 가기</button>
+          <button type="button" onClick={handleGoToLanding}>
+            홈으로 가기
+          </button>
         </StButtonWrapper>
       </StModal>
     </StModalWrapper>
@@ -148,7 +140,6 @@ const StButtonWrapper = styled.div`
   align-items: center;
   gap: 0.7rem;
 
-  /* padding: 0rem 1.9rem 2.3rem 1.8rem; */
   width: 100%;
 
   & > button {
@@ -160,6 +151,8 @@ const StButtonWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+
+    cursor: pointer;
 
     :last-child {
       background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};

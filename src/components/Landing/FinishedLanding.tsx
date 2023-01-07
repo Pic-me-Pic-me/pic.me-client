@@ -1,25 +1,38 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Ballon } from '../../asset/image';
+import { VoteProps } from '../../types/vote';
 
-const FinishedLanding = () => (
-  <StModalWrapper>
-    <StModal>
-      <StTitle>
-        <div>
-          <h1>“얘들아 다 이얘들아 다 이dddd얘들아 다 이“</h1>
-        </div>
-      </StTitle>
-      <StDescription>
-        <p>이 투표는 마감되었습니다!</p>
-      </StDescription>
-      <StButtonWrapper>
-        <button type="button">Pic.me! 에서 내 투표 만들기</button>
-      </StButtonWrapper>
-    </StModal>
-  </StModalWrapper>
-);
+const FinishedLanding = ({ vote }: VoteProps) => {
+  const { voteTitle } = vote;
+  const navigate = useNavigate();
+
+  const handleGoToLanding = () => {
+    navigate('/makerlanding');
+  };
+
+  return (
+    <StModalWrapper>
+      <StModal>
+        <StTitle>
+          <div>
+            <h1>“{voteTitle}“</h1>
+          </div>
+        </StTitle>
+        <StDescription>
+          <p>이 투표는 마감되었습니다!</p>
+        </StDescription>
+        <StButtonWrapper>
+          <button type="button" onClick={handleGoToLanding}>
+            Pic.me! 에서 내 투표 만들기
+          </button>
+        </StButtonWrapper>
+      </StModal>
+    </StModalWrapper>
+  );
+};
 
 export default FinishedLanding;
 
