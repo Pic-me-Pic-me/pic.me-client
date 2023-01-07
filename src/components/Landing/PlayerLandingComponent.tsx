@@ -8,7 +8,7 @@ const PlayerLandingComponent = () => (
   <StModalWrapper>
     <StModal>
       <StTitle>
-        <h1>“얘들아 다 이쁘다“</h1>
+        <h1>“얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다얘들아 다 이쁘다“</h1>
       </StTitle>
       <StContent>
         <IcModalBG />
@@ -66,15 +66,23 @@ const StModal = styled.div`
 const StTitle = styled.header`
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   height: 7.651rem;
 
   background: url(${Ballon});
   background-position: center;
   background-repeat: no-repeat;
-  /* background-size: contain; */
+
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}; // Caption2로 바꿔야함!!
+
+  & > h1 {
+    display: flex;
+    align-items: center;
+
+    padding: 0rem 10.4rem;
+    height: 5.386rem;
+  }
   & > svg {
     width: 21.2rem;
     height: 7.651rem;
