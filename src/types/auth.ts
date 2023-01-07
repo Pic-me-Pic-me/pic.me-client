@@ -11,3 +11,8 @@ export interface LoginType {
   user_id: number;
   provider_type: string;
 }
+
+export interface LoginInfo {
+  email: string;
+  password: string;
+}
