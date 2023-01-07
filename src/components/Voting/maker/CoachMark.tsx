@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { IcHand, IcMoveCrop } from '../../../asset/icon';
 
-const GuidePopUp = () => (
+const CoachMark = () => (
   <StGuidePopUpWrapper>
     <IcHand />
     <IcMoveCrop />
@@ -12,7 +12,7 @@ const GuidePopUp = () => (
   </StGuidePopUpWrapper>
 );
 
-export default GuidePopUp;
+export default CoachMark;
 
 const StGuidePopUpWrapper = styled.div`
   display: flex;

@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { votingImageState } from '../../../recoil/maker/atom';
-import GuidePopUp from './GuidePopUp';
+import CoachMark from './CoachMark';
 
 interface ImageCropProps {
   firstCrop: boolean;
@@ -32,16 +32,12 @@ const ImageCrop = (props: ImageCropProps) => {
   }, []);
 
   const handleChangeImage = () => {
-    if (firstCrop === true) {
-      setImage(imageUrl.firstImageUrl);
-    } else {
-      setImage(imageUrl.secondImageUrl);
-    }
+    firstCrop ? setImage(imageUrl.firstImageUrl) : setImage(imageUrl.secondImageUrl);
   };
 
   return (
     <>
-      {isOpenPop && <GuidePopUp />}
+      {isOpenPop && <CoachMark />}
       <StImageCropWrapper>
         <StImageCropContainer>
           <Cropper

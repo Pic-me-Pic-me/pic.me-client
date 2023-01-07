@@ -26,10 +26,11 @@ const StTitleInputWrapper = styled.div`
 `;
 const StTitleInput = styled.textarea`
   width: 32.7rem;
-  height: 5.6rem;
 
   border: none;
   outline: none;
+
+  text-align: center;
 
   ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_SemiBold_22}
 

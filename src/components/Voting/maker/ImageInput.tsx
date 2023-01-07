@@ -1,10 +1,10 @@
-import imageCompression from 'browser-image-compression';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
 import { votingImageState } from '../../../recoil/maker/atom';
+import { setImgCompress } from '../../../utils/setImgCompress';
 
 type ToggleProps = {
   firstToggle: boolean;
@@ -32,25 +32,10 @@ const ImageInput = (props: ImageInputProps) => {
     handleCheckImageObj();
   }, [title, votingForm]);
 
-  const handleActionImgCompress = async (fileSrc: File) => {
-    const options = {
-      maxSizeMB: 0.2,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
-    };
-    try {
-      const compressedFile = await imageCompression(fileSrc, options);
-      return compressedFile;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleReadFileUrl = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileBlob = e.target.files[0];
-      const compressedImg = await handleActionImgCompress(fileBlob);
-
+      const compressedImg = await setImgCompress(fileBlob);
       const reader = new FileReader();
       if (compressedImg) {
         reader.readAsDataURL(compressedImg);

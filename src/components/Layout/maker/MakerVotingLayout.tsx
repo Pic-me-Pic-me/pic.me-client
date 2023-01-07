@@ -1,4 +1,3 @@
-import imageCompression from 'browser-image-compression';
 import { useCallback, useState } from 'react';
 import { Area } from 'react-easy-crop/types';
 import { useNavigate } from 'react-router-dom';
@@ -6,13 +5,17 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose } from '../../../asset/icon';
+import useModal from '../../../lib/hooks/useModal';
 import { votingImageState } from '../../../recoil/maker/atom';
-import setCroppedImg from '../../../utils/setCroppedImg';
+import { setCroppedImg } from '../../../utils/setCroppedImg';
 import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
+import { setImgCompress } from '../../../utils/setImgCompress';
+import Modal from '../../common/Modal';
 import { ImageCrop, ImageInput, TitleInput } from '../../Voting/maker';
 import HeaderLayout from '../HeaderLayout';
 
 const MakerVotingLayout = () => {
+  const { isShowing, toggle } = useModal();
   const navigate = useNavigate();
 
   const [isCropToggle, setIsCropToggle] = useState({
@@ -36,20 +39,6 @@ const MakerVotingLayout = () => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  const handleActionImgCompress = async (fileSrc: File) => {
-    const options = {
-      maxSizeMB: 0.2,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
-    };
-    try {
-      const compressedFile = await imageCompression(fileSrc, options);
-      return compressedFile;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleShowCroppedImage = useCallback(async () => {
     if (firstCrop) {
       try {
@@ -57,7 +46,7 @@ const MakerVotingLayout = () => {
         if (crop) {
           const baseToFile = setDataURLtoFile(crop, 'file') as File;
           const reader = new FileReader();
-          const compressedImg = (await handleActionImgCompress(baseToFile)) as File;
+          const compressedImg = (await setImgCompress(baseToFile)) as File;
           reader.readAsDataURL(compressedImg);
           reader.onloadend = () => {
             const base64data = reader.result as string;
@@ -76,7 +65,7 @@ const MakerVotingLayout = () => {
         if (crop) {
           const baseToFile = setDataURLtoFile(crop, 'file') as File;
           const reader = new FileReader();
-          const compressedImg = (await handleActionImgCompress(baseToFile)) as File;
+          const compressedImg = (await setImgCompress(baseToFile)) as File;
           reader.readAsDataURL(compressedImg);
           reader.onloadend = () => {
             const base64data = reader.result as string;
@@ -103,18 +92,21 @@ const MakerVotingLayout = () => {
   const handleCropImageToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLInputElement;
     if (target) {
-      if (target.value === 'firstCrop') {
-        setIsCropToggle({ firstCrop: !firstCrop, secondCrop: false });
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      } else {
-        setIsCropToggle({ firstCrop: false, secondCrop: !secondCrop });
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+      switch (target.value) {
+        case 'firstCrop':
+          setIsCropToggle({ firstCrop: !firstCrop, secondCrop: false });
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+          break;
+        case 'secondCrop':
+          setIsCropToggle({ firstCrop: false, secondCrop: !secondCrop });
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+          break;
       }
     }
   };
@@ -122,10 +114,13 @@ const MakerVotingLayout = () => {
   const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLInputElement;
     if (target) {
-      if (target.value === 'firstModify') {
-        setIsToggle({ ...isToggle, firstToggle: !firstToggle });
-      } else {
-        setIsToggle({ ...isToggle, secondToggle: !secondToggle });
+      switch (target.value) {
+        case 'firstModify':
+          setIsToggle({ ...isToggle, firstToggle: !firstToggle });
+          break;
+        case 'secondModify':
+          setIsToggle({ ...isToggle, secondToggle: !secondToggle });
+          break;
       }
     }
   };
@@ -136,7 +131,13 @@ const MakerVotingLayout = () => {
 
   return (
     <>
-      <HeaderLayout HeaderTitle="투표만들기" handleGoback={handlePrevPage} />
+      <Modal
+        isShowing={isShowing}
+        message="이 페이지를 나가면 저장되지 않습니다"
+        handleHide={toggle}
+        handleConfirm={handlePrevPage}
+      />
+      <HeaderLayout HeaderTitle="투표만들기" handleGoback={() => toggle()} />
       {(firstCrop || secondCrop) && (
         <StImageCropLayoutWrapper>
           <StHeader>
@@ -190,7 +191,7 @@ const StImageCropLayoutWrapper = styled.div`
   height: 85rem;
   padding: 7.5rem 3.1rem 13.3rem 3.1rem;
 
-  backdrop-filter: blur(70px);
+  backdrop-filter: blur(7rem);
 
   z-index: 100;
 `;
@@ -236,7 +237,7 @@ const StCropBtn = styled.button`
 
   border: none;
   border-radius: 0.9rem;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
 
