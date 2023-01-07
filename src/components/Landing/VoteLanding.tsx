@@ -41,8 +41,7 @@ const StModalWrapper = styled.div`
 
   width: 100%;
   height: 100%;
-  padding-left: 4.2rem;
-  padding-right: 4.2rem;
+  padding: 0rem 4.2rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   background: rgba(0, 0, 0, 0.7);
@@ -56,9 +55,7 @@ const StModal = styled.div`
 
   width: 100%;
   height: 54.8rem;
-  padding-top: 4.9rem;
-  padding-left: 4.2rem;
-  padding-right: 4.2rem;
+  padding: 4.9rem 1.8rem 0rem 1.8rem;
   margin: auto;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};

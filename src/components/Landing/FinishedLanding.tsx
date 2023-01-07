@@ -45,16 +45,12 @@ const StModalWrapper = styled.div`
 
 const StModal = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 
   width: 100%;
   height: 28.8rem;
-  padding-top: 4.9rem;
-  padding-left: 4.2rem;
-  padding-right: 4.2rem;
-  margin: auto;
+  padding: 4.9rem 1.8rem 0rem 1.8rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
   border-radius: 1rem;

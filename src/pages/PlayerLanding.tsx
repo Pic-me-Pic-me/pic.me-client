@@ -8,6 +8,7 @@ const PlayerLanding = () => {
   return (
     <>
       <VoteLanding />
+      <FinishedLanding />
     </>
   );
 };
