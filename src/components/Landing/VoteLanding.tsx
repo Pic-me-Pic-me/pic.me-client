@@ -10,6 +10,9 @@ const VoteLanding = ({ vote }: VoteProps) => {
   const { voteTitle, userName } = vote;
   const navigate = useNavigate();
 
+  const handleGoToVoting = () => {
+    navigate('/voting');
+  };
   const handleGoToLanding = () => {
     navigate('/makerlanding');
   };
@@ -30,7 +33,9 @@ const VoteLanding = ({ vote }: VoteProps) => {
           </StDescription>
         </StContent>
         <StButtonWrapper>
-          <button type="button">익명 투표 시작하기</button>
+          <button type="button" onClick={handleGoToVoting}>
+            익명 투표 시작하기
+          </button>
           <button type="button" onClick={handleGoToLanding}>
             홈으로 가기
           </button>

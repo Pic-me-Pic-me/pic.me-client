@@ -6,7 +6,7 @@ import { Ballon } from '../../asset/image';
 import { VoteProps } from '../../types/vote';
 
 const FinishedLanding = ({ vote }: VoteProps) => {
-  const { voteTitle } = vote;
+  const title = `\"${vote.voteTitle}\"`;
   const navigate = useNavigate();
 
   const handleGoToLanding = () => {
@@ -18,7 +18,7 @@ const FinishedLanding = ({ vote }: VoteProps) => {
       <StModal>
         <StTitle>
           <div>
-            <h1>“{voteTitle}“</h1>
+            <h1>{title}</h1>
           </div>
         </StTitle>
         <StDescription>
