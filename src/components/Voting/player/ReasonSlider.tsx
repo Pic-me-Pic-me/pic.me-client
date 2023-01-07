@@ -1,7 +1,9 @@
+import Lottie from 'lottie-react';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu } from '../../../asset/icon';
+import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu, IcSelectRound } from '../../../asset/icon';
+import { Angle, Face, Just, Mood } from '../../../asset/lottie';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
@@ -10,15 +12,20 @@ const ReasonSlider = () => {
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
 
+  const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = [
-    <IcFaceMenu key="face" />,
-    <IcAngleMenu key="angle" />,
-    <IcBackgroundMenu key="background" />,
-    <IcJustMenu key="just" />,
+    <div key="hidden_angle" className="hidden">
+      empty div
+    </div>,
+    <IcFaceMenu className="menu" key="face" />,
+    <IcAngleMenu className="menu" key="angle" />,
+    <IcBackgroundMenu className="menu" key="background" />,
+    <IcJustMenu className="menu" key="just" />,
   ];
+  const navIconRenderList = Array(4).fill(0);
 
   return (
-    <>
+    <StReasonSliderWrapper>
       <StDragWReasonWrapper ref={ref}>
         <StDragWReasonUl
           currentIdx={currentIdx}
@@ -48,44 +55,90 @@ const ReasonSlider = () => {
             },
           })}>
           {menuIconList.map((menu, idx) =>
-            idx !== currentIdx ? (
-              <li key={idx} className="select_item">
+            idx === 0 ? (
+              <li key={idx} className="unselect_item">
                 {menu}
               </li>
+            ) : idx !== currentIdx + 1 ? (
+              <li key={idx} className="unselect_item">
+                <div className="lotte">{menu}</div>
+              </li>
             ) : (
-              <li key={idx}>{menu}</li>
+              <li key={idx}>
+                <Lottie className="lotte" animationData={lottieList[idx]} loop={false}>
+                  {menu}
+                </Lottie>
+              </li>
             ),
           )}
         </StDragWReasonUl>
       </StDragWReasonWrapper>
-    </>
+      <StSelectRoundNav>
+        {navIconRenderList.map((_, idx) =>
+          idx === currentIdx ? (
+            <IcSelectRound key={`select_round_nav${idx}`} fill="#FF5D5D" />
+          ) : (
+            <IcSelectRound key={`unselect_round_nav1${idx}`} fill="#E8EBEF" />
+          ),
+        )}
+      </StSelectRoundNav>
+    </StReasonSliderWrapper>
   );
 };
 
 export default ReasonSlider;
-
-const StDragWReasonWrapper = styled.section`
-  width: 100%;
-  height: 18rem;
+const StReasonSliderWrapper = styled.section`
+  position: absolute;
+  top: 45rem;
+  width: 43rem;
+`;
+const StDragWReasonWrapper = styled.article`
   overflow: hidden;
-
-  position: relative;
 `;
 const StDragWReasonUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
   display: flex;
-  position: absolute;
-  left: 12rem;
 
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
-      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10}rem);
+      transform: translateX(${(-currentIdx * (dragItemWidth + 28) + transX) / 10}rem);
     `};
   ${({ transX }) =>
     css`
       transition: transform ${transX ? 0 : 200}ms ease-in -out 0s;
     `};
+  .lotte {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
-  & > .select_item {
-    opacity: 0.5;
+    width: 19.6rem;
+    height: 19.6rem;
+    & > svg.menu {
+      position: absolute;
+      top: 14rem;
+
+      z-index: 10;
+    }
   }
+  & > .unselect_item {
+    opacity: 0.5;
+    & > .hidden {
+      width: 12rem;
+      height: 4.8rem;
+
+      background-color: #ddaadd;
+
+      visibility: hidden;
+    }
+  }
+`;
+
+const StSelectRoundNav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  gap: 0.8rem;
 `;
