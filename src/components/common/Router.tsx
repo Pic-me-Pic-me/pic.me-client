@@ -9,7 +9,6 @@ import MakerLanding from '../../pages/MakerLanding';
 import { PictureVoting, ReasonVoting, StickerAttachment } from '../../pages/player';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
-import Voting from '../../pages/Voting';
 
 const Router = () => (
   <BrowserRouter>
@@ -21,7 +20,6 @@ const Router = () => (
         <Route path="/signup" element={<Signup />} />
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
-        <Route path="/voting" element={<Voting />} />
         <Route path="/player">
           <Route path="picture_voting/:voteid" element={<PictureVoting />} />
           <Route path="reason_voting" element={<ReasonVoting />} />
