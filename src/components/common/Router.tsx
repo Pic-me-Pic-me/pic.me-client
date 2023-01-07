@@ -18,7 +18,8 @@ const Router = () => (
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/playerlanding" element={<PlayerLanding />} />
+        {/* <Route path="/playerlanding" element={<PlayerLanding />} /> */}
+        <Route path="/vote/:voteId" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
         <Route path="/voting" element={<Voting />} />
         <Route path="*" element={<Error404 />} />
