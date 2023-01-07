@@ -2,9 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { IcHeaderLogo } from '../../asset/icon';
-import { HeaderLayout } from '../../components/Layout';
-import { VotingLayout } from '../../components/Layout/player';
+import { IcHeaderSecond } from '../../asset/icon';
+import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { ReasonSlider } from '../../components/Voting/player';
 import { postStickerData } from '../../lib/api/voting';
 import { stickerInfoState } from '../../recoil/player/atom';
@@ -27,8 +26,8 @@ const ReasonVoting = () => {
     navigate('/player/picture_voting');
   };
   return (
-    <>
-      <HeaderLayout HeaderTitle={<IcHeaderLogo />} handleGoback={handlePrevpage} />
+    <div>
+      <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderSecond />} />
       <VotingLayout
         votingTitle="사진을 선택한 이유를 골라주세요"
         btnTitle="이 사진으로 하기"
@@ -41,7 +40,7 @@ const ReasonVoting = () => {
           </StReasonVotingWrpper>
         }
       </VotingLayout>
-    </>
+    </div>
   );
 };
 

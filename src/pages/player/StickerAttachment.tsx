@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import { IcHeaderLogo } from '../../asset/icon';
-import { HeaderLayout } from '../../components/Layout';
-import { VotingLayout } from '../../components/Layout/player';
+import { IcHeaderLast, IcHeaderLogo } from '../../asset/icon';
+import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import StickerVoting from '../../components/Voting/player/StickerVoting';
 import { postStickerData } from '../../lib/api/voting';
 import { stickerInfoState } from '../../recoil/player/atom';
@@ -26,8 +25,8 @@ const StickerAttachment = () => {
     navigate('/player/picture_voting');
   };
   return (
-    <>
-      <HeaderLayout HeaderTitle={<IcHeaderLogo />} handleGoback={handlePrevpage} />
+    <div>
+      <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderLast />} />
       <VotingLayout
         votingTitle="그 이유를 사진에 스티커로 표현해보세요!"
         btnTitle="투표 완료하기"
@@ -35,7 +34,7 @@ const StickerAttachment = () => {
         handlePlayer={handleVotingSuccess}>
         {<StickerVoting />}
       </VotingLayout>
-    </>
+    </div>
   );
 };
 

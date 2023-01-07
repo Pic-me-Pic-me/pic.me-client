@@ -89,7 +89,7 @@ const ReasonSlider = () => {
 export default ReasonSlider;
 const StReasonSliderWrapper = styled.section`
   position: absolute;
-  top: 45rem;
+  top: 42.6rem;
   width: 43rem;
 `;
 const StDragWReasonWrapper = styled.article`
