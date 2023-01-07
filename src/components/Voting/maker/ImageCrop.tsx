@@ -20,8 +20,8 @@ const ImageCrop = (props: ImageCropProps) => {
   const [isOpenPop, setIsOpenPop] = useState(true);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [image, setImage] = useState('');
-  const imageUrl = useRecoilValue(votingImageState);
   const [zoom, setZoom] = useState(1);
+  const imageUrl = useRecoilValue(votingImageState);
 
   useEffect(() => {
     handleChangeImage();
