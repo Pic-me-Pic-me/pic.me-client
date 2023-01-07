@@ -42,7 +42,7 @@ const StHomeNav = styled.nav`
   left: 0;
   z-index: 1;
 
-  width: 100%;
+  width: 43rem;
   height: 8.8rem;
   padding: 2.7rem 0rem 0.7rem 1.8rem;
 

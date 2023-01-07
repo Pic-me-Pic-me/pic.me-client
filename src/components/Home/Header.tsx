@@ -36,7 +36,6 @@ const StGuideBtn = styled.button`
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
   height: 7.4rem;
   padding: 2.8rem 2.9rem 2.7rem 2.4rem;
 

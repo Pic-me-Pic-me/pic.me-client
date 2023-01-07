@@ -21,12 +21,11 @@ const VoteList = () => {
     const newData = await getCurrentVoteData();
 
     if (newData) {
-      // newData?.map((datas, i)=>(
-      // newDataList.push(datas);
-      // newDataList = (dataList.
-      // setItemIndex((i) => i + 1);
-      // ));
-      // setDataList([...dataList, newData]);
+      newData.forEach((data) => {
+        newDataList.push(data);
+        setItemIndex((i) => i + 1);
+      });
+      setDataList(newData);
     }
     console.log(newData);
     setIsLoaded(false);
@@ -49,9 +48,9 @@ const VoteList = () => {
 
   return (
     <>
+      <StCurrentVote>현재 진행중인 투표</StCurrentVote>
       {dataList ? (
         <StVoteListWrapper>
-          <h1>현재 진행중인 투표</h1>
           {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
           ))}
@@ -69,17 +68,20 @@ const VoteList = () => {
 
 export default VoteList;
 
+const StCurrentVote = styled.h1`
+  margin: 5.1rem 0rem 1.3rem 2.1rem;
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
+`;
+
 const StVoteListWrapper = styled.main`
+  display: flex;
+  overflow-x: scroll;
+
+  height: 15.4rem;
   margin-left: 2.1rem;
-  margin-top: 5.1rem;
 
   cursor: pointer;
-
-  > h1 {
-    margin: 0rem 0rem 1.3rem 0rem;
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
-  }
 `;
 
 const StEmptyView = styled.main`
