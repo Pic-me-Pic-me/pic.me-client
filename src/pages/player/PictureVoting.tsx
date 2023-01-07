@@ -12,12 +12,12 @@ import { votingInfoState } from '../../recoil/player/atom';
 
 const PictureVoting = () => {
   const { voteid } = useParams();
+  const navigate = useNavigate();
   const { votingInfo, isLoading, isError } = useGetVotingInfo(Number(voteid));
   const [votingInfoAtom, setVotingInfoState] = useRecoilState(votingInfoState);
 
   // const r = useResetRecoilState(votingInfoState);
   // r();
-  const navigate = useNavigate();
   const handleVotingSuccess = async () => {
     navigate('/player/reason_voting');
   };
@@ -26,7 +26,13 @@ const PictureVoting = () => {
   };
   useEffect(() => {
     if (votingInfo?.data.data) {
-      setVotingInfoState(votingInfo.data.data);
+      const newVoting = votingInfo.data.data;
+      setVotingInfoState({
+        ...votingInfoAtom,
+        vote_id: newVoting.vote_id,
+        vote_status: newVoting.vote_status,
+        vote_title: newVoting.vote_title,
+      });
     }
   }, []);
 
