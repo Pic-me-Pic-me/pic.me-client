@@ -1,12 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { KakaoLoginBtn, LoginBanner } from '../../asset/image';
+import { IcPickmeLogo } from '../../asset/icon';
+import { KakaoLoginBtn } from '../../asset/image';
 
 const Login = () => (
   <>
     <StBannerWrapper>
-      <img src={LoginBanner} alt="로그인 배너" />
+      <IcPickmeLogo />
     </StBannerWrapper>
     <StWhiteSection>
       <StContainer>
@@ -33,12 +34,115 @@ const Login = () => (
 
 export default Login;
 
+const StBannerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  position: absolute;
+  top: 0;
+  z-index: -1;
+
+  width: 100%;
+  height: 22.9rem;
+
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+
+  > svg {
+    position: absolute;
+    top: 6.8rem;
+  }
+`;
+
+const StWhiteSection = styled.section`
+  width: 100%;
+  padding: 4.2rem 2rem 0rem 2rem;
+  margin-top: 17.9rem;
+
+  border-radius: 1.4rem 1.4rem 0rem 0rem;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
+`;
+
+const StContainer = styled.article`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StForm = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  p:nth-child(4) {
+    margin-bottom: 4.6rem;
+  }
+`;
+
+const StTitle = styled.h2`
+  ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
+`;
+
+const StInput = styled.input`
+  width: 100%;
+  height: 6rem;
+  margin-top: 1.4rem;
+  padding-left: 1.9rem;
+
+  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border-radius: 0.6rem;
+  outline: none;
+
+  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
+
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Coral};
+  }
+`;
+
+const StInputDesc = styled.p`
+  height: 1.7rem;
+  margin-top: 1rem;
+  padding-left: 0.9rem;
+  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+`;
+
+const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
+  width: 100%;
+  height: 6rem;
+
+  border: none;
+  border-radius: 9px;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  color: white;
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+
+  ${({ isSignUp }) =>
+    isSignUp &&
+    css`
+      width: 100%;
+      padding: 0rem 0.2rem;
+      margin-top: 0.8rem;
+
+      background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    `}
+
+  & > button {
+    width: 100%;
+    height: 6rem;
+
+    & > img {
+      width: 100%;
+      height: 6rem;
+    }
+  }
+`;
+
 const StDivider = styled.div`
   display: flex;
   align-items: center;
   flex-basis: 100%;
 
-  padding: 2.4rem 2.4rem 1.6rem 2.4rem;
+  padding: 2.4rem 0rem 1.6rem 0rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
@@ -70,101 +174,20 @@ const StDivider = styled.div`
 `;
 
 const StKaKaoLogin = styled.div`
-  margin: 0 auto;
+  width: 100%;
 
-  > button {
+  & > button {
+    display: flex;
+    width: 100%;
     background: inherit;
     border: none;
+
+    & > img {
+      width: 100%;
+      height: 6rem;
+
+      border-radius: 0.9rem;
+      object-fit: cover;
+    }
   }
-`;
-
-const StBannerWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  z-index: -1;
-`;
-
-const StWhiteSection = styled.section`
-  position: fixed;
-  bottom: 0;
-
-  width: 43rem;
-  height: 75.3rem;
-
-  border-radius: 1.4rem 1.4rem 0rem 0rem;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
-`;
-
-const StContainer = styled.article`
-  display: flex;
-  flex-direction: column;
-
-  margin-top: 4.2rem;
-`;
-
-const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-
-  padding: 0rem 2rem;
-
-  p:nth-child(4) {
-    margin-bottom: 4.6rem;
-  }
-`;
-
-const StInput = styled.input`
-  width: 39rem;
-  height: 6rem;
-  margin-top: 1.4rem;
-  padding-left: 1.9rem;
-
-  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  border-radius: 0.6rem;
-  outline: none;
-
-  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
-
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Coral};
-  }
-`;
-
-const StInputDesc = styled.p`
-  height: 1.7rem;
-  margin-top: 1rem;
-  padding-left: 0.9rem;
-  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
-`;
-
-const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
-  width: 39rem;
-  height: 6rem;
-
-  margin: 0 auto;
-
-  border: none;
-  border-radius: 9px;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  color: white;
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
-
-  ${({ isSignUp }) =>
-    isSignUp &&
-    css`
-      margin-top: 0.8rem;
-      background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    `}
-
-  > img {
-    width: 39rem;
-    height: 6rem;
-  }
-`;
-
-const StTitle = styled.h2`
-  margin-top: 2rem;
-  ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
 `;
