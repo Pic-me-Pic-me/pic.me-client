@@ -32,7 +32,6 @@ const Nav = () => {
 };
 
 export default Nav;
-
 const StHomeNav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -42,9 +41,9 @@ const StHomeNav = styled.nav`
   left: 0;
   z-index: 1;
 
-  width: 43rem;
+  width: 100%;
   height: 8.8rem;
-  padding: 2.7rem 0rem 0.7rem 1.8rem;
+  padding: 2.7rem 0rem 0rem 1.8rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;

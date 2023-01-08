@@ -152,8 +152,7 @@ export const GlobalStyle = createGlobalStyle`
 ${reset}
 
 #root, body, html {
-    /* width: 100%; */
-    width: 43rem;
+    width: 100%;
     height: 100vh;
 }
 * {

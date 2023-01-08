@@ -70,7 +70,7 @@ const VoteList = () => {
 export default VoteList;
 
 const StCurrentVote = styled.h1`
-  margin: 5.1rem 0rem 1.3rem 2.1rem;
+  margin: 5.1rem 0rem 1.3rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
 `;
@@ -80,7 +80,6 @@ const StVoteListWrapper = styled.main`
   overflow-x: scroll;
 
   height: 15.4rem;
-  margin-left: 2.1rem;
 
   cursor: pointer;
 `;

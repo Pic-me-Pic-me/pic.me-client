@@ -28,7 +28,7 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
   position: fixed;
   left: 0;
 
-  width: 43rem;
+  width: 100%;
   height: 20.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
