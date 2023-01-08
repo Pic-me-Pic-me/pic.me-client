@@ -1,30 +1,30 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-interface HamburgerProps {
+export interface HamburgerProps {
   isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
+
 const Hamburger = (props: HamburgerProps) => {
-  const { isOpen } = props;
-  const [showOption, setShowOption] = useState(false);
-  const ref = useRef<HTMLDivElement>();
+  const { isOpen, setIsOpen } = props;
 
-  const handleToggleOption = () => setShowOption((prev) => !prev);
+  const sidebarRef = useRef<HTMLElement>(null);
 
-  const handleClickOutSide = (e: React.MouseEvent<HTMLDivElement>) => {
-    // console.log(ref?.current.contains(e?.target));
-    if (showOption && !ref.current.contains(e.target)) {
-      setShowOption(false);
+  const onClickOutSide = (event: Event) => {
+    if (!sidebarRef.current?.contains(event.target as Node)) {
+      setIsOpen(false);
     }
   };
 
   useEffect(() => {
-    if (showOption) document.addEventListener('mousedown', handleClickOutSide);
+    document.addEventListener('click', onClickOutSide, true);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutSide);
+      document.removeEventListener('click', onClickOutSide, true);
     };
   });
+
   const navigate = useNavigate();
 
   const handleNavigateLibrary = () => {
@@ -32,7 +32,7 @@ const Hamburger = (props: HamburgerProps) => {
   };
 
   return (
-    <StOutsideHamburger onClick={handleClickOutSide}>
+    <StOutsideHamburger>
       <StHamburgerWrapper isOpen={isOpen}>
         <StHamburgerMenu>회원 정보</StHamburgerMenu>
         <StHamburgerMenu onClick={handleNavigateLibrary}>라이브러리</StHamburgerMenu>

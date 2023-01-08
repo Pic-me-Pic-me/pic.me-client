@@ -26,7 +26,7 @@ const Nav = () => {
           </StHamburgerBtn>
         </StHambergerWrapper>
       </StHomeNav>
-      <Hamburger isOpen={isOpen} />
+      <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };
