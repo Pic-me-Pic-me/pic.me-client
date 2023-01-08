@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcShareBtn } from '../asset/icon';
@@ -8,10 +8,13 @@ import { ImgShareCapture } from '../asset/image';
 import { HeaderLayout } from '../components/Layout';
 
 const Share = () => {
+  const location = useLocation();
   const navigate = useNavigate();
 
   const [isToastOn, setIsToastOn] = useState<boolean>(false);
   const [isModalOn, setIsModalOn] = useState<boolean>(false);
+
+  const voteId = location.state;
 
   const handleToast = () => {
     setIsToastOn(true);
@@ -22,13 +25,9 @@ const Share = () => {
     window.location.replace('instagram-stories://share');
   };
 
-  const handleGoHome = () => {
-    navigate('/');
-  };
-
   return (
     <>
-      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={handleGoHome} />
+      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/')} />
       {isToastOn && <StShareToast>링크가 복사되었습니다!</StShareToast>}
       <StShareWrapper>
         <StShareTitle>
@@ -36,8 +35,8 @@ const Share = () => {
           <h2>아래 가이드 라인을 따라 나만의 투표를 공유해보세요!</h2>
         </StShareTitle>
         <StShareInfo>
-          <input type="text" defaultValue="https://pic.me/leeji_12/dlssll/dlssl/ksdjfdsgdsdsfasvxz" />
-          <CopyToClipboard text="https://pic.me/leeji_12/dlssll/dlssl/ksdjfdsgdsdsfasvxz">
+          <input type="text" defaultValue={`http://localhost:3000/vote/${voteId}`} />
+          <CopyToClipboard text={`http://localhost:3000/vote/${voteId}`}>
             <button type="button" onClick={handleToast}>
               <IcShareBtn />
             </button>

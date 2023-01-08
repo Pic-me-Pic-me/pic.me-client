@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcVoteShareBtn } from '../../asset/icon';
 import { ImgSiru } from '../../asset/image';
-import { deleteCurrentVoteData, getCurrentVoteData } from '../../lib/api/voting';
+import { getCurrentVoteData, patchCurrentVoteData } from '../../lib/api/voting';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
@@ -13,6 +13,7 @@ import { HeaderLayout } from '../Layout';
 import VoteInfo from './VoteInfo';
 
 const CurrentVoteDetail = () => {
+  const { voteid } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
 
   const [voteInfo, setVoteInfo] = useState<VoteInfoProps>();
@@ -27,7 +28,7 @@ const CurrentVoteDetail = () => {
   const { ref, width } = useCarouselSize();
 
   const HandleGetCurrentVoteData = async () => {
-    const res = await getCurrentVoteData();
+    const res = await getCurrentVoteData(voteid);
     setVoteInfo({
       voteId: res.data.id,
       voteStatus: res.data.status,
@@ -44,21 +45,14 @@ const CurrentVoteDetail = () => {
     HandleGetCurrentVoteData();
   }, []);
 
-  const handleGoHome = () => {
-    navigate('/');
-  };
-
-  const handleGoShare = () => {
-    navigate('/share');
-  };
-
-  const handleModal = () => {
-    setIsModalShowing(false);
+  const handleGoResultPage = () => {
+    patchCurrentVoteData(voteid);
+    navigate(`/result/${voteid}`);
   };
 
   return (
     <>
-      <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={handleGoHome} />
+      <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/')} />
       <CurrentVoteDetailWrapper>
         <VoteInfo {...voteInfo} />
         <StVoteStatus>
@@ -118,14 +112,15 @@ const CurrentVoteDetail = () => {
             </>
           )}
         </StDotWrapper>
-        <IcVoteShareBtn onClick={handleGoShare} />
+        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteid })} />
         <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
       </CurrentVoteDetailWrapper>
       <Modal
         isShowing={isModalShowing}
         message="투표를 마감하시겠습니까?"
         handleHide={() => setIsModalShowing(false)}
-        handleConfirm={deleteCurrentVoteData}
+        handleConfirm={handleGoResultPage}
+        isFinishing={true}
       />
     </>
   );
