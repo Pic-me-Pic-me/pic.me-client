@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export interface ModalProps {
   isShowing: boolean;
@@ -38,6 +38,9 @@ const Modal = (props: ModalProps) => {
 export default Modal;
 
 const StModalWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -46,36 +49,36 @@ const StModalWrapper = styled.div`
 
   width: 100%;
   height: 100%;
+  padding: 0rem 6rem;
 
   background: rgba(0, 0, 0, 0.7);
 `;
 
 const StModal = styled.section`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
 
-  width: 31rem;
-  height: 19.6rem;
+  width: 100%;
+  padding: 2.1rem 2.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
   border-radius: 1rem;
 `;
 
 const StModalContent = styled.p`
-  margin-top: 7.4rem;
+  padding-top: 5.3rem;
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 `;
 
 const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
   display: ${({ isFinishing }) => (isFinishing ? 'block' : 'none')};
   margin-top: 0.5rem;
+  position: fixed;
+  top: 51%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   font-family: 'Pretendard';
@@ -91,14 +94,12 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
 
 const StButtonWrapper = styled.div`
   display: flex;
-  position: absolute;
-  bottom: 0;
   gap: 1.2rem;
-
-  padding: 2.1rem 2.3rem;
+  padding-top: 4rem;
+  width: 100%;
 
   > button {
-    width: 12.6rem;
+    width: 100%;
     height: 4.1rem;
 
     background: inherit;
