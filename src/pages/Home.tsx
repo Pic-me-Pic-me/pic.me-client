@@ -6,6 +6,7 @@ import { Header, Nav, VoteList } from '../components/Home';
 
 const Home = () => (
   <StHomeWrapper>
+    {/* <> */}
     <Nav />
     <Header />
     <StMakerVoting type="button">
@@ -13,6 +14,7 @@ const Home = () => (
       <p>투표 만들기</p>
     </StMakerVoting>
     <VoteList />
+    {/* </> */}
   </StHomeWrapper>
 );
 

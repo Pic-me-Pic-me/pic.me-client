@@ -232,6 +232,10 @@ const StVoteListWrapper = styled.main`
   height: 15.4rem;
 
   cursor: pointer;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StEmptyView = styled.main`
