@@ -18,10 +18,12 @@ declare module 'styled-components' {
     fonts: {
       Pic_Title1_Pretendard_Bold_24: SerializedStyles;
       Pic_Title2_Pretendard_Bold_20: SerializedStyles;
+      Pic_Title4_Pretendard_Bold_35: SerializedStyles;
       Pic_Subtitle1_Pretendard_Semibold_20: SerializedStyles;
       Pic_Body1_Pretendard_Medium_16: SerializedStyles;
       Pic_Body2_Pretendard_Bold_16: SerializedStyles;
       Pic_Caption1_Pretendard_Semibold_12: SerializedStyles;
+      Pic_Caption2_Pretendard_Semibold_14: SerializedStyles;
     };
   }
 }

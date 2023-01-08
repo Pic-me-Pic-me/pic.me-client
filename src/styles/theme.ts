@@ -29,6 +29,13 @@ const fonts = {
     font-style: normal;
     line-height: 2.4rem;
   `,
+  Pic_Title4_Pretendard_Bold_35: css`
+    font-family: 'PretendardSemiBold';
+    font-size: 3.5rem;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 4.177rem;
+  `,
   Pic_Subtitle1_Pretendard_Semibold_20: css`
     font-family: 'PretendardSemiBold';
     font-size: 2rem;
@@ -56,6 +63,13 @@ const fonts = {
     font-weight: 600;
     font-style: normal;
     line-height: 1.4rem;
+  `,
+  Pic_Caption2_Pretendard_Semibold_14: css`
+    font-family: 'PretendardSemiBold';
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.671rem;
   `,
 };
 
