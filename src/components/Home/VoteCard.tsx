@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { VoteInfo } from '../../lib/api/voting';
 
@@ -26,6 +26,7 @@ const VoteCard = (props: VoteCardProps) => {
 
 export default VoteCard;
 
+// const StVoteItem = styled.section<{ isFirst: boolean; isLast: boolean }>`
 const StVoteItem = styled.section`
   display: flex;
 

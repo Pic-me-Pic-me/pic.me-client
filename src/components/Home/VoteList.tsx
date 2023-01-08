@@ -159,20 +159,23 @@ const VoteList = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemIndex, setItemIndex] = useState(0);
-  const [dataList, setDataList] = useState<VoteInfo[]>(CARD_DATA.slice(0, 5));
-  const [newDataList, setnewDataList] = useState<VoteInfo[]>(dataList);
+  const [dataList, setDataList] = useState<VoteInfo[]>();
+  const [newDataList, setnewDataList] = useState<VoteInfo[]>();
 
   useEffect(() => {
+    console.log('ddd');
     getMoreItem();
   }, []);
 
   const getMoreItem = async () => {
+    console.log('dddddd');
     setIsLoaded(true);
     const newData = await getCurrentVoteData();
+    console.log(newData);
 
     if (newData) {
       newData.forEach((data) => {
-        newDataList.push(data);
+        newDataList?.push(data);
         setItemIndex((i) => i + 1);
         setDataList(newDataList);
         setIsLoaded(false);
@@ -229,8 +232,9 @@ const StCurrentVote = styled.h1`
 const StVoteListWrapper = styled.main`
   display: flex;
   overflow-x: scroll;
-
   overflow-y: hidden;
+
+  padding-bottom: 19.3rem;
   height: 15.4rem;
 
   cursor: pointer;
@@ -247,6 +251,7 @@ const StEmptyView = styled.main`
   align-items: center;
 
   margin-top: 5.1rem;
+  padding-bottom: 19.3rem;
 
   > img {
     width: 13.8rem;
