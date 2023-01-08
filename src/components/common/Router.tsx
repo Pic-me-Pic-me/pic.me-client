@@ -9,7 +9,6 @@ import MakerLanding from '../../pages/MakerLanding';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
-import PlayerLandingTest from '../Landing/PlayerLandingTest';
 
 const Router = () => (
   <BrowserRouter>
@@ -19,8 +18,7 @@ const Router = () => (
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        {/* <Route path="/vote/:voteId" element={<PlayerLanding />} /> */}
-        <Route path="/test" element={<PlayerLandingTest />} />
+        <Route path="/vote/:voteId" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
         <Route path="/voting" element={<Voting />} />
         <Route path="*" element={<Error404 />} />

@@ -118,23 +118,6 @@ const StDescription = styled.p`
   }
 `;
 
-const StContent = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  width: 100%;
-  margin-top: 1.95rem;
-
-  & > svg {
-    margin: 0 auto;
-    width: 14.9rem;
-    height: 15.8rem;
-
-    object-fit: fill;
-  }
-`;
-
 const StButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
