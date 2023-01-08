@@ -13,7 +13,7 @@ const Nickname = () => {
   const location = useLocation();
   const cookies = new Cookies();
 
-  const { user_id, password }: AddAccountInfo = location.state.dataInfo;
+  const { email, password }: AddAccountInfo = location.state.dataInfo;
 
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const [isDuplicate, setIsDuplicate] = useState(false);
@@ -27,13 +27,17 @@ const Nickname = () => {
     register,
     formState: { errors },
     handleSubmit,
+    getValues,
   } = useForm<NicknameInfo>({ mode: 'onBlur' });
 
   const handleCheckNickname = () => {
-    checkDuplicateNickname(nickname).then((result) => {
+    const { username } = getValues();
+    console.log(username);
+    checkDuplicateNickname(username).then((result) => {
       if (result?.success) {
         setIsDuplicate(!result.success);
         setNickname(nickname);
+        console.log(result);
       } else {
         setIsDuplicate(result.success);
       }
@@ -54,13 +58,14 @@ const Nickname = () => {
   };
 
   const handleSignup = () => {
-    postSignupInfo({ user_id, password }, nickname).then((res) => {
-      if (res?.data.success) {
+    postSignupInfo({ email, password }, nickname).then((res) => {
+      if (res?.success) {
         cookies.set('refreshToken', res.data.refreshToken);
         localStorage.setItem('accessToken', res.data.accessToken);
+        console.log(res);
+        navigate('/');
       }
     });
-    navigate('/');
   };
 
   return (
@@ -73,10 +78,10 @@ const Nickname = () => {
             <StInputWrapper>
               <StInput
                 type="text"
-                {...register('nickname', nicknameErrorPatterns)}
+                {...register('username', nicknameErrorPatterns)}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
-            <StCheckDuplicationBtn type="button" onClick={() => handleCheckNickname()}>
+            <StCheckDuplicationBtn type="button" onClick={handleCheckNickname}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
@@ -109,7 +114,7 @@ const Nickname = () => {
 
           <StSubmitBtn
             disabled={
-              errors.nickname || JSON.stringify(isChecked) !== JSON.stringify([true, true, true]) ? true : false
+              errors.username || JSON.stringify(isChecked) !== JSON.stringify([true, true, true]) ? true : false
             }>
             계정 만들기
           </StSubmitBtn>

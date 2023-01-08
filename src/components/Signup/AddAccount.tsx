@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { SignUpInfo } from '../../types/signup';
+import { AddAccountInfo, SignUpInfo } from '../../types/signup';
 import { emailErrorPatterns, passwordErrorPatterns } from '../../utils/check';
 
 const AddAccount = () => {
@@ -17,8 +17,8 @@ const AddAccount = () => {
   } = useForm<SignUpInfo>({ mode: 'onBlur' });
 
   const handleSubmitAccount = () => {
-    const { user_id, password } = getValues();
-    const dataInfo = { user_id, password };
+    const { email, password } = getValues();
+    const dataInfo = { email, password };
     navigate(`/signup/nickname`, { state: { dataInfo } });
   };
 
@@ -29,10 +29,10 @@ const AddAccount = () => {
           <StTitle>아이디</StTitle>
           <StInput
             type="email"
-            {...register('user_id', emailErrorPatterns)}
+            {...register('email', emailErrorPatterns)}
             placeholder="아이디로 이용할 이메일을 적어주세요!"
           />
-          <StInputDesc>{errors.user_id ? errors.user_id.message : ' '}</StInputDesc>
+          <StInputDesc>{errors.email ? errors.email.message : ' '}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
           <StInput
@@ -58,7 +58,7 @@ const AddAccount = () => {
           />
           <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
 
-          <StSubmitBtn disabled={errors.user_id || errors.password || errors.passwordConfirm ? true : false}>
+          <StSubmitBtn disabled={errors.email || errors.password || errors.passwordConfirm ? true : false}>
             다음 단계로 이동
           </StSubmitBtn>
         </StForm>

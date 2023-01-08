@@ -1,19 +1,19 @@
 export interface SignUpInfo {
-  user_id: string;
+  email: string;
   password: string;
   passwordConfirm: string;
 }
 
 export interface NicknameInfo {
-  nickname: string;
+  username: string;
 }
 
 export interface SignUpPostInfo {
   dataInfo: AddAccountInfo;
-  nickname: string;
+  username: string;
 }
 
 export interface AddAccountInfo {
-  user_id: string;
+  email: string;
   password: string;
 }
