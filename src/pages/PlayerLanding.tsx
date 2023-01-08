@@ -1,122 +1,32 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-export interface ModalProps {
-  isShowing: boolean;
-  message: string;
-  handleHide: React.MouseEventHandler;
-  handleConfirm: React.MouseEventHandler;
-  isFinishing?: boolean; // 투표 마감하기 버튼
-}
+import { FinishedLanding, VoteLanding } from '../components/Landing';
+import { getVoteData } from '../lib/api/playerLanding';
+import { VoteData } from '../types/vote';
+import Error404 from './Error404';
 
-const Modal = (props: ModalProps) => {
-  const { isShowing, message, handleHide, handleConfirm, isFinishing } = props;
-  return (
-    <>
-      {isShowing ? (
-        <StModalWrapper>
-          <StModal>
-            <StModalContent>{message}</StModalContent>
-            <StModalSubContent isFinishing={isFinishing}>
-              *마감된 투표는 <span>라이브러리</span>에서 확인 가능해요!
-            </StModalSubContent>
-            <StButtonWrapper>
-              <button type="button" onClick={handleHide}>
-                취소
-              </button>
-              <button type="button" onClick={handleConfirm}>
-                확인
-              </button>
-            </StButtonWrapper>
-          </StModal>
-        </StModalWrapper>
-      ) : null}
-    </>
-  );
+const PlayerLanding = () => {
+  const [vote, setVote] = useState<VoteData>();
+  const { voteId } = useParams<{ voteId: string }>();
+
+  useEffect(() => {
+    voteStatus();
+  }, []);
+
+  const voteStatus = async () => {
+    if (voteId) {
+      const data = await getVoteData(Number(voteId));
+      if (data) {
+        setVote(data);
+      }
+    }
+  };
+
+  if (vote?.status === 200) return <VoteLanding vote={vote?.data} />;
+  if (vote?.status === 400) return <FinishedLanding vote={vote?.data} />;
+
+  return <Error404 />;
 };
 
-export default Modal;
-
-const StModalWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  background: rgba(0, 0, 0, 0.7);
-`;
-
-const StModal = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-
-  width: 31rem;
-  height: 19.6rem;
-
-  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
-  border-radius: 1rem;
-`;
-
-const StModalContent = styled.p`
-  margin-top: 7.4rem;
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
-`;
-
-const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
-  margin-top: 0.5rem;
-
-  color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 0.9rem;
-  line-height: 1.1rem;
-
-  > span {
-    color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  }
-  ${({ isFinishing }) =>
-    isFinishing
-      ? css`
-          display: block;
-        `
-      : css`
-          display: none;
-        `}
-`;
-
-const StButtonWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  gap: 1.2rem;
-
-  padding: 2.1rem 2.3rem;
-
-  > button {
-    width: 12.6rem;
-    height: 4.1rem;
-
-    background: inherit;
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    color: ${({ theme }) => theme.colors.Pic_Color_White};
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
-    border: none;
-    border-radius: 1rem;
-  }
-  button:last-child {
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  }
-`;
+export default PlayerLanding;
