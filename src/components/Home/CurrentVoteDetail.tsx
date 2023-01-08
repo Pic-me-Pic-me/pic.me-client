@@ -22,8 +22,6 @@ const CurrentVoteDetail = () => {
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
 
-  const ImgList: JSX.Element[] = [<ImgSiru key="siruone" />, <ImgSiru key="sirutwo" />];
-
   const HandleGetCurrentVoteData = async () => {
     const res = await getCurrentVoteData();
     setVoteInfo({
@@ -70,7 +68,7 @@ const CurrentVoteDetail = () => {
                 setTransX(modifySliderRange(deltaX, -width, width));
               },
               onDragEnd: (deltaX) => {
-                const maxIndex = ImgList.length - 1;
+                const maxIndex = pictureUrl.length - 1;
                 Array(2)
                   .fill(0)
                   .map((v, i) => 2 - i)
