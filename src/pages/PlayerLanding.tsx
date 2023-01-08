@@ -23,15 +23,10 @@ const PlayerLanding = () => {
     }
   };
 
-  return vote?.status === 200 ? (
-    <VoteLanding vote={vote?.data} />
-  ) : vote ? (
-    <>
-      <FinishedLanding vote={vote?.data} />
-    </>
-  ) : (
-    <Error404 />
-  );
+  if (vote?.status === 200) return <VoteLanding vote={vote?.data} />;
+  if (vote?.status === 400) return <FinishedLanding vote={vote?.data} />;
+
+  return <Error404 />;
 };
 
 export default PlayerLanding;

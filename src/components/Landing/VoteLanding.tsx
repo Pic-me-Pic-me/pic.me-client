@@ -9,13 +9,6 @@ const VoteLanding = ({ vote }: VoteProps) => {
   const title = `\"${vote?.voteTitle}\"`;
   const navigate = useNavigate();
 
-  const handleGoToVoting = () => {
-    navigate('/voting');
-  };
-  const handleGoToLanding = () => {
-    navigate('/makerlanding');
-  };
-
   return (
     <StModalWrapper>
       <StModal>
@@ -32,10 +25,10 @@ const VoteLanding = ({ vote }: VoteProps) => {
           </StDescription>
         </StContent>
         <StButtonWrapper>
-          <button type="button" onClick={handleGoToVoting}>
+          <button type="button" onClick={() => navigate('/voting')}>
             익명 투표 시작하기
           </button>
-          <button type="button" onClick={handleGoToLanding}>
+          <button type="button" onClick={() => navigate('/makerlanding')}>
             홈으로 가기
           </button>
         </StButtonWrapper>
@@ -64,7 +57,7 @@ const StModalWrapper = styled.div`
   backdrop-filter: blur(2rem);
 `;
 
-const StModal = styled.div`
+const StModal = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;

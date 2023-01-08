@@ -8,10 +8,6 @@ const FinishedLanding = ({ vote }: VoteProps) => {
   const title = `\"${vote?.voteTitle}\"`;
   const navigate = useNavigate();
 
-  const handleGoToLanding = () => {
-    navigate('/makerlanding');
-  };
-
   return (
     <StModalWrapper>
       <StModal>
@@ -23,11 +19,9 @@ const FinishedLanding = ({ vote }: VoteProps) => {
         <StDescription>
           <p>이 투표는 마감되었습니다!</p>
         </StDescription>
-        <StButtonWrapper>
-          <button type="button" onClick={handleGoToLanding}>
-            Pic.me! 에서 내 투표 만들기
-          </button>
-        </StButtonWrapper>
+        <button type="button" onClick={() => navigate('/makerlanding')}>
+          Pic.me! 에서 내 투표 만들기
+        </button>
       </StModal>
     </StModalWrapper>
   );
@@ -54,7 +48,7 @@ const StModalWrapper = styled.div`
   backdrop-filter: blur(2rem);
 `;
 
-const StModal = styled.div`
+const StModal = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -67,6 +61,22 @@ const StModal = styled.div`
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
   border-radius: 1rem;
 
+  & > button {
+    width: 100%;
+    height: 5.4rem;
+
+    border: none;
+    border-radius: 0.9rem;
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+
+    cursor: pointer;
+
+    :last-child {
+      background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    }
+  }
   & > svg {
     width: 20rem;
     height: 6.6rem;
@@ -115,31 +125,5 @@ const StDescription = styled.p`
     flex-direction: column;
     align-items: center;
     ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20}
-  }
-`;
-
-const StButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.7rem;
-
-  width: 100%;
-
-  & > button {
-    width: 100%;
-    height: 5.4rem;
-
-    border: none;
-    border-radius: 0.9rem;
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-    color: ${({ theme }) => theme.colors.Pic_Color_White};
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
-
-    cursor: pointer;
-
-    :last-child {
-      background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    }
   }
 `;
