@@ -26,7 +26,6 @@ const VoteCard = (props: VoteCardProps) => {
 
 export default VoteCard;
 
-// const StVoteItem = styled.section<{ isFirst: boolean; isLast: boolean }>`
 const StVoteItem = styled.section`
   display: flex;
 
