@@ -11,9 +11,9 @@ const { persistAtom } = recoilPersist();
 export const votingInfoState = atom<VotingInfo>({
   key: 'votingInfo',
   default: {
-    vote_id: 0,
-    vote_status: false,
-    vote_title: '',
+    vote_id: 1,
+    vote_status: true,
+    vote_title: '햅히를 픽미해주세요💛',
     Picture: [
       { id: 1, url: PictureId1 },
       { id: 2, url: PictureId2 },
