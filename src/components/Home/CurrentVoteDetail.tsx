@@ -8,11 +8,13 @@ import { deleteCurrentVoteData, getCurrentVoteData } from '../../lib/api/voting'
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
+import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 import VoteInfo from './VoteInfo';
 
 const CurrentVoteDetail = () => {
   const navigate = useNavigate();
+
   const [voteInfo, setVoteInfo] = useState<VoteInfoProps>();
   const [currentVote, setCurrentVote] = useState<number>();
   const [pictureUrl, setPictureUrl] = useState<string[]>([]);
@@ -20,6 +22,8 @@ const CurrentVoteDetail = () => {
   const [pictureInfo, setPictureInfo] = useState<PictureProps[]>([]);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
+  const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
+
   const { ref, width } = useCarouselSize();
 
   const HandleGetCurrentVoteData = async () => {
@@ -46,6 +50,10 @@ const CurrentVoteDetail = () => {
 
   const handleGoShare = () => {
     navigate('/share');
+  };
+
+  const handleModal = () => {
+    setIsModalShowing(false);
   };
 
   return (
@@ -89,7 +97,7 @@ const CurrentVoteDetail = () => {
             {pictureUrl.map((url, idx) => (
               <li key={idx}>
                 {currentIdx === idx ? (
-                  <StSelectedImg src={url} alt="선택된" />
+                  <StSelectedImg src={url} alt="선택된 사진" />
                 ) : (
                   <StUnselectedImg src={url} alt="선택되지 않은 사진" />
                 )}
@@ -111,8 +119,14 @@ const CurrentVoteDetail = () => {
           )}
         </StDotWrapper>
         <IcVoteShareBtn onClick={handleGoShare} />
-        <StCompleteVoteBtn onClick={deleteCurrentVoteData}>투표 마감</StCompleteVoteBtn>
+        <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
       </CurrentVoteDetailWrapper>
+      <Modal
+        isShowing={isModalShowing}
+        message="투표를 마감하시겠습니까?"
+        handleHide={() => setIsModalShowing(false)}
+        handleConfirm={deleteCurrentVoteData}
+      />
     </>
   );
 };
