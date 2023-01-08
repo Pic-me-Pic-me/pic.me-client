@@ -7,9 +7,159 @@ import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
+  const dummydatas: Array<VoteInfo> = [
+    {
+      voteId: 1,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 1,
+    },
+    {
+      voteId: 2,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 2,
+    },
+    {
+      voteId: 3,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 3,
+    },
+    {
+      voteId: 4,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 4,
+    },
+    {
+      voteId: 5,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 5,
+    },
+    {
+      voteId: 6,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 6,
+    },
+    {
+      voteId: 7,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 7,
+    },
+    {
+      voteId: 8,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 8,
+    },
+    {
+      voteId: 9,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 9,
+    },
+    {
+      voteId: 10,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 10,
+    },
+    {
+      voteId: 11,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 11,
+    },
+    {
+      voteId: 12,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 12,
+    },
+    {
+      voteId: 13,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 13,
+    },
+    {
+      voteId: 14,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 14,
+    },
+    {
+      voteId: 15,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 15,
+    },
+    {
+      voteId: 16,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 16,
+    },
+    {
+      voteId: 17,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 17,
+    },
+    {
+      voteId: 18,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 18,
+    },
+    {
+      voteId: 19,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 19,
+    },
+    {
+      voteId: 20,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 20,
+    },
+    {
+      voteId: 21,
+      title: '제목제목제목제목',
+      voteThumbnail: '주소주소',
+      createdAt: new Date('1995-12-17T03:24:00'),
+      totalVoteCount: 21,
+    },
+  ];
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemIndex, setItemIndex] = useState(0);
-  const [dataList, setDataList] = useState<VoteInfo[]>([]);
+  const [dataList, setDataList] = useState<VoteInfo[]>(dummydatas.slice(0, 10));
   const [newDataList, setnewDataList] = useState<VoteInfo[]>(dataList);
 
   useEffect(() => {

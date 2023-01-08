@@ -13,7 +13,9 @@ const Header = () => (
     </StGuideBtn>
   </StBannerWrapper>
 );
+
 export default Header;
+
 const StBannerWrapper = styled.header`
   display: flex;
   flex-direction: column;

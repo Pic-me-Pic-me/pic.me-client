@@ -8,6 +8,7 @@ export interface VoteInfo {
   title: string;
   voteThumbnail: string;
   createdAt: Date;
+  // createdAt: string;
   totalVoteCount: number;
 }
 
