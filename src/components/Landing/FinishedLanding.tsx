@@ -47,8 +47,7 @@ const StModalWrapper = styled.div`
 
   width: 100%;
   height: 100%;
-  padding-left: 4.2rem;
-  padding-right: 4.2rem;
+  padding: 0rem 4.2rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   background: rgba(0, 0, 0, 0.7);
@@ -61,8 +60,9 @@ const StModal = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 28.8rem;
-  padding: 4.9rem 1.8rem 0rem 1.8rem;
+  height: 54.8rem;
+  padding: 4.9rem 1.8rem 2.3rem 1.8rem;
+  margin: auto;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
   border-radius: 1rem;
@@ -78,27 +78,32 @@ const StTitle = styled.header`
   justify-content: center;
   width: 100%;
   height: 7.651rem;
-
-  background: url(${Ballon});
-  background-position: center;
-  background-repeat: no-repeat;
+  z-index: 1;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}; // Caption2로 바꿔야함!!
 
   & > div {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    z-index: 100;
 
     width: 21.2rem;
     height: 5.386rem;
-    padding: 1rem 3.7rem;
+    padding: 0rem 3.7rem;
+
+    & > h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
   }
+
   & > svg {
+    position: absolute;
     width: 21.2rem;
     height: 7.651rem;
+    object-fit: fill;
   }
 `;
 
@@ -112,10 +117,29 @@ const StDescription = styled.p`
     ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20}
   }
 `;
+
+const StContent = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 1.95rem;
+
+  & > svg {
+    margin: 0 auto;
+    width: 14.9rem;
+    height: 15.8rem;
+
+    object-fit: fill;
+  }
+`;
+
 const StButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.7rem;
 
   width: 100%;
 
@@ -130,5 +154,9 @@ const StButtonWrapper = styled.div`
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
 
     cursor: pointer;
+
+    :last-child {
+      background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    }
   }
 `;

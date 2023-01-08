@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { IcBallon, IcModalBG } from '../../asset/icon';
-import { Ballon } from '../../asset/image';
 
 const PlayerLandingTest = () => (
   <StModalWrapper>
