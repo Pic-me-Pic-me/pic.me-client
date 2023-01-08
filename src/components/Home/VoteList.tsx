@@ -7,7 +7,7 @@ import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
-  const dummydatas: Array<VoteInfo> = [
+  const CARD_DATA: Array<VoteInfo> = [
     {
       voteId: 1,
       title: '제목제목제목제목',
@@ -159,7 +159,7 @@ const VoteList = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemIndex, setItemIndex] = useState(0);
-  const [dataList, setDataList] = useState<VoteInfo[]>(dummydatas.slice(0, 10));
+  const [dataList, setDataList] = useState<VoteInfo[]>(CARD_DATA.slice(0, 5));
   const [newDataList, setnewDataList] = useState<VoteInfo[]>(dataList);
 
   useEffect(() => {
@@ -174,7 +174,7 @@ const VoteList = () => {
       newData.forEach((data) => {
         newDataList.push(data);
         setItemIndex((i) => i + 1);
-        setDataList(newData);
+        setDataList(newDataList);
         setIsLoaded(false);
       });
     }
@@ -220,6 +220,7 @@ const VoteList = () => {
 export default VoteList;
 
 const StCurrentVote = styled.h1`
+  padding: 0rem 2rem;
   margin: 5.1rem 0rem 1.3rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
@@ -229,6 +230,7 @@ const StVoteListWrapper = styled.main`
   display: flex;
   overflow-x: scroll;
 
+  overflow-y: hidden;
   height: 15.4rem;
 
   cursor: pointer;
