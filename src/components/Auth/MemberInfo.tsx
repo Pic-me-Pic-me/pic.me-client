@@ -1,5 +1,5 @@
 import React from 'react';
 
-const MemberInfo = () => <div>회원정보</div>;
+const MemberInfo = () => <div></div>;
 
 export default MemberInfo;
