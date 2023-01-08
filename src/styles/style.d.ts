@@ -20,6 +20,7 @@ declare module 'styled-components' {
       Pic_Title2_Pretendard_Bold_20: SerializedStyles;
       Pic_Subtitle1_Pretendard_Semibold_20: SerializedStyles;
       Pic_Body1_Pretendard_Medium_16: SerializedStyles;
+      Pic_Body2_Pretendard_Bold_16: SerializedStyles;
       Pic_Caption1_Pretendard_Semibold_12: SerializedStyles;
     };
   }
