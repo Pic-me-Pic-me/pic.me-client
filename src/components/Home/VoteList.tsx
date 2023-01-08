@@ -9,33 +9,34 @@ import VoteCard from './VoteCard';
 
 const VoteList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [itemIndex, setItemIndex] = useState(0);
+  // const [itemIndex, setItemIndex] = useState(0);
   const [dataList, setDataList] = useState<VoteInfo[]>();
   const [newDataList, setnewDataList] = useState<VoteInfo[]>();
-  const CursorId = useParams().resCursorId || '';
+  const CursorId = useParams().resCursorId || 0;
 
+  console.log(CursorId);
   useEffect(() => {
-    console.log('ddd');
+    // console.log('ddd');
     getMoreItem();
   }, []);
 
   const getMoreItem = async () => {
-    console.log('dddddd');
+    // console.log('dddddd');
     setIsLoaded(true);
-    const newData = await getCurrentVoteData(CursorId);
+    const newData = await getCurrentVoteData(Number(CursorId));
     console.log(newData);
 
     if (newData) {
       newData.forEach((data) => {
         newDataList?.push(data);
-        setItemIndex((i) => i + 1);
+        // setItemIndex((i) => i + 5);
         setDataList(newDataList);
         setIsLoaded(false);
       });
     }
+    setDataList(newData);
     console.log(dataList);
   };
-
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
     if (entry.isIntersecting && !isLoaded) {
       observer.unobserve(entry.target);

@@ -25,7 +25,7 @@ export interface VoteListData {
   resCursorId: number;
 }
 
-export const getCurrentVoteData = async (resCursorId: string) => {
+export const getCurrentVoteData = async (resCursorId: number) => {
   console.log('test');
   try {
     console.log('test2');
