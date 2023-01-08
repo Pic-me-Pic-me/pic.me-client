@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
+import CurrentVote from '../../pages/CurrentVote';
 import Error404 from '../../pages/Error404';
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
@@ -10,14 +11,13 @@ import PlayerLanding from '../../pages/PlayerLanding';
 import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
-import CurrentVoteDetail from '../Home/CurrentVoteDetail';
 
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/currentvotedetail/:voteid" element={<CurrentVoteDetail />} />
+        <Route path="/currentvote/:voteid" element={<CurrentVote />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

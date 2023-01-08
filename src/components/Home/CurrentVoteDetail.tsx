@@ -10,7 +10,7 @@ import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
-import VoteInfo from './VoteInfo';
+import VoteInfo from './CurrentVote/VoteStatus';
 
 const CurrentVoteDetail = () => {
   const { voteid } = useParams<{ voteid: string }>();
@@ -26,6 +26,8 @@ const CurrentVoteDetail = () => {
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
   const { ref, width } = useCarouselSize();
+
+  const imgList = [<ImgSiru key="시루 1번" />, <ImgSiru key="시루 2번" />];
 
   const HandleGetCurrentVoteData = async () => {
     const res = await getCurrentVoteData(voteid);
@@ -56,8 +58,9 @@ const CurrentVoteDetail = () => {
       <CurrentVoteDetailWrapper>
         <VoteInfo {...voteInfo} />
         <StVoteStatus>
-          <span>{currentVote}명 투표 중</span>
+          {/* <span>{currentVote}명 투표 중</span> */}
           {/* {currentIdx === 0 ? <span>{pictureCount[0].count}표</span> : <span>{pictureCount[0].count}표</span>} */}
+          <span>18명 투표 중</span>
           <span>12표</span>
         </StVoteStatus>
         <StImgWrapper ref={ref}>
@@ -70,7 +73,8 @@ const CurrentVoteDetail = () => {
                 setTransX(modifySliderRange(deltaX, -width, width));
               },
               onDragEnd: (deltaX) => {
-                const maxIndex = pictureUrl.length - 1;
+                // const maxIndex = pictureUrl.length - 1;
+                const maxIndex = imgList.length - 1;
                 Array(2)
                   .fill(0)
                   .map((v, i) => 2 - i)

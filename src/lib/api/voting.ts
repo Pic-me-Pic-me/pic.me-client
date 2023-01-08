@@ -6,7 +6,7 @@ export const postVoteData = (votingData: VotingInfo, token?: string) => client.p
 export const getCurrentVoteData = async (voteid: string | undefined) => {
   const { data } = await client.get(`/vote/admin/${voteid}`);
   if (data.status === 200) {
-    return data;
+    return data.data;
   }
 };
 

@@ -28,17 +28,20 @@ export interface VoteInfoProps {
   voteId?: number;
   voteStatus?: boolean;
   voteTitle?: string;
+  currentVote?: number;
   createDate?: Date;
+  Picture?: PictureProps[];
 }
 
 export interface PictureProps {
-  id: number;
-  url: string;
-  count: number;
+  id?: number;
+  url?: string;
+  count?: number;
+  Sticker?: StickerProps[];
 }
 
 export interface StickerProps {
-  stickerLocation: string;
-  emoji: number;
-  count: number;
+  stickerLocation?: string;
+  emoji?: number;
+  count?: number;
 }
