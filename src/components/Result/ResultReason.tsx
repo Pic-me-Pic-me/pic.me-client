@@ -1,41 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IcAngle, IcFace, IcJust, IcMood } from '../../asset/icon';
+import { IcAngle, IcFace, IcJust, IcMood, IcReasonBtnAfter } from '../../asset/icon';
 
 const ResultReason = () => {
   const reasons = [<IcAngle key="angle" />, <IcFace key="face" />, <IcJust key="just" />, <IcMood key="mood" />];
 
   return (
     <>
-      <StBackground>
-        <StTotalVote>
-          <p> 전체 20표 중</p>
-          <StFirstReason>12표</StFirstReason>
-        </StTotalVote>
-        <StTitle>
-          이 사진이 Pic된 가장 큰 이유는
-          <br /> “얼굴이 좋아요” 입니다!
-        </StTitle>
+      <StBackgroundWrapper>
+        <IcReasonBtnAfter />
+        <StBackground>
+          <StTotalVote>
+            <p> 전체 20표 중</p>
+            <StFirstReason>12표</StFirstReason>
+          </StTotalVote>
+          <StTitle>
+            이 사진이 Pic된 가장 큰 이유는
+            <br /> “얼굴이 좋아요” 입니다!
+          </StTitle>
 
-        {reasons.map((reason, idx) => (
-          <>
-            <StReasonWrapper>
-              {reason}
-              <StPercentBarWrppaer key={idx}>
-                <p>70%</p>
-                <StPercentBar>
-                  <StDealtPercentBar percent={70}></StDealtPercentBar>
-                </StPercentBar>
-              </StPercentBarWrppaer>
-            </StReasonWrapper>
-          </>
-        ))}
-      </StBackground>
+          {reasons.map((reason, idx) => (
+            <>
+              <StReasonWrapper>
+                {reason}
+                <StPercentBarWrppaer key={idx}>
+                  <p>70%</p>
+                  <StPercentBar>
+                    <StDealtPercentBar percent={70}></StDealtPercentBar>
+                  </StPercentBar>
+                </StPercentBarWrppaer>
+              </StReasonWrapper>
+            </>
+          ))}
+        </StBackground>
+      </StBackgroundWrapper>
     </>
   );
 };
 export default ResultReason;
+
+const StBackgroundWrapper = styled.main`
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+
+  > svg {
+    position: absolute;
+    top: -3rem;
+    z-index: 5;
+  }
+`;
 
 const StBackground = styled.article`
   display: flex;
@@ -49,14 +65,17 @@ const StBackground = styled.article`
 
   border-radius: 3.4rem 3.4rem 0rem 0rem;
 
-  position: absolute;
   bottom: 0;
+
+  border: 1px solid red;
 `;
 
 const StTotalVote = styled.div`
   width: 14.6rem;
   height: 2.7rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
+
+  margin-top: 6rem;
 
   border-radius: 3.2644rem;
 
