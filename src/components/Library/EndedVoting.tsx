@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
+import Sample from '../../asset/image/Sample.jpeg';
 import { VoteInfo } from '../../types/library';
 
 interface votingProps {
@@ -14,10 +15,12 @@ const EndedVoting = (props: votingProps) => {
   return (
     <>
       <StVotingWrapper>
-        <StVotingPic src={voteData.url} />
-        <StDeleteBtnWrapper type="button">
-          <IcDelete />
-        </StDeleteBtnWrapper>
+        <StVotingPicWrapper>
+          <StVotingPic src={Sample} />
+          <StDeleteBtnWrapper type="button">
+            <IcDelete />
+          </StDeleteBtnWrapper>
+        </StVotingPicWrapper>
         <StVotingDesc>
           <StVotingTitle>{voteData.title}</StVotingTitle>
           <StVotingDate>{voteData.createAt}</StVotingDate>
@@ -33,12 +36,17 @@ const StVotingWrapper = styled.section`
   flex-direction: column;
 `;
 
-const StVotingPic = styled.img`
+const StVotingPicWrapper = styled.div`
+  z-index: 9;
   position: relative;
+`;
+
+const StVotingPic = styled.img`
+  display: float;
   width: 17.6rem;
   height: 12.8rem;
 
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   border-radius: 1.141rem 1.141rem 0rem 0rem;
 `;
 
@@ -57,7 +65,6 @@ const StDeleteBtnWrapper = styled.button`
   border: none;
 
   background-color: transparent;
-  z-index: 10;
 
   > svg {
     pointer-events: none;
