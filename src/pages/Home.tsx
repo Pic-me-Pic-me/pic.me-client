@@ -12,7 +12,7 @@ const Home = () => (
       <IcPlus width="2.8rem" height="2.8rem" />
       <p>투표 만들기</p>
     </StMakerVoting>
-    <VoteList />
+    {/* <VoteList /> */}
   </StHomeWrapper>
 );
 

@@ -23,7 +23,7 @@ const VoteList = () => {
     if (newData) {
       newData.forEach((data) => {
         newDataList.push(data);
-        setItemIndex((i) => i + 1);
+        setItemIndex((i) => i + 5);
         setDataList(newData);
         setIsLoaded(false);
       });
