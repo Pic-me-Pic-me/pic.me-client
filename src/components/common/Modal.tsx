@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export interface ModalProps {
   isShowing: boolean;
@@ -76,7 +76,7 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
   display: ${({ isFinishing }) => (isFinishing ? 'block' : 'none')};
   margin-top: 0.5rem;
   position: fixed;
-  top: 50%;
+  top: 51%;
   left: 50%;
   transform: translate(-50%, -50%);
 
