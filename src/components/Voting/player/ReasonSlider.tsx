@@ -1,16 +1,20 @@
+import axios from 'axios';
 import Lottie from 'lottie-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu, IcSelectRound } from '../../../asset/icon';
 import { Angle, Face, Just, Mood } from '../../../asset/lottie';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
+import { stickerInfoState } from '../../../recoil/player/atom';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
 const ReasonSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
+  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
 
   const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = [
@@ -23,6 +27,10 @@ const ReasonSlider = () => {
     <IcJustMenu className="menu" key="just" />,
   ];
   const navIconRenderList = Array(4).fill(0);
+
+  useEffect(() => {
+    setStickerInfo({ ...stickerInfo, emoji: currentIdx });
+  }, [currentIdx]);
 
   return (
     <StReasonSliderWrapper>
@@ -89,8 +97,9 @@ const ReasonSlider = () => {
 export default ReasonSlider;
 const StReasonSliderWrapper = styled.section`
   position: absolute;
-  top: 49rem;
-  width: 43rem;
+  top: 45rem;
+
+  width: 100%;
 `;
 const StDragWReasonWrapper = styled.article`
   overflow: hidden;
@@ -104,7 +113,7 @@ const StDragWReasonUl = styled.ul<{ currentIdx: number; dragItemWidth: number; t
     `};
   ${({ transX }) =>
     css`
-      transition: transform ${transX ? 0 : 200}ms ease-in -out 0s;
+      transition: transform ${transX ? 0 : 300}ms ease-out 0s;
     `};
   .lotte {
     display: flex;

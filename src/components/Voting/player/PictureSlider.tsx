@@ -25,12 +25,12 @@ const PictureSlider = () => {
 
   return (
     <>
-      <StPictrueSubTitle>*당신의 모든 선택은 익명으로 전달됩니다</StPictrueSubTitle>
       <StSliderPictureWrapper ref={ref}>
         <StSliderPictureUl
           currentIdx={currentIdx}
-          dragItemWidth={335}
+          dragItemWidth={width}
           transX={transX}
+          width={window.screen.width}
           {...picmeSliderEvent({
             onDragChange: (deltaX, deltaY) => {
               setTransX(modifySliderRange(deltaX, -width, width));
@@ -82,54 +82,48 @@ const PictureSlider = () => {
 };
 
 export default PictureSlider;
-const StPictrueSubTitle = styled.p`
-  margin-top: 3rem;
 
-  color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
-`;
 const StSliderPictureWrapper = styled.section`
   width: 100%;
   height: 50rem;
+
   overflow: hidden;
 
   position: relative;
 `;
-const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
+const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
   display: flex;
-  justify-content: space-around;
   align-items: center;
   position: absolute;
-  ${({ currentIdx }) =>
+  ${({ currentIdx, dragItemWidth, width }) =>
     currentIdx === 0
       ? css`
-          left: 5.75rem;
+          left: ${(dragItemWidth * 0.1) / 10}rem;
         `
       : css`
-          left: 11.5rem;
+          left: ${(width * 1.5) / 33 + (dragItemWidth * 0.1) / 30}rem;
         `}
 
-  width : 59.8rem;
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
       transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10}rem);
     `};
   ${({ transX }) =>
     css`
-      transition: transform ${transX ? 0 : 200}ms ease-in -out 0s;
+      transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
     `};
+  width: ${({ width }) => (width * 1.5) / 10}rem;
   touch-action: auto;
-  img {
-    border-radius: 1rem;
 
-    object-fit: cover;
-  }
   img.unSelect_picture {
-    width: 24.8rem;
     height: 32.5rem;
 
     margin: 6.1rem 1.3rem 0 1.3rem;
     opacity: 0.5;
+
+    border-radius: 1rem;
+
+    object-fit: cover;
   }
 `;
 
