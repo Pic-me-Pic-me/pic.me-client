@@ -4,36 +4,34 @@ import styled from 'styled-components';
 import { IcGoback, IcHeaderLogo } from '../../../asset/icon';
 
 interface LayoutProps {
-  handleGoback: React.MouseEventHandler;
+  isSideIcon?: boolean;
+  handleGoback?: React.MouseEventHandler;
   IcHeaderSequence: ReactNode;
 }
 
 const HeaderLayout = (props: LayoutProps) => {
-  const { handleGoback, IcHeaderSequence } = props;
+  const { isSideIcon, handleGoback, IcHeaderSequence } = props;
 
   return (
-    <>
-      <StHeader>
-        <IcGoback className="back_icon" onClick={handleGoback} />
+    <StHeaderLayoutWrapper>
+      {!isSideIcon && <IcGoback className="back_icon" onClick={handleGoback} />}
+      <div>
         <IcHeaderLogo />
-        {IcHeaderSequence}
-      </StHeader>
-    </>
+      </div>
+
+      {!isSideIcon && IcHeaderSequence}
+    </StHeaderLayoutWrapper>
   );
 };
 
 export default HeaderLayout;
 
-const StHeader = styled.header`
+const StHeaderLayoutWrapper = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  height: 56em;
-  margin-top: 2.4rem;
-  background: none;
-
-  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
+  margin-top: 4rem;
+  margin-bottom: 1.3rem;
 
   & > svg {
     position: absolute;
