@@ -10,11 +10,12 @@ import { HeaderLayout } from '../components/Layout';
 const Share = () => {
   const navigate = useNavigate();
 
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isToastOn, setIsToastOn] = useState<boolean>(false);
+  const [isModalOn, setIsModalOn] = useState<boolean>(false);
 
-  const handleModal = () => {
-    setIsModal(true);
-    setTimeout(() => setIsModal(false), 2000);
+  const handleToast = () => {
+    setIsToastOn(true);
+    setTimeout(() => setIsToastOn(false), 2000);
   };
 
   const handleDeepLink = () => {
@@ -28,7 +29,7 @@ const Share = () => {
   return (
     <>
       <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={handleGoHome} />
-      {isModal && <StShareModal>링크가 복사되었습니다!</StShareModal>}
+      {isToastOn && <StShareToast>링크가 복사되었습니다!</StShareToast>}
       <StShareWrapper>
         <StShareTitle>
           <h1>가이드 라인</h1>
@@ -37,14 +38,14 @@ const Share = () => {
         <StShareInfo>
           <input type="text" defaultValue="https://pic.me/leeji_12/dlssll/dlssl/ksdjfdsgdsdsfasvxz" />
           <CopyToClipboard text="https://pic.me/leeji_12/dlssll/dlssl/ksdjfdsgdsdsfasvxz">
-            <button type="button" onClick={handleModal}>
+            <button type="button" onClick={handleToast}>
               <IcShareBtn />
             </button>
           </CopyToClipboard>
         </StShareInfo>
         <StCaptureScreen>
           <p>* 하단 화면을 캡쳐해서 SNS 공유에서 사용하세요!</p>
-          <img src={ImgShareCapture} />
+          <img src={ImgShareCapture} alt="캡쳐 이미지" />
         </StCaptureScreen>
         <StBtnLayout>
           <StGoInstagramBtn type="button" onClick={handleDeepLink}>
@@ -185,7 +186,7 @@ const StGoHomeBtn = styled(StBtnStructure)`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 `;
 
-const StShareModal = styled.div`
+const StShareToast = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
