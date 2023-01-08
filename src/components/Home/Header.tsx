@@ -1,5 +1,3 @@
-헤더;
-
 import React from 'react';
 import styled from 'styled-components';
 
@@ -22,7 +20,7 @@ const StBannerWrapper = styled.header`
 
   width: 100%;
   height: 26.4rem;
-  margin: 8.8rem 2rem 1.5rem 2rem;
+  margin-top: 8.8rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
