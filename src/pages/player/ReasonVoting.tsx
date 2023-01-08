@@ -1,22 +1,23 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IcHeaderSecond } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
-import { ReasonSlider } from '../../components/Voting/player';
+import { ReasonSlider, StickerGuide } from '../../components/Voting/player';
 import { postStickerData } from '../../lib/api/voting';
 import { stickerInfoState } from '../../recoil/player/atom';
 import { pictureSelector } from '../../recoil/player/selector';
 
 const ReasonVoting = () => {
   const navigate = useNavigate();
-  const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(stickerInfoState);
-  const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
+  const { pictureId } = useRecoilValue(stickerInfoState);
+  const pictureInfo = useRecoilValue(pictureSelector(pictureId));
 
   const handleVotingSuccess = async () => {
     try {
-      const { data } = await postStickerData(stickerVotingInfo);
+      //   const { data } = await postStickerData(stickerVotingInfo);
       navigate('/player/sticker_voting');
     } catch (e) {
       console.log(e);
@@ -30,6 +31,7 @@ const ReasonVoting = () => {
       <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderSecond />} />
       <VotingLayout
         votingTitle="사진을 선택한 이유를 골라주세요"
+        pageType="ReasonVoting"
         btnTitle="이 사진으로 하기"
         isActiveBtn={true}
         handlePlayer={handleVotingSuccess}>
@@ -52,11 +54,11 @@ const StReasonVotingWrpper = styled.article`
   flex-direction: column;
 
   & > img {
-    width: 39rem;
+    width: 90%;
     height: 52rem;
-    margin-top: 2rem;
     margin-bottom: 1.3rem;
-
     border-radius: 1rem;
+
+    object-fit: cover;
   }
 `;
