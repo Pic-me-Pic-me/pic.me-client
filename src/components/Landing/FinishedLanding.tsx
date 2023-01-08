@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Ballon } from '../../asset/image';
 import { VoteProps } from '../../types/vote';
 
 const FinishedLanding = ({ vote }: VoteProps) => {
