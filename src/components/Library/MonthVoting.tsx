@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { getLibraryInfo } from '../../lib/api/library';
 import useIntersectionObserver from '../../lib/hooks/library';
 import { EndedVoteInfo, VoteInfo } from '../../types/library';
 import EndedVoting from './EndedVoting';
 
 interface voteAllInfoProps {
-  voteAllInfo: EndedVoteInfo;
+  date: number;
+  votes: VoteInfo[];
 }
 
 const MonthVoting = (props: voteAllInfoProps) => {
-  const { voteAllInfo } = props;
+  const { date, votes } = props;
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [itemIndex, setItemIndex] = useState(10);
-  const [data, setData] = useState(voteAllInfo.votes.slice(0, 10));
-
-  //로딩 테스트를 위해서 가짜 fetch 함수를 넣었다.
-  const testFetch = (delay = 1) => new Promise((res) => setTimeout(res, delay));
+  const [nextFlag, setNextFlag] = useState(10);
+  const [nextId, setNextId] = useState(10);
+  const [data, setData] = useState();
 
   //현재 목업 데이터(CARD_DATA)를 사용하고 있기 때문에, 최대한 데이터를 재활용하는 코드를 작성.
   //(0~4번 게시물, 1~5번 게시물, 2~6번 게시물 이런 식으로 가져와서 5개씩 concat함수로 붙였다.)
@@ -26,10 +26,8 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   const getMoreItem = async () => {
     setIsLoaded(true);
-    await testFetch();
-    setData(data?.concat(voteAllInfo.votes.slice(itemIndex, itemIndex + 3)));
-    setItemIndex((i) => i + 3);
-    console.log(itemIndex);
+    await getLibraryInfo(votes[4].id, date);
+    console.log(nextFlag, nextId);
     setIsLoaded(false);
   };
 

@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 export const client = axios.create({
-  baseURL: 'https://0430d9f5-b8ae-4142-9a00-99d1827940ed.mock.pstmn.io',
+  baseURL: 'http://3.36.80.168:3000/',
   headers: {
     'Content-type': 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyLCJpYXQiOjE2NzMyMDE4NjUsImV4cCI6MTY3MzIwOTA2NX0.wZmpURZFSdaB6VWg9oNBW7eZmMJwwgbErMuyPflOIOo',
   },
 });

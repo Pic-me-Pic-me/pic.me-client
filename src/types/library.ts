@@ -1,11 +1,12 @@
 export interface VoteInfo {
+  id: number;
   title: string;
   count: number;
-  createAt: string;
   url: string;
+  createAt: Date;
 }
 
 export interface EndedVoteInfo {
-  date: string;
+  date: number;
   votes: VoteInfo[];
 }
