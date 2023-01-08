@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
@@ -7,6 +7,24 @@ interface HamburgerProps {
 }
 const Hamburger = (props: HamburgerProps) => {
   const { isOpen } = props;
+  const [showOption, setShowOption] = useState(false);
+  const ref = useRef<HTMLDivElement>();
+
+  const handleToggleOption = () => setShowOption((prev) => !prev);
+
+  const handleClickOutSide = (e: React.MouseEvent<HTMLDivElement>) => {
+    // console.log(ref?.current.contains(e?.target));
+    if (showOption && !ref.current.contains(e.target)) {
+      setShowOption(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showOption) document.addEventListener('mousedown', handleClickOutSide);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutSide);
+    };
+  });
   const navigate = useNavigate();
 
   const handleNavigateLibrary = () => {
@@ -14,15 +32,19 @@ const Hamburger = (props: HamburgerProps) => {
   };
 
   return (
-    <StHamburgerWrapper isOpen={isOpen}>
-      <StHamburgerMenu>회원 정보</StHamburgerMenu>
-      <StHamburgerMenu onClick={handleNavigateLibrary}>라이브러리</StHamburgerMenu>
-      <StHamburgerMenu>픽미 팀소개</StHamburgerMenu>
-    </StHamburgerWrapper>
+    <StOutsideHamburger onClick={handleClickOutSide}>
+      <StHamburgerWrapper isOpen={isOpen}>
+        <StHamburgerMenu>회원 정보</StHamburgerMenu>
+        <StHamburgerMenu onClick={handleNavigateLibrary}>라이브러리</StHamburgerMenu>
+        <StHamburgerMenu>픽미 팀소개</StHamburgerMenu>
+      </StHamburgerWrapper>
+    </StOutsideHamburger>
   );
 };
 
 export default Hamburger;
+
+const StOutsideHamburger = styled.div``;
 
 const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
   position: fixed;
