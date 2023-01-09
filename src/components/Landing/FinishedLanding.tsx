@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { VoteProps } from '../../types/vote';
+import { votingInfoState } from '../../recoil/player/atom';
 
-const FinishedLanding = ({ vote }: VoteProps) => {
-  const title = `\"${vote?.voteTitle}\"`;
+const FinishedLanding = () => {
+  const votingInfoAtom = useRecoilValue(votingInfoState);
+  const { voteTitle } = votingInfoAtom;
   const navigate = useNavigate();
 
   return (
@@ -13,7 +15,7 @@ const FinishedLanding = ({ vote }: VoteProps) => {
       <StModal>
         <StTitle>
           <div>
-            <h1>{title}</h1>
+            <h1>{voteTitle}</h1>
           </div>
         </StTitle>
         <StDescription>
