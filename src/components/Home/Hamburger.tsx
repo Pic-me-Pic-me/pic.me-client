@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-interface HamburgerProps {
+export interface HamburgerProps {
   isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
+
 const Hamburger = (props: HamburgerProps) => {
-  const { isOpen } = props;
+  const { isOpen, setIsOpen } = props;
+
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  const onClickOutSide = (event: Event) => {
+    if (!sidebarRef.current?.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', onClickOutSide, true);
+    return () => {
+      document.removeEventListener('click', onClickOutSide, true);
+    };
+  });
+
   const navigate = useNavigate();
 
   const handleNavigateLibrary = () => {
@@ -14,21 +32,36 @@ const Hamburger = (props: HamburgerProps) => {
   };
 
   return (
-    <StHamburgerWrapper isOpen={isOpen}>
-      <StHamburgerMenu>회원 정보</StHamburgerMenu>
-      <StHamburgerMenu onClick={handleNavigateLibrary}>라이브러리</StHamburgerMenu>
-      <StHamburgerMenu>픽미 팀소개</StHamburgerMenu>
-    </StHamburgerWrapper>
+    <StOutsideHamburger isOpen={isOpen}>
+      <StHamburgerWrapper isOpen={isOpen}>
+        <StHamburgerMenu>회원 정보</StHamburgerMenu>
+        <StHamburgerMenu onClick={handleNavigateLibrary}>라이브러리</StHamburgerMenu>
+        <StHamburgerMenu>픽미 팀소개</StHamburgerMenu>
+      </StHamburgerWrapper>
+    </StOutsideHamburger>
   );
 };
 
 export default Hamburger;
 
+const StOutsideHamburger = styled.div<{ isOpen?: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  height: 100%;
+
+  background-color: ${(props) => (props.isOpen ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0)')};
+`;
+
 const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
   position: fixed;
   left: 0;
 
-  width: 43rem;
+  width: 100%;
   height: 20.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};

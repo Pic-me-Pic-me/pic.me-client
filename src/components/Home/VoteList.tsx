@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { EmptyIcon } from '../../asset/image';
@@ -8,29 +9,38 @@ import VoteCard from './VoteCard';
 
 const VoteList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [itemIndex, setItemIndex] = useState(0);
-  const [dataList, setDataList] = useState<VoteInfo[]>([]);
-  const [newDataList, setnewDataList] = useState<VoteInfo[]>(dataList);
+  // const [itemIndex, setItemIndex] = useState(0);
+  // const [dataList, setDataList] = useRef<VoteInfo[]>();
+  const dataList = useRef<VoteInfo[]>();
+  const [newDataList, setnewDataList] = useState<VoteInfo[]>();
+  const [CursorId, setCursorId] = useState(0);
+  console.log('CursorId', CursorId);
 
   useEffect(() => {
+    console.log('마운트');
     getMoreItem();
-  }, []);
+  }, [newDataList]);
 
   const getMoreItem = async () => {
     setIsLoaded(true);
-    const newData = await getCurrentVoteData();
-
+    const newData = await getCurrentVoteData(Number(CursorId));
     if (newData) {
+      setCursorId(newData[4].voteId);
       newData.forEach((data) => {
-        newDataList.push(data);
-        setItemIndex((i) => i + 1);
-        setDataList(newData);
-        setIsLoaded(false);
+        if (newDataList) {
+          newDataList.push(data);
+          // setItemIndex((i) => i   + 5);
+          // setDataList(newDataList);
+          // setDataList([...newDataList]);
+          dataList.current = newDataList;
+          setIsLoaded(false);
+        }
       });
+      console.log('newData', newData);
+      // setDataList(newData);
+      console.log('dataList', dataList);
     }
-    console.log(dataList);
   };
-
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
     if (entry.isIntersecting && !isLoaded) {
       observer.unobserve(entry.target);
@@ -51,10 +61,11 @@ const VoteList = () => {
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
       {dataList ? (
         <StVoteListWrapper>
-          {dataList?.map((data, i) => (
+          {/* {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
-          ))}
-          <div ref={setTarget}>{isLoaded && 'Loading'}</div>
+          ))} */}
+          {/* <VoteCard ref={dataList} /> */}
+          <div ref={setTarget}>{isLoaded && '로딩중'}</div>
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
@@ -70,7 +81,8 @@ const VoteList = () => {
 export default VoteList;
 
 const StCurrentVote = styled.h1`
-  margin: 5.1rem 0rem 1.3rem 2.1rem;
+  padding: 0rem 2rem;
+  margin: 5.1rem 0rem 1.3rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
 `;
@@ -78,11 +90,16 @@ const StCurrentVote = styled.h1`
 const StVoteListWrapper = styled.main`
   display: flex;
   overflow-x: scroll;
+  overflow-y: hidden;
 
+  padding-bottom: 19.3rem;
   height: 15.4rem;
-  margin-left: 2.1rem;
 
   cursor: pointer;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StEmptyView = styled.main`
@@ -92,6 +109,7 @@ const StEmptyView = styled.main`
   align-items: center;
 
   margin-top: 5.1rem;
+  padding-bottom: 19.3rem;
 
   > img {
     width: 13.8rem;

@@ -3,13 +3,22 @@ import styled from 'styled-components';
 
 import { IcClose, IcHamburger } from '../../asset/icon';
 import { HomeLogo } from '../../asset/image';
+import useModal from '../../lib/hooks/useModal';
+import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
 const Nav = () => {
+  const { isShowing, toggle } = useModal();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleConfirm = () => {
+    console.log('로그아웃');
+  };
+
   const handleHamburger = () => {
     setIsOpen((isOpen) => !isOpen);
   };
+
   const handleReLoad = () => {
     window.location.reload();
   };
@@ -20,13 +29,21 @@ const Nav = () => {
           <img src={HomeLogo} alt="홈 로고" />
         </StLogoBtn>
         <StHambergerWrapper>
-          <StLogoutBtn type="button">로그아웃</StLogoutBtn>
+          <StLogoutBtn type="button" onClick={() => toggle()}>
+            로그아웃
+          </StLogoutBtn>
+          <Modal
+            isShowing={isShowing}
+            message="로그아웃 하시겠습니까?"
+            handleHide={toggle}
+            handleConfirm={handleConfirm}
+          />
           <StHamburgerBtn type="button" onClick={handleHamburger}>
-            {isOpen ? <IcClose /> : <IcHamburger width="2.13rem" height="1.4rem" />}
+            {isOpen ? <IcClose width="2.13rem" height="1.4rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
           </StHamburgerBtn>
         </StHambergerWrapper>
       </StHomeNav>
-      <Hamburger isOpen={isOpen} />
+      <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };
@@ -35,6 +52,7 @@ export default Nav;
 
 const StHomeNav = styled.nav`
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   position: fixed;
@@ -42,9 +60,9 @@ const StHomeNav = styled.nav`
   left: 0;
   z-index: 1;
 
-  width: 43rem;
+  width: 100%;
   height: 8.8rem;
-  padding: 2.7rem 0rem 0.7rem 1.8rem;
+  padding: 2.7rem 0rem 0rem 1.8rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;

@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 import { client } from '../axios';
 import { VotingInfo } from './../../types/voting';
 
@@ -11,18 +13,23 @@ export interface VoteInfo {
   totalVoteCount: number;
 }
 
+export interface Result {
+  result: VoteInfo[];
+}
+
 export interface VoteListData {
   status: number;
   success: boolean;
   message: string;
-  data: VoteInfo[];
+  data: Result;
+  resCursorId: number;
 }
 
-export const getCurrentVoteData = async () => {
+export const getCurrentVoteData = async (resCursorId: number) => {
+  console.log(resCursorId);
   try {
-    const data = await client.get<VoteListData>('/vote/current');
-    console.log(data.data.data);
-    return data.data.data;
+    const data = await client.get<VoteListData>(`vote/getCurrentVote/${resCursorId}`);
+    return data.data.data.result;
   } catch (err) {
     console.error(err);
   }
