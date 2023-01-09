@@ -1,74 +1,66 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
+import { IcGoback } from '../../asset/icon';
+
 interface LayoutProps {
-  Logo: ReactNode;
-  CategoryInfo: ReactNode;
-  PersonalInfo: ReactNode;
-  children?: ReactNode;
-  isWhite: boolean;
+  HeaderTitle: ReactNode;
+  isBanner?: boolean;
+  handleGoback: React.MouseEventHandler;
 }
 
 const HeaderLayout = (props: LayoutProps) => {
-  const { Logo, CategoryInfo, PersonalInfo, children, isWhite } = props;
+  const { HeaderTitle, isBanner, handleGoback } = props;
 
   return (
-    <StHeader isWhite={isWhite}>
-      <StLeft>
-        {Logo}
-        {CategoryInfo}
-      </StLeft>
-      {children}
-      <StRight>{PersonalInfo}</StRight>
+    <StHeader isBanner={isBanner}>
+      <IcGoback onClick={handleGoback} />
+      <StTitle isBanner={isBanner}>
+        <h1>{HeaderTitle}</h1>
+      </StTitle>
     </StHeader>
   );
 };
 
 export default HeaderLayout;
 
-const StHeader = styled.header<{ isWhite: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  width: 120rem;
-  height: 4.375rem;
-  margin: 0 0 2.4375rem;
-
-  & > form {
-    width: 68rem;
-    height: 2.625rem;
-  }
-`;
-const StLeft = styled.div`
+const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0rem;
 
-  margin-left: 1.9rem;
-  padding: 0;
+  height: 8rem;
+  padding-right: 5.4rem;
 
-  gap: 2rem;
+  background: none;
+  background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 
-  & > :first-child {
+  & > svg {
+    width: 5.4rem;
+
     cursor: pointer;
+
+    & > path {
+      display: flex;
+      align-items: center;
+
+      stroke: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
+    }
   }
+
+  z-index: 10;
 `;
 
-const StRight = styled.div`
+const StTitle = styled.div<{ isBanner?: boolean }>`
   display: flex;
+  justify-content: center;
   align-items: center;
 
-  margin-right: 1.8813rem;
-  padding: 0;
+  width: 100%;
 
-  gap: 2rem;
-
-  & > :first-child {
-    cursor: pointer;
+  & > h1 {
+    ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20};
+    color: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
   }
 `;

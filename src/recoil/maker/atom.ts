@@ -7,7 +7,7 @@ import { VotingImageInfo } from '../../types/votingImage';
 const { persistAtom } = recoilPersist();
 
 export const votingImageState = atom<VotingImageInfo>({
-  key: 'votingForm',
+  key: 'votingImage',
   default: {
     title: '',
     firstImageUrl: '',

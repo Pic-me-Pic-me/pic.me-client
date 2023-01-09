@@ -1,4 +1,4 @@
-import { MakerVotingLayout } from '../components/MakerVoting';
+import { MakerVotingLayout } from '../components/Layout';
 
 const MakerVoting = () => (
   <div>
