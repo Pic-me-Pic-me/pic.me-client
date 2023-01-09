@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { getLibraryInfo } from '../../lib/api/library';
+import { getMonthlyLibraryInfo } from '../../lib/api/library';
 import useIntersectionObserver from '../../lib/hooks/library';
 import { EndedVoteInfo, VoteInfo } from '../../types/library';
 import EndedVoting from './EndedVoting';
@@ -15,32 +15,32 @@ const MonthVoting = (props: voteAllInfoProps) => {
   const { date, votes } = props;
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const [nextFlag, setNextFlag] = useState(10);
-  const [nextId, setNextId] = useState(10);
-  const [data, setData] = useState();
 
-  //현재 목업 데이터(CARD_DATA)를 사용하고 있기 때문에, 최대한 데이터를 재활용하는 코드를 작성.
-  //(0~4번 게시물, 1~5번 게시물, 2~6번 게시물 이런 식으로 가져와서 5개씩 concat함수로 붙였다.)
-  //getMoreItem 함수가 실행되면 isLoaded를 true로 만들어 로딩 컴포넌트를 보여주고,
-  //함수가 종료될 때 isLoaded를 false로 만들어 로딩컴포넌트를 숨겼다.
+  const [nextIndex, setNextIndex] = useState(votes[4].id);
+  const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>([]);
 
-  const getMoreItem = async () => {
-    setIsLoaded(true);
-    await getLibraryInfo(votes[4].id, date);
-    console.log(nextFlag, nextId);
-    setIsLoaded(false);
-  };
+  useEffect(() => {
+    const getMoreItem = async () => {
+      setIsLoaded(true);
+      const res = await getMonthlyLibraryInfo(nextIndex, date);
+      if (res?.data.data) {
+        const newVerticalScrollInfo = res.data.data as VoteInfo[];
+        setVerticalScrollInfo(newVerticalScrollInfo);
 
-  //intersection 콜백함수
-  //entry는 IntersectionObserverEntry 인스턴스의 배열
-  //isIntersecting: 대상 객체와 루트 영역의 교차상태를 boolean값으로 나타냄
-  //대상 객체가 루트 영역과 교차 상태로 들어갈 때(true), 나갈 때(false)
+        if (newVerticalScrollInfo[4]) setNextIndex(newVerticalScrollInfo[4].id);
+        setIsLoaded(false);
+      }
+      // setVerticalScrollInfo(verticalScrollInfo.slice(nextIndex, nextIndex + 5));
+      // setNextIndex(res?.data.data[4].date);
+    };
+    getMoreItem();
+  }, []);
 
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
     //보통 교차여부만 확인하는 것 같다. 코드는 로딩상태까지 확인함.
     if (entry.isIntersecting && !isLoaded) {
       observer.unobserve(entry.target);
-      await getMoreItem();
+      // await getMoreItem();
       observer.observe(entry.target);
     }
   };
@@ -55,10 +55,10 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   return (
     <StMonthVotingWrapper>
-      <StDateTitle>{voteAllInfo.date}</StDateTitle>
+      <StDateTitle>{date}</StDateTitle>
       <StEndedVotingListWrapper>
-        {data.map((vote, idx) => (
-          <EndedVoting voteData={vote} key={idx}></EndedVoting>
+        {verticalScrollInfo.map((vote: VoteInfo, idx: number) => (
+          <EndedVoting id={vote.id} voteData={vote} key={idx}></EndedVoting>
         ))}
         <div ref={setTarget}>{isLoaded && 'Loading'}</div>
       </StEndedVotingListWrapper>
