@@ -14,7 +14,7 @@ const VoteCard = (props: VoteCardProps) => {
     <StVoteItem>
       <StVoteData>
         <StTitleWrapper>
-          <h1>{voteData.title}</h1>
+          <h1>{voteData.voteId}</h1>
           <h2>{voteData.totalVoteCount}명 투표 중</h2>
         </StTitleWrapper>
         <h3>{voteData.createdAt.toString()}</h3>

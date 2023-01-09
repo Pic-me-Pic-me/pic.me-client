@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { EmptyIcon } from '../../asset/image';
+import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData, VoteInfo } from '../../lib/api/voting';
 import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
 import VoteCard from './VoteCard';
@@ -13,24 +14,38 @@ const VoteList = () => {
   const [dataList, setDataList] = useState<VoteInfo[]>();
   const [newDataList, setnewDataList] = useState<VoteInfo[]>();
   const [CursorId, setCursorId] = useState(0);
+  const [userName, setUserName] = useState<string>();
 
   useEffect(() => {
-    console.log('마운트');
+    // console.log('마운트');
+    getUserName();
     getMoreItem();
-  }, []);
+  }, [dataList]);
+
+  const getUserName = async () => {
+    const name = await getUserInfo();
+    setUserName(name?.data.userName);
+  };
 
   const getMoreItem = async () => {
     setIsLoaded(true);
     const newData = await getCurrentVoteData(Number(CursorId));
-    console.log('newData', newData);
+    // console.log('newData', newData);
 
-    if (newData) {
-      setDataList(newData.result.concat(newData.result));
-      setCursorId(newData.resCursorId);
-      setIsLoaded(false);
+    if (!dataList) {
+      setDataList(newData?.result);
     }
 
-    console.log('dataList', dataList);
+    if (newData) {
+      console.log(dataList);
+
+      if (dataList) {
+        setDataList(dataList.concat(newData.result));
+        setCursorId(newData.resCursorId);
+        setIsLoaded(false);
+      }
+      console.log('dataList', dataList);
+    }
   };
 
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
@@ -56,12 +71,12 @@ const VoteList = () => {
           {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
           ))}
-          <div ref={setTarget}>{isLoaded && '로딩중'}</div>
+          <div ref={setTarget}>{isLoaded}</div>
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
           <img src={EmptyIcon} alt="현재 진행중인 투표 없음" />
-          <p>픽둥이님 만의 투표를</p>
+          <p>{userName}님 만의 투표를</p>
           <p>만들어보세요!</p>
         </StEmptyView>
       )}
