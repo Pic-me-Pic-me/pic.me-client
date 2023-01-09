@@ -26,11 +26,9 @@ export interface VoteListData {
 }
 
 export const getCurrentVoteData = async (resCursorId: number) => {
-  console.log('test');
+  console.log(resCursorId);
   try {
-    console.log('test2');
     const data = await client.get<VoteListData>(`vote/getCurrentVote/${resCursorId}`);
-    console.log('ddd', data);
     return data.data.data.result;
   } catch (err) {
     console.error(err);

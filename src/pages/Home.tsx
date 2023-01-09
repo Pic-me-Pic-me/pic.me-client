@@ -14,7 +14,7 @@ const Home = () => (
         <p>투표 만들기</p>
       </StMakerVoting>
     </StHomeWrapper>
-    <VoteList />
+    {/* <VoteList /> */}
   </>
 );
 
