@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { VoteInfo } from '../../lib/api/voting';
+import { VoteInfo } from '../../types/voting';
 
 interface VoteCardProps {
   voteData: VoteInfo;

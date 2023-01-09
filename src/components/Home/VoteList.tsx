@@ -1,24 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { EmptyIcon } from '../../asset/image';
 import { getUserInfo } from '../../lib/api/auth';
-import { getCurrentVoteData, VoteInfo } from '../../lib/api/voting';
+import { getCurrentVoteData } from '../../lib/api/voting';
 import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
+import { VoteInfo } from '../../types/voting';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [itemIndex, setItemIndex] = useState(0);
   const [dataList, setDataList] = useState<VoteInfo[]>();
-  const [newDataList, setnewDataList] = useState<VoteInfo[]>();
   const [CursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
 
   useEffect(() => {
-    // console.log('마운트');
     getUserName();
+  }, []);
+
+  useEffect(() => {
     getMoreItem();
   }, [dataList]);
 
@@ -30,21 +30,16 @@ const VoteList = () => {
   const getMoreItem = async () => {
     setIsLoaded(true);
     const newData = await getCurrentVoteData(Number(CursorId));
-    // console.log('newData', newData);
 
     if (!dataList) {
       setDataList(newData?.result);
     }
-
     if (newData) {
-      console.log(dataList);
-
       if (dataList) {
         setDataList(dataList.concat(newData.result));
         setCursorId(newData.resCursorId);
         setIsLoaded(false);
       }
-      console.log('dataList', dataList);
     }
   };
 
