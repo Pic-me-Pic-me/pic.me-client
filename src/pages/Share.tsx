@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcShareBtn } from '../asset/icon';
@@ -8,43 +8,42 @@ import { ImgShareCapture } from '../asset/image';
 import { HeaderLayout } from '../components/Layout';
 
 const Share = () => {
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const [isModal, setIsModal] = useState<boolean>(false);
+  const [isToastOn, setIsToastOn] = useState<boolean>(false);
 
-  const handleModal = () => {
-    setIsModal(true);
-    setTimeout(() => setIsModal(false), 2000);
+  const voteId = location.state;
+
+  const handleToast = () => {
+    setIsToastOn(true);
+    setTimeout(() => setIsToastOn(false), 2000);
   };
 
   const handleDeepLink = () => {
-    window.location.replace('instagram://');
-  };
-
-  const handleGoHome = () => {
-    navigate('/');
+    window.location.replace('instagram-stories://share');
   };
 
   return (
     <>
-      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={handleGoHome} />
-      {isModal && <StShareModal>링크가 복사되었습니다!</StShareModal>}
+      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/')} />
+      {isToastOn && <StShareToast>링크가 복사되었습니다!</StShareToast>}
       <StShareWrapper>
         <StShareTitle>
           <h1>가이드 라인</h1>
           <h2>아래 가이드 라인을 따라 나만의 투표를 공유해보세요!</h2>
         </StShareTitle>
         <StShareInfo>
-          <input type="text" defaultValue="https://pic.me/leeji_12/dlssll/dlssl/ksdjfdsgdsdsfasvxz" />
-          <CopyToClipboard text="https://pic.me/leeji_12/dlssll/dlssl/ksdjfdsgdsdsfasvxz">
-            <button type="button" onClick={handleModal}>
+          <input type="text" defaultValue={`http://localhost:3000/vote/${voteId}`} />
+          <CopyToClipboard text={`http://localhost:3000/vote/${voteId}`}>
+            <button type="button" onClick={handleToast}>
               <IcShareBtn />
             </button>
           </CopyToClipboard>
         </StShareInfo>
         <StCaptureScreen>
-          <p>* 하단 화면을 캡쳐해서 SNS 공유에서 사용하세요!</p>
-          <ImgShareCapture />
+          <p>* 하단 이미지를 꾹 눌러 저장한 뒤 SNS에 공유해보세요!</p>
+          <img src={ImgShareCapture} alt="캡쳐 이미지" />
         </StCaptureScreen>
         <StBtnLayout>
           <StGoInstagramBtn type="button" onClick={handleDeepLink}>
@@ -65,7 +64,14 @@ const StShareWrapper = styled.section`
 `;
 
 const StShareTitle = styled.header`
-  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+
+  padding-left: 2rem;
+  padding-right: 2rem;
 
   & > h1 {
     ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
@@ -84,7 +90,11 @@ const StShareInfo = styled.article`
   display: flex;
   align-items: center;
 
-  margin: 2rem 0 0 2rem;
+  width: 100%;
+
+  margin-top: 3.9rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 
   & > input {
     width: 31.9rem;
@@ -128,10 +138,14 @@ const StCaptureScreen = styled.article`
   margin-top: 3.9rem;
 
   & > p {
-    margin: 2rem;
-
     ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  }
+
+  & > img {
+    margin-top: 2rem;
+
+    width: 100%;
   }
 `;
 
@@ -142,12 +156,16 @@ const StBtnLayout = styled.article`
   align-items: center;
   gap: 1rem;
 
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
   margin-top: 3.867rem;
   padding-bottom: 12.7rem;
 `;
 
 const StBtnStructure = styled.button`
-  width: 39rem;
+  width: 100%;
   height: 6rem;
 
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
@@ -166,15 +184,15 @@ const StGoHomeBtn = styled(StBtnStructure)`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 `;
 
-const StShareModal = styled.div`
-  position: fixed;
-
-  top: 80.8rem;
-  left: 9.5rem;
-
+const StShareToast = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+
+  top: 80%;
+  left: 50vw;
+  transform: translateX(-50%);
 
   width: 24.8rem;
   height: 4.8rem;
@@ -184,4 +202,8 @@ const StShareModal = styled.div`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
 
   border-radius: 4.6rem;
+
+  /* animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: fadeOut; */
 `;

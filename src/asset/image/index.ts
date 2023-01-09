@@ -1,2 +1,1 @@
-export { ReactComponent as ImgShareCapture } from './ImgShareCapture.svg';
-export { ReactComponent as ImgSignUpBanner } from './ImgSignUpBanner.svg';
+export { default as ImgShareCapture } from './ImgShareCapture.png';
