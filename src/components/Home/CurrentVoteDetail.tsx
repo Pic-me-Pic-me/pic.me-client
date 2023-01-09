@@ -38,7 +38,6 @@ const CurrentVoteDetail = () => {
 
   useEffect(() => {
     handleGetCurrentVoteData();
-    handleElapsedTime(voteInfo.createdDate);
     // if (currentVoteInfo !== undefined) {
     //   setVoteInfo(currentVoteInfo);
     //   setCurrentVote(currentVoteInfo.currentVote);
