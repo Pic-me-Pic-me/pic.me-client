@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IcModalBG } from '../../asset/icon';
-import { VoteProps } from '../../types/vote';
+import { votingInfoState } from '../../recoil/player/atom';
 
-const VoteLanding = ({ vote }: VoteProps) => {
-  const title = `\"${vote?.voteTitle}\"`;
+const VoteLanding = () => {
+  const votingInfoAtom = useRecoilValue(votingInfoState);
+  const { voteTitle, userName, voteId } = votingInfoAtom;
   const navigate = useNavigate();
 
   return (
@@ -14,18 +16,18 @@ const VoteLanding = ({ vote }: VoteProps) => {
       <StModal>
         <StTitle>
           <div>
-            <h1>{title}</h1>
+            <h1>{voteTitle}</h1>
           </div>
         </StTitle>
         <StContent>
           <IcModalBG />
           <StDescription>
-            <p>{vote?.userName}님의 사진</p>
+            <p>{userName}님의 사진</p>
             <p>2개 중 1개를 골라주세요!</p>
           </StDescription>
         </StContent>
         <StButtonWrapper>
-          <button type="button" onClick={() => navigate('/voting')}>
+          <button type="button" onClick={() => navigate(`/player/picture_voting/${voteId}`)}>
             익명 투표 시작하기
           </button>
           <button type="button" onClick={() => navigate('/makerlanding')}>
@@ -110,7 +112,7 @@ const StTitle = styled.header`
   }
 `;
 
-const StDescription = styled.p`
+const StDescription = styled.article`
   margin-top: 2.5rem;
   margin-bottom: 3.4rem;
   & > p {
