@@ -1,3 +1,5 @@
+export { ReactComponent as IcBallon } from './IcBallon.svg';
+export { ReactComponent as IcModalBG } from './IcModalBG.svg';
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
 export { ReactComponent as IcFaceMenu } from './face_menu.svg';
