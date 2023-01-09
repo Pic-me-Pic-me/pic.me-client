@@ -5,7 +5,7 @@ import { KakaoLoginBtn } from '../../asset/image';
 
 const KakaoLogin = () => {
   const Kakao = window.Kakao;
-  const REDIRECT_URI = `http://localhost:3000/oauth/kakao/callback`;
+  const REDIRECT_URL = `http://localhost:3000/oauth/kakao/callback`;
 
   useEffect(() => {
     initKakao();
@@ -19,8 +19,9 @@ const KakaoLogin = () => {
   };
 
   const handleKakaoLogin = () => {
+    console.log('dd');
     Kakao.Auth.authorize({
-      redirectUri: `${REDIRECT_URI}`,
+      redirectUri: REDIRECT_URL,
       //TODO: 자동 로그인 구현
       // prompts: 'none',
     });

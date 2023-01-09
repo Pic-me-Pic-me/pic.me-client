@@ -1,34 +1,10 @@
 import axios from 'axios';
 
-export const client = axios.create({
-  baseURL: 'https://ed76eca9-2182-4ba8-9458-3321e7958ab4.mock.pstmn.io/auth/kakao',
-  headers: {
-    'Content-type': 'application/json',
-  },
-});
-
-type UserInfo = {
-  isUser: boolean;
-  uid: string;
-};
-
-type UsersResponse = {
-  data: UserInfo;
-};
-
-type UserTokenInfo = {
-  id: number;
-  userName: string;
-  accessToken: string;
-  refreshToken: string;
-};
-
-type UserToken = {
-  data: UserTokenInfo;
-};
+import { UsersResponse, UserToken } from '../../types/auth';
+import { client } from '../axios';
 
 export const postKakaoToken = async (socialType: string, token: string) => {
-  const { data } = await client.post<UsersResponse>('/check', {
+  const { data } = await client.post<UsersResponse>('/auth/kakao/check', {
     socialType,
     token,
   });
@@ -37,7 +13,7 @@ export const postKakaoToken = async (socialType: string, token: string) => {
 };
 
 export const postKakaoSignIn = async (uid: string, socialType: string) => {
-  const { data } = await client.post<UserToken>('/signin', {
+  const { data } = await client.post<UserToken>('/auth/kakao/signin', {
     uid,
     socialType,
   });
@@ -46,7 +22,7 @@ export const postKakaoSignIn = async (uid: string, socialType: string) => {
 };
 
 export const postKakaoSignUp = async (uid: string, socialType: string, user_name: string) => {
-  const { data } = await client.post<UserToken>('', {
+  const { data } = await client.post<UserToken>('/auth/kakao', {
     uid,
     socialType,
     user_name,

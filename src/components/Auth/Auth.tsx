@@ -7,7 +7,7 @@ import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/
 
 const Auth = () => {
   const Kakao = window.Kakao;
-  const REDIRECT_URI = `http://localhost:3000/oauth/kakao/callback`;
+  const REDIRECT_URL = `http://localhost:3000/oauth/kakao/callback`;
 
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Auth = () => {
     const payload = qs.stringify({
       grant_type: 'authorization_code',
       client_id: process.env.REACT_APP_REST_API_KEY,
-      redirect_uri: REDIRECT_URI,
+      redirect_uri: REDIRECT_URL,
       code,
       client_secret: process.env.REACT_APP_CLIENT_SECRET,
     });
@@ -38,10 +38,10 @@ const Auth = () => {
       const uid = data.uid;
       navigate('/nickname');
 
-      const nick = '바켜언지';
-      // 유저가 아니라면 회원가입하기
-      const signUpData = await postKakaoSignUp(uid, 'kakao', nick);
-      const resp = signUpData.data.userName;
+      // const nick = '바켜언지';
+      // // 유저가 아니라면 회원가입하기
+      // const signUpData = await postKakaoSignUp(uid, 'kakao', nick);
+      // const resp = signUpData.data.userName;
 
       // 카카오 아이디 있는 경우
       // if (isUser) {
