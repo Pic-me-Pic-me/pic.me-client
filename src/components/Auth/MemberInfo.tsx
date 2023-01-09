@@ -1,16 +1,28 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcPickmeLogo } from '../../asset/icon';
+import { getUserInfo } from '../../lib/api/auth';
+import { UserInfo } from '../../types/auth';
 import { HeaderLayout } from '../Layout';
 
 const MemberInfo = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState<UserInfo>();
 
   const handleGoback = () => {
     navigate('/');
   };
+
+  const getUserData = async () => {
+    const userinfo = await getUserInfo();
+    if (userinfo) setUser(userinfo.data);
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <>
@@ -20,10 +32,12 @@ const MemberInfo = () => {
       </StBannerWrapper>
       <StWhiteSection>
         <h1>닉네임</h1>
-        <p>닉네임ㅇㅇㅇㅇ</p>
+        <p>{user?.userName}</p>
         <h1>아이디</h1>
-        <p>아이디ㅣㅣㅣㅣ</p>
-        <button type="button">회원 탈퇴하기</button>
+        <p>{user?.email}</p>
+        <div>
+          <button type="button">회원 탈퇴하기</button>
+        </div>
       </StWhiteSection>
     </>
   );
@@ -73,13 +87,17 @@ const StWhiteSection = styled.section`
     margin-bottom: 3rem;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-    // body2로 바꿔야 함!!
     ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
   }
 
-  > button {
-    width: 100%;
+  > div {
+    display: flex;
+
     margin-top: 34.6rem;
+  }
+
+  > div > button {
+    margin: 0 auto;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
     background: inherit;
