@@ -8,16 +8,16 @@ const KakaoLogin = () => {
   const kauthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&response_type=code`;
   // const REDIRECT_URL = `http://localhost:3000/oauth/kakao/callback`;
 
-  // useEffect(() => {
-  //   initKakao();
-  // }, []);
+  useEffect(() => {
+    initKakao();
+  }, []);
 
-  // const initKakao = () => {
-  //   if (Kakao && !Kakao.isInitialized()) {
-  //     Kakao.init(process.env.REACT_APP_JS_KEY);
-  //     console.log(Kakao.isInitialized());
-  //   }
-  // };
+  const initKakao = () => {
+    if (Kakao && !Kakao.isInitialized()) {
+      Kakao.init(process.env.REACT_APP_JS_KEY);
+      console.log(Kakao.isInitialized());
+    }
+  };
 
   // const handleKakaoLogin = () => {
   // Kakao.Auth.authorize({

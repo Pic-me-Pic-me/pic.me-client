@@ -11,9 +11,27 @@ export interface LoginType {
   user_id: number;
   provider_type: string;
 }
+
+export interface RefreshType {
+  status: number;
+  success: boolean;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+}
+
+export interface UserData {
+  status: number;
+  success: boolean;
+  message: string;
+  data: UserInfo;
+}
+
 export interface UserInfo {
-  isUser: boolean;
   uid: string;
+  email: string;
+  isUser: boolean;
 }
 
 export interface UsersResponse {
@@ -26,6 +44,7 @@ export interface UserTokenInfo {
   accessToken: string;
   refreshToken: string;
 }
+
 export interface UserToken {
   data: UserTokenInfo;
 }

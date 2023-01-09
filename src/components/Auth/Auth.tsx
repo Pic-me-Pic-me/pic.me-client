@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
-import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/api';
+import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/auth';
 
 const Auth = () => {
   const cookies = new Cookies();
@@ -44,11 +44,15 @@ const Auth = () => {
         const signInData = await postKakaoSignIn(data.uid, 'kakao');
         // 토큰 저장
         localStorage.setItem('accessToken', signInData.accessToken);
-        cookies.set('refreshToken', res.data.refreshToken);
-        // localStorage.setItem('refreshToken', signInData.refreshToken);
-        navigate('/');
+        // cookies.set('refreshToken', res.data.refreshToken);
+        localStorage.setItem('refreshToken', signInData.refreshToken);
+        navigate('/nickname');
       } else if (!data.isUser) {
         // 회원가입
+        const nick = '테스트닉네임';
+        // 유저가 아니라면 회원가입하기
+        const signUpData = await postKakaoSignUp(data.uid, 'kakao', data.email, nick);
+        const resp = signUpData.data.userName;
         navigate('/nickname');
       }
 
