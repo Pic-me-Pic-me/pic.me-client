@@ -17,6 +17,7 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "msw": "^0.49.2",
+    "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",

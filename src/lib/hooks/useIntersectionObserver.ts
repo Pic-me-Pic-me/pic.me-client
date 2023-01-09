@@ -14,7 +14,6 @@ const useIntersectionObserver = ({ root, rootMargin, threshold, onIntersect }: u
 
     const observer: IntersectionObserver = new IntersectionObserver(onIntersect, { root, rootMargin, threshold });
     observer.observe(target);
-
     return () => observer.unobserve(target);
   }, [onIntersect, root, rootMargin, target, threshold]);
 

@@ -5,21 +5,23 @@ import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
 
 const Home = () => (
-  <StHomeWrapper>
-    <Nav />
-    <Header />
-    <StMakerVoting type="button">
-      <IcPlus width="2.8rem" height="2.8rem" />
-      <p>투표 만들기</p>
-    </StMakerVoting>
-    <VoteList />
-  </StHomeWrapper>
+  <>
+    <StHomeWrapper>
+      <Nav />
+      <Header />
+      <StMakerVoting type="button">
+        <IcPlus width="2.8rem" height="2.8rem" />
+        <p>투표 만들기</p>
+      </StMakerVoting>
+    </StHomeWrapper>
+    {/* <VoteList /> */}
+  </>
 );
 
 export default Home;
 
 const StHomeWrapper = styled.div`
-  padding: 2.7rem 2rem;
+  padding: 2.7rem 2rem 0rem 2rem;
 `;
 
 const StMakerVoting = styled.button`

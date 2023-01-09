@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 import { client } from '../axios';
 import { VotingInfo } from './../../types/voting';
 
@@ -24,11 +26,10 @@ export interface VoteListData {
 }
 
 export const getCurrentVoteData = async (resCursorId: number) => {
+  console.log(resCursorId);
   try {
-    console.log('test2');
-    const data = await client.get<VoteListData>(`/vote/getCurrentVote/${resCursorId}`);
-    console.log('ddd', data.data);
-    return data.data.data;
+    const data = await client.get<VoteListData>(`vote/getCurrentVote/${resCursorId}`);
+    return data.data.data.result;
   } catch (err) {
     console.log('실패');
     // console.error(err);

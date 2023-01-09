@@ -52,12 +52,13 @@ const Hamburger = (props: HamburgerProps) => {
 export default Hamburger;
 
 const StOutsideHamburger = styled.div<{ isOpen?: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  width: 100%;
+
   height: 100%;
 
   background-color: ${(props) => (props.isOpen ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0)')};
