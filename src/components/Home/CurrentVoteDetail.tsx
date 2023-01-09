@@ -8,8 +8,10 @@ import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import { useGetCurrentVote } from '../../lib/hooks/useGetCurrentVote';
 import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
-import { Error, Loading } from '../common';
+import { Error } from '../common';
 import Modal from '../common/Modal';
+import LandingCurrentVote from '../Landing/maker/LandingCurrentVote';
+import LandingHeader from '../Landing/maker/LandingHeader';
 import { HeaderLayout } from '../Layout';
 
 const CurrentVoteDetail = () => {
@@ -51,7 +53,13 @@ const CurrentVoteDetail = () => {
     navigate(`/result/${voteid}`);
   };
 
-  // if (isLoading) return <Loading />;
+  // if (isLoading)
+  //   return (
+  //     <>
+  //       <LandingHeader />
+  //       <LandingCurrentVote />
+  //     </>
+  //   );
   // if (isError) return <Error />;
 
   return (
