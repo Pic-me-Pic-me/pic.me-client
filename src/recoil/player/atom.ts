@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { VotingInfo } from './../../types/voting';
+import { StickerInfo, VotingInfo } from './../../types/voting';
 
 //페이지가 변경되더라도 상태관리를 유지
 const { persistAtom } = recoilPersist();
@@ -18,6 +18,16 @@ export const votingInfoState = atom<VotingInfo>({
     current_vote: 0,
     maximum_vote: 0,
     created_date: new Date(0),
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const stickerInfoState = atom<StickerInfo>({
+  key: 'stickerInfo',
+  default: {
+    pictureId: 0,
+    location: [],
+    emoji: 1,
   },
   effects_UNSTABLE: [persistAtom],
 });
