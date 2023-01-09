@@ -1,3 +1,5 @@
 export { default as FaceSticker } from './face_sticker.png';
-export { ReactComponent as ImgSignUpBanner } from './ImgSignUpBanner.svg';
+export { default as ImgSignUpBanner } from './ImgSignUpBanner.svg';
+export { default as PictureId1 } from './pictureId1.png';
+export { default as PictureId2 } from './pictureid2.png';
 export { default as StickerTest } from './stickerTest.png';

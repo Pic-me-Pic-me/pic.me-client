@@ -6,18 +6,20 @@ import { StickerTest } from '../../../asset/image';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
 import { stickerInfoState } from '../../../recoil/player/atom';
 import { StickerLocation } from '../../../types/voting';
+import StickerGuide from './StickerGuide';
 
 const StickerVoting = () => {
+  const [isStickerGuide, setIsStickerGuide] = useState<boolean>(true);
   const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(stickerInfoState);
-  // const tickerVotingInf = useResetRecoilState(stickerInfoState);
-  // tickerVotingInf();
+  const s = useResetRecoilState(stickerInfoState);
+  s();
   const { location: stickerList } = stickerVotingInfo;
   const emoji = stickerVotingInfo.emoji;
 
   const stickerImgRef = useRef<HTMLImageElement>(null);
 
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (stickerImgRef.current) {
+    if (!isStickerGuide && stickerImgRef.current && stickerList.length !== 3) {
       const { offsetX, offsetY } = e.nativeEvent;
 
       const newSticker: StickerLocation = {
@@ -27,34 +29,53 @@ const StickerVoting = () => {
       setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
     }
   };
+  const handleStickerGuide = () => {
+    if (isStickerGuide) setIsStickerGuide(!isStickerGuide);
+  };
 
-  console.log(stickerVotingInfo);
   return (
-    <StStickerVotingWrapper>
-      <StStickerImg src={StickerTest} ref={stickerImgRef} alt="selected_img" onClick={handleAttachSticker} />
-      {stickerList.map((sticker) => (
-        <StEmojiIcon key={sticker.x} location={sticker}>
-          {STICKER_LIST[emoji - 1].icon()}
-        </StEmojiIcon>
-      ))}
-    </StStickerVotingWrapper>
+    <>
+      <StStickerVotingWrapper onClick={handleStickerGuide}>
+        {isStickerGuide && <StickerGuide />}
+        <h3>( {3 - stickerList.length}회 남음 )</h3>
+        <StStickerImg src={StickerTest} ref={stickerImgRef} alt="selected_img" onClick={handleAttachSticker} />
+        {stickerList.map((sticker) => (
+          <StEmojiIcon key={sticker.x} location={sticker}>
+            {STICKER_LIST[emoji - 1].icon()}
+          </StEmojiIcon>
+        ))}
+      </StStickerVotingWrapper>
+    </>
   );
 };
 
 export default StickerVoting;
 
 const StStickerVotingWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
   position: relative;
 
-  margin-top: 2.3rem;
-  margin-bottom: 2.4rem;
+  margin-bottom: 2.6rem;
 
   z-index: 0;
+
+  & > h3 {
+    margin-top: 0.9rem;
+
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
+  }
 `;
 
 const StStickerImg = styled.img`
   width: 39rem;
   height: 52rem;
+  margin-top: 1.7rem;
 
   border-radius: 1rem;
 
