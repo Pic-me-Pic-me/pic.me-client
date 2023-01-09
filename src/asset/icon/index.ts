@@ -1,5 +1,3 @@
-export { ReactComponent as IcBallon } from './IcBallon.svg';
-export { ReactComponent as IcModalBG } from './IcModalBG.svg';
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
 export { ReactComponent as IcFaceMenu } from './face_menu.svg';
@@ -17,6 +15,8 @@ export { ReactComponent as IcSelectRound } from './ic_select.svg';
 export { ReactComponent as IcSkeletonBack } from './ic_Skeleton_back.svg';
 export { ReactComponent as IcSkeletonHeader } from './ic_skeleton_header.svg';
 export { ReactComponent as IcSkeletonMenu } from './ic_skeleton_menu.svg';
+export { ReactComponent as IcBallon } from './IcBallon.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
+export { ReactComponent as IcModalBG } from './IcModalBG.svg';
 export { ReactComponent as IcJustMenu } from './just_menu.svg';
 export { ReactComponent as IcPickmeSticker } from './picme_sticker.svg';
