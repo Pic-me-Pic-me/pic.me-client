@@ -35,6 +35,10 @@ const StVoteItem = styled.section`
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
+
+  :first-child {
+    margin-left: 2rem;
+  }
 `;
 
 const StVoteData = styled.article`
