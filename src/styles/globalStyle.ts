@@ -199,6 +199,7 @@ ${reset}
   font-family: "PretendardThin";
   src: url(${PretendardThin}) format("font-woff");
 }
+
 `;
 
 export default GlobalStyle;
