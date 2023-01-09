@@ -20,6 +20,7 @@ const PictureSlider = () => {
   const pictureInfoList: PictureInfo[] = votingInfoAtom.Picture;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setStickerInfo({ ...stickerInfo, pictureId: pictureInfoList[currentIdx].id });
   }, [transX]);
 
@@ -101,7 +102,7 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
           left: ${(dragItemWidth * 0.1) / 10}rem;
         `
       : css`
-          left: ${(width * 1.5) / 33 + (dragItemWidth * 0.1) / 30}rem;
+          left: ${(width * 1.5) / 35 + (dragItemWidth * 0.1) / 30}rem;
         `}
 
   ${({ currentIdx, dragItemWidth, transX }) =>
