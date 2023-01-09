@@ -11,19 +11,27 @@ export interface VoteInfo {
   totalVoteCount: number;
 }
 
+export interface Result {
+  result: VoteInfo[];
+}
+
 export interface VoteListData {
   status: number;
   success: boolean;
   message: string;
-  data: VoteInfo[];
+  data: Result;
+  resCursorId: number;
 }
 
-export const getCurrentVoteData = async () => {
+export const getCurrentVoteData = async (resCursorId: number) => {
   try {
-    const data = await client.get<VoteListData>('/vote/current');
-    console.log('ddd', data.data.data);
+    console.log('test2');
+    const data = await client.get<VoteListData>(`/vote/getCurrentVote/${resCursorId}`);
+    console.log('ddd', data.data);
     return data.data.data;
   } catch (err) {
-    console.error(err);
+    console.log('실패');
+    // console.error(err);
+    return;
   }
 };

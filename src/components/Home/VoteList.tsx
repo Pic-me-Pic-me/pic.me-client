@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { EmptyIcon } from '../../asset/image';
@@ -9,8 +10,9 @@ import VoteCard from './VoteCard';
 const VoteList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemIndex, setItemIndex] = useState(0);
-  const [dataList, setDataList] = useState<VoteInfo[]>([]);
-  const [newDataList, setnewDataList] = useState<VoteInfo[]>(dataList);
+  const [dataList, setDataList] = useState<VoteInfo[]>();
+  const [newDataList, setnewDataList] = useState<VoteInfo[]>();
+  const CursorId = useParams().resCursorId || '';
 
   useEffect(() => {
     getMoreItem();
@@ -18,8 +20,10 @@ const VoteList = () => {
 
   const getMoreItem = async () => {
     setIsLoaded(true);
-    const newData = await getCurrentVoteData();
+    const newData = await getCurrentVoteData(0);
+    console.log(newData);
 
+    console.log(isLoaded);
     if (newData) {
       newData.forEach((data) => {
         newDataList.push(data);
