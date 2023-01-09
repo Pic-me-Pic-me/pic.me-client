@@ -6,7 +6,7 @@ import Home from '../../pages/Home';
 import Library from '../../pages/Library';
 import Login from '../../pages/Login';
 import MakerLanding from '../../pages/MakerLanding';
-import { PictureVoting, ReasonVoting, StickerAttachment } from '../../pages/player';
+import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '../../pages/player';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
 
@@ -24,6 +24,7 @@ const Router = () => (
           <Route path="picture_voting/:voteid" element={<PictureVoting />} />
           <Route path="reason_voting" element={<ReasonVoting />} />
           <Route path="sticker_voting" element={<StickerAttachment />} />
+          <Route path="voting/result" element={<ResultVoting />} />
         </Route>
 
         <Route path="*" element={<Error404 />} />

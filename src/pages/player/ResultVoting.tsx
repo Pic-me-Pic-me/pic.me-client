@@ -5,12 +5,12 @@ import styled from 'styled-components';
 
 import { IcHeaderLast, IcHeaderLogo } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
-import { StickerGuide } from '../../components/Voting/player';
+import { StickerGuide, StickerResultVoting } from '../../components/Voting/player';
 import StickerVoting from '../../components/Voting/player/StickerVoting';
 import { postStickerData } from '../../lib/api/voting';
 import { stickerInfoState } from '../../recoil/player/atom';
 
-const StickerAttachment = () => {
+const ResultVoting = () => {
   const navigate = useNavigate();
   const [isStickerGuide, setIsStickerGuide] = useState<boolean>(true);
   const stickerVotingInfo = useRecoilValue(stickerInfoState);
@@ -28,33 +28,23 @@ const StickerAttachment = () => {
   const handlePrevpage = () => {
     navigate('/player/picture_voting');
   };
-
-  const handleStickerGuide = () => {
-    if (isStickerGuide) setIsStickerGuide(!isStickerGuide);
-  };
   return (
     <div>
-      <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderLast />} />
+      <HeaderLayout isSideIcon={true} IcHeaderSequence={<IcHeaderLast />} />
       <VotingLayout
-        votingTitle="그 이유를 사진에 스티커로 표현해보세요!"
-        pageType="StickerAttachment"
-        votingSubTitle={isStickerGuide ? '최대 3회' : `${3 - stickerVotingInfo.location.length}회 남음`}
-        margin={0.9}
-        btnTitle="투표 완료하기"
+        votingTitle="투표가 완료되었습니다!"
+        votingNextLineTitle="실시간 투표 현황을 확인해보세요!"
+        pageType="ResultVoting"
+        btnTitle="내 투표 만들러 가기"
         isActiveBtn={isActiveBtn}
         handlePlayer={handleVotingSuccess}>
-        {
-          <StStickerAttachmentWrapper onClick={handleStickerGuide}>
-            {isStickerGuide && <StickerGuide />}
-            <StickerVoting isStickerGuide={isStickerGuide} />
-          </StStickerAttachmentWrapper>
-        }
+        {<StickerResultVoting />}
       </VotingLayout>
     </div>
   );
 };
 
-export default StickerAttachment;
+export default ResultVoting;
 const StStickerAttachmentWrapper = styled.section`
   display: flex;
   flex-direction: column;
