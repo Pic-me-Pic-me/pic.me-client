@@ -27,15 +27,13 @@ const Auth = () => {
       // access token 가져오기
       const res = await axios.post('https://kauth.kakao.com/oauth/token', payload);
       // Kakao Javascript SDK 초기화
-      Kakao.init(process.env.REACT_APP_REST_API_KEY);
+      // Kakao.init(process.env.REACT_APP_REST_API_KEY);
       // access token 설정
       Kakao.Auth.setAccessToken(res.data.access_token);
       console.log(res.data.access_token);
 
       // 카카오 아이디 있는지 확인
       const data = await postKakaoToken('kakao', res.data.access_token);
-      const isUser = data.isUser;
-      const uid = data.uid;
       navigate('/nickname');
 
       // const nick = '바켜언지';
