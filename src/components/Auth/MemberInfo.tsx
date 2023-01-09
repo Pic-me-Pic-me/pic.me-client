@@ -51,7 +51,7 @@ const MemberInfo = () => {
             message="정말 회원탈퇴 하시겠습니까??"
             handleHide={toggle}
             handleConfirm={handleDeleteUser}
-            isFinishing
+            isDeleteUser
           />
         </div>
       </StWhiteSection>
