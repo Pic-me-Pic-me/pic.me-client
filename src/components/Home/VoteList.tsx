@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { EmptyIcon } from '../../asset/image';
@@ -11,37 +10,29 @@ import VoteCard from './VoteCard';
 const VoteList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   // const [itemIndex, setItemIndex] = useState(0);
-  // const [dataList, setDataList] = useRef<VoteInfo[]>();
-  const dataList = useRef<VoteInfo[]>();
+  const [dataList, setDataList] = useState<VoteInfo[]>();
   const [newDataList, setnewDataList] = useState<VoteInfo[]>();
   const [CursorId, setCursorId] = useState(0);
-  console.log('CursorId', CursorId);
 
   useEffect(() => {
     console.log('마운트');
     getMoreItem();
-  }, [newDataList]);
+  }, []);
 
   const getMoreItem = async () => {
     setIsLoaded(true);
     const newData = await getCurrentVoteData(Number(CursorId));
+    console.log('newData', newData);
+
     if (newData) {
-      setCursorId(newData[4].voteId);
-      newData.forEach((data) => {
-        if (newDataList) {
-          newDataList.push(data);
-          // setItemIndex((i) => i   + 5);
-          // setDataList(newDataList);
-          // setDataList([...newDataList]);
-          dataList.current = newDataList;
-          setIsLoaded(false);
-        }
-      });
-      console.log('newData', newData);
-      // setDataList(newData);
-      console.log('dataList', dataList);
+      setDataList(newData.result.concat(newData.result));
+      setCursorId(newData.resCursorId);
+      setIsLoaded(false);
     }
+
+    console.log('dataList', dataList);
   };
+
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
     if (entry.isIntersecting && !isLoaded) {
       observer.unobserve(entry.target);
@@ -62,10 +53,9 @@ const VoteList = () => {
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
       {dataList ? (
         <StVoteListWrapper>
-          {/* {dataList?.map((data, i) => (
+          {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
-          ))} */}
-          {/* <VoteCard ref={dataList} /> */}
+          ))}
           <div ref={setTarget}>{isLoaded && '로딩중'}</div>
         </StVoteListWrapper>
       ) : (
