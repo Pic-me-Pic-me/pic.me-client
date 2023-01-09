@@ -12,7 +12,7 @@ export const getUserInfo = async () => {
 
 export const deleteUser = async () => {
   try {
-    const data = await client.get<UserData>('/user');
+    const data = await client.delete<UserData>('/user');
     return data.data;
   } catch (err) {
     console.error(err);

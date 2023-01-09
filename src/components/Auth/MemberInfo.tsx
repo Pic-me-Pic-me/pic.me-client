@@ -25,6 +25,8 @@ const MemberInfo = () => {
 
   const handleDeleteUser = async () => {
     const result = await deleteUser();
+    console.log(result);
+    navigate('/playerlanding');
   };
 
   useEffect(() => {
