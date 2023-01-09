@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { STICKER_LIST } from '../../../constant/StickerIconList';
@@ -16,7 +16,8 @@ const StickerVoting = (props: StickerVotingProps) => {
   const { location: stickerList, emoji } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
-
+  // const sss = useResetRecoilState(stickerInfoState);
+  // sss();
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
     if (stickerImgRef.current && stickerList.length !== 3) {
       const { offsetX, offsetY } = e.nativeEvent;
