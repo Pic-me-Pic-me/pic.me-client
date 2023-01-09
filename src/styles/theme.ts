@@ -17,38 +17,66 @@ const colors = {
 const fonts = {
   Pic_Title1_Pretendard_Bold_24: css`
     font-family: 'PretendardBold';
-    font-size: 2.4rem;
-    font-weight: 700;
     font-style: normal;
+    font-weight: 700;
+    font-size: 2.4rem;
     line-height: 2.9rem;
   `,
   Pic_Title2_Pretendard_Bold_20: css`
     font-family: 'PretendardBold';
-    font-size: 2rem;
-    font-weight: 700;
     font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
     line-height: 2.4rem;
+  `,
+  Pic_Title3_Pretendard_Bold_22: css`
+    font-family: 'PretendardBold';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.2rem;
+    line-height: 2.6rem;
   `,
   Pic_Subtitle1_Pretendard_Semibold_20: css`
     font-family: 'PretendardSemiBold';
-    font-size: 2rem;
-    font-weight: 600;
     font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
     line-height: 2.4rem;
+  `,
+  Pic_Subtitle2_Pretendard_Medium_18: css`
+    font-family: 'PretendardMedium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
   `,
   Pic_Body1_Pretendard_Medium_16: css`
     font-family: 'PretendardMedium';
-    font-size: 1.6rem;
-    font-weight: 500;
     font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
     line-height: 1.9rem;
+  `,
+  Pic_Body2_Pretendard_Bold_16: css`
+    font-family: 'PretendardBold';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  `,
+  Pic_Caption2_Pretendard_Semibold_14: css`
+    font-family: 'PretendardSemiBold';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
   `,
   Pic_Caption1_Pretendard_Semibold_12: css`
     font-family: 'PretendardSemiBold';
-    font-size: 1.2rem;
-    font-weight: 600;
     font-style: normal;
-    line-height: 1.4rem;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
   `,
 };
 

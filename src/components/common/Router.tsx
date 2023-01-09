@@ -6,9 +6,9 @@ import Home from '../../pages/Home';
 import Library from '../../pages/Library';
 import Login from '../../pages/Login';
 import MakerLanding from '../../pages/MakerLanding';
+import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '../../pages/player';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
-import Voting from '../../pages/Voting';
 
 const Router = () => (
   <BrowserRouter>
@@ -20,7 +20,13 @@ const Router = () => (
         <Route path="/signup" element={<Signup />} />
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
-        <Route path="/voting" element={<Voting />} />
+        <Route path="/player">
+          <Route path="picture_voting/:voteid" element={<PictureVoting />} />
+          <Route path="reason_voting" element={<ReasonVoting />} />
+          <Route path="sticker_voting" element={<StickerAttachment />} />
+          <Route path="voting/result" element={<ResultVoting />} />
+        </Route>
+
         <Route path="*" element={<Error404 />} />
       </Routes>
     </RecoilRoot>
