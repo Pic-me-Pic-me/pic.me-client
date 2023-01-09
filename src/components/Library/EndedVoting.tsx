@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
 import { deleteVote } from '../../lib/api/library';
 import { VoteInfo } from '../../types/library';
+import Modal from '../common/Modal';
 
 interface votingProps {
   voteData: VoteInfo;
@@ -14,9 +15,16 @@ interface votingProps {
 const EndedVoting = (props: votingProps) => {
   const { voteData, id } = props;
 
+  const [isShowing, setIsShowing] = useState<boolean>(false);
+
+  const handleModal = (prev: boolean) => {
+    setIsShowing((prev) => !prev);
+  };
+
   const handleDelete = async () => {
     const res = await deleteVote(id);
-    console.log(res);
+    window.location.reload();
+    return res;
   };
 
   return (
@@ -24,7 +32,7 @@ const EndedVoting = (props: votingProps) => {
       <StVotingWrapper>
         <StVotingPicWrapper>
           <StVotingPic src={voteData.url} />
-          <StDeleteBtnWrapper type="button" onClick={handleDelete}>
+          <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
         </StVotingPicWrapper>
@@ -36,6 +44,11 @@ const EndedVoting = (props: votingProps) => {
           <StVotingPeopleNum>{voteData.count}명 투표 완</StVotingPeopleNum>
         </StVotingDesc>
       </StVotingWrapper>
+      <Modal
+        isShowing={isShowing}
+        message={'해당 투표를 삭제하시겠습니까?'}
+        handleConfirm={() => handleDelete()}
+        handleHide={() => handleModal(isShowing)}></Modal>
     </>
   );
 };
