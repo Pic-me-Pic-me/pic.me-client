@@ -25,18 +25,18 @@ export interface StickerInfo {
 }
 
 export interface VoteInfoProps {
-  voteId?: number;
-  voteStatus?: boolean;
-  voteTitle?: string;
-  currentVote?: number;
-  createDate?: Date;
-  Picture?: PictureProps[];
+  voteId: number;
+  voteStatus: boolean;
+  voteTitle: string;
+  currentVote: number;
+  createdDate?: Date;
+  Picture: PictureProps[];
 }
 
 export interface PictureProps {
-  id?: number;
-  url?: string;
-  count?: number;
+  pictureId?: number;
+  url: string;
+  count: number;
   Sticker?: StickerProps[];
 }
 

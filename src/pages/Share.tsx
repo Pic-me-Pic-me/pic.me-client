@@ -12,7 +12,6 @@ const Share = () => {
   const navigate = useNavigate();
 
   const [isToastOn, setIsToastOn] = useState<boolean>(false);
-  const [isModalOn, setIsModalOn] = useState<boolean>(false);
 
   const voteId = location.state;
 

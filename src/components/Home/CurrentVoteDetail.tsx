@@ -3,14 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcVoteShareBtn } from '../../asset/icon';
-import { ImgSiru } from '../../asset/image';
 import { getCurrentVoteData, patchCurrentVoteData } from '../../lib/api/voting';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
-import VoteInfo from './CurrentVote/VoteStatus';
 
 const CurrentVoteDetail = () => {
   const { voteid } = useParams<{ voteid: string }>();
@@ -19,28 +17,19 @@ const CurrentVoteDetail = () => {
   const [voteInfo, setVoteInfo] = useState<VoteInfoProps>();
   const [currentVote, setCurrentVote] = useState<number>();
   const [pictureUrl, setPictureUrl] = useState<string[]>([]);
-  const [pictureCount, setPictureCount] = useState<number[]>();
-  const [pictureInfo, setPictureInfo] = useState<PictureProps[]>([]);
+  const [pictureCount, setPictureCount] = useState<number[]>([]);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
   const { ref, width } = useCarouselSize();
 
-  const imgList = [<ImgSiru key="시루 1번" />, <ImgSiru key="시루 2번" />];
-
   const HandleGetCurrentVoteData = async () => {
-    const res = await getCurrentVoteData(voteid);
-    setVoteInfo({
-      voteId: res.data.id,
-      voteStatus: res.data.status,
-      voteTitle: res.data.title,
-      createDate: res.data.createdDate,
-    });
-    setCurrentVote(res.data.current);
-    setPictureInfo(res.data.Picture);
-    setPictureUrl([res.data.Picture[0].url, res.data.Picture[1].url]);
-    setPictureCount([res.data.Picture[0].count, res.data.Picture[1].count]);
+    const data = await getCurrentVoteData(voteid);
+    setVoteInfo(data);
+    setCurrentVote(data.currentVote);
+    setPictureUrl([data.Picture[0].url, data.Picture[1].url]);
+    setPictureCount([data.Picture[0].count, data.Picture[1].count]);
   };
 
   useEffect(() => {
@@ -56,12 +45,13 @@ const CurrentVoteDetail = () => {
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/')} />
       <CurrentVoteDetailWrapper>
-        <VoteInfo {...voteInfo} />
+        <StVoteInfo>
+          <span>42분 전</span>
+          <h1>{voteInfo?.voteTitle}</h1>
+        </StVoteInfo>
         <StVoteStatus>
-          {/* <span>{currentVote}명 투표 중</span> */}
-          {/* {currentIdx === 0 ? <span>{pictureCount[0].count}표</span> : <span>{pictureCount[0].count}표</span>} */}
-          <span>18명 투표 중</span>
-          <span>12표</span>
+          <span>{currentVote}명 투표 중</span>
+          {currentIdx === 0 ? <span>{pictureCount[0]}표</span> : <span>{pictureCount[1]}표</span>}
         </StVoteStatus>
         <StImgWrapper ref={ref}>
           <StImgUl
@@ -73,8 +63,7 @@ const CurrentVoteDetail = () => {
                 setTransX(modifySliderRange(deltaX, -width, width));
               },
               onDragEnd: (deltaX) => {
-                // const maxIndex = pictureUrl.length - 1;
-                const maxIndex = imgList.length - 1;
+                const maxIndex = pictureUrl.length - 1;
                 Array(2)
                   .fill(0)
                   .map((v, i) => 2 - i)
@@ -92,7 +81,7 @@ const CurrentVoteDetail = () => {
                 setTransX(0);
               },
             })}>
-            {pictureUrl.map((url, idx) => (
+            {voteInfo?.Picture.map(({ pictureId, url, count }, idx) => (
               <li key={idx}>
                 {currentIdx === idx ? (
                   <StSelectedImg src={url} alt="선택된 사진" />
@@ -152,6 +141,32 @@ const CurrentVoteDetailWrapper = styled.section`
     left: 75%;
 
     cursor: pointer;
+  }
+`;
+
+const StVoteInfo = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > span {
+    ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  }
+
+  & > h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top: 0.8rem;
+
+    width: 34.6rem;
+    height: 5.6rem;
+
+    ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22}
   }
 `;
 
