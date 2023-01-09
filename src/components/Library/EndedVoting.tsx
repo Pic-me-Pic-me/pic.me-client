@@ -1,29 +1,38 @@
 import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
-import Sample from '../../asset/image/Sample.jpeg';
+import { deleteVote } from '../../lib/api/library';
 import { VoteInfo } from '../../types/library';
 
 interface votingProps {
   voteData: VoteInfo;
+  id: number;
 }
 
 const EndedVoting = (props: votingProps) => {
-  const { voteData } = props;
+  const { voteData, id } = props;
+
+  const handleDelete = async () => {
+    const res = await deleteVote(id);
+    console.log(res);
+  };
 
   return (
     <>
       <StVotingWrapper>
         <StVotingPicWrapper>
-          <StVotingPic src={Sample} />
-          <StDeleteBtnWrapper type="button">
+          <StVotingPic src={voteData.url} />
+          <StDeleteBtnWrapper type="button" onClick={handleDelete}>
             <IcDelete />
           </StDeleteBtnWrapper>
         </StVotingPicWrapper>
         <StVotingDesc>
-          <StVotingTitle>{voteData.title}</StVotingTitle>
-          <StVotingDate>{voteData.createAt}</StVotingDate>
+          <StVotingTitle>
+            {voteData.title} {voteData.id}
+          </StVotingTitle>
+          <StVotingDate></StVotingDate>
           <StVotingPeopleNum>{voteData.count}명 투표 완</StVotingPeopleNum>
         </StVotingDesc>
       </StVotingWrapper>
