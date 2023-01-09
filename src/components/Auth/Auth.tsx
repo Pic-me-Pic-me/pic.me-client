@@ -7,7 +7,7 @@ import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/
 
 const Auth = () => {
   const Kakao = window.Kakao;
-  const REDIRECT_URL = `http://localhost:3000/oauth/kakao/callback`;
+  const REDIRECT_URL = `http://localhost:3000/login/oauth/kakao/callback`;
 
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
