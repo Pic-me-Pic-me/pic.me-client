@@ -5,6 +5,8 @@ export const client = axios.create({
   headers: {
     'Content-type': 'application/json',
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUwLCJpYXQiOjE2NzMyNTY5NzEsImV4cCI6MTY3MzI2NDE3MX0.I_eXvOjVEyeBlE4N0HSHlhNHkOIVefrMRwKW9mQC1IY',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjU1LCJpYXQiOjE2NzMyNzg0NzIsImV4cCI6MTY3MzI4NTY3Mn0.rP_O90EYa_yV-_MpsWouSFYUwKiIdftmgg61sglp6oU',
   },
 });
+
+export const picmeGetFetcher = (url: string) => client.get(url).then((res) => res.data);

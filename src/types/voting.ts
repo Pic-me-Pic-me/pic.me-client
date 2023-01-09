@@ -29,7 +29,7 @@ export interface VoteInfoProps {
   voteStatus: boolean;
   voteTitle: string;
   currentVote: number;
-  createdDate?: Date;
+  createdDate: Date;
   Picture: PictureProps[];
 }
 

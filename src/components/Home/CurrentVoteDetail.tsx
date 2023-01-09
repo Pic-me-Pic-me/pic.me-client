@@ -5,8 +5,10 @@ import styled, { css } from 'styled-components';
 import { IcVoteShareBtn } from '../../asset/icon';
 import { getCurrentVoteData, patchCurrentVoteData } from '../../lib/api/voting';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
+import { useGetCurrentVote } from '../../lib/hooks/useGetCurrentVote';
 import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
+import { Error, Loading } from '../common';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
@@ -22,9 +24,11 @@ const CurrentVoteDetail = () => {
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
+  // const { currentVoteInfo, isLoading, isError } = useGetCurrentVote(voteid);
+
   const { ref, width } = useCarouselSize();
 
-  const HandleGetCurrentVoteData = async () => {
+  const handleGetCurrentVoteData = async () => {
     const data = await getCurrentVoteData(voteid);
     setVoteInfo(data);
     setCurrentVote(data.currentVote);
@@ -33,13 +37,23 @@ const CurrentVoteDetail = () => {
   };
 
   useEffect(() => {
-    HandleGetCurrentVoteData();
+    handleGetCurrentVoteData();
+    handleElapsedTime(voteInfo.createdDate);
+    // if (currentVoteInfo !== undefined) {
+    //   setVoteInfo(currentVoteInfo);
+    //   setCurrentVote(currentVoteInfo.currentVote);
+    //   setPictureUrl([currentVoteInfo.Picture[0].url, currentVoteInfo.Picture[1].url]);
+    //   setPictureCount([currentVoteInfo.Picture[0].count, currentVoteInfo.Picture[1].count]);
+    // }
   }, []);
 
   const handleGoResultPage = () => {
     patchCurrentVoteData(voteid);
     navigate(`/result/${voteid}`);
   };
+
+  // if (isLoading) return <Loading />;
+  // if (isError) return <Error />;
 
   return (
     <>
