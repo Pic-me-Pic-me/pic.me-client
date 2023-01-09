@@ -4,7 +4,15 @@ import { client } from '../axios';
 export const getUserInfo = async () => {
   try {
     const data = await client.get<UserData>('/user');
-    console.log('data', data.data);
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteUser = async () => {
+  try {
+    const data = await client.get<UserData>('/user');
     return data.data;
   } catch (err) {
     console.error(err);

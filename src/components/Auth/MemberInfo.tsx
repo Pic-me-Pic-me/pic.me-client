@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcPickmeLogo } from '../../asset/icon';
-import { getUserInfo } from '../../lib/api/auth';
+import { deleteUser, getUserInfo } from '../../lib/api/auth';
+import useModal from '../../lib/hooks/useModal';
 import { UserInfo } from '../../types/auth';
+import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
 const MemberInfo = () => {
+  const { isShowing, toggle } = useModal();
   const navigate = useNavigate();
   const [user, setUser] = useState<UserInfo>();
 
@@ -18,6 +21,10 @@ const MemberInfo = () => {
   const getUserData = async () => {
     const userinfo = await getUserInfo();
     if (userinfo) setUser(userinfo.data);
+  };
+
+  const handleDeleteUser = async () => {
+    const result = await deleteUser();
   };
 
   useEffect(() => {
@@ -36,7 +43,16 @@ const MemberInfo = () => {
         <h1>아이디</h1>
         <p>{user?.email}</p>
         <div>
-          <button type="button">회원 탈퇴하기</button>
+          <button type="button" onClick={() => toggle()}>
+            회원 탈퇴하기
+          </button>
+          <Modal
+            isShowing={isShowing}
+            message="정말 회원탈퇴 하시겠습니까??"
+            handleHide={toggle}
+            handleConfirm={handleDeleteUser}
+            isFinishing
+          />
         </div>
       </StWhiteSection>
     </>
