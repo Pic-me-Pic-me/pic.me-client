@@ -95,4 +95,6 @@ const StHamburgerMenu = styled.li`
   font-weight: 500;
   font-size: 1.8rem;
   line-height: 2.1rem;
+
+  cursor: pointer;
 `;

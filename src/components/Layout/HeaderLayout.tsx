@@ -32,7 +32,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   position: sticky;
 
   top: 0rem;
-  height: 6.2rem;
+  height: 8rem;
   padding-right: 5.4rem;
 
   background: none;
