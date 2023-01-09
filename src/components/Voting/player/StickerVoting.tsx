@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
 import { stickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
-import { StickerLocation } from '../../../types/voting';
+import { StickerLocation } from '../../../types/vote';
 
 interface StickerVotingProps {
   isStickerGuide: boolean;
@@ -17,16 +17,14 @@ const StickerVoting = (props: StickerVotingProps) => {
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
 
-  // const u = useResetRecoilState(stickerInfoState);
-  // u();
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (stickerImgRef.current && stickerList.length < 3) {
+    if (stickerImgRef.current && stickerList.length !== 3) {
       const { offsetX, offsetY } = e.nativeEvent;
 
       const newSticker: StickerLocation = {
         x: Math.round((offsetX / 10 - 1) * 100) / 100,
         y: Math.round((offsetY / 10 - 1) * 100) / 100,
-        degRate: Math.random() * 270 - 135,
+        degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
       };
       setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
     }
