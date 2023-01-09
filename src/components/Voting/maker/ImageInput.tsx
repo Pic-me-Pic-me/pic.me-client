@@ -1,15 +1,14 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
+import { client } from '../../../lib/axios';
 import { votingImageState } from '../../../recoil/maker/atom';
 import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
 import { setImgCompress } from '../../../utils/setImgCompress';
 
-const BASE_URL = process.env.REACT_APP_IP;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
 type ToggleProps = {
@@ -86,7 +85,7 @@ const ImageInput = (props: ImageInputProps) => {
       imageData.append('title', title);
     }
 
-    const response = await axios.post(`${BASE_URL}/vote`, imageData, {
+    const response = await client.post(`/vote`, imageData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${ACCESS_TOKEN}`,
