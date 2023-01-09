@@ -32,12 +32,10 @@ const Nickname = () => {
 
   const handleCheckNickname = () => {
     const { username } = getValues();
-    console.log(username);
     checkDuplicateNickname(username).then((result) => {
       if (result?.success) {
         setIsDuplicate(!result.success);
         setNickname(nickname);
-        console.log(result);
       } else {
         setIsDuplicate(result.success);
       }
