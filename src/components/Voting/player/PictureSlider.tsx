@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcSelectRound } from '../../../asset/icon';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { stickerInfoState, votingInfoState } from '../../../recoil/player/atom';
-import { PictureInfo } from '../../../types/voting';
+import { PictureInfo } from '../../../types/vote';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 import SelectPicture from './SelectPicture';
 
