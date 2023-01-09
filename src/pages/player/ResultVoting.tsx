@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -14,6 +14,8 @@ const ResultVoting = () => {
   const navigate = useNavigate();
   const [isStickerGuide, setIsStickerGuide] = useState<boolean>(true);
   const stickerVotingInfo = useRecoilValue(stickerInfoState);
+  const [isLoading, setIsLoading] = useState(true);
+
   const isActiveBtn: boolean = stickerVotingInfo.location.length > 0;
 
   const handleVotingSuccess = async () => {
@@ -25,12 +27,13 @@ const ResultVoting = () => {
         console.log(e);
       }
   };
-  const handlePrevpage = () => {
-    navigate('/player/picture_voting');
-  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
-      <HeaderLayout isSideIcon={true} IcHeaderSequence={<IcHeaderLast />} />
+      <HeaderLayout isSideIcon={true} />
       <VotingLayout
         votingTitle="투표가 완료되었습니다!"
         votingNextLineTitle="실시간 투표 현황을 확인해보세요!"
@@ -45,12 +48,3 @@ const ResultVoting = () => {
 };
 
 export default ResultVoting;
-const StStickerAttachmentWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  margin-bottom: 2.6rem;
-`;

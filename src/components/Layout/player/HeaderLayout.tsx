@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcGoback, IcHeaderLogo } from '../../../asset/icon';
@@ -6,17 +7,19 @@ import { IcGoback, IcHeaderLogo } from '../../../asset/icon';
 interface LayoutProps {
   isSideIcon?: boolean;
   handleGoback?: React.MouseEventHandler;
-  IcHeaderSequence: ReactNode;
+  IcHeaderSequence?: ReactNode;
 }
 
 const HeaderLayout = (props: LayoutProps) => {
   const { isSideIcon, handleGoback, IcHeaderSequence } = props;
 
+  const navigate = useNavigate();
+
   return (
     <StHeaderLayoutWrapper>
       {!isSideIcon && <IcGoback className="back_icon" onClick={handleGoback} />}
       <div>
-        <IcHeaderLogo />
+        <IcHeaderLogo onClick={() => navigate('/')} />
       </div>
 
       {!isSideIcon && IcHeaderSequence}
