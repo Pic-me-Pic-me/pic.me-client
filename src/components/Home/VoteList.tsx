@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { EmptyIcon } from '../../asset/image';
+import { IcEmpty } from '../../asset/icon';
 import { getCurrentVoteData, VoteInfo } from '../../lib/api/voting';
 import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
 import VoteCard from './VoteCard';
@@ -58,7 +58,7 @@ const VoteList = () => {
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
-          <img src={EmptyIcon} alt="현재 진행중인 투표 없음" />
+          <IcEmpty />
           <p>픽둥이님 만의 투표를</p>
           <p>만들어보세요!</p>
         </StEmptyView>
@@ -92,7 +92,7 @@ const StEmptyView = styled.main`
 
   margin-top: 5.1rem;
 
-  > img {
+  > svg {
     width: 13.8rem;
     height: 11rem;
     margin-bottom: 1.8rem;

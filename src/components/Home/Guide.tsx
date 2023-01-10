@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { IcClose } from '../../asset/icon';
-import { GuideImg } from '../../asset/image';
+import { IcClose, IcGuide } from '../../asset/icon';
+// import { GuideImg } from '../../asset/image';
 
 export interface GuideProps {
   isShowing: boolean;
@@ -22,7 +22,8 @@ const Guide = (props: GuideProps) => {
               </StCloseBtn>
             </StModalHeader>
             <StContent>
-              <img src={GuideImg} alt="가이드 이미지" />
+              <IcGuide />
+              {/* <img src={GuideImg} alt="가이드 이미지" /> */}
             </StContent>
           </StGuideModal>
         </StGuideModalWrapper>
@@ -99,7 +100,7 @@ const StContent = styled.article`
   width: 100%;
   overflow-y: scroll;
 
-  > img {
+  > svg {
     top: 0;
 
     width: 100%;
