@@ -1,0 +1,29 @@
+commit 5a4901209a80ea83de659dbf610b4ca956736925
+Author: 瑞喜 <79238676+Happhee@users.noreply.github.com>
+Date:   Tue Jan 3 10:14:36 2023 +0900
+
+    fix : 이슈 템플릿 재연결
+
+diff --git a/.github/ISSUE_TEMPLATE/feature_request.md b/.github/ISSUE_TEMPLATE/feature_request.md
+index 908f142..1f5784a 100644
+--- a/.github/ISSUE_TEMPLATE/feature_request.md
++++ b/.github/ISSUE_TEMPLATE/feature_request.md
+@@ -1,7 +1,16 @@
+-// 이슈 템플릿 
+-## 💜 어떤 기능인가요?
++---
++name: Feature request
++about: Suggest an idea for this project
++title: ''
++labels: ''
++assignees: ''
++
++---
++
++##  🌈 어떤 기능인가요?
+ 
+ ## ✅ To Dos
++
+ - [ ]
+ - [ ]
+ - [ ]

@@ -9,12 +9,14 @@ import MakerLanding from '../../pages/MakerLanding';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
+import MemberInfo from '../Auth/MemberInfo';
 
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/mypage" element={<MemberInfo />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

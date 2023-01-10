@@ -23,3 +23,23 @@ export interface StickerInfo {
   location: string;
   emoji: number;
 }
+
+export interface VoteListData {
+  status: number;
+  success: boolean;
+  message: string;
+  data: Result;
+}
+
+export interface Result {
+  result: VoteInfo[];
+  resCursorId: number;
+}
+
+export interface VoteInfo {
+  voteId: number;
+  title: string;
+  voteThumbnail: string;
+  createdAt: Date;
+  totalVoteCount: number;
+}
