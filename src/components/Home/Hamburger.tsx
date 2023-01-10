@@ -11,6 +11,7 @@ const Hamburger = (props: HamburgerProps) => {
   const { isOpen, setIsOpen } = props;
 
   const sidebarRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   const onClickOutSide = (event: Event) => {
     if (!sidebarRef.current?.contains(event.target as Node)) {
@@ -25,34 +26,40 @@ const Hamburger = (props: HamburgerProps) => {
     };
   });
 
-  const navigate = useNavigate();
-
-  const handleNavigateLibrary = () => {
-    navigate('/library');
-  };
-
   return (
-    <StOutsideHamburger isOpen={isOpen}>
-      <StHamburgerWrapper isOpen={isOpen}>
-        <StHamburgerMenu>회원 정보</StHamburgerMenu>
-        <StHamburgerMenu onClick={handleNavigateLibrary}>라이브러리</StHamburgerMenu>
-        <StHamburgerMenu>픽미 팀소개</StHamburgerMenu>
-      </StHamburgerWrapper>
-    </StOutsideHamburger>
+    <>
+      <StOutsideHamburger isOpen={isOpen}>
+        <StHamburgerWrapper isOpen={isOpen}>
+          <StHamburgerMenu
+            onClick={() => {
+              navigate('/mypage');
+            }}>
+            회원 정보
+          </StHamburgerMenu>
+          <StHamburgerMenu
+            onClick={() => {
+              navigate('/library');
+            }}>
+            라이브러리
+          </StHamburgerMenu>
+          <StHamburgerMenu>픽미 팀소개</StHamburgerMenu>
+        </StHamburgerWrapper>
+      </StOutsideHamburger>
+    </>
   );
 };
 
 export default Hamburger;
 
 const StOutsideHamburger = styled.div<{ isOpen?: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${(props) => (props.isOpen ? 'block' : 'none')};
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
 
-  height: 100%;
+  width: 100%;
 
   background-color: ${(props) => (props.isOpen ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0)')};
 `;
@@ -89,4 +96,6 @@ const StHamburgerMenu = styled.li`
   font-weight: 500;
   font-size: 1.8rem;
   line-height: 2.1rem;
+
+  cursor: pointer;
 `;

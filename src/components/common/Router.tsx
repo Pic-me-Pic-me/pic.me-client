@@ -11,12 +11,14 @@ import PlayerLanding from '../../pages/PlayerLanding';
 import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
+import MemberInfo from '../Auth/MemberInfo';
 
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/mypage" element={<MemberInfo />} />
         <Route path="/currentvote/:voteid" element={<CurrentVoteDetail />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
