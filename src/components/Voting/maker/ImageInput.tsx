@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
+import { client } from '../../../lib/axios';
 import { votingImageState } from '../../../recoil/maker/atom';
+import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
 import { setImgCompress } from '../../../utils/setImgCompress';
+
+const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
 type ToggleProps = {
   firstToggle: boolean;
@@ -16,7 +21,6 @@ interface ImageInputProps {
   handleToggleModify: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isToggle: ToggleProps;
 }
-
 const ImageInput = (props: ImageInputProps) => {
   const { handleCropImageToggle, handleToggleModify, isToggle } = props;
 
@@ -24,6 +28,7 @@ const ImageInput = (props: ImageInputProps) => {
   const [isComplete, setIsComplete] = useState(false);
   const { title, firstImageUrl, secondImageUrl } = votingForm;
   const { firstToggle, secondToggle } = isToggle;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!title) {
@@ -67,6 +72,28 @@ const ImageInput = (props: ImageInputProps) => {
   const handleCheckImageObj = () => {
     if (title && firstImageUrl && secondImageUrl) {
       setIsComplete(true);
+    }
+  };
+
+  const handlePostImage = async () => {
+    const imageData = new FormData();
+    const firstImgToFile = setDataURLtoFile(firstImageUrl, 'firstImg');
+    const secondImgToFile = setDataURLtoFile(secondImageUrl, 'secondImg');
+    if (firstImgToFile && secondImgToFile) {
+      imageData.append('file', firstImgToFile);
+      imageData.append('file', secondImgToFile);
+      imageData.append('title', title);
+    }
+
+    const response = await client.post(`/vote`, imageData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+
+    if (response.data.status === 200) {
+      navigate('/share');
     }
   };
 
@@ -127,7 +154,7 @@ const ImageInput = (props: ImageInputProps) => {
             </StImageTextBlock>
           </StImageInputLabel>
         )}
-        <StImageSubmitButton type="button" isComplete={isComplete} disabled={!isComplete}>
+        <StImageSubmitButton type="button" isComplete={isComplete} disabled={!isComplete} onClick={handlePostImage}>
           투표 만들기 완료
         </StImageSubmitButton>
       </StImageInputWrapper>
