@@ -6,6 +6,7 @@ export { ReactComponent as IcBackGroundSticker } from './ic_back_ground.svg';
 export { ReactComponent as IcCheckedRound } from './ic_checked_round.svg';
 export { ReactComponent as IcClose } from './ic_close.svg';
 export { ReactComponent as IcCropImg } from './ic_cropImg.svg';
+export { ReactComponent as IcErrorLogo } from './ic_error.svg';
 export { ReactComponent as IcFaceSticker } from './ic_face.svg';
 export { ReactComponent as IcHand } from './ic_hand.svg';
 export { ReactComponent as IcHeaderFirst } from './ic_header_first.svg';
