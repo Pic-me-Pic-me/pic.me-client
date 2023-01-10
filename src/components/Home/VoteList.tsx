@@ -20,7 +20,8 @@ const VoteList = () => {
 
   useEffect(() => {
     getMoreItem();
-  }, [dataList]);
+    console.log(dataList);
+  }, []);
 
   const getUserName = async () => {
     const name = await getUserInfo();
@@ -44,10 +45,11 @@ const VoteList = () => {
   };
 
   const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
+    console.log(true);
     if (entry.isIntersecting && !isLoaded) {
       observer.unobserve(entry.target);
-      await getMoreItem();
       observer.observe(entry.target);
+      await getMoreItem();
     }
   };
 
@@ -66,7 +68,7 @@ const VoteList = () => {
           {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
           ))}
-          <div ref={setTarget}>{isLoaded}</div>
+          <div ref={setTarget}>{isLoaded && '로딩중'}</div>
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
