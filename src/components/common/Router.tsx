@@ -9,6 +9,8 @@ import MakerLanding from '../../pages/MakerLanding';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
+import AddAccount from '../Signup/AddAccount';
+import Nickname from '../Signup/Nickname';
 
 const Router = () => (
   <BrowserRouter>
@@ -17,7 +19,10 @@ const Router = () => (
         <Route path="/" element={<Home />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />}>
+          <Route path="" element={<AddAccount />} />
+          <Route path="nickname" element={<Nickname />} />
+        </Route>
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
         <Route path="/voting" element={<Voting />} />

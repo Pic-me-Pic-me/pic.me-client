@@ -19,8 +19,10 @@ declare module 'styled-components' {
       Pic_Title1_Pretendard_Bold_24: SerializedStyles;
       Pic_Title2_Pretendard_Bold_20: SerializedStyles;
       Pic_Subtitle1_Pretendard_Semibold_20: SerializedStyles;
+      Pic_Subtitle2_Pretendard_Medium_18: SerializedStyles;
       Pic_Body1_Pretendard_Medium_16: SerializedStyles;
       Pic_Caption1_Pretendard_Semibold_12: SerializedStyles;
+      Pic_Caption2_Pretendard_Semibold_14: SerializedStyles;
     };
   }
 }
