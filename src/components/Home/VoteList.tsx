@@ -5,16 +5,13 @@ import styled from 'styled-components';
 import { EmptyIcon } from '../../asset/image';
 import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData } from '../../lib/api/voting';
-// import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
 import { VoteInfo } from '../../types/voting';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
   const { ref, inView, entry } = useInView({
-    /* Optional options */
     threshold: 0,
   });
-  const [isLoaded, setIsLoaded] = useState(false);
   const [dataList, setDataList] = useState<VoteInfo[]>();
   const [CursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
@@ -24,14 +21,8 @@ const VoteList = () => {
     getMoreItem();
   }, []);
 
-  // useEffect(() => {
-  //   getMoreItem();
-  //   console.log(dataList);
-  // }, [dataList]);
-
   useEffect(() => {
     if (dataList?.length !== 0 && inView) {
-      console.log('첫 로딩 이후 무한 스크롤');
       getMoreItem();
     }
   }, [inView]);
@@ -42,7 +33,6 @@ const VoteList = () => {
   };
 
   const getMoreItem = async () => {
-    setIsLoaded(true);
     const newData = await getCurrentVoteData(Number(CursorId));
 
     if (!dataList) {
@@ -52,26 +42,9 @@ const VoteList = () => {
       if (dataList) {
         setDataList(dataList.concat(newData.result));
         setCursorId(newData.resCursorId);
-        setIsLoaded(false);
       }
     }
   };
-
-  // const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
-  //   console.log(true);
-  //   if (entry.isIntersecting && !isLoaded) {
-  //     observer.unobserve(entry.target);
-  //     observer.observe(entry.target);
-  //     await getMoreItem();
-  //   }
-  // };
-
-  // const { setTarget } = useIntersectionObserver({
-  //   root: null,
-  //   rootMargin: '0px',
-  //   threshold: 0.5,
-  //   onIntersect,
-  // });
 
   return (
     <>
@@ -82,7 +55,6 @@ const VoteList = () => {
             <VoteCard voteData={data} key={i} />
           ))}
           <div ref={ref} />
-          {/* <div ref={setTarget}>{isLoaded && '로딩중'}</div> */}
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
