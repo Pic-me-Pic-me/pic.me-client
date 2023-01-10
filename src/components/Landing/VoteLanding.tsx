@@ -88,7 +88,7 @@ const StTitle = styled.header`
   z-index: 1;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}; // Caption2로 바꿔야함!!
+  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 
   & > div {
     display: flex;

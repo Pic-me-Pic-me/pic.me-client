@@ -10,6 +10,8 @@ interface SelectPictureProps {
 }
 const SelectPicture = (props: SelectPictureProps) => {
   const { src, alt, width } = props;
+  console.log(width);
+
   return (
     <StSelectPictureWrapper width={width}>
       <img src={src} alt={alt} />
@@ -33,7 +35,7 @@ const StSelectPictureWrapper = styled.article<{ width: number }>`
   }
   svg {
     position: absolute;
-    left: 15rem;
+    left: ${({ width }) => width / 2 - 1.6}rem;
     bottom: -1.6rem;
   }
 `;
