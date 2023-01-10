@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { isAndroid, isIOS } from 'react-device-detect';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -21,7 +22,13 @@ const Share = () => {
   };
 
   const handleDeepLink = () => {
-    window.location.replace('instagram-stories://share');
+    if (isIOS) {
+      window.location.replace('instagram-stories://share');
+    } else if (isAndroid) {
+      window.location.replace('intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end');
+    } else {
+      window.location.replace('https://www.instagram.com/');
+    }
   };
 
   return (
