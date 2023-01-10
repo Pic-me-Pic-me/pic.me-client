@@ -7,8 +7,7 @@ const client = axios.create({
   baseURL: `${process.env.REACT_APP_IP}`,
   headers: {
     'Content-type': 'application/json',
-    // Authorization:
-    //   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…MwNn0.kC6rYcXUiUJX18mVw1_FYeoqx4-ogvGFPOWDPIOSHyc',
+    Authorization: `Bearer ${process.env.BEARER}`,
   },
 });
 

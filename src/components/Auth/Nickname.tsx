@@ -20,8 +20,8 @@ const Nickname = () => {
       const res = await Kakao.API.request({
         url: '/v1/user/unlink',
       });
-      localStorage.removeItem('accessToken');
       const result = await deleteUser();
+      localStorage.removeItem('accessToken');
       console.log(result);
       console.log('unlink'); // null
     } catch (error) {

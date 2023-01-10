@@ -34,6 +34,7 @@ const Auth = () => {
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
       // access token 설정
       Kakao.Auth.setAccessToken(res.data.access_token);
+      process.env.BEARER = res.data.access_token;
       console.log(res.data.access_token);
 
       // 카카오 아이디 있는지 확인
