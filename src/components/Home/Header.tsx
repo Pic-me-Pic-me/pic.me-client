@@ -3,17 +3,28 @@ import styled from 'styled-components';
 
 import { IcNextArrow } from '../../asset/icon';
 import { BannerImg } from '../../asset/image';
+import useModal from '../../lib/hooks/useModal';
+import Guide from './Guide';
 
-const Header = () => (
-  <StBannerWrapper>
-    <StBannerImg src={BannerImg} alt="배너 이미지" />
-    <StGuideBtn type="button">
-      <p>픽미 사용방법 A부터 Z까지</p>
-      <IcNextArrow />
-    </StGuideBtn>
-  </StBannerWrapper>
-);
+const Header = () => {
+  const { isShowing, toggle } = useModal();
+
+  return (
+    <>
+      <StBannerWrapper>
+        <StBannerImg src={BannerImg} alt="배너 이미지" />
+        <StGuideBtn type="button" onClick={() => toggle()}>
+          <p>픽미 사용방법 A부터 Z까지</p>
+          <IcNextArrow />
+        </StGuideBtn>
+        <Guide isShowing={isShowing} handleHide={toggle} />
+      </StBannerWrapper>
+    </>
+  );
+};
+
 export default Header;
+
 const StBannerWrapper = styled.header`
   display: flex;
   flex-direction: column;
