@@ -5,7 +5,7 @@ const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
 export const client = axios.create({
-  baseURL: 'https://ed76eca9-2182-4ba8-9458-3321e7958ab4.mock.pstmn.io',
+  baseURL: 'http://3.36.80.168:3000',
   headers: {
     'Content-type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,
