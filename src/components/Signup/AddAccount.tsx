@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { SignUpInfo } from '../../types/signup';
-import { emailErrorPatterns, passwordErrorPatterns } from '../../utils/check';
 
 const AddAccount = () => {
   const navigate = useNavigate();
@@ -12,9 +11,9 @@ const AddAccount = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     getValues,
-  } = useForm<SignUpInfo>({ mode: 'onBlur' });
+  } = useForm<SignUpInfo>({ mode: 'onChange' });
 
   const handleSubmitAccount = () => {
     const { email, password } = getValues();
@@ -27,18 +26,38 @@ const AddAccount = () => {
       <StWrapper>
         <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
           <StTitle>아이디</StTitle>
-          <StInput type="email" {...register('email')} placeholder="아이디로 이용할 이메일을 적어주세요!" />
+          <StInput
+            type="email"
+            {...register('email', {
+              required: true,
+              pattern: {
+                value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                message: '올바른 이메일 형식이 아닙니다!',
+              },
+            })}
+            placeholder="아이디로 이용할 이메일을 적어주세요!"
+          />
           <StInputDesc>{errors.email ? errors.email.message : ' '}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
-          <StInput type="password" {...register('password')} placeholder="비밀번호를 입력해주세요" />
+          <StInput
+            type="password"
+            {...register('password', {
+              required: true,
+              pattern: {
+                value: /^[A-za-z0-9]{10,16}$/,
+                message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
+              },
+            })}
+            placeholder="비밀번호를 입력해주세요"
+          />
           <StInputDesc>{errors.password ? errors.password.message : ' '}</StInputDesc>
 
           <StTitle>비밀번호 재확인</StTitle>
           <StInput
             type="password"
             {...register('passwordConfirm', {
-              required: '비밀번호 확인이 필요합니다',
+              required: true,
               validate: {
                 matchesPreviousPassword: (value) => {
                   const { password } = getValues();
@@ -50,9 +69,7 @@ const AddAccount = () => {
           />
           <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
 
-          <StSubmitBtn disabled={errors.email || errors.password || errors.passwordConfirm ? true : false}>
-            다음 단계로 이동
-          </StSubmitBtn>
+          <StSubmitBtn disabled={!isValid}>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StWrapper>
     </>

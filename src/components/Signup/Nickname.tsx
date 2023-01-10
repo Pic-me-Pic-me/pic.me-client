@@ -20,6 +20,7 @@ const Nickname = () => {
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
   const [nickname, setNickname] = useState<string>('');
+  const [errorMsg, setErrorMsg] = useState<string>();
 
   const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
   const {
@@ -27,20 +28,18 @@ const Nickname = () => {
     formState: { errors },
     handleSubmit,
     getValues,
-  } = useForm<NicknameInfo>({ mode: 'onBlur' });
+  } = useForm<NicknameInfo>({ mode: 'onChange' });
 
   const { username } = getValues();
-
-  useEffect(() => {
-    handleCheckNickname();
-  }, [isDuplicate]);
 
   const handleCheckNickname = () => {
     checkDuplicateNickname(username).then((result) => {
       if (result?.success) {
         setIsDuplicate(false);
+        setErrorMsg('사용 가능한 닉네임입니다.');
         setNickname(username);
       } else {
+        setErrorMsg('이미 사용 중인 닉네임입니다.');
         setIsDuplicate(true);
       }
     });
@@ -54,7 +53,7 @@ const Nickname = () => {
       if (idx) {
         isChecked[idx] = !isChecked[idx];
         isChecked[0] = isChecked[1] && isChecked[2] ? true : false;
-        console.log('첫번째 두번째', isChecked);
+
         setIsChecked([...isChecked]);
       }
     }
@@ -78,15 +77,19 @@ const Nickname = () => {
 
           <StNicknameWrapper>
             <StInputWrapper>
-              <StInput type="text" {...register('username')} placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
+              <StInput
+                type="text"
+                {...register('username', {
+                  required: true,
+                  maxLength: 8,
+                })}
+                placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn type="button" onClick={handleCheckNickname}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc isDuplicate>
-            {isDuplicate ? '이미 사용 중인 닉네임입니다.' : '사용 가능한 닉네임입니다.'}
-          </StInputDesc>
+          <StInputDesc isDuplicate>{errorMsg}</StInputDesc>
 
           <StTermWrapper>
             <StAllCheckWrapper>
