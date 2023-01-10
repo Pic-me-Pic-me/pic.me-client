@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 import { EmptyIcon } from '../../asset/image';
@@ -9,6 +10,10 @@ import { VoteInfo } from '../../types/voting';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
   const [isLoaded, setIsLoaded] = useState(false);
   const [dataList, setDataList] = useState<VoteInfo[]>();
   const [CursorId, setCursorId] = useState(0);
