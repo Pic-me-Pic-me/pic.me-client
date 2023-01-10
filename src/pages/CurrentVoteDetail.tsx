@@ -6,23 +6,23 @@ import { format } from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
 import TimeAgo from 'timeago-react';
 
-import { IcVoteShareBtn } from '../../asset/icon';
-import { getCurrentVoteData, patchCurrentVoteData } from '../../lib/api/voting';
-import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
-import { useGetCurrentVote } from '../../lib/hooks/useGetCurrentVote';
-import { GetStickerResultInfo, PictureProps, StickerLocation, VoteInfoProps } from '../../types/voting';
-import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
-import { Error } from '../common';
-import Modal from '../common/Modal';
-import LandingCurrentVote from '../Landing/maker/LandingCurrentVote';
-import LandingHeader from '../Landing/maker/LandingHeader';
-import { HeaderLayout } from '../Layout';
+import { IcVoteShareBtn } from '../asset/icon';
+import { Error } from '../components/common';
+import Modal from '../components/common/Modal';
+import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
+import LandingHeader from '../components/Landing/maker/LandingHeader';
+import { HeaderLayout } from '../components/Layout';
+import { patchCurrentVoteData } from '../lib/api/voting';
+import { useCarouselSize } from '../lib/hooks/useCarouselSize';
+import { useGetCurrentVote } from '../lib/hooks/useGetCurrentVote';
+import { CurrentVoteInfo, GetStickerResultInfo, StickerLocation } from '../types/voting';
+import { modifySliderRange, picmeSliderEvent } from '../utils/picmeSliderEvent';
 
 const CurrentVoteDetail = () => {
   const { voteid } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
 
-  const [voteInfo, setVoteInfo] = useState<VoteInfoProps>();
+  const [voteInfo, setVoteInfo] = useState<CurrentVoteInfo>();
   const [currentVote, setCurrentVote] = useState<number>();
   const [pictureUrl, setPictureUrl] = useState<string[]>([]);
   const [pictureCount, setPictureCount] = useState<number[]>([]);
@@ -36,20 +36,11 @@ const CurrentVoteDetail = () => {
 
   const { ref, width } = useCarouselSize();
 
+  timeago.register('ko', ko);
   const createdAt =
     voteInfo?.createdDate.toString().slice(0, 10) + ' ' + voteInfo?.createdDate.toString().slice(11, 19);
 
-  // const handleGetCurrentVoteData = async () => {
-  //   const data = await getCurrentVoteData(voteid);
-  //   setVoteInfo(data);
-  //   setCurrentVote(data.currentVote);
-  //   setPictureUrl([data.Picture[0].url, data.Picture[1].url]);
-  //   setPictureCount([data.Picture[0].count, data.Picture[1].count]);
-  // setStickerList([data.Picture[0].Sticker, data.Picture[1].Sticker]);
-  // };
-
   useEffect(() => {
-    // handleGetCurrentVoteData();
     if (currentVoteInfo) {
       setVoteInfo(currentVoteInfo);
       setCurrentVote(currentVoteInfo.currentVote);
@@ -57,8 +48,6 @@ const CurrentVoteDetail = () => {
       setPictureCount([currentVoteInfo.Picture[0].count, currentVoteInfo.Picture[1].count]);
     }
   }, [currentVoteInfo]);
-
-  // console.log(filterVoteInfo.filter(({ emoji, count, stickerLocation }) => stickerLocation !== '[]'));
 
   useEffect(() => {
     if (voteInfo) {
@@ -92,9 +81,8 @@ const CurrentVoteDetail = () => {
     );
   if (isError) return <Error />;
 
-  console.log('swr', currentVoteInfo, isLoading);
-  console.log(ref, width, currentIdx);
-  timeago.register('ko', ko);
+  // console.log('swr', currentVoteInfo, isLoading);
+  // console.log(ref, width, currentIdx);
 
   return (
     <>
@@ -113,8 +101,9 @@ const CurrentVoteDetail = () => {
         <StImgWrapper ref={ref}>
           <StImgUl
             currentIdx={currentIdx}
-            dragItemWidth={275}
+            dragItemWidth={width}
             transX={transX}
+            width={window.screen.width}
             {...picmeSliderEvent({
               onDragChange: (deltaX) => {
                 setTransX(modifySliderRange(deltaX, -width, width));
@@ -141,9 +130,9 @@ const CurrentVoteDetail = () => {
             {voteInfo?.Picture.map(({ pictureId, url, count }, idx) => (
               <li key={idx}>
                 {currentIdx === idx ? (
-                  <StSelectedImg src={url} alt="선택된 사진" />
+                  <StSelectedImg width={window.screen.width} src={url} alt="선택된 사진" />
                 ) : (
-                  <StUnselectedImg src={url} alt="선택되지 않은 사진" />
+                  <StUnselectedImg width={window.screen.width} src={url} alt="선택되지 않은 사진" />
                 )}
               </li>
             ))}
@@ -258,29 +247,38 @@ const StVoteStatus = styled.section`
 `;
 
 const StImgWrapper = styled.article`
-  width: 100vw;
-
-  padding-left: 2rem;
-  padding-right: 2rem;
+  width: 100%;
 `;
 
-const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
+const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
+  width: 100%;
+
   display: flex;
   gap: 1.3rem;
 
   padding-right: 2rem;
 
+  ${({ currentIdx, dragItemWidth, width }) =>
+    currentIdx === 0
+      ? css`
+          left: ${(dragItemWidth * 0.1) / 10}rem;
+        `
+      : css`
+          left: ${(width * 1.5) / 35 + (dragItemWidth * 0.1) / 30}rem;
+        `}
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
-      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10}rem);
+      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 13.275}rem);
     `};
   ${({ transX }) =>
     css`
-      transition: transform ${transX ? 0 : 200}ms ease-in -out 0s;
+      transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
     `};
 `;
 
-const StSelectedImg = styled.img`
+const StSelectedImg = styled.img<{ width: number }>`
+  width: ${({ width }) => width * 0.0755}rem;
+
   margin-top: 1.9rem;
 
   width: 32.5rem;
@@ -290,6 +288,8 @@ const StSelectedImg = styled.img`
 `;
 
 const StUnselectedImg = styled(StSelectedImg)`
+  width: ${({ width }) => width * 0.0755}rem;
+
   opacity: 0.5;
 `;
 
