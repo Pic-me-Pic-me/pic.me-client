@@ -13,7 +13,7 @@ interface VotingLayoutProps {
   handlePlayer: React.MouseEventHandler;
 }
 
-const Voting = (props: VotingLayoutProps) => {
+const VotingLayout = (props: VotingLayoutProps) => {
   const {
     votingTitle,
     votingNextLineTitle,
@@ -41,7 +41,7 @@ const Voting = (props: VotingLayoutProps) => {
     </StPlayerVotingWrapper>
   );
 };
-export default Voting;
+export default VotingLayout;
 
 const StPlayerVotingWrapper = styled.div<{ pageType: string }>`
   display: flex;
