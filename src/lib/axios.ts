@@ -1,10 +1,10 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import { Cookies } from 'react-cookie';
 
 const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
-export const client = axios.create({
+const client = axios.create({
   baseURL: 'http://3.36.80.168:3000',
   headers: {
     'Content-type': 'application/json',
@@ -26,32 +26,40 @@ client.interceptors.request.use((config: any) => {
 });
 
 client.interceptors.response.use(
-  async function (res) {
-    return res;
+  (response) => {
+    console.log(response);
+    return response;
   },
-  async function (error: { config: any; response: { status: any } }) {
-    const { config, response } = error;
+
+  (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+
     console.log(error);
     const originalRequest = config;
-    if (response?.status === 401) {
+
+    if (status === 401) {
       console.log('토큰 만료');
       // token refresh 요청
-      console.log('accesstoken', localStorage.getItem('accessToken'));
-      console.log('refreshToken', cookies.get('refreshToken'));
-      const res = await client.post(
-        `/auth/token`, // token refresh api
-        {
-          accessToken: localStorage.getItem('accessToken'),
-          refreshToken: cookies.get('refreshToken'),
-        },
-      );
 
-      const newAccessToken = res.data.data.accessToken;
+      // const res = await client.post(
+      //   `/auth/token`, // token refresh api
+      //   {
+      //     accessToken: localStorage.getItem('accessToken'),
+      //     refreshToken: cookies.get('refreshToken'),
+      //   },
+      // );
 
-      localStorage.setItem('accessToken', newAccessToken);
-      originalRequest.headers = {
-        newAccessToken,
-      };
+      // console.log(res.data.message);
+
+      // const newAccessToken = res.data.data.accessToken;
+
+      // localStorage.setItem('accessToken', newAccessToken);
+      // originalRequest.headers = {
+      //   newAccessToken,
+      // };
 
       return axios(originalRequest);
     }
@@ -59,3 +67,4 @@ client.interceptors.response.use(
     return error.response;
   },
 );
+export { client };
