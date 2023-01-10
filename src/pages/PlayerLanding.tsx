@@ -1,32 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
+import { Error, Loading } from '../components/common';
 import { FinishedLanding, VoteLanding } from '../components/Landing';
-import { getVoteData } from '../lib/api/playerLanding';
-import { VoteData } from '../types/vote';
-import Error404 from './Error404';
+import { LandingPlayer } from '../components/Landing/player';
+import { useGetVotingInfo } from '../lib/hooks/useGetVotingInfo';
+import { stickerInfoState, votingInfoState } from '../recoil/player/atom';
 
 const PlayerLanding = () => {
-  const [vote, setVote] = useState<VoteData>();
   const { voteId } = useParams<{ voteId: string }>();
 
+  const { votingInfo, isLoading, isError } = useGetVotingInfo(Number(voteId));
+
+  const setVotingInfoState = useSetRecoilState(votingInfoState);
+  const resetStickerInfoState = useResetRecoilState(stickerInfoState);
+
   useEffect(() => {
-    voteStatus();
-  }, []);
-
-  const voteStatus = async () => {
-    if (voteId) {
-      const data = await getVoteData(Number(voteId));
-      if (data) {
-        setVote(data);
-      }
+    if (votingInfo?.data) {
+      resetStickerInfoState();
+      setVotingInfoState({
+        ...votingInfo?.data,
+      });
     }
-  };
+  }, [votingInfo]);
 
-  if (vote?.status === 200) return <VoteLanding vote={vote?.data} />;
-  if (vote?.status === 400) return <FinishedLanding vote={vote?.data} />;
+  if (isLoading) return <LandingPlayer />;
+  if (isError) return <Error />;
 
-  return <Error404 />;
+  if (votingInfo?.status === 200 && votingInfo.data) return <VoteLanding />;
+  return <FinishedLanding />;
 };
 
 export default PlayerLanding;

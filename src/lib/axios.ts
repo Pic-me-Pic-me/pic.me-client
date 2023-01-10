@@ -6,3 +6,5 @@ export const client = axios.create({
     'Content-type': 'application/json',
   },
 });
+
+export const picmeGetFetcher = (url: string) => client.get(url).then((res) => res.data);

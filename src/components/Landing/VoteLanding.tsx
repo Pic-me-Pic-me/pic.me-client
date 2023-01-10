@@ -1,31 +1,33 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IcModalBG } from '../../asset/icon';
-import { VoteProps } from '../../types/vote';
+import { PlayerTitle } from '../../asset/image';
+import { votingInfoState } from '../../recoil/player/atom';
 
-const VoteLanding = ({ vote }: VoteProps) => {
-  const title = `\"${vote?.voteTitle}\"`;
+const VoteLanding = () => {
+  const votingInfoAtom = useRecoilValue(votingInfoState);
+  const { voteTitle, userName, voteId } = votingInfoAtom;
   const navigate = useNavigate();
-
   return (
     <StModalWrapper>
       <StModal>
         <StTitle>
           <div>
-            <h1>{title}</h1>
+            <h1>{voteTitle}</h1>
           </div>
         </StTitle>
         <StContent>
-          <IcModalBG />
+          <IcModalBG fill="#FF5E67" />
           <StDescription>
-            <p>{vote?.userName}님의 사진</p>
+            <p>{userName}님의 사진</p>
             <p>2개 중 1개를 골라주세요!</p>
           </StDescription>
         </StContent>
         <StButtonWrapper>
-          <button type="button" onClick={() => navigate('/voting')}>
+          <button type="button" onClick={() => navigate(`/player/picture_voting/${voteId}`)}>
             익명 투표 시작하기
           </button>
           <button type="button" onClick={() => navigate('/makerlanding')}>
@@ -79,26 +81,34 @@ const StModal = styled.section`
 const StTitle = styled.header`
   display: flex;
   justify-content: center;
+
+  align-items: center;
   width: 100%;
   height: 7.651rem;
   z-index: 1;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}; // Caption2로 바꿔야함!!
+  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 
   & > div {
     display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 100;
 
-    width: 21.2rem;
-    height: 5.386rem;
-    padding: 0rem 3.7rem;
+    position: relative;
+    width: 100%;
+    height: inherit;
+    margin: 0rem 3.7rem;
+
+    background-image: url(${PlayerTitle});
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
 
     & > h1 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      position: absolute;
+      top: 30%;
     }
   }
 
@@ -110,7 +120,7 @@ const StTitle = styled.header`
   }
 `;
 
-const StDescription = styled.p`
+const StDescription = styled.article`
   margin-top: 2.5rem;
   margin-bottom: 3.4rem;
   & > p {

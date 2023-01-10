@@ -1,3 +1,5 @@
+import { PicMeResponse } from './api';
+
 export interface VoteData {
   status: number;
   data?: VoteInfo;
@@ -17,5 +19,37 @@ export interface PictureData {
 }
 
 export interface VoteProps {
-  vote?: VoteInfo;
+  vote: VoteInfo;
+}
+
+export interface PictureInfo {
+  id: number;
+  url: string;
+  count?: number;
+}
+export interface StickerLocation {
+  x: number;
+  y: number;
+  degRate: number;
+}
+
+export interface StickerInfo {
+  pictureId: number;
+  location: StickerLocation[];
+  emoji: number;
+}
+
+export interface GetStickerResultInfo {
+  stickerLocation: string;
+  emoji: number;
+  count: number;
+}
+export interface ResultSticker {
+  Picture: PictureInfo;
+  Sticker: GetStickerResultInfo[];
+}
+export interface StickerResultInfo {
+  stickerLocation: StickerLocation[];
+  emoji: number;
+  count: number;
 }

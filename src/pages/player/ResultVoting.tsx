@@ -12,20 +12,12 @@ import { stickerInfoState } from '../../recoil/player/atom';
 
 const ResultVoting = () => {
   const navigate = useNavigate();
-  const [isStickerGuide, setIsStickerGuide] = useState<boolean>(true);
   const stickerVotingInfo = useRecoilValue(stickerInfoState);
-  const [isLoading, setIsLoading] = useState(true);
 
   const isActiveBtn: boolean = stickerVotingInfo.location.length > 0;
 
   const handleVotingSuccess = async () => {
-    if (isActiveBtn)
-      try {
-        // const { data } = await postStickerData(stickerVotingInfo);
-        navigate('/player/voting/result');
-      } catch (e) {
-        console.log(e);
-      }
+    navigate('/');
   };
   useEffect(() => {
     window.scrollTo(0, 0);

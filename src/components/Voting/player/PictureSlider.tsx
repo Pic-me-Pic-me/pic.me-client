@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcSelectRound } from '../../../asset/icon';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { stickerInfoState, votingInfoState } from '../../../recoil/player/atom';
-import { PictureInfo } from '../../../types/voting';
+import { PictureInfo } from '../../../types/vote';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 import SelectPicture from './SelectPicture';
 
@@ -58,7 +58,7 @@ const PictureSlider = () => {
           {pictureInfoList.map(({ url }, idx) => (
             <li key={idx}>
               {idx === currentIdx ? (
-                <SelectPicture src={url} alt="투표_선택_이미지1" />
+                <SelectPicture src={url} alt="투표_선택_이미지1" width={window.screen.width * 0.08} />
               ) : (
                 <img src={url} className="unSelect_picture" alt="투표_선택_이미지2" />
               )}
@@ -117,6 +117,7 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
   touch-action: auto;
 
   img.unSelect_picture {
+    width: ${({ width }) => width * 0.06}rem;
     height: 32.5rem;
 
     margin: 6.1rem 1.3rem 0 1.3rem;

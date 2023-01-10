@@ -29,7 +29,7 @@ const ReasonSlider = () => {
   const navIconRenderList = Array(4).fill(0);
 
   useEffect(() => {
-    setStickerInfo({ ...stickerInfo, emoji: currentIdx });
+    if (stickerInfo.location.length === 0) setStickerInfo({ ...stickerInfo, emoji: currentIdx });
   }, [currentIdx]);
 
   return (
@@ -128,7 +128,9 @@ const StDragWReasonUl = styled.ul<{ currentIdx: number; dragItemWidth: number; t
       position: absolute;
       top: 14rem;
 
-      z-index: 10;
+      z-index: 1;
+
+      touch-action: pan-x;
     }
   }
   & > .unselect_item {

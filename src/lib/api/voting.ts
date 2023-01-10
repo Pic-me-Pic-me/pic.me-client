@@ -1,4 +1,4 @@
 import { client } from '../axios';
-import { StickerInfo, VotingInfo } from './../../types/voting';
+import { StickerInfo } from './../../types/vote';
 
 export const postStickerData = (stickerInfo: StickerInfo) => client.post('/sticker', stickerInfo);
