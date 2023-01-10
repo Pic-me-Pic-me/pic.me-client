@@ -34,13 +34,13 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   padding-right: 5.4rem;
 
   background: none;
+
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 
   & > svg {
     width: 5.4rem;
 
     cursor: pointer;
-
     & > path {
       display: flex;
       align-items: center;
