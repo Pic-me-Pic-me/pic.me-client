@@ -29,7 +29,7 @@ export const postKakaoSignUp = async (uid: string, socialType: string, user_name
     user_name,
   });
   console.log('postKakaoSignUp:', data);
-  return data;
+  return data.data;
 };
 
 export const deleteUser = async () => {
