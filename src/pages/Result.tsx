@@ -21,14 +21,34 @@ export const Result = () => {
   if (voteResult)
     return (
       <>
-        <HeaderLayout HeaderTitle="최종 투표 결과" handleGoback={() => navigate(-1)}></HeaderLayout>
-        <SliderTitle
-          isChosenPic={false}
-          voteTitle={voteResult.voteTitle}
-          voteTotalNumber={voteResult.currentVote}></SliderTitle>
-        <ResultPicture src={voteResult.Picture[1].url}></ResultPicture>
-        {/* <ResultReason totalVote={voteResult.currentVote} bestReasonVote={}></ResultReason> */}
+        <StBackgroundWrapper src={voteResult.Picture[1].url}>
+          <StBackground>
+            <HeaderLayout HeaderTitle="최종 투표 결과" handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
+
+            <SliderTitle
+              isChosenPic={false}
+              voteTitle={voteResult.voteTitle}
+              voteTotalNumber={voteResult.currentVote}></SliderTitle>
+            <ResultPicture src={voteResult.Picture[1].url}></ResultPicture>
+            {/* <ResultReason totalVote={voteResult.currentVote} bestReasonVote={}></ResultReason> */}
+          </StBackground>
+        </StBackgroundWrapper>
       </>
     );
   return <Error />;
 };
+
+const StBackgroundWrapper = styled.div<{ src: string }>`
+  height: 100%;
+  background-image: url(${({ src }) => src});
+  background-size: cover;
+`;
+
+const StBackground = styled.main`
+  height: 100vh%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(15px);
+
+  z-index: -5;
+`;

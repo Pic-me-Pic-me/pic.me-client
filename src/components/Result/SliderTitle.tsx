@@ -47,6 +47,7 @@ const StTitle = styled.div<{ isChosenPic: boolean }>`
 
   margin-top: 2.6rem;
   margin-left: 4.658rem;
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Title4_Pretendard_Bold_35};
 
   h1 {
