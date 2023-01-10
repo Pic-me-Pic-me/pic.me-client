@@ -1,3 +1,4 @@
+import { userInfo } from 'os';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -25,7 +26,6 @@ const MemberInfo = () => {
 
   const handleDeleteUser = async () => {
     const result = await deleteUser();
-    console.log(result);
     navigate('/playerlanding');
   };
 

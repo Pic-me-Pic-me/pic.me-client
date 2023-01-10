@@ -13,16 +13,13 @@ interface VoteCardProps {
 
 const VoteCard = (props: VoteCardProps) => {
   const { voteData } = props;
-  console.log(voteData.createdAt);
-  const test = voteData.createdAt.toString().slice(0, 10);
-  const test1 = voteData.createdAt.toString().slice(11, 19);
 
-  const final = test + ' ' + test1;
-  console.log(final);
+  const time1 = voteData.createdAt.toString().slice(0, 10);
+  const time2 = voteData.createdAt.toString().slice(11, 19);
+  const formatedTime = time1 + ' ' + time2;
 
-  console.log(format(Date.now() - 11 * 1000 * 60 * 60));
-  console.log(Date.now());
   timeago.register('ko', ko);
+
   return (
     <StVoteItem>
       <StVoteData>
@@ -31,8 +28,7 @@ const VoteCard = (props: VoteCardProps) => {
           <h2>{voteData.totalVoteCount}명 투표 중</h2>
         </StTitleWrapper>
         <h3>
-          {/* {voteData.createdAt.toString()} */}
-          <TimeAgo datetime={final} locale="ko" />
+          <TimeAgo datetime={formatedTime} locale="ko" />
         </h3>
       </StVoteData>
       <StPreviewImg src={voteData.voteThumbnail} alt="투표 썸네일" />
