@@ -7,6 +7,7 @@ import Library from '../../pages/Library';
 import Login from '../../pages/Login';
 import MakerLanding from '../../pages/MakerLanding';
 import PlayerLanding from '../../pages/PlayerLanding';
+import { Result } from '../../pages/Result';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
 
@@ -21,6 +22,7 @@ const Router = () => (
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
         <Route path="/voting" element={<Voting />} />
+        <Route path="/result/:voteId" element={<Result />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </RecoilRoot>
