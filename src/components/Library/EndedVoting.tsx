@@ -17,6 +17,13 @@ const EndedVoting = (props: votingProps) => {
 
   const [isShowing, setIsShowing] = useState<boolean>(false);
 
+  const time1 = voteData.createdAt.toString().slice(6, 7);
+  let time2 = voteData.createdAt.toString().slice(8, 10);
+
+  if (time2[0] === '0') {
+    time2 = time2.slice(1, 2);
+  }
+
   const handleModal = (prev: boolean) => {
     setIsShowing((prev) => !prev);
   };
@@ -40,7 +47,9 @@ const EndedVoting = (props: votingProps) => {
           <StVotingTitle>
             {voteData.title} {voteData.id}
           </StVotingTitle>
-          <StVotingDate></StVotingDate>
+          <StVotingDate>
+            {time1}월 {time2}일
+          </StVotingDate>
           <StVotingPeopleNum>{voteData.count}명 투표 완</StVotingPeopleNum>
         </StVotingDesc>
       </StVotingWrapper>
