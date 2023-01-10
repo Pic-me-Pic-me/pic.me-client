@@ -1,20 +1,25 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SignupBanner } from '../asset/image';
+import { IcSignupBanner } from '../asset/icon';
+import HeaderLayout from '../components/Layout/HeaderLayout';
 
-const Signup = () => (
-  <>
-    <StBannerWrapper>
-      <SignupBanner />
-    </StBannerWrapper>
+const Signup = () => {
+  const navigate = useNavigate();
+  return (
+    <>
+      <HeaderLayout HeaderTitle="회원가입" isBanner handleGoback={() => navigate(-1)}></HeaderLayout>
+      <StBannerWrapper>
+        <IcSignupBanner />
+      </StBannerWrapper>
 
-    <StWhiteSection>
-      <Outlet />
-    </StWhiteSection>
-  </>
-);
+      <StWhiteSection>
+        <Outlet />
+      </StWhiteSection>
+    </>
+  );
+};
 
 const StBannerWrapper = styled.div`
   position: absolute;
