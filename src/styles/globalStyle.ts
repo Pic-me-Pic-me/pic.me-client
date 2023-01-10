@@ -1,15 +1,5 @@
 import { createGlobalStyle, css } from 'styled-components';
 
-import PretendardBlack from '../fonts/Pretendard-Black.woff';
-import PretendardBold from '../fonts/Pretendard-Bold.woff';
-import PretendardExtraBold from '../fonts/Pretendard-ExtraBold.woff';
-import PretendardExtraLight from '../fonts/Pretendard-ExtraLight.woff';
-import PretendardLight from '../fonts/Pretendard-Light.woff';
-import PretendardMedium from '../fonts/Pretendard-Medium.woff';
-import PretendardRegular from '../fonts/Pretendard-Regular.woff';
-import PretendardSemiBold from '../fonts/Pretendard-SemiBold.woff';
-import PretendardThin from '../fonts/Pretendard-Thin.woff';
-
 export const reset = css`
   html,
   body,
@@ -151,48 +141,13 @@ ${reset}
 #root, body, html {
     width: 100%;
     height: 100vh;
+  
 }
+  
 * {
     box-sizing: border-box;
-    }
-@font-face{
-  font-family: "PretendardBlack";
-  src: url(${PretendardBlack}) format("font-woff");
 }
-@font-face{
-  font-family: "PretendardBold";
-  src: url(${PretendardBold}) format("font-woff");
-}
-@font-face{
-  font-family: "PretendardExtraBold";
-  src: url(${PretendardExtraBold}) format("font-woff");
-}
-@font-face{
-  font-family: "PretendardExtraLight";
-  src: url(${PretendardExtraLight}) format("font-woff");
-}
-@font-face{
-  font-family: "PretendardLight";
-  src: url(${PretendardLight}) format("font-woff");
-}
-@font-face{
-  font-family: "PretendardMedium";
-  src: url(${PretendardMedium}) format("font-woff");
-}
-@font-face{
-  font-family: "PretendardRegular";
-  src: url(${PretendardRegular}) format("font-woff");
-}
-
-@font-face{
-  font-family: "PretendardSemiBold";
-  src: url(${PretendardSemiBold}) format("font-woff");
-}
-
-@font-face{
-  font-family: "PretendardThin";
-  src: url(${PretendardThin}) format("font-woff");
-}
+    
 `;
 
 export default GlobalStyle;

@@ -32,7 +32,7 @@ const StTitleInput = styled.textarea`
 
   text-align: center;
 
-  ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_SemiBold_22}
+  ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
