@@ -6,11 +6,12 @@ import { IcCheckedRound } from '../../../asset/icon';
 interface SelectPictureProps {
   src: string;
   alt: string;
+  width: number;
 }
 const SelectPicture = (props: SelectPictureProps) => {
-  const { src, alt } = props;
+  const { src, alt, width } = props;
   return (
-    <StSelectPictureWrapper>
+    <StSelectPictureWrapper width={width}>
       <img src={src} alt={alt} />
       <IcCheckedRound />
     </StSelectPictureWrapper>
@@ -19,12 +20,12 @@ const SelectPicture = (props: SelectPictureProps) => {
 
 export default SelectPicture;
 
-const StSelectPictureWrapper = styled.article`
+const StSelectPictureWrapper = styled.article<{ width: number }>`
   position: relative;
   height: 44.7rem;
 
   & > img {
-    width: 100%;
+    width: ${({ width }) => width}rem;
     height: 44.7rem;
 
     border-radius: 1rem;
