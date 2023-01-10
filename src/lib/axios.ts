@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { Cookies } from 'react-cookie';
 
 const TOKEN = localStorage.getItem('accessToken');
@@ -12,7 +12,10 @@ export const client = axios.create({
   },
 });
 
+///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
 client.interceptors.request.use((config: any) => {
+  console.log(client.interceptors);
+  console.log(config);
   const headers = {
     ...config.headers,
     accessToken: localStorage.getItem('accessToken'),
@@ -31,29 +34,28 @@ client.interceptors.response.use(
     console.log(error);
     const originalRequest = config;
     if (response?.status === 401) {
+      console.log('토큰 만료');
       // token refresh 요청
-      const { data } = await axios.post(
+      console.log('accesstoken', localStorage.getItem('accessToken'));
+      console.log('refreshToken', cookies.get('refreshToken'));
+      const res = await client.post(
         `/auth/token`, // token refresh api
-        {},
         {
-          headers: {
-            accessToken: localStorage.getItem('accessToken'),
-            refreshToken: cookies.get('refreshToken'),
-          },
+          accessToken: localStorage.getItem('accessToken'),
+          refreshToken: cookies.get('refreshToken'),
         },
       );
-      const newAccessToken = data.data.accessToken;
-      const newRefreshToken = data.data.refreshToken;
+
+      const newAccessToken = res.data.data.accessToken;
 
       localStorage.setItem('accessToken', newAccessToken);
-      cookies.set('refreshToken', newRefreshToken);
-
       originalRequest.headers = {
         newAccessToken,
-        newRefreshToken,
       };
+
       return axios(originalRequest);
     }
+    console.log(client.interceptors);
     return error.response;
   },
 );
