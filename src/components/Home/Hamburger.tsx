@@ -60,7 +60,6 @@ const StOutsideHamburger = styled.div<{ isOpen?: boolean }>`
   right: 0;
 
   width: 100%;
-  height: 100%;
 
   background-color: ${(props) => (props.isOpen ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0)')};
 `;

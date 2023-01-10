@@ -5,6 +5,7 @@ import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
 
 const Home = () => (
+  <>
   <StHomeWrapper>
     <Nav />
     <Header />
@@ -12,14 +13,15 @@ const Home = () => (
       <IcPlus />
       <p>투표 만들기</p>
     </StMakerVoting>
-    <VoteList />
   </StHomeWrapper>
+  <VoteList />
+  </>
 );
 
 export default Home;
 
 const StHomeWrapper = styled.div`
-  padding: 2.7rem 2rem;
+  padding: 2.7rem 2rem 0rem 2rem;
 `;
 
 const StMakerVoting = styled.button`

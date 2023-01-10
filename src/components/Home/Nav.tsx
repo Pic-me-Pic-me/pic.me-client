@@ -38,7 +38,7 @@ const Nav = () => {
             handleConfirm={handleConfirm}
           />
           <StHamburgerBtn type="button" onClick={handleHamburger}>
-            {isOpen ? <IcClose /> : <IcHamburger width="2.13rem" height="1.4rem" />}
+            {isOpen ? <IcClose width="2.13rem" height="1.4rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
           </StHamburgerBtn>
         </StHambergerWrapper>
       </StHomeNav>
@@ -51,6 +51,7 @@ export default Nav;
 
 const StHomeNav = styled.nav`
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   position: fixed;
