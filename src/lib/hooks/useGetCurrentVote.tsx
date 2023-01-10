@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import useSWR from 'swr';
 
-import { CurrentVoteInfo } from '../../types/voting';
+import { CurrentVoteInfo } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
 export const useGetCurrentVote = (voteid: string | undefined) => {

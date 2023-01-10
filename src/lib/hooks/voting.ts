@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 import useSWR from 'swr';
 
+import { VotingInfo } from '../../types/vote';
 import { client } from '../axios';
-import { VotingInfo } from './../../types/voting';
 
 export const useGetVotingInfo = (vote_id: number) => {
   const { data, error } = useSWR<AxiosResponse<VotingInfo>>(`/vote?vote_id=${vote_id}`, client.get, {

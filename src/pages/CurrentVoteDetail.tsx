@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import * as timeago from 'timeago.js';
-import { format } from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
 import TimeAgo from 'timeago-react';
 
@@ -15,7 +14,7 @@ import { HeaderLayout } from '../components/Layout';
 import { patchCurrentVoteData } from '../lib/api/voting';
 import { useCarouselSize } from '../lib/hooks/useCarouselSize';
 import { useGetCurrentVote } from '../lib/hooks/useGetCurrentVote';
-import { CurrentVoteInfo, GetStickerResultInfo, StickerLocation } from '../types/voting';
+import { CurrentVoteInfo, StickerLocation, StickerResultInfo } from '../types/vote';
 import { modifySliderRange, picmeSliderEvent } from '../utils/picmeSliderEvent';
 
 const CurrentVoteDetail = () => {
@@ -26,8 +25,7 @@ const CurrentVoteDetail = () => {
   const [currentVote, setCurrentVote] = useState<number>();
   const [pictureUrl, setPictureUrl] = useState<string[]>([]);
   const [pictureCount, setPictureCount] = useState<number[]>([]);
-  const [stickerList, setStickerList] = useState<GetStickerResultInfo[]>([]);
-  const [resultStickerList, setResultStickerList] = useState([]);
+  const [resultStickerList, setResultStickerList] = useState<StickerResultInfo[]>([]);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
@@ -63,9 +61,9 @@ const CurrentVoteDetail = () => {
         };
       });
       console.log(getStickerList);
-      //setResultStickerList(getStickerList);
+      setResultStickerList([...getStickerList]);
     }
-  }, [voteInfo]);
+  }, [voteInfo, currentIdx]);
 
   const handleGoResultPage = () => {
     patchCurrentVoteData(voteid);
@@ -82,7 +80,7 @@ const CurrentVoteDetail = () => {
   if (isError) return <Error />;
 
   // console.log('swr', currentVoteInfo, isLoading);
-  // console.log(ref, width, currentIdx);
+  //   console.log(ref, width, currentIdx);
 
   return (
     <>
@@ -101,7 +99,7 @@ const CurrentVoteDetail = () => {
         <StImgWrapper ref={ref}>
           <StImgUl
             currentIdx={currentIdx}
-            dragItemWidth={width}
+            dragItemWidth={363.25}
             transX={transX}
             width={window.screen.width}
             {...picmeSliderEvent({
@@ -152,7 +150,9 @@ const CurrentVoteDetail = () => {
           )}
         </StDotWrapper>
         <IcVoteShareBtn onClick={() => navigate('/share', { state: voteid })} />
-        <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
+        <StCompleteVoteBtnStructure>
+          <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
+        </StCompleteVoteBtnStructure>
       </CurrentVoteDetailWrapper>
       <Modal
         isShowing={isModalShowing}
@@ -174,11 +174,6 @@ const CurrentVoteDetailWrapper = styled.section`
   align-items: center;
 
   width: 100%;
-
-  overflow: hidden;
-
-  padding-left: 2rem;
-  padding-right: 2rem;
 
   & > svg {
     position: fixed;
@@ -248,6 +243,10 @@ const StVoteStatus = styled.section`
 
 const StImgWrapper = styled.article`
   width: 100%;
+
+  padding: 0 2rem 0 2rem;
+
+  overflow: hidden;
 `;
 
 const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
@@ -255,8 +254,6 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
 
   display: flex;
   gap: 1.3rem;
-
-  padding-right: 2rem;
 
   ${({ currentIdx, dragItemWidth, width }) =>
     currentIdx === 0
@@ -285,10 +282,12 @@ const StSelectedImg = styled.img<{ width: number }>`
   height: 43.4rem;
 
   border-radius: 1.2rem;
+
+  object-fit: cover;
 `;
 
 const StUnselectedImg = styled(StSelectedImg)`
-  width: ${({ width }) => width * 0.0755}rem;
+  width: ${({ width }) => width * 0.075}rem;
 
   opacity: 0.5;
 `;
@@ -315,11 +314,19 @@ const StUnselectedDot = styled(StDotStructure)`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 `;
 
+const StCompleteVoteBtnStructure = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+`;
+
 const StCompleteVoteBtn = styled.button`
   width: 100%;
   height: 6rem;
-
-  margin: 2rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
