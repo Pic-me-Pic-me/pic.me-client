@@ -88,7 +88,6 @@ const StTitle = styled.header`
   z-index: 1;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 
   & > div {
     display: flex;
@@ -108,7 +107,9 @@ const StTitle = styled.header`
 
     & > h1 {
       position: absolute;
-      top: 30%;
+      top: 25%;
+
+      ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20};
     }
   }
 
