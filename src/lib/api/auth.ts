@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { UserData, UsersResponse, UserToken } from '../../types/auth';
+import { DeleteUserInfo, UserData, UsersResponse, UserToken } from '../../types/auth';
 import { client } from '../axios';
 
 export const postKakaoToken = async (socialType: string, token: string) => {
@@ -34,8 +34,8 @@ export const postKakaoSignUp = async (uid: string, socialType: string, user_name
 
 export const deleteUser = async () => {
   try {
-    const data = await client.delete<UserData>('/user');
-    return data.data;
+    const data = await client.delete<DeleteUserInfo>('/user');
+    return data;
   } catch (err) {
     console.error(err);
   }

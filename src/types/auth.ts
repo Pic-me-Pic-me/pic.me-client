@@ -48,3 +48,9 @@ export interface UserTokenInfo {
 export interface UserToken {
   data: UserTokenInfo;
 }
+
+export interface DeleteUserInfo {
+  status: number;
+  success: boolean;
+  message: string;
+}
