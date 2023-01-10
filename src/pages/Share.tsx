@@ -67,6 +67,11 @@ const Share = () => {
 export default Share;
 
 const StShareWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   margin-top: 2rem;
 `;
 
@@ -74,6 +79,7 @@ const StShareTitle = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 
   width: 100%;
 
@@ -95,6 +101,7 @@ const StShareTitle = styled.header`
 
 const StShareInfo = styled.article`
   display: flex;
+  justify-content: center;
   align-items: center;
 
   width: 100%;
@@ -104,7 +111,7 @@ const StShareInfo = styled.article`
   padding-right: 2rem;
 
   & > input {
-    width: 31.9rem;
+    width: 100%;
     height: 5rem;
 
     padding: 0 1.584rem 0 1.4rem;
