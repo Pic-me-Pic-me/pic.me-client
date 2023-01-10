@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 interface TitleProps {
   isChosenPic: boolean;
-  voteTitle?: string;
-  voteNumber?: number;
+  voteTitle: string;
+  voteTotalNumber: number;
 }
 
 const SliderTitle = (props: TitleProps) => {
-  const { isChosenPic, voteTitle, voteNumber } = props;
+  const { isChosenPic, voteTitle, voteTotalNumber } = props;
 
   return (
     <>
@@ -21,14 +21,14 @@ const SliderTitle = (props: TitleProps) => {
             </>
           ) : (
             <>
-              <h1>친구들이 골라준 </h1>
-              <h1>One Pic!</h1>
+              <h1>아쉽게 떨어진 </h1>
+              <h1>Second Pic!</h1>
             </>
           )}
-          <p>{voteTitle} 투표 제목</p>
+          <p>{voteTitle}</p>
         </StTitle>
 
-        <StVotedNumber>+{voteNumber}</StVotedNumber>
+        <StVotedNumber>+{voteTotalNumber}</StVotedNumber>
       </StTitleWrapper>
     </>
   );

@@ -22,7 +22,7 @@ const Router = () => (
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
         <Route path="/voting" element={<Voting />} />
-        <Route path="/result" element={<Result />} />
+        <Route path="/result/:voteId" element={<Result />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </RecoilRoot>

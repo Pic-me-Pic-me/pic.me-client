@@ -7,10 +7,22 @@ interface ReasonProps {
   totalVote: number;
   bestReason: string;
   bestReasonVote: number;
+  faceStickerCount: number;
+  angleStickerCount: number;
+  moodStickerCount: number;
+  jusStickerCount: number;
 }
 
 const ResultReason = (props: ReasonProps) => {
-  const { totalVote, bestReason, bestReasonVote } = props;
+  const {
+    totalVote,
+    bestReason,
+    bestReasonVote,
+    faceStickerCount,
+    angleStickerCount,
+    moodStickerCount,
+    jusStickerCount,
+  } = props;
 
   const reasons = [<IcAngle key="angle" />, <IcFace key="face" />, <IcJust key="just" />, <IcMood key="mood" />];
 
