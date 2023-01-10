@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,22 +7,21 @@ import styled, { css } from 'styled-components';
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { checkDuplicateNickname, postSignupInfo } from '../../lib/api/signup';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
-import { nicknameErrorPatterns } from '../../utils/check';
+import { errorPatterns } from '../../utils/check';
 
 const Nickname = () => {
   const location = useLocation();
   const cookies = new Cookies();
 
-  const { email, password }: AddAccountInfo = location.state.dataInfo;
+  const navigate = useNavigate();
+
+  const { email, password }: AddAccountInfo = location.state.signupDataInfo;
 
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
-  const [isDuplicate, setIsDuplicate] = useState(false);
+  const [isDuplicate, setIsDuplicate] = useState<boolean>();
   const [nickname, setNickname] = useState<string>('');
 
   const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
-
-  const navigate = useNavigate();
-
   const {
     register,
     formState: { errors },
@@ -30,14 +29,19 @@ const Nickname = () => {
     getValues,
   } = useForm<NicknameInfo>({ mode: 'onBlur' });
 
+  const { username } = getValues();
+
+  useEffect(() => {
+    handleCheckNickname();
+  }, [isDuplicate]);
+
   const handleCheckNickname = () => {
-    const { username } = getValues();
     checkDuplicateNickname(username).then((result) => {
       if (result?.success) {
-        setIsDuplicate(!result.success);
-        setNickname(nickname);
+        setIsDuplicate(false);
+        setNickname(username);
       } else {
-        setIsDuplicate(result.success);
+        setIsDuplicate(true);
       }
     });
   };
@@ -50,6 +54,7 @@ const Nickname = () => {
       if (idx) {
         isChecked[idx] = !isChecked[idx];
         isChecked[0] = isChecked[1] && isChecked[2] ? true : false;
+        console.log('첫번째 두번째', isChecked);
         setIsChecked([...isChecked]);
       }
     }
@@ -60,7 +65,6 @@ const Nickname = () => {
       if (res?.success) {
         cookies.set('refreshToken', res.data.refreshToken);
         localStorage.setItem('accessToken', res.data.accessToken);
-        console.log(res);
         navigate('/');
       }
     });
@@ -74,16 +78,15 @@ const Nickname = () => {
 
           <StNicknameWrapper>
             <StInputWrapper>
-              <StInput
-                type="text"
-                {...register('username', nicknameErrorPatterns)}
-                placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
+              <StInput type="text" {...register('username')} placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn type="button" onClick={handleCheckNickname}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc>{isDuplicate ? '이미 사용 중인 닉네임입니다.' : ' '}</StInputDesc>
+          <StInputDesc isDuplicate>
+            {isDuplicate ? '이미 사용 중인 닉네임입니다.' : '사용 가능한 닉네임입니다.'}
+          </StInputDesc>
 
           <StTermWrapper>
             <StAllCheckWrapper>
@@ -161,11 +164,20 @@ const StInput = styled.input`
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 `;
 
-const StInputDesc = styled.p`
+const StInputDesc = styled.p<{ isDuplicate: boolean }>`
   margin-top: 0.6rem;
 
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
   color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+
+  ${({ isDuplicate }) =>
+    isDuplicate
+      ? css`
+          color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+        `
+      : css`
+          color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+        `}
 `;
 
 const StCheckDuplicationBtn = styled.button`

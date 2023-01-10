@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { AddAccountInfo, SignUpInfo } from '../../types/signup';
+import { SignUpInfo } from '../../types/signup';
 import { emailErrorPatterns, passwordErrorPatterns } from '../../utils/check';
 
 const AddAccount = () => {
@@ -18,8 +18,8 @@ const AddAccount = () => {
 
   const handleSubmitAccount = () => {
     const { email, password } = getValues();
-    const dataInfo = { email, password };
-    navigate(`/signup/nickname`, { state: { dataInfo } });
+    const signupDataInfo = { email, password };
+    navigate(`/signup/nickname`, { state: { signupDataInfo } });
   };
 
   return (
@@ -27,19 +27,11 @@ const AddAccount = () => {
       <StWrapper>
         <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
           <StTitle>아이디</StTitle>
-          <StInput
-            type="email"
-            {...register('email', emailErrorPatterns)}
-            placeholder="아이디로 이용할 이메일을 적어주세요!"
-          />
+          <StInput type="email" {...register('email')} placeholder="아이디로 이용할 이메일을 적어주세요!" />
           <StInputDesc>{errors.email ? errors.email.message : ' '}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
-          <StInput
-            type="password"
-            {...register('password', passwordErrorPatterns)}
-            placeholder="비밀번호를 입력해주세요"
-          />
+          <StInput type="password" {...register('password')} placeholder="비밀번호를 입력해주세요" />
           <StInputDesc>{errors.password ? errors.password.message : ' '}</StInputDesc>
 
           <StTitle>비밀번호 재확인</StTitle>
