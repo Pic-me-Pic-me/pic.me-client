@@ -1,4 +1,7 @@
 import axios from 'axios';
+// import qs from 'qs';
+
+// axios.defaults.paramsSerializer = (params) => qs.stringify(params);
 
 export const client = axios.create({
 
