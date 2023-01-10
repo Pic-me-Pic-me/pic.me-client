@@ -87,7 +87,7 @@ const StVotingTitle = styled.h1`
   word-break: break-all;
 `;
 const StVotingSubTitle = styled.h3<{ margin?: number }>`
-  margin-top: ${({ margin }) => margin}rem;
+  margin: ${({ margin }) => margin}rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
 `;
