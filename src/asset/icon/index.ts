@@ -11,6 +11,7 @@ export { ReactComponent as IcHeaderLogo } from './ic_header_logo.svg';
 export { ReactComponent as IcHeaderSecond } from './ic_header_second.svg';
 export { ReactComponent as IcJustSticker } from './ic_just.svg';
 export { ReactComponent as IcSkeletonCheckRound } from './ic_landing_round.svg';
+export { ReactComponent as IcPlayerTitle } from './ic_player_title.svg';
 export { ReactComponent as IcSelectRound } from './ic_select.svg';
 export { ReactComponent as IcSkeletonBack } from './ic_Skeleton_back.svg';
 export { ReactComponent as IcSkeletonHeader } from './ic_skeleton_header.svg';
