@@ -77,19 +77,20 @@ const StPlayerVotingWrapper = styled.div<{ pageType: string }>`
 `;
 const StVotingTitle = styled.h1`
   width: 100%;
-  margin: 0rem 2rem 0 4.2rem;
+  margin: 0rem 10%;
 
   text-align: center;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22};
+
+  ${({ theme }) => theme.fonts.Pic_Subtitle3_Pretendard_Semibold_20};
 
   word-break: break-all;
 `;
 const StVotingSubTitle = styled.h3<{ margin?: number }>`
   margin: ${({ margin }) => margin}rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+  ${({ theme }) => theme.fonts.Pic_Subtitle3_Pretendard_Semibold_20};
 `;
 const StPlayerBtn = styled.button<{ isActiveBtn: boolean }>`
   width: 100%;
