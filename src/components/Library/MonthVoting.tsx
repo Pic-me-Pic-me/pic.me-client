@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { getMonthlyLibraryInfo } from '../../lib/api/library';
 import useIntersectionObserver from '../../lib/hooks/library';
-import { EndedVoteInfo, VoteInfo } from '../../types/library';
+import { VoteInfo } from '../../types/library';
 import EndedVoting from './EndedVoting';
 
 interface voteAllInfoProps {
@@ -30,8 +30,6 @@ const MonthVoting = (props: voteAllInfoProps) => {
         if (newVerticalScrollInfo[4]) setNextIndex(newVerticalScrollInfo[4].id);
         setIsLoaded(false);
       }
-      // setVerticalScrollInfo(verticalScrollInfo.slice(nextIndex, nextIndex + 5));
-      // setNextIndex(res?.data.data[4].date);
     };
     getMoreItem();
   }, []);
@@ -67,6 +65,8 @@ const MonthVoting = (props: voteAllInfoProps) => {
 };
 
 const StMonthVotingWrapper = styled.article`
+  z-index: 1000000;
+  width: 100%;
   margin-bottom: 4.906rem;
 `;
 const StDateTitle = styled.h2`
