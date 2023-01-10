@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import * as timeago from 'timeago.js';
+import { format } from 'timeago.js';
+import ko from 'timeago.js/lib/lang/ko';
+import TimeAgo from 'timeago-react';
 
 import { IcVoteShareBtn } from '../../asset/icon';
 import { getCurrentVoteData, patchCurrentVoteData } from '../../lib/api/voting';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import { useGetCurrentVote } from '../../lib/hooks/useGetCurrentVote';
-import { PictureProps, StickerProps, VoteInfoProps } from '../../types/voting';
+import { GetStickerResultInfo, PictureProps, StickerLocation, VoteInfoProps } from '../../types/voting';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
 import { Error } from '../common';
 import Modal from '../common/Modal';
@@ -22,52 +26,84 @@ const CurrentVoteDetail = () => {
   const [currentVote, setCurrentVote] = useState<number>();
   const [pictureUrl, setPictureUrl] = useState<string[]>([]);
   const [pictureCount, setPictureCount] = useState<number[]>([]);
+  const [stickerList, setStickerList] = useState<GetStickerResultInfo[]>([]);
+  const [resultStickerList, setResultStickerList] = useState([]);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
-  // const { currentVoteInfo, isLoading, isError } = useGetCurrentVote(voteid);
+  const { currentVoteInfo, isLoading, isError } = useGetCurrentVote(voteid);
 
   const { ref, width } = useCarouselSize();
 
-  const handleGetCurrentVoteData = async () => {
-    const data = await getCurrentVoteData(voteid);
-    setVoteInfo(data);
-    setCurrentVote(data.currentVote);
-    setPictureUrl([data.Picture[0].url, data.Picture[1].url]);
-    setPictureCount([data.Picture[0].count, data.Picture[1].count]);
-  };
+  const createdAt =
+    voteInfo?.createdDate.toString().slice(0, 10) + ' ' + voteInfo?.createdDate.toString().slice(11, 19);
+
+  // const handleGetCurrentVoteData = async () => {
+  //   const data = await getCurrentVoteData(voteid);
+  //   setVoteInfo(data);
+  //   setCurrentVote(data.currentVote);
+  //   setPictureUrl([data.Picture[0].url, data.Picture[1].url]);
+  //   setPictureCount([data.Picture[0].count, data.Picture[1].count]);
+  // setStickerList([data.Picture[0].Sticker, data.Picture[1].Sticker]);
+  // };
 
   useEffect(() => {
-    handleGetCurrentVoteData();
-    // if (currentVoteInfo !== undefined) {
-    //   setVoteInfo(currentVoteInfo);
-    //   setCurrentVote(currentVoteInfo.currentVote);
-    //   setPictureUrl([currentVoteInfo.Picture[0].url, currentVoteInfo.Picture[1].url]);
-    //   setPictureCount([currentVoteInfo.Picture[0].count, currentVoteInfo.Picture[1].count]);
-    // }
-  }, []);
+    // handleGetCurrentVoteData();
+    if (currentVoteInfo) {
+      setVoteInfo(currentVoteInfo);
+      setCurrentVote(currentVoteInfo.currentVote);
+      setPictureUrl([currentVoteInfo.Picture[0].url, currentVoteInfo.Picture[1].url]);
+      setPictureCount([currentVoteInfo.Picture[0].count, currentVoteInfo.Picture[1].count]);
+    }
+  }, [currentVoteInfo]);
+
+  // console.log(filterVoteInfo.filter(({ emoji, count, stickerLocation }) => stickerLocation !== '[]'));
+
+  useEffect(() => {
+    if (voteInfo) {
+      const { Picture } = voteInfo;
+      const getStickerList = Picture[currentIdx].Sticker.filter(
+        ({ emoji, count, stickerLocation }) => stickerLocation !== '',
+      ).map(({ emoji, count, stickerLocation }) => {
+        const jsonLocation = JSON.parse(stickerLocation) as StickerLocation[];
+        return {
+          stickerLocation: jsonLocation,
+          emoji,
+          count,
+        };
+      });
+      console.log(getStickerList);
+      //setResultStickerList(getStickerList);
+    }
+  }, [voteInfo]);
 
   const handleGoResultPage = () => {
     patchCurrentVoteData(voteid);
     navigate(`/result/${voteid}`);
   };
 
-  // if (isLoading)
-  //   return (
-  //     <>
-  //       <LandingHeader />
-  //       <LandingCurrentVote />
-  //     </>
-  //   );
-  // if (isError) return <Error />;
+  if (isLoading && ref.current === null)
+    return (
+      <>
+        <LandingHeader />
+        <LandingCurrentVote />
+      </>
+    );
+  if (isError) return <Error />;
+
+  console.log('swr', currentVoteInfo, isLoading);
+  console.log(ref, width, currentIdx);
+  timeago.register('ko', ko);
 
   return (
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/')} />
       <CurrentVoteDetailWrapper>
         <StVoteInfo>
-          <span>42분 전</span>
+          <span>
+            <TimeAgo datetime={createdAt} locale="ko" />
+          </span>
           <h1>{voteInfo?.voteTitle}</h1>
         </StVoteInfo>
         <StVoteStatus>

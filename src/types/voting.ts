@@ -24,24 +24,35 @@ export interface StickerInfo {
   emoji: number;
 }
 
-export interface VoteInfoProps {
+export interface CurrentVoteInfo {
   voteId: number;
   voteStatus: boolean;
   voteTitle: string;
   currentVote: number;
   createdDate: Date;
-  Picture: PictureProps[];
+  Picture: CurrentPictureInfo[];
 }
 
-export interface PictureProps {
+export interface CurrentPictureInfo {
   pictureId?: number;
   url: string;
   count: number;
-  Sticker?: StickerProps[];
+  Sticker: GetStickerResultInfo[];
 }
 
-export interface StickerProps {
-  stickerLocation?: string;
-  emoji?: number;
-  count?: number;
+export interface StickerResultInfo {
+  stickerLocation: StickerLocation[];
+  emoji: number;
+  count: number;
+}
+export interface GetStickerResultInfo {
+  stickerLocation: string;
+  emoji: number;
+  count: number;
+}
+
+export interface StickerLocation {
+  x: number;
+  y: number;
+  degRate: number;
 }
