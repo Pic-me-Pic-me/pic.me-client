@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'PretendardBlack';
+  src: url('../fonts/Pretendard-Black.woff') format('font-woff');
+}
+@font-face {
+  font-family: 'PretendardBold';
+  src: url('../fonts/Pretendard-Bold.woff') format('font-woff');
+}
+@font-face {
+  font-family: 'PretendardExtraBold';
+  src: url('../fonts/Pretendard-ExtraBold.woff') format('font-woff');
+}
+@font-face {
+  font-family: 'PretendardExtraLight';
+  src: url('../fonts/Pretendard-ExtraLight.woff') format('font-woff');
+}
+@font-face {
+  font-family: 'PretendardLight';
+  src: url('../fonts/Pretendard-Light.woff') format('font-woff');
+}
+@font-face {
+  font-family: 'PretendardMedium';
+  src: url('../fonts/Pretendard-Medium.woff') format('font-woff');
+}
+@font-face {
+  font-family: 'PretendardRegular';
+  src: url('../fonts/Pretendard-Regular.woff') format('font-woff');
+}
+
+@font-face {
+  font-family: 'PretendardSemiBold';
+  src: url('../fonts/Pretendard-SemiBold.woff') format('font-woff');
+}
+
+@font-face {
+  font-family: 'PretendardThin';
+  src: url('../fonts/Pretendard-Thin.woff') format('font-woff');
+}

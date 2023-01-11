@@ -93,7 +93,6 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boole
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 1.1rem;
-
   > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
