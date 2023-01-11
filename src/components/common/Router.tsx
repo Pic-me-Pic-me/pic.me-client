@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import Error404 from '../../pages/Error404';
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
 import Login from '../../pages/Login';
@@ -11,19 +10,20 @@ import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '..
 import PlayerLanding from '../../pages/PlayerLanding';
 import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
+import Error from './Error';
 
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<MakerLanding />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/share" element={<Share />} />
         <Route path="/makervoting" element={<MakerVoting />} />
         <Route path="/vote/:voteId" element={<PlayerLanding />} />
-        <Route path="/makerlanding" element={<MakerLanding />} />
         <Route path="/player">
           <Route path="picture_voting/:voteid" element={<PictureVoting />} />
           <Route path="reason_voting" element={<ReasonVoting />} />
@@ -31,7 +31,7 @@ const Router = () => (
           <Route path="voting/result" element={<ResultVoting />} />
         </Route>
 
-        <Route path="*" element={<Error404 />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </RecoilRoot>
   </BrowserRouter>
