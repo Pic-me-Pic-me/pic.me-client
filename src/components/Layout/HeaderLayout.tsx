@@ -28,6 +28,8 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
 
+  position: sticky;
+
   top: 0rem;
 
   height: 8rem;
