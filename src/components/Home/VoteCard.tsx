@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import * as timeago from 'timeago.js';
 import { format } from 'timeago.js';
@@ -13,6 +14,7 @@ interface VoteCardProps {
 
 const VoteCard = (props: VoteCardProps) => {
   const { voteData } = props;
+  const navigate = useNavigate();
 
   const time1 = voteData.createdAt.toString().slice(0, 10);
   const time2 = voteData.createdAt.toString().slice(11, 19);
@@ -21,7 +23,7 @@ const VoteCard = (props: VoteCardProps) => {
   timeago.register('ko', ko);
 
   return (
-    <StVoteItem>
+    <StVoteItem onClick={() => navigate(`/current/vote/${voteData.voteId}`)}>
       <StVoteData>
         <StTitleWrapper>
           <h1>{voteData.title}</h1>

@@ -19,7 +19,7 @@ const Router = () => (
     <RecoilRoot>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/currentvote/:voteid" element={<CurrentVoteDetail />} />
+        <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
         <Route path="/myPage" element={<MemberInfo />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
