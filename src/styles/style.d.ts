@@ -17,7 +17,7 @@ declare module 'styled-components' {
     };
     fonts: {
       Pic_Title1_Pretendard_Bold_24: SerializedStyles;
-      Pic_Title2_Pretendard_Bold_20: SerializedStyles;
+      Pic_Title2_Pretendard_SemiBold_20: SerializedStyles;
       Pic_Title3_Pretendard_Bold_22: SerializedStyles;
       Pic_Subtitle1_Pretendard_Semibold_20: SerializedStyles;
       Pic_Subtitle2_Pretendard_Medium_18: SerializedStyles;

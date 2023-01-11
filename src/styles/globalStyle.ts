@@ -146,7 +146,6 @@ ${reset}
   
 * {
     box-sizing: border-box;
-
 }
     
 `;
