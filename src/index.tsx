@@ -3,7 +3,7 @@ import { CookiesProvider } from 'react-cookie';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
-import { worker } from './mocks/browser';
+// import { worker } from './mocks/browser';
 import reportWebVitals from './reportWebVitals';
 
 // if (process.env.NODE_ENV === 'development') {
