@@ -9,14 +9,18 @@ import MakerLanding from '../../pages/MakerLanding';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
+import Auth from '../Auth/Auth';
+import Nickname from '../Auth/Nickname';
 
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/oauth/kakao/callback" element={<Auth />} />
+        <Route path="/nickname" element={<Nickname />} />
+        <Route path="/library" element={<Library />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
