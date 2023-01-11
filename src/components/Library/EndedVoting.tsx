@@ -1,3 +1,5 @@
+import { relative } from 'node:path/win32';
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -67,6 +69,8 @@ const EndedVoting = (props: votingProps) => {
 const StVotingWrapper = styled.section`
   display: flex;
   flex-direction: column;
+
+  position: relative;
 `;
 const StVotingPic = styled.img`
   display: float;
@@ -82,20 +86,16 @@ const StDeleteBtnWrapper = styled.button`
   justify-content: center;
   align-items: center;
 
-  position: absolute;
-  width: 3.233rem;
-  height: 3.233rem;
+  z-index: 100;
 
-  right: 0.523rem;
+  position: absolute;
+
   top: 0.285rem;
+  right: 0rem;
 
   border: none;
 
   background-color: transparent;
-
-  > svg {
-    pointer-events: none;
-  }
 `;
 
 const StVotingDesc = styled.div`
