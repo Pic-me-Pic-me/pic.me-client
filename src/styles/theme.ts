@@ -72,13 +72,6 @@ const fonts = {
     font-size: 1.6rem;
     line-height: 1.9rem;
   `,
-  Pic_Body2_Pretendard_Bold_16: css`
-    font-family: 'PretendardBold';
-    font-size: 1.6rem;
-    font-weight: 700;
-    font-style: normal;
-    line-height: 1.9rem;
-  `,
   Pic_Caption1_Pretendard_Semibold_12: css`
     font-family: 'PretendardSemiBold';
     font-style: normal;

@@ -25,7 +25,6 @@ export { ReactComponent as IcSkeletonHeader } from './ic_skeleton_header.svg';
 export { ReactComponent as IcSkeletonMenu } from './ic_skeleton_menu.svg';
 export { ReactComponent as IcBallon } from './IcBallon.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
-export { ReactComponent as IcShareBtn } from './IcShareBtn.svg';
 export { ReactComponent as IcModalBG } from './IcModalBG.svg';
+export { ReactComponent as IcShareBtn } from './IcShareBtn.svg';
 export { ReactComponent as IcJustMenu } from './just_menu.svg';
-export { ReactComponent as IcPickmeSticker } from './picme_sticker.svg';
