@@ -1,7 +1,5 @@
-import { VotingInfo } from '../../types/vote';
 import { client } from '../axios';
-
-export const postVoteData = (votingData: VotingInfo, token?: string) => client.post('/vote', votingData);
+import { StickerInfo } from './../../types/vote';
 
 export const patchCurrentVoteData = async (voteid: string | undefined) => {
   const res = await client.patch(`/vote/close/${voteid}`);
@@ -38,3 +36,5 @@ export const getCurrentVoteData = async (resCursorId: number) => {
     console.error(err);
   }
 };
+
+export const postStickerData = (stickerInfo: StickerInfo) => client.post('/sticker', stickerInfo);

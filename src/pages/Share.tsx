@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { isAndroid, isIOS } from 'react-device-detect';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -21,7 +22,13 @@ const Share = () => {
   };
 
   const handleDeepLink = () => {
-    window.location.replace('instagram-stories://share');
+    if (isIOS) {
+      window.location.replace('instagram-stories://share');
+    } else if (isAndroid) {
+      window.location.replace('intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end');
+    } else {
+      window.location.replace('https://www.instagram.com/');
+    }
   };
 
   return (
@@ -42,7 +49,7 @@ const Share = () => {
           </CopyToClipboard>
         </StShareInfo>
         <StCaptureScreen>
-          <p>* 하단 화면을 캡쳐해서 SNS 공유에서 사용하세요!</p>
+          <p>* 하단 이미지를 꾹 눌러 저장한 뒤 SNS에 공유해보세요!</p>
           <img src={ImgShareCapture} alt="캡쳐 이미지" />
         </StCaptureScreen>
         <StBtnLayout>
@@ -60,6 +67,11 @@ const Share = () => {
 export default Share;
 
 const StShareWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   margin-top: 2rem;
 `;
 
@@ -67,6 +79,7 @@ const StShareTitle = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 
   width: 100%;
 
@@ -88,6 +101,7 @@ const StShareTitle = styled.header`
 
 const StShareInfo = styled.article`
   display: flex;
+  justify-content: center;
   align-items: center;
 
   width: 100%;
@@ -97,7 +111,7 @@ const StShareInfo = styled.article`
   padding-right: 2rem;
 
   & > input {
-    width: 31.9rem;
+    width: 100%;
     height: 5rem;
 
     padding: 0 1.584rem 0 1.4rem;
