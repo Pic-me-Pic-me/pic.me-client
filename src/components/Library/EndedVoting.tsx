@@ -91,7 +91,7 @@ const StDeleteBtnWrapper = styled.button`
   position: absolute;
 
   top: 0.285rem;
-  right: 0rem;
+  right: -0.7rem;
 
   border: none;
 
