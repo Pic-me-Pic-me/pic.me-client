@@ -3,7 +3,7 @@ export interface VoteInfo {
   title: string;
   count: number;
   url: string;
-  createAt: Date;
+  createdAt: Date;
 }
 
 export interface EndedVoteInfo {

@@ -33,13 +33,16 @@ const Library = () => {
     const prevLastDate = data[nextIndex.current] ? data[nextIndex.current].date : 0;
 
     const res = await getAllVoteInfo(prevLastDate);
+    console.log(res);
     const getItem = res?.data.data as EndedVoteInfo[];
 
     if (data.length > 0 && getItem.length === 0) return setIsEnd(true);
-    const newData = [...data, ...getItem];
-    nextIndex.current = newData.length - 1;
-    setData(newData);
-    setIsLoaded(false);
+    if (getItem) {
+      const newData = [...data, ...getItem];
+      nextIndex.current = newData.length - 1;
+      setData(newData);
+      setIsLoaded(false);
+    }
   };
   return (
     <>
