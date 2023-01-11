@@ -118,6 +118,7 @@ export interface VoteCardInfo {
 
 export interface Result {
   result: VoteCardInfo[];
+  resCursorId: number;
 }
 
 export interface VoteListData {
@@ -125,5 +126,4 @@ export interface VoteListData {
   success: boolean;
   message: string;
   data: Result;
-  resCursorId: number;
 }

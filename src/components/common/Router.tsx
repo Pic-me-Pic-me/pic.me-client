@@ -12,6 +12,7 @@ import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '..
 import PlayerLanding from '../../pages/PlayerLanding';
 import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
+import MemberInfo from '../Auth/MemberInfo';
 
 const Router = () => (
   <BrowserRouter>
@@ -19,6 +20,7 @@ const Router = () => (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/currentvote/:voteid" element={<CurrentVoteDetail />} />
+        <Route path="/myPage" element={<MemberInfo />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

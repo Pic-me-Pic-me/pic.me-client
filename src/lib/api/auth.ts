@@ -8,7 +8,6 @@ export const postKakaoToken = async (socialType: string, token: string) => {
     socialType,
     token,
   });
-  console.log(data.data);
   return data.data;
 };
 
@@ -32,8 +31,8 @@ export const postKakaoSignUp = async (uid: string, socialType: string, user_name
 
 export const getUserInfo = async () => {
   try {
-    const data = await client.get<UserInfo>('/user');
-    return data;
+    const data = await client.get<UsersResponse>('/user');
+    return data.data;
   } catch (err) {
     console.error(err);
   }

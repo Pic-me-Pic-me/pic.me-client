@@ -11,7 +11,6 @@
 //   user_id: number;
 //   provider_type: string;
 // }
-
 export interface UserInfo {
   userName: string;
   email: string;

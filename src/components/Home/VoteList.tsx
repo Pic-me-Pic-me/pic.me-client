@@ -33,6 +33,7 @@ const VoteList = () => {
   };
 
   const getMoreItem = async () => {
+    console.log(CursorId);
     const newData = await getCurrentVoteData(Number(CursorId));
     if (!dataList) {
       setDataList(newData?.data.result);
@@ -40,7 +41,8 @@ const VoteList = () => {
     if (newData) {
       if (dataList) {
         setDataList(dataList.concat(newData.data.result));
-        setCursorId(newData.resCursorId);
+        console.log(newData.data.resCursorId);
+        setCursorId(newData.data.resCursorId);
       }
     }
   };
