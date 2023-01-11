@@ -11,7 +11,7 @@ export const getCurrentVoteData = async (resCursorId: number) => {
   console.log(resCursorId);
   try {
     const data = await client.get<VoteListData>(`vote/getCurrentVote/${resCursorId}`);
-    return data.data.data.result;
+    return data.data;
   } catch (err) {
     console.error(err);
   }
