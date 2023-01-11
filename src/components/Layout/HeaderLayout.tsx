@@ -35,6 +35,8 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   height: 8rem;
   padding-right: 5.4rem;
 
+  width: 100%;
+
   background: none;
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};

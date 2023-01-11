@@ -1,69 +1,78 @@
-import React, { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcEmpty } from '../../asset/icon';
+import { EmptyIcon } from '../../asset/image';
 import { getCurrentVoteData, VoteInfo } from '../../lib/api/voting';
-import { getUserInfo } from '../../lib/api/auth';
-import { getCurrentVoteData } from '../../lib/api/voting';
-import { VoteInfo } from '../../types/voting';
+import useIntersectionObserver from '../../lib/hooks/useIntersectionObserver';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
-  });
-  const [dataList, setDataList] = useState<VoteInfo[]>();
+  const [isLoaded, setIsLoaded] = useState(false);
+  // const [itemIndex, setItemIndex] = useState(0);
+  // const [dataList, setDataList] = useRef<VoteInfo[]>();
+  const dataList = useRef<VoteInfo[]>();
+  const [newDataList, setnewDataList] = useState<VoteInfo[]>();
   const [CursorId, setCursorId] = useState(0);
-  const [userName, setUserName] = useState<string>();
+  console.log('CursorId', CursorId);
 
   useEffect(() => {
-    getUserName();
+    console.log('마운트');
     getMoreItem();
-  }, []);
-
-  useEffect(() => {
-    if (dataList?.length !== 0 && inView) {
-      getMoreItem();
-    }
-  }, [inView]);
-
-  const getUserName = async () => {
-    const name = await getUserInfo();
-    setUserName(name?.data.userName);
-  };
+  }, [newDataList]);
 
   const getMoreItem = async () => {
+    setIsLoaded(true);
     const newData = await getCurrentVoteData(Number(CursorId));
-
-    if (!dataList) {
-      setDataList(newData?.result);
-    }
     if (newData) {
-      if (dataList) {
-        setDataList(dataList.concat(newData.result));
-        setCursorId(newData.resCursorId);
-      }
+      setCursorId(newData[4].voteId);
+      newData.forEach((data) => {
+        if (newDataList) {
+          newDataList.push(data);
+          // setItemIndex((i) => i   + 5);
+          // setDataList(newDataList);
+          // setDataList([...newDataList]);
+          dataList.current = newDataList;
+          setIsLoaded(false);
+        }
+      });
+      console.log('newData', newData);
+      // setDataList(newData);
+      console.log('dataList', dataList);
     }
   };
+  const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
+    if (entry.isIntersecting && !isLoaded) {
+      observer.unobserve(entry.target);
+      await getMoreItem();
+      observer.observe(entry.target);
+    }
+  };
+
+  const { setTarget } = useIntersectionObserver({
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5,
+    onIntersect,
+  });
 
   return (
     <>
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
       {dataList ? (
         <StVoteListWrapper>
-          {dataList?.map((data, i) => (
+          {/* {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
-          ))}
-          <div ref={ref} />
+          ))} */}
+          {/* <VoteCard ref={dataList} /> */}
+          <div ref={setTarget}>{isLoaded && '로딩중'}</div>
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
-          <IcEmpty />
-            <img src={EmptyIcon} alt="현재 진행중인 투표 없음" />
-            <p>{userName}님 만의 투표를</p>
+          <img src={EmptyIcon} alt="현재 진행중인 투표 없음" />
+          <p>픽둥이님 만의 투표를</p>
           <p>만들어보세요!</p>
-          </StEmptyView>
+        </StEmptyView>
       )}
     </>
   );
@@ -102,7 +111,7 @@ const StEmptyView = styled.main`
   margin-top: 5.1rem;
   padding-bottom: 19.3rem;
 
-  > svg {
+  > img {
     width: 13.8rem;
     height: 11rem;
     margin-bottom: 1.8rem;

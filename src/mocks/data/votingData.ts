@@ -1,4 +1,4 @@
-import { VotingInfo } from '../../types/voting';
+import { VotingInfo } from '../../types/vote';
 
 export const votingData: VotingInfo[] = [
   {

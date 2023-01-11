@@ -1,8 +1,8 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { IcKakaoLogin, IcPickmeLogo } from '../../asset/icon';
+import { IcPickmeLogo } from '../../asset/icon';
+import { KakaoLoginBtn } from '../../asset/image';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Login = () => {
           <StKaKaoLogin>
             <StDivider>간편 로그인</StDivider>
             <button type="button" onClick={handleKakaoLogin}>
-              <IcKakaoLogin />
+              <img src={KakaoLoginBtn} alt="카카오계정으로 계속하기" />
             </button>
           </StKaKaoLogin>
         </StContainer>
@@ -110,8 +110,8 @@ const StInputDesc = styled.p`
   margin-top: 1rem;
   padding-left: 0.9rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
   // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
 `;
 
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
@@ -138,7 +138,7 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
     width: 100%;
     height: 6rem;
 
-    & > svg {
+    & > img {
       width: 100%;
       height: 6rem;
     }

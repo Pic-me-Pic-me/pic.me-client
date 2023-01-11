@@ -1,12 +1,9 @@
-export { ReactComponent as IcClose } from './closeIcon.svg';
-export { ReactComponent as IcEmpty } from './emptyIcon.svg';
-export { ReactComponent as IcGuide } from './GuideImg.svg';
-export { ReactComponent as IcHamburger } from './hamburgerIcon.svg';
-export { ReactComponent as IcHomeLogo } from './homeLogo.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
-export { ReactComponent as IcSignUpBanner } from './ImgSignUpBanner.svg';
-export { ReactComponent as IcKakaoLogin } from './kakaologinbtn.svg';
-export { ReactComponent as IcNextArrow } from './nextArrowIcon.svg';
-export { ReactComponent as IcPickmeSticker } from './picme_sticker.svg';
+export { ReactComponent as IcShareBtn } from './IcShareBtn.svg';
+export { ReactComponent as IcVoteShareBtn } from './IcVoteShareBtn.svg';
+// export { ReactComponent as IcPickmeSticker } from './picme_sticker.svg';
 export { ReactComponent as IcPickmeLogo } from './picmeLogo.svg';
+export { ReactComponent as IcClose } from './closeIcon.svg';
+export { ReactComponent as IcHamburger } from './hamburgerIcon.svg';
+export { ReactComponent as IcNextArrow } from './nextArrowIcon.svg';
 export { ReactComponent as IcPlus } from './plusIcon.svg';
