@@ -41,7 +41,6 @@ const StWhiteSection = styled.section`
   height: 75.3rem;
 
   border-radius: 1.4rem 1.4rem 0rem 0rem;
-  border: 1px red solid;
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;
 

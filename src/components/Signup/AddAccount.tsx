@@ -79,12 +79,15 @@ const AddAccount = () => {
 const StWrapper = styled.article`
   display: flex;
   justify-content: center;
+  width: 100%;
 `;
 
 const StForm = styled.form`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
+  padding-left: 5%;
   margin-top: 4.8rem;
 `;
 
@@ -95,7 +98,7 @@ const StTitle = styled.h2`
 `;
 
 const StInput = styled.input`
-  width: 39rem;
+  width: 92.85%;
   height: 6rem;
   margin-top: 1.4rem;
   padding-left: 1.9rem;
@@ -119,7 +122,7 @@ const StInputDesc = styled.p`
 `;
 
 const StSubmitBtn = styled.button<{ disabled: boolean }>`
-  width: 39rem;
+  width: 92.85%;
   height: 6rem;
   margin-top: 7.8rem;
 

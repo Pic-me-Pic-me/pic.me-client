@@ -13,7 +13,6 @@ const Nickname = () => {
   const cookies = new Cookies();
 
   const navigate = useNavigate();
-
   const { email, password }: AddAccountInfo = location.state.signupDataInfo;
 
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
@@ -74,7 +73,6 @@ const Nickname = () => {
       <StWrapper>
         <StForm onSubmit={handleSubmit(handleSignup)}>
           <StTitle>닉네임을 입력해주세요!</StTitle>
-
           <StNicknameWrapper>
             <StInputWrapper>
               <StInput
@@ -131,11 +129,16 @@ const Nickname = () => {
 const StWrapper = styled.article`
   display: flex;
   justify-content: center;
+
+  width: 100%;
 `;
 
 const StForm = styled.form`
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  padding: 0% 5% 0% 5%;
 `;
 
 const StTitle = styled.h2`
@@ -152,14 +155,14 @@ const StInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 30rem;
+  width: 100%;
 `;
 
 const StInput = styled.input`
-  width: 30rem;
+  width: 100%;
   height: 6rem;
   margin-top: 1.4rem;
-  padding-left: 1.9rem;
+  padding-left: 7.14%;
 
   border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   border-radius: 0.6rem;
@@ -202,13 +205,14 @@ const StTermWrapper = styled.article`
   display: flex;
   flex-direction: column;
 
+  width: 100%;
   margin-top: 18.2rem;
 `;
 
 const StAllCheckWrapper = styled.section`
   display: flex;
 
-  width: 38.8rem;
+  width: 92.38%;
   height: 3.2rem;
 
   border-left-width: 0rem;
@@ -234,9 +238,9 @@ const StTermContent = styled.div`
   display: flex;
   align-items: center;
 
-  width: 30rem;
+  width: 71.42%;
   height: 2.2rem;
-  margin-left: 0.9rem;
+  margin-left: 2.14%;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
@@ -254,7 +258,7 @@ const StTermContent = styled.div`
   }
 
   span:last-child {
-    margin-left: 0.3rem;
+    margin-left: 0.71rem;
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
   }
 `;
@@ -274,7 +278,7 @@ const StDetailTerm = styled.div`
 `;
 
 const StSubmitBtn = styled.button<{ disabled: boolean }>`
-  width: 39rem;
+  width: 100%;
   height: 5.8rem;
   margin-top: 7.2rem;
 
