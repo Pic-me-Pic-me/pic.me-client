@@ -12,7 +12,7 @@ import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
 import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import { STICKER_LIST } from '../constant/StickerIconList';
-import { patchCurrentVoteData } from '../lib/api/voting';
+import { getCurrentVoteDatailData, patchCurrentVoteData } from '../lib/api/voting';
 import { useCarouselSize } from '../lib/hooks/useCarouselSize';
 import { useGetCurrentVote } from '../lib/hooks/useGetCurrentVote';
 import { CurrentVoteInfo, StickerLocation, StickerResultInfo } from '../types/vote';
@@ -31,9 +31,9 @@ const CurrentVoteDetail = () => {
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
-  const { currentVoteInfo, isLoading, isError } = useGetCurrentVote(voteid);
-
   const { ref, width } = useCarouselSize();
+
+  const { currentVoteInfo, isError } = useGetCurrentVote(voteid);
 
   timeago.register('ko', ko);
   const createdAt =
@@ -41,10 +41,10 @@ const CurrentVoteDetail = () => {
 
   useEffect(() => {
     if (currentVoteInfo) {
-      setVoteInfo(currentVoteInfo);
-      setCurrentVote(currentVoteInfo.currentVote);
-      setPictureUrl([currentVoteInfo.Picture[0].url, currentVoteInfo.Picture[1].url]);
-      setPictureCount([currentVoteInfo.Picture[0].count, currentVoteInfo.Picture[1].count]);
+      setVoteInfo(currentVoteInfo.data);
+      setCurrentVote(currentVoteInfo.data.currentVote);
+      setPictureUrl([currentVoteInfo.data.Picture[0].url, currentVoteInfo.data.Picture[1].url]);
+      setPictureCount([currentVoteInfo.data.Picture[0].count, currentVoteInfo.data.Picture[1].count]);
     }
   }, [currentVoteInfo]);
 
@@ -70,17 +70,14 @@ const CurrentVoteDetail = () => {
     navigate(`/result/${voteid}`);
   };
 
-  if (isLoading && ref.current === null)
-    return (
-      <>
-        <LandingHeader />
-        <LandingCurrentVote />
-      </>
-    );
+  // if (isLoading && currentVoteInfo == undefined)
+  //   return (
+  //     <>
+  //       <LandingHeader />
+  //       <LandingCurrentVote />
+  //     </>
+  //   );
   if (isError) return <Error />;
-
-  // console.log('swr', currentVoteInfo, isLoading);
-  //   console.log(ref, width, currentIdx);
 
   return (
     <>

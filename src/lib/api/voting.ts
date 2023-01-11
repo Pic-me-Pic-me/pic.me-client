@@ -7,6 +7,13 @@ export const patchCurrentVoteData = async (voteid: string | undefined) => {
   return res;
 };
 
+export const getCurrentVoteDatailData = async (voteid: string | undefined) => {
+  const { data } = await client.get(`/vote/maker/singleResult/${voteid}`);
+  if (data.status === 200) {
+    return data.data;
+  }
+};
+
 export interface VoteInfo {
   voteId: number;
   title: string;

@@ -9,14 +9,12 @@ export const useGetCurrentVote = (voteid: string | undefined) => {
     `/vote/maker/singleResult/${voteid}`,
     picmeGetFetcher,
     {
-      // 실패시 재요청 3번
       errorRetryCount: 3,
     },
   );
-
   return {
-    currentVoteInfo: data?.data,
-    isLoading: !error && !data,
+    currentVoteInfo: data,
+    // isLoading: !error && !data,
     isError: error,
   };
 };
