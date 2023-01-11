@@ -83,7 +83,7 @@ const StVotingTitle = styled.h1`
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
-  ${({ theme }) => theme.fonts.Pic_Subtitle3_Pretendard_Semibold_20};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
 
   word-break: break-all;
 `;
