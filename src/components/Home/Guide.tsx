@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { IcClose, IcGuide } from '../../asset/icon';
-// import { GuideImg } from '../../asset/image';
 
 export interface GuideProps {
   isShowing: boolean;
@@ -23,7 +22,6 @@ const Guide = (props: GuideProps) => {
             </StModalHeader>
             <StContent>
               <IcGuide />
-              {/* <img src={GuideImg} alt="가이드 이미지" /> */}
             </StContent>
           </StGuideModal>
         </StGuideModalWrapper>
@@ -106,6 +104,6 @@ const StContent = styled.article`
     width: 100%;
     padding: 0rem 1.4rem 5.922rem 1.4rem;
 
-    object-fit: contain;
+    object-fit: fill;
   }
 `;

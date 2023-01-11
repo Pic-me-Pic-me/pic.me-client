@@ -3,7 +3,6 @@ import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 import { IcEmpty } from '../../asset/icon';
-import { getCurrentVoteData, VoteInfo } from '../../lib/api/voting';
 import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData } from '../../lib/api/voting';
 import { VoteInfo } from '../../types/voting';
@@ -60,10 +59,9 @@ const VoteList = () => {
       ) : (
         <StEmptyView>
           <IcEmpty />
-            <img src={EmptyIcon} alt="현재 진행중인 투표 없음" />
-            <p>{userName}님 만의 투표를</p>
+          <p>{userName}님 만의 투표를</p>
           <p>만들어보세요!</p>
-          </StEmptyView>
+        </StEmptyView>
       )}
     </>
   );

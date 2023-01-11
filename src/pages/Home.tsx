@@ -6,15 +6,15 @@ import { Header, Nav, VoteList } from '../components/Home';
 
 const Home = () => (
   <>
-  <StHomeWrapper>
-    <Nav />
-    <Header />
-    <StMakerVoting type="button">
-      <IcPlus />
-      <p>투표 만들기</p>
-    </StMakerVoting>
-  </StHomeWrapper>
-  <VoteList />
+    <StHomeWrapper>
+      <Nav />
+      <Header />
+      <StMakerVoting type="button">
+        <IcPlus />
+        <p>투표 만들기</p>
+      </StMakerVoting>
+    </StHomeWrapper>
+    <VoteList />
   </>
 );
 
