@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { Error, Loading } from '../components/common';
 import { FinishedLanding, VoteLanding } from '../components/Landing';
@@ -15,7 +15,8 @@ const PlayerLanding = () => {
 
   const setVotingInfoState = useSetRecoilState(votingInfoState);
   const resetStickerInfoState = useResetRecoilState(stickerInfoState);
-
+  const check = useRecoilValue(votingInfoState);
+  console.log('초기 voting Recoil', check);
   useEffect(() => {
     if (votingInfo?.data) {
       resetStickerInfoState();
