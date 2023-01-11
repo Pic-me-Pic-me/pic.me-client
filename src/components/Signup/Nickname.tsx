@@ -7,7 +7,6 @@ import styled, { css } from 'styled-components';
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { checkDuplicateNickname, postSignupInfo } from '../../lib/api/signup';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
-import { errorPatterns } from '../../utils/check';
 
 const Nickname = () => {
   const location = useLocation();
@@ -62,6 +61,7 @@ const Nickname = () => {
   const handleSignup = () => {
     postSignupInfo({ email, password }, nickname).then((res) => {
       if (res?.success) {
+        console.log(res);
         cookies.set('refreshToken', res.data.refreshToken);
         localStorage.setItem('accessToken', res.data.accessToken);
         navigate('/');

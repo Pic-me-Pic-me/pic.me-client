@@ -32,10 +32,10 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   position: sticky;
 
   top: 0rem;
-  height: 6.2rem;
+  height: 8rem;
   padding-right: 5.4rem;
 
-  background: none;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 
