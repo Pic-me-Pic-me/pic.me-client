@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { IcPickmeLogo } from '../../asset/icon';
-import { KakaoLoginBtn } from '../../asset/image';
+import { IcKakaoLogin, IcPickmeLogo } from '../../asset/icon';
+import KakaoLogin from './KakaoLogin';
 
-const Login = () => {
+const LoginComponent = () => {
   const navigate = useNavigate();
 
   const handleKakaoLogin = () => {
@@ -30,9 +30,10 @@ const Login = () => {
           </StAuthBtn>
           <StKaKaoLogin>
             <StDivider>간편 로그인</StDivider>
-            <button type="button" onClick={handleKakaoLogin}>
-              <img src={KakaoLoginBtn} alt="카카오계정으로 계속하기" />
-            </button>
+            <KakaoLogin />
+            {/* <button type="button" onClick={handleKakaoLogin}>
+              <IcKakaoLogin />
+            </button> */}
           </StKaKaoLogin>
         </StContainer>
       </StWhiteSection>
@@ -40,7 +41,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginComponent;
 
 const StBannerWrapper = styled.div`
   display: flex;
@@ -110,8 +111,8 @@ const StInputDesc = styled.p`
   margin-top: 1rem;
   padding-left: 0.9rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
 `;
 
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
@@ -138,7 +139,7 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
     width: 100%;
     height: 6rem;
 
-    & > img {
+    & > svg {
       width: 100%;
       height: 6rem;
     }
@@ -183,19 +184,19 @@ const StDivider = styled.div`
 
 const StKaKaoLogin = styled.div`
   width: 100%;
-
+  /* 
   & > button {
     display: flex;
     width: 100%;
     background: inherit;
     border: none;
 
-    & > img {
+    & > svg {
       width: 100%;
       height: 6rem;
 
       border-radius: 0.9rem;
       object-fit: cover;
-    }
-  }
+    } 
+  }*/
 `;

@@ -1,7 +1,7 @@
 import react, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { KakaoLoginBtn } from '../../asset/image';
+import { IcKakaoLogin } from '../../asset/icon';
 
 const KakaoLogin = () => {
   const Kakao = window.Kakao;
@@ -20,7 +20,7 @@ const KakaoLogin = () => {
 
   return (
     <StKakaoLoginBtn href={kauthUrl}>
-      <img src={KakaoLoginBtn} alt="카카오 로그인" />
+      <IcKakaoLogin />
     </StKakaoLoginBtn>
   );
 };
@@ -28,11 +28,17 @@ const KakaoLogin = () => {
 export default KakaoLogin;
 
 const StKakaoLoginBtn = styled.a`
+  display: flex;
+  width: 100%;
   background: inherit;
   border: none;
+  object-fit: cover;
 
-  > img {
-    width: 39rem;
+  > svg {
+    width: 100%;
     height: 6rem;
+
+    border-radius: 0.9rem;
+    object-fit: cover;
   }
 `;

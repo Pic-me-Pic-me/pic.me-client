@@ -9815,7 +9815,9 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.47.1
     axios: ^1.2.2
-    eslint: ^8.30.0
+    babel-eslint: ^10.1.0
+    cookies: ^0.8.0
+    eslint: ^8.31.0
     eslint-config-prettier: ^8.5.0
     eslint-config-react: ^1.1.7
     eslint-config-react-app: ^7.0.1

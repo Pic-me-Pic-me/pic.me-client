@@ -32,7 +32,6 @@ const Auth = () => {
 
       // 카카오 중복확인
       const data = await postKakaoToken('kakao', res.data.access_token);
-
       if (data.isUser) {
         // 로그인
         const signInData = await postKakaoSignIn(data.uid, 'kakao');
