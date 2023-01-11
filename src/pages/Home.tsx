@@ -1,22 +1,30 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
 
-const Home = () => (
-  <>
-    <StHomeWrapper>
-      <Nav />
-      <Header />
-      <StMakerVoting type="button">
-        <IcPlus />
-        <p>투표 만들기</p>
-      </StMakerVoting>
-    </StHomeWrapper>
-    <VoteList />
-  </>
-);
+const Home = () => {
+  const navigate = useNavigate();
+  return (
+    <>
+      <StHomeWrapper>
+        <Nav />
+        <Header />
+        <StMakerVoting
+          type="button"
+          onClick={() => {
+            navigate('/makervoting');
+          }}>
+          <IcPlus />
+          <p>투표 만들기</p>
+        </StMakerVoting>
+      </StHomeWrapper>
+      <VoteList />
+    </>
+  );
+};
 
 export default Home;
 

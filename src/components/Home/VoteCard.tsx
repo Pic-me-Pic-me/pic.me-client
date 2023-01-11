@@ -51,6 +51,9 @@ const StVoteItem = styled.section`
   :first-child {
     margin-left: 2rem;
   }
+  :last-child {
+    margin-right: 2rem;
+  }
 `;
 
 const StVoteData = styled.article`
