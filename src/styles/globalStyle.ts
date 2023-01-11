@@ -147,6 +147,12 @@ ${reset}
     overflow-y: auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
+<<<<<<< HEAD
+}
+#root::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+=======
+>>>>>>> 465c65f647b701fe6e74acdebda5d222dfcbc066
 }
 #root::-webkit-scrollbar {
     display: none; /* 크롬, 사파리, 오페라, 엣지 */

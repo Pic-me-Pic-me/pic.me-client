@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+import { useNavigate } from 'react-router-dom';
+
+import { HeaderLayout } from '../Layout';
+
+const Header = () => {
+  const navigate = useNavigate();
+  const handlePrevpage = () => {
+    navigate('/');
+  };
+  return (
+    <>
+      <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={handlePrevpage} />
+    </>
+  );
+};
+=======
 import React from 'react';
 import styled from 'styled-components';
 
@@ -13,6 +30,7 @@ const Header = () => (
     </StGuideBtn>
   </StBannerWrapper>
 );
+>>>>>>> 465c65f647b701fe6e74acdebda5d222dfcbc066
 
 export default Header;
 

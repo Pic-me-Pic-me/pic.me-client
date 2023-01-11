@@ -12,6 +12,9 @@ import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '..
 import PlayerLanding from '../../pages/PlayerLanding';
 import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
+import Voting from '../../pages/Voting';
+import { AuthComponent } from '../Auth';
+import Nickname from '../Auth/Nickname';
 
 const Router = () => (
   <BrowserRouter>
@@ -21,7 +24,12 @@ const Router = () => (
         <Route path="/currentvote/:voteid" element={<CurrentVoteDetail />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/oauth/kakao/callback" element={<AuthComponent />} />
+        <Route path="/nickname" element={<Nickname />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/library" element={<Library />} />
         <Route path="/signup" element={<Signup />} />
+        {/* <Route path="/voting" element={<Voting />} /> */}
         <Route path="/share" element={<Share />} />
         <Route path="/makervoting" element={<MakerVoting />} />
         <Route path="/vote/:voteId" element={<PlayerLanding />} />
@@ -32,7 +40,6 @@ const Router = () => (
           <Route path="sticker_voting" element={<StickerAttachment />} />
           <Route path="voting/result" element={<ResultVoting />} />
         </Route>
-
         <Route path="*" element={<Error404 />} />
       </Routes>
     </RecoilRoot>

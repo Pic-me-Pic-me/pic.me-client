@@ -1,46 +1,35 @@
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcPickmeLogo } from '../../asset/icon';
-import { KakaoLoginBtn } from '../../asset/image';
+import KakaoLogin from './KakaoLogin';
 
-const Login = () => {
-  const navigate = useNavigate();
+const LoginComponent = () => (
+  <>
+    <StBannerWrapper>
+      <IcPickmeLogo />
+    </StBannerWrapper>
+    <StWhiteSection>
+      <StContainer>
+        <StForm>
+          <StTitle>로그인</StTitle>
+          <StInput type="email" placeholder="이메일을 입력해주세요" />
+          <StInput type="password" placeholder="비밀번호를 입력해주세요" />
+          <StInputDesc>아이디 또는 비밀번호를 잘못 입력했습니다.</StInputDesc>
+          <StAuthBtn type="submit">로그인</StAuthBtn>
+        </StForm>
+        <StAuthBtn type="submit" isSignUp>
+          회원가입
+        </StAuthBtn>
+        <StKaKaoLogin>
+          <StDivider>간편 로그인</StDivider>
+          <KakaoLogin />
+        </StKaKaoLogin>
+      </StContainer>
+    </StWhiteSection>
+  </>
+);
 
-  const handleKakaoLogin = () => {
-    navigate('/kakaologin');
-  };
-
-  return (
-    <>
-      <StBannerWrapper>
-        <IcPickmeLogo />
-      </StBannerWrapper>
-      <StWhiteSection>
-        <StContainer>
-          <StForm>
-            <StTitle>로그인</StTitle>
-            <StInput type="email" placeholder="이메일을 입력해주세요" />
-            <StInput type="password" placeholder="비밀번호를 입력해주세요" />
-            <StInputDesc>아이디 또는 비밀번호를 잘못 입력했습니다.</StInputDesc>
-            <StAuthBtn type="submit">로그인</StAuthBtn>
-          </StForm>
-          <StAuthBtn type="submit" isSignUp>
-            회원가입
-          </StAuthBtn>
-          <StKaKaoLogin>
-            <StDivider>간편 로그인</StDivider>
-            <button type="button" onClick={handleKakaoLogin}>
-              <img src={KakaoLoginBtn} alt="카카오계정으로 계속하기" />
-            </button>
-          </StKaKaoLogin>
-        </StContainer>
-      </StWhiteSection>
-    </>
-  );
-};
-
-export default Login;
+export default LoginComponent;
 
 const StBannerWrapper = styled.div`
   display: flex;
@@ -110,8 +99,8 @@ const StInputDesc = styled.p`
   margin-top: 1rem;
   padding-left: 0.9rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
 `;
 
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
@@ -138,7 +127,7 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
     width: 100%;
     height: 6rem;
 
-    & > img {
+    & > svg {
       width: 100%;
       height: 6rem;
     }
@@ -183,19 +172,19 @@ const StDivider = styled.div`
 
 const StKaKaoLogin = styled.div`
   width: 100%;
-
+  /* 
   & > button {
     display: flex;
     width: 100%;
     background: inherit;
     border: none;
 
-    & > img {
+    & > svg {
       width: 100%;
       height: 6rem;
 
       border-radius: 0.9rem;
       object-fit: cover;
-    }
-  }
+    } 
+  }*/
 `;

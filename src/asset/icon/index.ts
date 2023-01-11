@@ -1,5 +1,6 @@
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
+export { ReactComponent as IcDelete } from './delete_btn.svg';
 export { ReactComponent as IcFaceMenu } from './face_menu.svg';
 export { ReactComponent as IcHamburger } from './hamburgerIcon.svg';
 export { ReactComponent as IcAngleSticker } from './ic_angle.svg';
@@ -30,6 +31,7 @@ export { ReactComponent as IcModalBG } from './IcModalBG.svg';
 export { ReactComponent as IcShareBtn } from './IcShareBtn.svg';
 export { ReactComponent as IcVoteShareBtn } from './IcVoteShareBtn.svg';
 export { ReactComponent as IcJustMenu } from './just_menu.svg';
+export { ReactComponent as IcKakaoLogin } from './kakaologinbtn.svg';
 export { ReactComponent as IcNextArrow } from './nextArrowIcon.svg';
 export { ReactComponent as IcPickmeLogo } from './picmeLogo.svg';
 export { ReactComponent as IcPlus } from './plusIcon.svg';
