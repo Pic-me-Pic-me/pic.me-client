@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/auth';
 
-const Auth = () => {
+const AuthComponent = () => {
   const cookies = new Cookies();
   const Kakao = window.Kakao;
   const REDIRECT_URL = `http://localhost:3000/login/oauth/kakao/callback`;
@@ -37,7 +37,7 @@ const Auth = () => {
         const signInData = await postKakaoSignIn(data.uid, 'kakao');
         localStorage.setItem('accessToken', signInData.accessToken);
         cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
-        navigate('/');
+        navigate('/home');
       } else if (!data.isUser) {
         // 회원가입
         const nick = '테스트닉네임';
@@ -55,4 +55,4 @@ const Auth = () => {
   return null;
 };
 
-export default Auth;
+export default AuthComponent;

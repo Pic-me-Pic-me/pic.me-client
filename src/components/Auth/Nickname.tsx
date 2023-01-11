@@ -13,7 +13,7 @@ const Nickname = () => {
     try {
       const res = await Kakao.Auth.logout();
       localStorage.removeItem('accessToken');
-      navigate('/makerlanding');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +26,7 @@ const Nickname = () => {
       });
       const result = await deleteUser();
       localStorage.removeItem('accessToken');
-      navigate('/makerlanding');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
