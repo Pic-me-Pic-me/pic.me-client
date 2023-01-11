@@ -86,7 +86,7 @@ const StDeleteBtnWrapper = styled.button`
   justify-content: center;
   align-items: center;
 
-  z-index: 100;
+  z-index: 3;
 
   position: absolute;
 

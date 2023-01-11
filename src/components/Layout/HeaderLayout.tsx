@@ -41,6 +41,8 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 
+  z-index: 100;
+
   & > svg {
     width: 5.4rem;
 
