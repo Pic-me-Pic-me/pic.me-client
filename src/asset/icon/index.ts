@@ -1,5 +1,6 @@
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
+export { ReactComponent as IcOnboardingBackGround } from './BG_Onboarding.svg';
 export { ReactComponent as IcFaceMenu } from './face_menu.svg';
 export { ReactComponent as IcOnboardingBG } from './homeback_img.svg';
 export { ReactComponent as IcAngleSticker } from './ic_angle.svg';
@@ -29,6 +30,11 @@ export { ReactComponent as IcSkeletonMenu } from './ic_skeleton_menu.svg';
 export { ReactComponent as IcStickers } from './ic_stickers.svg';
 export { ReactComponent as IcBallon } from './IcBallon.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
+export { ReactComponent as IcLogoSmall } from './IcLogoSmall.svg';
 export { ReactComponent as IcModalBG } from './IcModalBG.svg';
 export { ReactComponent as IcShareBtn } from './IcShareBtn.svg';
 export { ReactComponent as IcJustMenu } from './just_menu.svg';
+export { ReactComponent as IcOBD1 } from './OBD_1.svg';
+export { ReactComponent as IcOBD2 } from './OBD_2.svg';
+export { ReactComponent as IcOBD3 } from './OBD_3.svg';
+export { ReactComponent as IcOBD4 } from './OBD_4.svg';

@@ -1,29 +1,93 @@
+import Lottie from 'lottie-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcOnboardingLogo, IcStickers } from '../../asset/icon';
-import { OnboardingBG } from '../../asset/image';
+import {
+  IcLogoSmall,
+  IcOBD1,
+  IcOBD2,
+  IcOBD3,
+  IcOBD4,
+  IcOnboardingBackGround,
+  IcOnboardingLogo,
+} from '../../asset/icon';
+import { lottie1, lottie2, lottie3 } from '../../asset/lottie';
 
 const MakerLanding = () => {
   const navigate = useNavigate();
   return (
     <StOnboarding>
+      <StStickers>
+        <IcOnboardingBackGround />
+      </StStickers>
       <StFirstSection>
-        <StStickers>
-          <IcStickers />
-        </StStickers>
-        {/* <StTitle>
-          친구가
-          <br />
-          골라주는
-          <br />
-          나의 베스트 Pic!
-          <IcOnboardingLogo />
+        <StTitle>
+          <StContents>
+            친구가
+            <br />
+            골라주는
+            <br />
+            나의 베스트 Pic!
+            <IcOnboardingLogo />
+          </StContents>
+          <p>스크롤 해주세요</p>
+          <StStartBtn
+            type="button"
+            onClick={() => {
+              navigate('/login');
+            }}>
+            시작하기
+          </StStartBtn>
         </StTitle>
-        <p>스크롤 해주세요</p>
-        <StStartBtn>시작하기</StStartBtn> */}
       </StFirstSection>
+      <StSecondSection>
+        <StFirstContent>
+          <p>
+            <span>SNS</span>에 어떤 사진 올릴지
+          </p>
+          <p>고민한 적 있지 않나요?</p>
+          <br />
+          <IcOBD1 />
+        </StFirstContent>
+        <StSecondContent>
+          <p>
+            이럴 때 우리는<span> 친구들에게 연락해</span>
+          </p>
+          <p>도움을 요청하지만</p>
+          <IcOBD2 />
+          <p>
+            <span>첫째,</span> 물어보는 과정의 <span>번거로움</span>
+          </p>
+          <IcOBD3 />
+          <p>
+            <span>둘째,</span>친구의 늦은 답장으로
+          </p>
+          <p>
+            <span>지체되는 사진 선택</span>
+          </p>
+          <IcOBD4 />
+          <p>
+            <span>셋째,</span>친구들의 다양한 의견을
+          </p>
+          <p>
+            <span>취합할 때의 어려움</span>
+          </p>
+          <br />
+          <p>
+            이러한<span> 불편함</span>을 겪습니다
+          </p>
+        </StSecondContent>
+      </StSecondSection>
+      <StThirdSection>
+        <h1>
+          이에
+          <IcLogoSmall /> 는
+        </h1>
+        <h1>이러한 솔루션을 제안합니다!</h1>
+
+        <Lottie className="lotte" animationData={lottie1} loop={false}></Lottie>
+      </StThirdSection>
     </StOnboarding>
   );
 };
@@ -32,14 +96,29 @@ export default MakerLanding;
 
 const StOnboarding = styled.div`
   width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+
+  & > svg {
+    width: 100%;
+    top: 0;
+  }
 `;
 
 const StStickers = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+
   & > svg {
     width: 100%;
-    margin-top: 11.3rem;
+    top: 0;
   }
 `;
+
 const StFirstSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -47,12 +126,10 @@ const StFirstSection = styled.section`
   width: 100%;
   height: 94.1rem;
   padding: 0rem 2.8rem;
+`;
 
-  background-image: url(${OnboardingBG});
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover;
-
+const StTitle = styled.header`
+  width: 100%;
   & > p {
     display: flex;
     justify-content: center;
@@ -63,8 +140,8 @@ const StFirstSection = styled.section`
   }
 `;
 
-const StTitle = styled.h1`
-  padding-top: 18.9rem;
+const StContents = styled.h1`
+  margin-top: 18.9rem;
   margin-left: -0.245rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
@@ -87,8 +164,97 @@ const StStartBtn = styled.button`
   height: 5.763rem;
   padding: 0rem;
 
-  color: white;
-  background-color: #ff5e67;
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   border: none;
-  border-radius: 1.9rem;
+  border-radius: 0.8rem;
+`;
+
+// Section2
+
+const StSecondSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 15.8rem;
+  padding: 0 6.2rem;
+`;
+
+const StFirstContent = styled.article`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > p {
+    ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
+    text-align: center;
+    & > span {
+      color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+      ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
+    }
+  }
+
+  & > svg {
+    align-items: center;
+    justify-content: center;
+    margin-top: 5.6rem;
+  }
+`;
+
+const StSecondContent = styled.article`
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 8.841rem;
+
+  & > p {
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    text-align: center;
+    & > span {
+      color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+      ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    }
+    :last-child {
+      margin-top: 13.292rem;
+      padding-bottom: 10.972rem;
+    }
+  }
+  & > svg {
+    width: 100%;
+
+    :nth-child(3) {
+      margin-top: 4.065rem;
+      margin-bottom: 2.69rem;
+    }
+    :nth-child(5) {
+      margin-top: 3.174rem;
+      margin-bottom: 2.612rem;
+    }
+    :nth-child(8) {
+      margin-top: 4.415rem;
+      margin-bottom: 2.734rem;
+    }
+  }
+`;
+
+// Section3
+
+const StThirdSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 8.817rem 1.8rem 0rem 1.8rem;
+  height: 243.3rem;
+
+  background: linear-gradient(180deg, #000000 0%, #000000 91.15%, rgba(30, 31, 33, 0) 100%);
+
+  & > h1 {
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
+    ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
+    text-align: center;
+  }
 `;
