@@ -1,75 +1,92 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import styled, { css } from 'styled-components';
 
-import { IcAngle, IcFace, IcJust, IcMood, IcReasonBtnAfter } from '../../asset/icon';
+import { IcAngle, IcFace, IcJust, IcMood, IcReasonBtnAfter, IcReasonBtnBefore } from '../../asset/icon';
+import { stickerResultState } from '../../recoil/maker/atom';
+import { stickerCountSelector, stickerMaxCountSelctor } from '../../recoil/maker/selector';
 
-interface ReasonProps {
-  totalVote: number;
-  bestReason: string;
-  bestReasonVote: number;
-  faceStickerCount: number;
-  angleStickerCount: number;
-  moodStickerCount: number;
-  jusStickerCount: number;
+interface ResultReasonProps {
+  isOpenResultReason: boolean;
+  handleIsOpenResultReason: () => void;
 }
 
-const ResultReason = (props: ReasonProps) => {
-  const {
-    totalVote,
-    bestReason,
-    bestReasonVote,
-    faceStickerCount,
-    angleStickerCount,
-    moodStickerCount,
-    jusStickerCount,
-  } = props;
+const ResultReason = (props: ResultReasonProps) => {
+  const { isOpenResultReason, handleIsOpenResultReason } = props;
+  const stickerCount = useRecoilValue(stickerCountSelector);
+  const stickerResult = useRecoilValue(stickerResultState);
+  const stickerMaxIdx = useRecoilValue(stickerMaxCountSelctor);
 
+  const REASON_TITLE = ['얼굴이 좋아요', '구도가 좋아요', '분위기가 좋아요', '그냥 끌려요!'];
   const reasons = [<IcAngle key="angle" />, <IcFace key="face" />, <IcJust key="just" />, <IcMood key="mood" />];
 
   return (
     <>
-      <StBackgroundWrapper>
-        <IcReasonBtnAfter />
-        <StBackground>
-          <StTotalVote>
-            <p> 전체 {totalVote}표 중</p>
-            <StFirstReason>{bestReasonVote}표</StFirstReason>
-          </StTotalVote>
-          <StTitle>
-            이 사진이 Pic된 가장 큰 이유는
-            <br /> “{bestReason}” 입니다!
-          </StTitle>
+      <StBackgroundWrapper isOpenResultReason={isOpenResultReason} onClick={handleIsOpenResultReason}>
+        {isOpenResultReason ? (
+          <>
+            <IcReasonBtnAfter />
+            <StBackground>
+              <StTotalVote>
+                <p> 전체 {stickerCount}표 중</p>
+                <StFirstReason>{stickerResult.length ? stickerResult[stickerMaxIdx].count : 0}표</StFirstReason>
+              </StTotalVote>
+              <StTitle>
+                이 사진이 Pic된 가장 큰 이유는
+                <br /> “{REASON_TITLE[stickerMaxIdx]}” 입니다!
+              </StTitle>
 
-          {reasons.map((reason, idx) => (
-            <>
-              <StReasonWrapper>
-                {reason}
-                <StPercentBarWrppaer key={idx}>
-                  <p>70%</p>
-                  <StPercentBar>
-                    <StDealtPercentBar percent={70}></StDealtPercentBar>
-                  </StPercentBar>
-                </StPercentBarWrppaer>
-              </StReasonWrapper>
-            </>
-          ))}
-        </StBackground>
+              {reasons.map((reason, idx) => (
+                <>
+                  <StReasonWrapper key={REASON_TITLE[idx]}>
+                    {reason}
+                    <StPercentBarWrppaer>
+                      {stickerResult[idx] ? <p>{(stickerResult[idx].count / stickerCount) * 100}%</p> : <p>0%</p>}
+                      <StPercentBar>
+                        {stickerResult[idx] ? (
+                          <StDealtPercentBar
+                            percent={(stickerResult[idx].count / stickerCount) * 100}></StDealtPercentBar>
+                        ) : (
+                          <StDealtPercentBar percent={0}></StDealtPercentBar>
+                        )}
+                      </StPercentBar>
+                    </StPercentBarWrppaer>
+                  </StReasonWrapper>
+                </>
+              ))}
+            </StBackground>
+          </>
+        ) : (
+          <IcReasonBtnBefore />
+        )}
       </StBackgroundWrapper>
     </>
   );
 };
 export default ResultReason;
 
-const StBackgroundWrapper = styled.main`
+const StBackgroundWrapper = styled.main<{ isOpenResultReason: boolean }>`
   display: flex;
   justify-content: center;
-  position: relative;
+
+  width: 100%;
+
+  ${({ isOpenResultReason }) =>
+    isOpenResultReason
+      ? css`
+          position: absolute;
+          top: 12rem;
+        `
+      : css`
+          position: relative;
+        `};
 
   > svg {
     position: absolute;
     top: -3rem;
     z-index: 5;
   }
+  z-index: 4;
 `;
 
 const StBackground = styled.article`
