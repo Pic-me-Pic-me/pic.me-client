@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 import { getMonthlyLibraryInfo } from '../../lib/api/library';
-import useIntersectionObserver from '../../lib/hooks/library';
 import { VoteInfo } from '../../types/library';
 import EndedVoting from './EndedVoting';
 
@@ -13,62 +13,62 @@ interface voteAllInfoProps {
 
 const MonthVoting = (props: voteAllInfoProps) => {
   const { date, votes } = props;
+  const nextIndex = useRef(votes.length - 1);
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { ref, inView } = useInView({
+    threshold: 0.5,
+  });
 
-  const [nextIndex, setNextIndex] = useState(votes[4].id);
-  const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>([]);
+  const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>(votes);
+  const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
-    const getMoreItem = async () => {
-      setIsLoaded(true);
-      const res = await getMonthlyLibraryInfo(nextIndex, date);
-      if (res?.data.data) {
-        const newVerticalScrollInfo = res.data.data as VoteInfo[];
-        setVerticalScrollInfo(newVerticalScrollInfo);
+    if (inView) {
+      getMoreItem();
+      console.log('불러오니?');
+    }
+  }, [inView]);
 
-        if (newVerticalScrollInfo[4]) setNextIndex(newVerticalScrollInfo[4].id);
-        setIsLoaded(false);
-      }
-    };
-    getMoreItem();
-  }, []);
+  const getMoreItem = async () => {
+    const prevLastId = verticalScrollInfo[nextIndex.current] ? verticalScrollInfo[nextIndex.current].id : 0;
 
-  const onIntersect: IntersectionObserverCallback = async ([entry], observer) => {
-    //보통 교차여부만 확인하는 것 같다. 코드는 로딩상태까지 확인함.
-    if (entry.isIntersecting && !isLoaded) {
-      observer.unobserve(entry.target);
-      // await getMoreItem();
-      observer.observe(entry.target);
+    const res = await getMonthlyLibraryInfo(prevLastId, date);
+
+    const getItem = res?.data.data as VoteInfo[];
+
+    if (getItem.length) {
+      const newData = [...verticalScrollInfo, ...getItem];
+      nextIndex.current = newData.length - 1;
+      setVerticalScrollInfo(newData);
+    } else {
+      setIsEnd(true);
+      console.log(isEnd);
+      return;
     }
   };
-
-  //현재 대상 및 option을 props로 전달
-  const { setTarget } = useIntersectionObserver({
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.5,
-    onIntersect,
-  });
 
   return (
     <StMonthVotingWrapper>
       <StDateTitle>{date}</StDateTitle>
       <StEndedVotingListWrapper>
-        {verticalScrollInfo.map((vote: VoteInfo, idx: number) => (
-          <EndedVoting id={vote.id} voteData={vote} key={idx}></EndedVoting>
-        ))}
-        <div ref={setTarget}>{isLoaded && 'Loading'}</div>
+        {verticalScrollInfo.map((vote: VoteInfo, idx: number) =>
+          idx === verticalScrollInfo.length - 1 ? (
+            <div key={idx} ref={ref}>
+              <EndedVoting id={vote.id} voteData={vote} key={idx}></EndedVoting>
+            </div>
+          ) : (
+            <EndedVoting id={vote.id} voteData={vote} key={idx} isStart={idx === 0 ? true : false}></EndedVoting>
+          ),
+        )}
       </StEndedVotingListWrapper>
     </StMonthVotingWrapper>
   );
 };
 
 const StMonthVotingWrapper = styled.article`
-  z-index: 1000000;
-  width: 100%;
   margin-bottom: 4.906rem;
 `;
+
 const StDateTitle = styled.h2`
   margin-left: 2.2rem;
 
@@ -77,15 +77,23 @@ const StDateTitle = styled.h2`
 `;
 
 const StEndedVotingListWrapper = styled.section`
-  margin-left: 2rem;
-
   display: flex;
-
-  margin-top: 1.7rem;
-
   gap: 1.521rem;
 
+  width: 100%;
+  margin-top: 1.7rem;
+
   overflow-x: scroll;
+
+  section:first-child {
+    margin-left: 2rem;
+  }
+
+  section:last-child {
+    margin-left: 0;
+
+    margin-right: 2rem;
+  }
 
   ::-webkit-scrollbar {
     display: none;
