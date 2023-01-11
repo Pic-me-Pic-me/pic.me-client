@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import { HeaderLayout } from '../components/Layout';
 import MonthVoting from '../components/Library/MonthVoting';
 import { getAllVoteInfo } from '../lib/api/library';
-import { EndedVoteInfo, VoteInfo } from '../types/library';
+import { EndedVoteInfo } from '../types/library';
 
 const Library = () => {
   const navigate = useNavigate();
   const [ref, inView] = useInView();
   // ref가 화면에 나타나면 inView는 true, 아니면 false를 반환한다.
-  const [isLoaded, setIsLoaded] = useState(false);
+
   const [isEnd, setIsEnd] = useState(false);
   const nextIndex = useRef(0);
   const [data, setData] = useState<EndedVoteInfo[]>([]);
@@ -28,8 +28,6 @@ const Library = () => {
   }, [inView]);
 
   const getMoreItem = async () => {
-    setIsLoaded(true);
-
     const prevLastDate = data[nextIndex.current] ? data[nextIndex.current].date : 0;
 
     const res = await getAllVoteInfo(prevLastDate);
@@ -41,9 +39,9 @@ const Library = () => {
       const newData = [...data, ...getItem];
       nextIndex.current = newData.length - 1;
       setData(newData);
-      setIsLoaded(false);
     }
   };
+
   return (
     <>
       <HeaderLayout

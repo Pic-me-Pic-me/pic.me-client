@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
 import { deleteVote } from '../../lib/api/library';
@@ -10,6 +10,8 @@ import Modal from '../common/Modal';
 interface votingProps {
   voteData: VoteInfo;
   id: number;
+  isStart?: boolean;
+  isEnd?: boolean;
 }
 
 const EndedVoting = (props: votingProps) => {
@@ -37,12 +39,12 @@ const EndedVoting = (props: votingProps) => {
   return (
     <>
       <StVotingWrapper>
-        <StVotingPicWrapper>
+        <div>
           <StVotingPic src={voteData.url} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
-        </StVotingPicWrapper>
+        </div>
         <StVotingDesc>
           <StVotingTitle>
             {voteData.title} {voteData.id}
@@ -66,12 +68,6 @@ const StVotingWrapper = styled.section`
   display: flex;
   flex-direction: column;
 `;
-
-const StVotingPicWrapper = styled.div`
-  z-index: 9;
-  position: relative;
-`;
-
 const StVotingPic = styled.img`
   display: float;
   width: 17.6rem;
@@ -108,7 +104,7 @@ const StVotingDesc = styled.div`
 
   position: relative;
 
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   border-radius: 0rem 0rem 1.141rem 1.141rem;
 `;
 
@@ -116,16 +112,16 @@ const StVotingTitle = styled.h2`
   margin-top: 1.3rem;
   margin-left: 1.4rem;
 
-  ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16}
   color: ${({ theme }) => theme.colors.Pic_Color_White};
+  ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16}
 `;
 
 const StVotingDate = styled.p`
   margin-top: 0.6rem;
   margin-left: 1.426rem;
 
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
 `;
 
 const StVotingPeopleNum = styled.p`
@@ -133,8 +129,8 @@ const StVotingPeopleNum = styled.p`
   right: 1.136rem;
   bottom: 1.083rem;
 
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
   color: ${({ theme }) => theme.colors.Pic_Color_White};
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
 
   opacity: 0.5;
 `;
