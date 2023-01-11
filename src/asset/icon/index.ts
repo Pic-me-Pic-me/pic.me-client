@@ -1,5 +1,6 @@
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
+export { ReactComponent as IcDelete } from './delete_btn.svg';
 export { ReactComponent as IcFaceMenu } from './face_menu.svg';
 export { ReactComponent as IcHamburger } from './hamburgerIcon.svg';
 export { ReactComponent as IcAngleSticker } from './ic_angle.svg';
