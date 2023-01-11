@@ -1,7 +1,16 @@
 import axios from 'axios';
 
-import { DeleteUserInfo, UserData, UsersResponse, UserToken } from '../../types/auth';
+import { DeleteUserInfo, LoginInfo, UserData, UsersResponse, UserToken } from '../../types/auth';
 import { client } from '../axios';
+
+export const postLoginInfo = async ({ email, password }: LoginInfo) => {
+  try {
+    const res = await client.post(`/auth/signin`, { email, password });
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const postKakaoToken = async (socialType: string, token: string) => {
   const { data } = await client.post<UsersResponse>('/auth/kakao/check', {
