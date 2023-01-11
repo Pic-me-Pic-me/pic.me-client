@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
-const makerClient = axios.create({
+const client = axios.create({
   baseURL: 'http://3.36.80.168:3000',
   headers: {
     'Content-type': 'application/json',
@@ -13,15 +13,9 @@ const makerClient = axios.create({
   },
 });
 
-//메이커는 토큰이 있는데
-//플레이어는 토큰이 업다
-
-//테스트를 로그인으로 하면 안되고
-//다른 요청을 보내야한다
-
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
-makerClient.interceptors.request.use((config: any) => {
-  console.log(makerClient.interceptors);
+client.interceptors.request.use((config: any) => {
+  console.log(client.interceptors);
   console.log(config);
   const headers = {
     ...config.headers,
@@ -32,12 +26,12 @@ makerClient.interceptors.request.use((config: any) => {
   return { ...config, headers };
 });
 
-makerClient.interceptors.response.use(
-  (response) => {
+client.interceptors.response.use(
+  function (response) {
     console.log(response);
-    return response;
-  },
 
+    return response.data.data;
+  },
   async (error) => {
     const {
       config,
@@ -51,7 +45,7 @@ makerClient.interceptors.response.use(
       console.log('토큰 만료');
       //token refresh 요청
 
-      const res = await makerClient.post(
+      const res = await client.post(
         `/auth/token`, // token refresh api
         {
           accessToken: localStorage.getItem('accessToken'),
@@ -75,8 +69,8 @@ makerClient.interceptors.response.use(
 
       return axios(originalRequest);
     }
-    console.log(makerClient.interceptors);
+    console.log(client.interceptors);
     return error.response;
   },
 );
-export { makerClient };
+export { client };
