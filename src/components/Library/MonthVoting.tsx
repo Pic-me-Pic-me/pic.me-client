@@ -25,7 +25,6 @@ const MonthVoting = (props: voteAllInfoProps) => {
   useEffect(() => {
     if (inView) {
       getMoreItem();
-      console.log('불러오니?');
     }
   }, [inView]);
 
@@ -42,7 +41,6 @@ const MonthVoting = (props: voteAllInfoProps) => {
       setVerticalScrollInfo(newData);
     } else {
       setIsEnd(true);
-      console.log(isEnd);
       return;
     }
   };
@@ -91,7 +89,6 @@ const StEndedVotingListWrapper = styled.section`
 
   section:last-child {
     margin-left: 0;
-
     margin-right: 2rem;
   }
 
