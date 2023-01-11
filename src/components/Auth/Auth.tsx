@@ -32,10 +32,9 @@ const AuthComponent = () => {
 
       // 카카오 중복확인
       const data = await postKakaoToken('kakao', res.data.access_token);
-      console.log(data.isUser);
+      console.log(data);
       if (data.isUser) {
         // 로그인
-        console.log('dd');
         const signInData = await postKakaoSignIn(data.uid, 'kakao');
         localStorage.setItem('accessToken', signInData.accessToken);
         cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });

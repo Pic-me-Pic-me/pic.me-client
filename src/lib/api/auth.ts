@@ -17,6 +17,7 @@ export const postKakaoToken = async (socialType: string, token: string) => {
     socialType,
     token,
   });
+  console.log(data.data);
   return data.data;
 };
 

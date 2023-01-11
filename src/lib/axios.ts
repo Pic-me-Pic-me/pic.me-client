@@ -28,9 +28,9 @@ client.interceptors.request.use((config: any) => {
 
 client.interceptors.response.use(
   function (response) {
-    console.log(response);
+    console.log('test', response);
 
-    return response.data.data;
+    return response;
   },
   async (error) => {
     const {

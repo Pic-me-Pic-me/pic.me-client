@@ -30,8 +30,8 @@ export default KakaoLogin;
 const StKakaoLoginBtn = styled.a`
   display: flex;
   width: 100%;
-  background: inherit;
-  border: none;
+  background-color: #fee500;
+  border-radius: 0.9rem;
   object-fit: cover;
 
   > svg {

@@ -19,11 +19,11 @@ const LoginComponent = () => {
   const handleSubmitLoginInfo = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res?.data.success) {
         cookies.set('refreshToken', res.data.data.refreshToken, { httpOnly: true });
         localStorage.setItem('accessToken', res.data.data.accessToken);
-        console.log(localStorage);
+        // console.log(localStorage);
         navigate('/');
       } else {
         setIsLoginFail((prev) => !prev);
@@ -174,21 +174,6 @@ const StDivider = styled.div`
 
 const StKaKaoLogin = styled.div`
   width: 100%;
-
-  & > button {
-    display: flex;
-    width: 100%;
-    background: inherit;
-    border: none;
-
-    & > svg {
-      width: 100%;
-      height: 6rem;
-
-      border-radius: 0.9rem;
-      object-fit: cover;
-    }
-  }
 `;
 
 const StContainer = styled.article`
