@@ -41,9 +41,4 @@ const StMakerVoting = styled.button`
     color: #5c5c5c;
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }
-
-  > svg {
-    width: 2.8rem;
-    height: 2.8rem;
-  }
 `;

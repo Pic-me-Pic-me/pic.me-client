@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { IcEmpty } from '../../asset/icon';
 import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData } from '../../lib/api/voting';
-import { VoteInfo } from '../../types/voting';
+import { VoteCardInfo } from '../../types/vote';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
   const { ref, inView, entry } = useInView({
     threshold: 0,
   });
-  const [dataList, setDataList] = useState<VoteInfo[]>();
+  const [dataList, setDataList] = useState<VoteCardInfo[]>();
   const [CursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
 

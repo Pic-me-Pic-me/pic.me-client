@@ -7,11 +7,10 @@ export interface ModalProps {
   handleHide: React.MouseEventHandler;
   handleConfirm: React.MouseEventHandler;
   isFinishing?: boolean; // 투표 마감하기 버튼
-  isDeleteUser?: boolean; // 탈퇴하기 버튼
 }
 
 const Modal = (props: ModalProps) => {
-  const { isShowing, message, handleHide, handleConfirm, isFinishing, isDeleteUser } = props;
+  const { isShowing, message, handleHide, handleConfirm, isFinishing } = props;
   return (
     <>
       {isShowing && (
@@ -20,9 +19,6 @@ const Modal = (props: ModalProps) => {
             <StModalContent>{message}</StModalContent>
             <StModalSubContent isFinishing={isFinishing}>
               *마감된 투표는 <span>라이브러리</span>에서 확인 가능해요!
-            </StModalSubContent>
-            <StModalSubContent isDeleteUser={isDeleteUser}>
-              *탈퇴시 <span>계정 및 모든 데이터</span>들이 영구 삭제됩니다!
             </StModalSubContent>
             <StButtonWrapper>
               <button type="button" onClick={handleHide}>
@@ -76,9 +72,8 @@ const StModalContent = styled.p`
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 `;
 
-const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boolean }>`
+const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
   display: ${({ isFinishing }) => (isFinishing ? 'block' : 'none')};
-  display: ${({ isDeleteUser }) => (isDeleteUser ? 'block' : 'none')};
   margin-top: 0.5rem;
   position: fixed;
   top: 51%;
@@ -91,7 +86,6 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boole
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 1.1rem;
-
   > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }

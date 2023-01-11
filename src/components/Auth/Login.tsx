@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
@@ -138,7 +137,7 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
     width: 100%;
     height: 6rem;
 
-    & > svg {
+    & > img {
       width: 100%;
       height: 6rem;
     }

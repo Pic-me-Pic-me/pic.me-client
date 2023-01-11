@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 export const client = axios.create({
-  baseURL: 'http://3.36.80.168:3000',
+  baseURL: `${process.env.REACT_APP_BASE_URL}`,
   headers: {
     'Content-type': 'application/json',
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUyLCJpYXQiOjE2NzMzMjU2NDIsImV4cCI6MTY3MzMzMjg0Mn0.JuDjMmBkr9_vivFKAKXq2CuiF2FSrm09cxdbvCMLM0k',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1NiwiaWF0IjoxNjczNDEyNjcxLCJleHAiOjE2NzM0MTQ0NzF9.1cNaIuDO9MJ676oK1mBpqNV_eMXfVkdAx-Gf5fSGYr8',
   },
 });
+
+export const picmeGetFetcher = (url: string) => client.get(url).then((res) => res.data);

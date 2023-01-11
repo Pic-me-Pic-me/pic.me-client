@@ -67,7 +67,6 @@ const StHomeNav = styled.nav`
 `;
 
 const StLogoBtn = styled.a`
-  cursor: pointer;
   > svg {
     width: 11.1rem;
     height: 5.4rem;
