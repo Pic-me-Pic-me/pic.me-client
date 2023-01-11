@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
+import CurrentVoteDetail from '../../pages/CurrentVoteDetail';
 import Error404 from '../../pages/Error404';
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
@@ -17,6 +18,7 @@ const Router = () => (
     <RecoilRoot>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/currentvote/:voteid" element={<CurrentVoteDetail />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

@@ -133,6 +133,9 @@ export const reset = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  button {
+    cursor: pointer;
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -141,7 +144,12 @@ ${reset}
 #root, body, html {
     width: 100%;
     height: 100vh;
-  
+    overflow-y: auto;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+#root::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
   
 * {
