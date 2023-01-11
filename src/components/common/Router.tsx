@@ -9,6 +9,7 @@ import MakerLanding from '../../pages/MakerLanding';
 import MakerVoting from '../../pages/MakerVoting';
 import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '../../pages/player';
 import PlayerLanding from '../../pages/PlayerLanding';
+import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
 
 const Router = () => (
@@ -19,6 +20,7 @@ const Router = () => (
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/share" element={<Share />} />
         <Route path="/makervoting" element={<MakerVoting />} />
         <Route path="/vote/:voteId" element={<PlayerLanding />} />
         <Route path="/makerlanding" element={<MakerLanding />} />
