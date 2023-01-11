@@ -30,7 +30,6 @@ export const picmeSliderEvent = ({
           const deltaX = moveEvent.changedTouches[0].pageX - touchEvent.changedTouches[0].pageX;
           const deltaY = moveEvent.changedTouches[0].pageY - touchEvent.changedTouches[0].pageY;
           onDragEnd?.(deltaX, deltaY);
-
           document.removeEventListener('touchmove', touchMoveHandler);
         };
 
@@ -57,7 +56,8 @@ export const picmeSliderEvent = ({
         document.removeEventListener('mousemove', mouseMoveHandler);
       };
 
-      document.addEventListener('mousemove', mouseMoveHandler, { passive: false });
+      document.addEventListener('mousemove', mouseMoveHandler);
+      // document.addEventListener('mousemove', mouseMoveHandler, { passive: false });
       document.addEventListener('mouseup', mouseUpHandler, { once: true });
     },
   };
