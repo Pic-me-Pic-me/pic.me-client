@@ -35,18 +35,19 @@ const SliderTitle = (props: TitleProps) => {
 };
 
 const StTitleWrapper = styled.div`
-  width: 35.1rem;
   height: 11.4rem;
+  margin: 2.6rem 7% 0 7%;
 
   display: flex;
+  justify-content: space-between;
 `;
 
 const StTitle = styled.div<{ isChosenPic: boolean }>`
-  width: 22rem;
+  width: 52%;
   height: 4.2rem;
 
   margin-top: 2.6rem;
-  margin-left: 4.658rem;
+  margin-left: 2%;
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Title4_Pretendard_Bold_35};
 
@@ -72,13 +73,11 @@ const StVotedNumber = styled.div`
   height: 6.6rem;
 
   margin-top: 4rem;
-  margin-left: 3.3rem;
 
   border-radius: 50%;
-  /* background-color: rgba(244, 245, 247, 0.2); */
-  background-color: red;
-  ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
+  background-color: rgba(244, 245, 247, 0.2);
 
-  color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;
 export default SliderTitle;
