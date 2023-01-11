@@ -52,6 +52,8 @@ const StModalWrapper = styled.div`
   padding: 0rem 6rem;
 
   background: rgba(0, 0, 0, 0.7);
+
+  z-index: 10000;
 `;
 
 const StModal = styled.section`
