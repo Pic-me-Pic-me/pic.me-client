@@ -4,8 +4,8 @@ import { RecoilRoot } from 'recoil';
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
 import Login from '../../pages/Login';
-import MakerLanding from '../../pages/MakerLanding';
 import MakerVoting from '../../pages/MakerVoting';
+import Onboarding from '../../pages/Onboarding';
 import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '../../pages/player';
 import PlayerLanding from '../../pages/PlayerLanding';
 import Share from '../../pages/Share';
@@ -16,7 +16,7 @@ const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
       <Routes>
-        <Route path="/" element={<MakerLanding />} />
+        <Route path="/" element={<Onboarding />} />
         <Route path="/home" element={<Home />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />

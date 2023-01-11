@@ -7235,21 +7235,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["copy-descriptor", [\
+        ["npm:0.1.1", {\
+          "packageLocation": "./.yarn/cache/copy-descriptor-npm-0.1.1-864db4ab66-d4b7b57b14.zip/node_modules/copy-descriptor/",\
+          "packageDependencies": [\
+            ["copy-descriptor", "npm:0.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["copy-to-clipboard", [\
         ["npm:3.3.3", {\
           "packageLocation": "./.yarn/cache/copy-to-clipboard-npm-3.3.3-6964e6cfad-e0a325e39b.zip/node_modules/copy-to-clipboard/",\
           "packageDependencies": [\
             ["copy-to-clipboard", "npm:3.3.3"],\
             ["toggle-selection", "npm:1.0.6"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["copy-descriptor", [\
-        ["npm:0.1.1", {\
-          "packageLocation": "./.yarn/cache/copy-descriptor-npm-0.1.1-864db4ab66-d4b7b57b14.zip/node_modules/copy-descriptor/",\
-          "packageDependencies": [\
-            ["copy-descriptor", "npm:0.1.1"]\
           ],\
           "linkType": "HARD"\
         }]\
