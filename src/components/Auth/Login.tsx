@@ -20,13 +20,14 @@ const LoginComponent = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
       console.log(res);
-      if (res?.data.success) {
+      if (res?.data.status === 200) {
         cookies.set('refreshToken', res.data.data.refreshToken, { httpOnly: true });
         localStorage.setItem('accessToken', res.data.data.accessToken);
         console.log(localStorage);
+        setIsLoginFail(false);
         navigate('/');
       } else {
-        setIsLoginFail((prev) => !prev);
+        setIsLoginFail(true);
       }
     });
   };

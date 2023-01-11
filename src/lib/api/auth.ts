@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-import { DeleteUserInfo, LoginInfo, UserData, UsersResponse, UserToken } from '../../types/auth';
+import { DeleteUserInfo, LoginInfo, UsersResponse, UserToken } from '../../types/auth';
 import { client } from '../axios';
 
 export const postLoginInfo = async ({ email, password }: LoginInfo) => {
   try {
     const res = await client.post(`/auth/signin`, { email, password });
+    console.log(res);
     return res;
   } catch (error) {
     console.error(error);
