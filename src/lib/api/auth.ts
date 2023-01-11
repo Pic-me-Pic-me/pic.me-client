@@ -8,7 +8,6 @@ export const postKakaoToken = async (socialType: string, token: string) => {
     socialType,
     token,
   });
-  console.log('postKakaoToken:', data.data);
   return data.data;
 };
 
@@ -17,7 +16,6 @@ export const postKakaoSignIn = async (uid: string, socialType: string) => {
     uid,
     socialType,
   });
-  console.log('postKakaoSignIn:', data.data);
   return data.data;
 };
 
@@ -28,7 +26,6 @@ export const postKakaoSignUp = async (uid: string, socialType: string, user_name
     email,
     user_name,
   });
-  console.log('postKakaoSignUp:', data);
   return data.data;
 };
 

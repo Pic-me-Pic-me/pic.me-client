@@ -8,10 +8,8 @@ import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/
 
 const Auth = () => {
   const cookies = new Cookies();
-
   const Kakao = window.Kakao;
   const REDIRECT_URL = `http://localhost:3000/login/oauth/kakao/callback`;
-
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
 
@@ -28,36 +26,26 @@ const Auth = () => {
       client_secret: process.env.REACT_APP_CLIENT_SECRET,
     });
     try {
-      // access token 가져오기
       const res = await axios.post('https://kauth.kakao.com/oauth/token', payload);
-      // Kakao Javascript SDK 초기화
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
-      // access token 설정
       Kakao.Auth.setAccessToken(res.data.access_token);
-      console.log(res.data.access_token);
-      localStorage.setItem('kakaoAccessToken', res.data.access_token);
 
-      // 카카오 아이디 있는지 확인
+      // 카카오 중복확인
       const data = await postKakaoToken('kakao', res.data.access_token);
-      console.log(data);
 
       if (data.isUser) {
         // 로그인
         const signInData = await postKakaoSignIn(data.uid, 'kakao');
-        // 토큰 저장
         localStorage.setItem('accessToken', signInData.accessToken);
-        localStorage.setItem('refreshToken', signInData.refreshToken);
-        navigate('/nickname');
+        cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
+        navigate('/');
       } else if (!data.isUser) {
         // 회원가입
         const nick = '테스트닉네임';
-        // 유저가 아니라면 회원가입하기
         const signUpData = await postKakaoSignUp(data.uid, 'kakao', data.email, nick);
         const resp = signUpData.userName;
-        // 토큰 저장
         localStorage.setItem('accessToken', signUpData.accessToken);
-        localStorage.setItem('refreshToken', signUpData.refreshToken);
-
+        cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
         navigate('/nickname');
       }
     } catch (err) {

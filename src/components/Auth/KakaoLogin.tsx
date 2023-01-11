@@ -6,7 +6,6 @@ import { KakaoLoginBtn } from '../../asset/image';
 const KakaoLogin = () => {
   const Kakao = window.Kakao;
   const kauthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&response_type=code`;
-  // const REDIRECT_URL = `http://localhost:3000/oauth/kakao/callback`;
 
   useEffect(() => {
     initKakao();
@@ -19,16 +18,7 @@ const KakaoLogin = () => {
     }
   };
 
-  // const handleKakaoLogin = () => {
-  // Kakao.Auth.authorize({
-  //   redirectUri: REDIRECT_URL,
-  //   //TODO: 자동 로그인 구현
-  //   // prompts: 'none',
-  // });
-  // };
-
   return (
-    // <StKakaoLoginBtn onClick={handleKakaoLogin}>
     <StKakaoLoginBtn href={kauthUrl}>
       <img src={KakaoLoginBtn} alt="카카오 로그인" />
     </StKakaoLoginBtn>
