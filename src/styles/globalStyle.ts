@@ -151,48 +151,55 @@ ${reset}
 #root, body, html {
     width: 100%;
     height: 100vh;
+    overflow-y: auto;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+#root::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
 * {
     box-sizing: border-box;
     }
 @font-face{
   font-family: "PretendardBlack";
-  src: url(${PretendardBlack}) format("woff");
+  src: url(${PretendardBlack}) format("font-woff");
 }
 @font-face{
   font-family: "PretendardBold";
-  src: url(${PretendardBold}) format("woff");
+  src: url(${PretendardBold}) format("font-woff");
 }
 @font-face{
   font-family: "PretendardExtraBold";
-  src: url(${PretendardExtraBold}) format("woff");
+  src: url(${PretendardExtraBold}) format("font-woff");
 }
 @font-face{
   font-family: "PretendardExtraLight";
-  src: url(${PretendardExtraLight}) format("woff");
+  src: url(${PretendardExtraLight}) format("font-woff");
 }
 @font-face{
   font-family: "PretendardLight";
-  src: url(${PretendardLight}) format("woff");
+  src: url(${PretendardLight}) format("font-woff");
 }
 @font-face{
   font-family: "PretendardMedium";
-  src: url(${PretendardMedium}) format("woff");
+  src: url(${PretendardMedium}) format("font-woff");
 }
 @font-face{
   font-family: "PretendardRegular";
-  src: url(${PretendardRegular}) format("woff");
+  src: url(${PretendardRegular}) format("font-woff");
 }
 
 @font-face{
   font-family: "PretendardSemiBold";
-  src: url(${PretendardSemiBold}) format("woff");
+  src: url(${PretendardSemiBold}) format("font-woff");
 }
 
 @font-face{
   font-family: "PretendardThin";
-  src: url(${PretendardThin}) format("woff");
+  src: url(${PretendardThin}) format("font-woff");
 }
+
 `;
 
 export default GlobalStyle;

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+<svg width="8" height="49" viewBox="0 0 8 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7 19L1.5 24.5L7 30" stroke="#5E5E5E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+=======
 <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M6.5 1L1 6.5L6.5 12" stroke="#C3CDD5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+>>>>>>> 666b8527d508564d7749551a94d89b46fb1401b6
 </svg>
