@@ -9,7 +9,7 @@ import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/
 const AuthComponent = () => {
   const cookies = new Cookies();
   const Kakao = window.Kakao;
-  const REDIRECT_URL = `http://localhost:3000/login/oauth/kakao/callback`;
+  // const REDIRECT_URL = `https://with-picme.com/login/oauth/kakao/callback`;
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const AuthComponent = () => {
     const payload = qs.stringify({
       grant_type: 'authorization_code',
       client_id: process.env.REACT_APP_REST_API_KEY,
-      redirect_uri: REDIRECT_URL,
+      redirect_uri: process.env.REACT_APP_REDIRECT_URL,
       code,
       client_secret: process.env.REACT_APP_CLIENT_SECRET,
     });
@@ -32,12 +32,16 @@ const AuthComponent = () => {
 
       // 카카오 중복확인
       const data = await postKakaoToken('kakao', res.data.access_token);
+      console.log(data.isUser);
       if (data.isUser) {
         // 로그인
+        console.log('dd');
         const signInData = await postKakaoSignIn(data.uid, 'kakao');
         localStorage.setItem('accessToken', signInData.accessToken);
         cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
-        navigate('/home');
+        console.log(signInData);
+        // navigate('/home');
+        navigate('/');
       } else if (!data.isUser) {
         // 회원가입
         const nick = '테스트닉네임';

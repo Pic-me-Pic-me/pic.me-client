@@ -59,9 +59,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["qs", "npm:6.11.0"],\
             ["react", "npm:18.2.0"],\
             ["react-cookie", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:4.1.1"],\
-
             ["react-cookies", "npm:0.1.1"],\
+            ["react-dom", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:18.2.0"],\
             ["react-hook-form", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:7.41.5"],\
+            ["react-router-dom", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:6.6.1"],\
             ["react-scripts", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:5.0.1"],\
             ["recoil", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:0.7.6"],\
             ["recoil-persist", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:4.2.0"],\
@@ -4470,7 +4471,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/express-serve-static-core", "npm:4.17.31"],\
             ["@types/node", "npm:16.18.11"],\
-            ["@types/qs", "npm:6.9.7"],\
             ["@types/range-parser", "npm:1.2.4"]\
           ],\
           "linkType": "HARD"\

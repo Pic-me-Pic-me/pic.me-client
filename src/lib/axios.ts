@@ -6,7 +6,7 @@ const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
 const client = axios.create({
-  baseURL: 'http://3.36.80.168:3000',
+  baseURL: 'https://with-picme-api.com',
   headers: {
     'Content-type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,

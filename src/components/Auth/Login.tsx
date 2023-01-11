@@ -1,6 +1,12 @@
+import { useState } from 'react';
+import { Cookies } from 'react-cookie';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcPickmeLogo } from '../../asset/icon';
+import { postLoginInfo } from '../../lib/api/auth';
+import { LoginInfo } from '../../types/auth';
 import KakaoLogin from './KakaoLogin';
 
 const LoginComponent = () => {
@@ -82,24 +88,6 @@ const StWhiteSection = styled.section`
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;
 
-const StContainer = styled.article`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StForm = styled.form`
-  display: flex;
-  flex-direction: column;
-
-  p:nth-child(4) {
-    margin-bottom: 4.6rem;
-  }
-`;
-
-const StTitle = styled.h2`
-  ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
-`;
-
 const StInput = styled.input`
   width: 100%;
   height: 6rem;
@@ -117,15 +105,6 @@ const StInput = styled.input`
   }
 `;
 
-const StInputDesc = styled.p`
-  height: 1.7rem;
-  margin-top: 1rem;
-  padding-left: 0.9rem;
-  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
-  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
-`;
-
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
   width: 100%;
   height: 6rem;
@@ -139,7 +118,7 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
   ${({ isSignUp }) =>
     isSignUp &&
     css`
-      width: 100%;
+      /* width: 100%; */
       padding: 0rem 0.2rem;
       margin-top: 0.8rem;
 
@@ -195,7 +174,7 @@ const StDivider = styled.div`
 
 const StKaKaoLogin = styled.div`
   width: 100%;
-  /* 
+
   & > button {
     display: flex;
     width: 100%;
@@ -208,59 +187,21 @@ const StKaKaoLogin = styled.div`
 
       border-radius: 0.9rem;
       object-fit: cover;
-    } 
-  }*/
-`;
-
-const StBannerWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  z-index: -1;
-`;
-
-const StWhiteSection = styled.section`
-  position: fixed;
-  bottom: 0;
-
-  width: 43rem;
-  height: 75.3rem;
-
-  border-radius: 1.4rem 1.4rem 0rem 0rem;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
+    }
+  }
 `;
 
 const StContainer = styled.article`
   display: flex;
   flex-direction: column;
-
-  margin-top: 4.2rem;
 `;
 
 const StForm = styled.form`
   display: flex;
   flex-direction: column;
 
-  padding: 0rem 2rem;
-
   p:nth-child(4) {
     margin-bottom: 4.6rem;
-  }
-`;
-
-const StInput = styled.input`
-  width: 39rem;
-  height: 6rem;
-  margin-top: 1.4rem;
-  padding-left: 1.9rem;
-
-  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  border-radius: 0.6rem;
-  outline: none;
-
-  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
-
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 `;
 
@@ -269,38 +210,15 @@ const StInputDesc = styled.p`
   margin-top: 1rem;
   padding-left: 0.9rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
-`;
-
-const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
-  width: 39rem;
-  height: 6rem;
-
-  margin: 0 auto;
-
-  border: none;
-  border-radius: 9px;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  color: white;
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
-
-  cursor: pointer;
-
-  ${({ isSignUp }) =>
-    isSignUp &&
-    css`
-      margin-top: 0.8rem;
-      background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-    `}
-
-  > img {
-    width: 39rem;
-    height: 6rem;
-  }
+  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
 `;
 
 const StTitle = styled.h2`
   margin-top: 2rem;
   ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
 `;
+
+// function useForm<T>(): { register: any; handleSubmit: any; getValues: any } {
+//   throw new Error('Function not implemented.');
+// }
