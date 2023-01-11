@@ -1,6 +1,4 @@
-import useSWR from 'swr';
 import { VotingInfo } from '../../types/vote';
-import qs from 'qs';
 import { client } from '../axios';
 
 export const postVoteData = (votingData: VotingInfo, token?: string) => client.post('/vote', votingData);
