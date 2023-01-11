@@ -51,8 +51,11 @@ const StModalWrapper = styled.div`
   bottom: 0;
   right: 0;
 
+<<<<<<< HEAD
   z-index: 10000;
 
+=======
+>>>>>>> 38cdd9b4dba7e7848af5ba12e7c55c165e34516d
   width: 100%;
   height: 100%;
   padding: 0rem 6rem;
@@ -78,9 +81,14 @@ const StModalContent = styled.p`
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 `;
 
+<<<<<<< HEAD
 const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boolean }>`
   display: ${({ isFinishing }) => (isFinishing ? 'block' : 'none')};
   display: ${({ isDeleteUser }) => (isDeleteUser ? 'block' : 'none')};
+=======
+const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
+  display: ${({ isFinishing }) => (isFinishing ? 'block' : 'none')};
+>>>>>>> 38cdd9b4dba7e7848af5ba12e7c55c165e34516d
   margin-top: 0.5rem;
   position: fixed;
   top: 51%;
