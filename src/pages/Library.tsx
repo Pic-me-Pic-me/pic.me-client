@@ -46,7 +46,7 @@ const Library = () => {
       <HeaderLayout
         HeaderTitle="라이브러리"
         handleGoback={() => {
-          navigate(-1);
+          navigate('/home');
         }}
       />
 
