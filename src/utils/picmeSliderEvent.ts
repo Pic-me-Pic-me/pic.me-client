@@ -15,7 +15,7 @@ export const picmeSliderEvent = ({
   onDragEnd?: (deltaX: number, deltaY: number) => void;
   stopPropagation?: boolean;
 }) => {
-  if (isTouchScreen) {
+  if (true) {
     return {
       onTouchStart: (touchEvent: React.TouchEvent<HTMLUListElement>) => {
         if (stopPropagation) touchEvent.stopPropagation();
