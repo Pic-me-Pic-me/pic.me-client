@@ -41,7 +41,10 @@ export const Result = () => {
       <>
         <StBackgroundWrapper src={voteResult.Picture[chosenPictureIdx].url}>
           <StBackground isChosenPic={!chosenPictureIdx}>
-            <HeaderLayout HeaderTitle="최종 투표 결과" handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
+            <HeaderLayout
+              HeaderTitle="최종 투표 결과"
+              handleGoback={() => navigate('/library')}
+              isBanner></HeaderLayout>
             {!chosenPictureIdx ? (
               <IcResultRight onClick={() => setChosenPictureIdx(1)} />
             ) : (
