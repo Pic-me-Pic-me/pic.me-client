@@ -6,6 +6,7 @@ export const modifySliderRange = (nextRange: number, minRange: number, maxRange:
   return nextRange;
 };
 
+
 export const picmeSliderEvent = ({
   onDragChange,
   onDragEnd,
@@ -56,8 +57,7 @@ export const picmeSliderEvent = ({
         document.removeEventListener('mousemove', mouseMoveHandler);
       };
 
-      document.addEventListener('mousemove', mouseMoveHandler);
-      // document.addEventListener('mousemove', mouseMoveHandler, { passive: false });
+      document.addEventListener('mousemove', mouseMoveHandler, { passive: false });
       document.addEventListener('mouseup', mouseUpHandler, { once: true });
     },
   };

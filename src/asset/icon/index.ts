@@ -1,3 +1,13 @@
+export { ReactComponent as IcAngle } from './ic_angle.svg';
+export { ReactComponent as IcFace } from './ic_face.svg';
+export { ReactComponent as IcJust } from './ic_just.svg';
+export { ReactComponent as IcMood } from './ic_mood.svg';
+export { ReactComponent as IcReasonBtnBefore } from './ic_reason_btn_before.svg';
+export { ReactComponent as IcResultLeft } from './ic_result_left.svg';
+export { ReactComponent as IcResultRight } from './ic_result_right.svg';
+export { ReactComponent as IcGoback } from './IcGoback.svg';
+export { ReactComponent as IcPickmeSticker } from './picme_sticker.svg';
+export { ReactComponent as IcReasonBtnAfter } from './ReasonBtn_after.svg';
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
 export { ReactComponent as IcAfterCheckbox } from './checkbox_after.svg';
