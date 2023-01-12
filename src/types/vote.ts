@@ -96,12 +96,34 @@ export interface GetStickerResultInfo {
   emoji: number;
   count: number;
 }
+
 export interface ResultSticker {
   Picture: PictureInfo;
   Sticker: GetStickerResultInfo[];
 }
+
 export interface StickerResultInfo {
   stickerLocation: StickerLocation[];
   emoji: number;
   count: number;
+}
+
+export interface VoteCardInfo {
+  voteId: number;
+  title: string;
+  voteThumbnail: string;
+  createdAt: Date;
+  totalVoteCount: number;
+}
+
+export interface Result {
+  result: VoteCardInfo[];
+  resCursorId: number;
+}
+
+export interface VoteListData {
+  status: number;
+  success: boolean;
+  message: string;
+  data: Result;
 }

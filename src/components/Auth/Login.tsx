@@ -98,6 +98,15 @@ const StInput = styled.input`
   }
 `;
 
+const StInputDesc = styled.p`
+  height: 1.7rem;
+  margin-top: 1rem;
+  padding-left: 0.9rem;
+  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
+`;
+
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
   width: 100%;
   height: 6rem;
@@ -171,15 +180,6 @@ const StForm = styled.form`
   p:nth-child(4) {
     margin-bottom: 4.6rem;
   }
-`;
-
-const StInputDesc = styled.p`
-  height: 1.7rem;
-  margin-top: 1rem;
-  padding-left: 0.9rem;
-  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
-  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
 `;
 
 const StTitle = styled.h2`

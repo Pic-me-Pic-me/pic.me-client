@@ -14,6 +14,7 @@ import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
 // import Voting from '../../pages/Voting';
 import { AuthComponent } from '../Auth';
+import MemberInfo from '../Auth/MemberInfo';
 import AddAccount from '../Signup/AddAccount';
 import KakaoNickname from '../Signup/KakaoNickname';
 import Nickname from '../Signup/Nickname';
@@ -27,6 +28,12 @@ const Router = () => (
         <Route path="/login/oauth/kakao/callback" element={<AuthComponent />} />
         <Route path="/home" element={<Home />} />
         <Route path="/currentvote/:voteid" element={<CurrentVoteDetail />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
+        <Route path="/myPage" element={<MemberInfo />} />
+        <Route path="/library" element={<Library />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/share" element={<Share />} />
         <Route path="/makervoting" element={<MakerVoting />} />
         <Route path="/library" element={<Library />} />

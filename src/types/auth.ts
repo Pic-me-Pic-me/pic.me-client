@@ -5,6 +5,10 @@
 //   password: string;
 //   refreshToken: string;
 // }
+export interface MemberData {
+  userName: string;
+  email: string;
+}
 
 export interface LoginType {
   provider_key: string;
@@ -12,10 +16,10 @@ export interface LoginType {
   provider_type: string;
 }
 
-export interface LoginInfo {
-  email: string;
-  password: string;
-}
+// export interface MemberData {
+//   email: string;
+//   password: string;
+// }
 
 export interface RefreshType {
   status: number;
@@ -65,3 +69,15 @@ export interface DeleteUserInfo {
 //     example: any; // 👈️ turn off type checking
 //   }
 // }
+
+export interface LoginInfo {
+  email: string;
+  password: string;
+}
+
+export interface GetUserData {
+  status: number;
+  success: boolean;
+  message: string;
+  data: MemberData;
+}
