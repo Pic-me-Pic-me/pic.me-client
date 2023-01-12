@@ -283,7 +283,7 @@ const StFirstSolution = styled.article`
 
   & > h1 {
     margin-bottom: 1.8rem;
-    ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22};
+    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 

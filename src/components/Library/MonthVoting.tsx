@@ -71,7 +71,7 @@ const StDateTitle = styled.h2`
   margin-left: 2.2rem;
 
   color: #000000;
-  ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
 `;
 
 const StEndedVotingListWrapper = styled.section`

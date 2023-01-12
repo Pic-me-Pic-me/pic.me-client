@@ -22,19 +22,12 @@ const fonts = {
     font-size: 2.4rem;
     line-height: 2.9rem;
   `,
-  Pic_Title2_Pretendard_Bold_20: css`
+  Pic_Title2_Pretendard_SemiBold_20: css`
     font-family: 'PretendardBold';
     font-style: normal;
     font-weight: 700;
     font-size: 2rem;
     line-height: 2.4rem;
-  `,
-  Pic_Title3_Pretendard_Bold_22: css`
-    font-family: 'PretendardBold';
-    font-size: 2.2rem;
-    font-weight: 700;
-    font-style: normal;
-    line-height: 2.6rem;
   `,
   Pic_Title4_Pretendard_Bold_35: css`
     font-family: 'PretendardSemiBold';

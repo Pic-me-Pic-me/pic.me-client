@@ -71,7 +71,7 @@ const StCurrentVote = styled.h1`
   padding: 0rem 2rem;
   margin: 5.1rem 0rem 1.3rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
 `;
 
 const StVoteListWrapper = styled.main`

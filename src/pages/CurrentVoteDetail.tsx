@@ -81,7 +81,7 @@ const CurrentVoteDetail = () => {
 
   return (
     <>
-      <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/')} />
+      <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
       <CurrentVoteDetailWrapper>
         <StVoteInfo>
           <span>
@@ -212,7 +212,7 @@ const StVoteInfo = styled.article`
     width: 34.6rem;
     height: 5.6rem;
 
-    ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22}
+    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20}
   }
 `;
 

@@ -25,7 +25,8 @@ const MemberInfo = () => {
 
   const handleDeleteUser = async () => {
     const result = await deleteUser();
-    navigate('/playerlanding');
+    localStorage.removeItem('accessToken');
+    navigate('/');
   };
 
   useEffect(() => {
@@ -104,7 +105,7 @@ const StWhiteSection = styled.section`
     margin-bottom: 3rem;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
+    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
   }
 
   > div {
