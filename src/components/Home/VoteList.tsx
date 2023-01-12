@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
@@ -9,41 +9,43 @@ import { VoteCardInfo } from '../../types/vote';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
+  const { ref, inView } = useInView({
+    threshold: 0.5,
   });
-  const [dataList, setDataList] = useState<VoteCardInfo[]>();
+  const [dataList, setDataList] = useState<VoteCardInfo[]>([]);
   const [CursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
 
+  console.log(dataList);
+
+  const getMoreItem = useCallback(async () => {
+    console.log(CursorId);
+    const newData = await getCurrentVoteData(Number(CursorId));
+    console.log('newData', newData);
+    if (newData) {
+      setDataList(dataList?.concat(newData.data.result));
+      setCursorId(newData.data.resCursorId);
+    }
+  }, [CursorId]);
+
   useEffect(() => {
     getUserName();
-    getMoreItem();
+    if (dataList?.length === 0) {
+      getMoreItem();
+    }
   }, []);
 
   useEffect(() => {
     if (dataList?.length !== 0 && inView) {
       getMoreItem();
     }
-  }, [CursorId, inView]);
+  }, [inView]);
 
   const getUserName = async () => {
     const name = await getUserInfo();
     setUserName(name?.data.userName);
   };
-
-  const getMoreItem = async () => {
-    const newData = await getCurrentVoteData(Number(CursorId));
-    console.log(newData);
-    if (!dataList) {
-      setDataList(newData?.data.result);
-      return;
-    } else if (newData) {
-      setCursorId(newData.data.resCursorId);
-      setDataList(dataList?.concat(newData.data.result));
-    }
-  };
-  console.log(dataList);
+  console.log('dataList1', dataList);
   return (
     <>
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
