@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { deleteUser } from '../lib/api/auth';
 
+``;
+
 const Kakao = window.Kakao;
 
 const Home = () => {
