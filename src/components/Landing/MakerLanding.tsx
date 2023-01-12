@@ -97,12 +97,14 @@ const MakerLanding = () => {
         </StFirstSolution>
         <StSecondSolution>
           <Lottie className="lotte" animationData={lottie2} loop={true}></Lottie>
+          <IcSolution2 />
           <h1>현재 활동하는 지인의 선택</h1>
           <p> SNS 스토리에 링크를 공유해</p>
           <p>친구의 선택을 빠르게 확인할 수 있어요!</p>
         </StSecondSolution>
         <StThirdSolution>
           <Lottie className="lotte" animationData={lottie3} loop={true}></Lottie>
+          <IcSolution3 />
           <h1>한눈에 확인할 수 있는 투표 결과</h1>
           <p>원하는 시간에 마감하고 Pic.me만의 결과물로</p>
           <p>한눈에 친구들의 시선을 확인할 수 있어요!</p>
@@ -248,11 +250,11 @@ const StSecondContent = styled.article`
   margin-top: 8.841rem;
 
   & > p {
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16};
     text-align: center;
     & > span {
       color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-      ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+      ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16};
     }
     :last-child {
       margin-top: 13.292rem;
@@ -344,9 +346,10 @@ const StStart = styled.div`
 `;
 
 const StFooter = styled.footer`
-  margin-top: 6.237rem;
-  margin-bottom: 4.409rem;
+  padding-top: 6.237rem;
+  /* margin-bottom: 4.409rem; */
   width: 100%;
+  height: 14.037rem;
   text-align: center;
   & > p {
     ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
