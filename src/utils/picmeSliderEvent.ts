@@ -5,8 +5,6 @@ export const modifySliderRange = (nextRange: number, minRange: number, maxRange:
   if (nextRange > maxRange) return maxRange;
   return nextRange;
 };
-
-
 export const picmeSliderEvent = ({
   onDragChange,
   onDragEnd,

@@ -1,10 +1,12 @@
-
-
-// export interface MakerPictureData {
-//  pictureId: number;
-
 // 서버에서 pictures라고 지정해서,,우리는 복수명 안되는데! 어쩔수 없었오!
 import { PicMeResponse } from './api';
+
+export interface MakerPictureData {
+  pictureId: number;
+  url: string;
+  count: number;
+  Sticker: GetStickerResultInfo[];
+}
 
 export interface MakerVoteInfo {
   userName: string;
@@ -100,8 +102,6 @@ export interface StickerLocation {
   y: number;
   degRate: number;
 }
-
-
 export interface StickerInfo {
   pictureId: number;
   location: StickerLocation[];
@@ -128,8 +128,6 @@ export interface ResultSticker {
   Picture: PictureInfo;
   Sticker: GetStickerResultInfo[];
 }
-
-
 export interface StickerResultInfo {
   stickerLocation: StickerLocation[];
   emoji: number;
@@ -139,7 +137,7 @@ export interface StickerResultInfo {
 export interface NaturalImgInfo {
   width: number;
   height: number;
-
+}
 
 export interface VoteCardInfo {
   voteId: number;

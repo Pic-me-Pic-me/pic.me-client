@@ -35,7 +35,6 @@ const Router = () => (
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/voting" element={<Voting />} />
         <Route path="/result/:voteId" element={<Result />} />
         <Route path="/share" element={<Share />} />
         <Route path="/makervoting" element={<MakerVoting />} />
