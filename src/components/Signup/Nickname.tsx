@@ -52,6 +52,7 @@ const Nickname = () => {
       }
     });
   };
+
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
     const target = e.target as HTMLInputElement;
     if (target.name === 'all') {
@@ -68,7 +69,6 @@ const Nickname = () => {
 
   const handleSignup = () => {
     postSignupInfo({ email, password }, nickname).then((res) => {
-      console.log(res);
       if (res?.success) {
         cookies.set('refreshToken', res.data.refreshToken);
         localStorage.setItem('accessToken', res.data.accessToken);
