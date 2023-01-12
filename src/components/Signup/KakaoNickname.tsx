@@ -15,7 +15,6 @@ const KakaoNickname = () => {
 
   const navigate = useNavigate();
   const { uid, socialType, email }: KakaoAddNicknameInfo = location.state;
-  console.log(uid, socialType, email);
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
   //   const [nickname, setNickname] = useState<string>('');

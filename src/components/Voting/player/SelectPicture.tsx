@@ -10,7 +10,6 @@ interface SelectPictureProps {
 }
 const SelectPicture = (props: SelectPictureProps) => {
   const { src, alt, width } = props;
-  console.log(width);
 
   return (
     <StSelectPictureWrapper width={width}>

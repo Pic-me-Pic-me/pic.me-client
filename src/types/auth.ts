@@ -64,11 +64,11 @@ export interface DeleteUserInfo {
   message: string;
 }
 
-// declare global {
-//   interface Window {
-//     example: any; // 👈️ turn off type checking
-//   }
-// }
+declare global {
+  interface Window {
+    Kakao: any; // 👈️ turn off type checking
+  }
+}
 
 export interface LoginInfo {
   email: string;

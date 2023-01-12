@@ -6,35 +6,9 @@ import styled from 'styled-components';
 import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
 import { deleteUser } from '../lib/api/auth';
-// const Kakao = window.Kakao;
-const { Kakao } = window as any;
 
 const Home = () => {
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      const res = await Kakao.Auth.logout();
-      localStorage.removeItem('accessToken');
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleUnLink = async () => {
-    try {
-      const res = await Kakao.API.request({
-        url: '/v1/user/unlink',
-      });
-      const result = await deleteUser();
-      console.log(result);
-      localStorage.removeItem('accessToken');
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <>

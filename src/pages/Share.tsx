@@ -33,7 +33,7 @@ const Share = () => {
 
   return (
     <>
-      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/')} />
+      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/home')} />
       {isToastOn && <StShareToast>링크가 복사되었습니다!</StShareToast>}
       <StShareWrapper>
         <StShareTitle>
@@ -56,7 +56,7 @@ const Share = () => {
           <StGoInstagramBtn type="button" onClick={handleDeepLink}>
             인스타그램으로 공유해보기
           </StGoInstagramBtn>
-          <StGoHomeBtn type="button" onClick={() => navigate('/')}>
+          <StGoHomeBtn type="button" onClick={() => navigate('/home')}>
             홈으로 가기
           </StGoHomeBtn>
         </StBtnLayout>

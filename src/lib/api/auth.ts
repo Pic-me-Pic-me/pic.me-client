@@ -6,7 +6,6 @@ import { DeleteUserInfo, GetUserData, LoginInfo, UsersResponse, UserToken } from
 export const postLoginInfo = async ({ email, password }: LoginInfo) => {
   try {
     const res = await client.post(`/auth/signin`, { email, password });
-    console.log(res);
     return res;
   } catch (error) {
     console.error(error);
@@ -18,7 +17,6 @@ export const postKakaoToken = async (socialType: string, token: string) => {
     socialType,
     token,
   });
-  console.log(data.data);
   return data.data;
 };
 
@@ -31,7 +29,6 @@ export const postKakaoSignIn = async (uid: string, socialType: string) => {
 };
 
 export const postKakaoSignUp = async (uid: string, socialType: string, username: string, email: string) => {
-  console.log(username);
   const { data } = await client.post<UserToken>('/auth/kakao', {
     uid,
     socialType,

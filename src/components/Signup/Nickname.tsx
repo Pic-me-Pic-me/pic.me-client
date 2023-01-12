@@ -60,7 +60,6 @@ const Nickname = () => {
   const handleSignup = () => {
     postSignupInfo({ email, password }, nickname).then((res) => {
       if (res?.success) {
-        console.log(res);
         cookies.set('refreshToken', res.data.refreshToken);
         localStorage.setItem('accessToken', res.data.accessToken);
         navigate('/');

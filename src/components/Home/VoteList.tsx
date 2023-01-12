@@ -25,7 +25,7 @@ const VoteList = () => {
     if (dataList?.length !== 0 && inView) {
       getMoreItem();
     }
-  }, [inView]);
+  }, [CursorId, inView]);
 
   const getUserName = async () => {
     const name = await getUserInfo();
@@ -33,20 +33,17 @@ const VoteList = () => {
   };
 
   const getMoreItem = async () => {
-    console.log(CursorId);
     const newData = await getCurrentVoteData(Number(CursorId));
+    console.log(newData);
     if (!dataList) {
       setDataList(newData?.data.result);
-    }
-    if (newData) {
-      if (dataList) {
-        setDataList(dataList.concat(newData.data.result));
-        console.log(newData.data.resCursorId);
-        setCursorId(newData.data.resCursorId);
-      }
+      return;
+    } else if (newData) {
+      setCursorId(newData.data.resCursorId);
+      setDataList(dataList?.concat(newData.data.result));
     }
   };
-
+  console.log(dataList);
   return (
     <>
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>

@@ -19,11 +19,9 @@ const LoginComponent = () => {
   const handleSubmitLoginInfo = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
-      console.log(res);
       if (res?.data.status === 200) {
         cookies.set('refreshToken', res.data.data.refreshToken, { httpOnly: true });
         localStorage.setItem('accessToken', res.data.data.accessToken);
-        console.log(localStorage);
         setIsLoginFail(false);
         navigate('/');
       } else {
@@ -44,7 +42,9 @@ const LoginComponent = () => {
             <StInput type="email" {...register('email')} placeholder="이메일을 입력해주세요" />
             <StInput type="password" {...register('password')} placeholder="비밀번호를 입력해주세요" />
             <StInputDesc>{isLoginFail ? '아이디 또는 비밀번호를 잘못 입력했습니다.' : ''}</StInputDesc>
-            <StAuthBtn type="submit">로그인</StAuthBtn>
+            <StAuthBtn type="submit" onClick={() => navigate('/home')}>
+              로그인
+            </StAuthBtn>
           </StForm>
           <StAuthBtn type="submit" isSignUp onClick={() => navigate('/signup')}>
             회원가입

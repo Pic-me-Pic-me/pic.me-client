@@ -30,7 +30,7 @@ const VoteLanding = () => {
           <button type="button" onClick={() => navigate(`/player/picture_voting/${voteId}`)}>
             익명 투표 시작하기
           </button>
-          <button type="button" onClick={() => navigate('/makerlanding')}>
+          <button type="button" onClick={() => navigate('/home')}>
             홈으로 가기
           </button>
         </StButtonWrapper>

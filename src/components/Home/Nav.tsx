@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcClose, IcHamburger, IcHomeLogo } from '../../asset/icon';
@@ -6,12 +7,24 @@ import useModal from '../../lib/hooks/useModal';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
+const Kakao = window.Kakao;
+
 const Nav = () => {
   const { isShowing, toggle } = useModal();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleConfirm = () => {
-    console.log('로그아웃');
+  const navigate = useNavigate();
+  // const { Kakao } = window as any;
+  // const Kakao = window.Kakao;
+
+  const handleLogout = async () => {
+    try {
+      // const res = await Kakao.Auth.logout();
+      localStorage.removeItem('accessToken');
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleHamburger = () => {
@@ -35,7 +48,7 @@ const Nav = () => {
             isShowing={isShowing}
             message="로그아웃 하시겠습니까?"
             handleHide={toggle}
-            handleConfirm={handleConfirm}
+            handleConfirm={handleLogout}
           />
           <StHamburgerBtn type="button" onClick={handleHamburger}>
             {isOpen ? <IcClose width="2.13rem" height="1.4rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}

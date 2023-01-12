@@ -3,7 +3,6 @@ import { StickerInfo, VoteListData } from './../../types/vote';
 
 export const patchCurrentVoteData = async (voteid: string | undefined) => {
   const res = await client.patch(`/vote/close/${voteid}`);
-  // console.log(res);
   return res;
 };
 

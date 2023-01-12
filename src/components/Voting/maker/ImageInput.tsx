@@ -30,7 +30,6 @@ const ImageInput = (props: ImageInputProps) => {
   const { firstToggle, secondToggle } = isToggle;
   const navigate = useNavigate();
 
-  console.log(ACCESS_TOKEN);
   useEffect(() => {
     if (!title) {
       setIsComplete(false);

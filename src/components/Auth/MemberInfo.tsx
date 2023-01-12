@@ -15,7 +15,7 @@ const MemberInfo = () => {
   const [user, setUser] = useState<MemberData>();
 
   const handleGoback = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const getUserData = async () => {
