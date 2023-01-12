@@ -13,14 +13,12 @@ const HeaderLayout = (props: LayoutProps) => {
   const { HeaderTitle, isBanner, handleGoback } = props;
 
   return (
-    <>
-      <StHeader isBanner={isBanner}>
-        <IcGoback onClick={handleGoback} />
-        <StTitle isBanner={isBanner}>
-          <h1>{HeaderTitle}</h1>
-        </StTitle>
-      </StHeader>
-    </>
+    <StHeader isBanner={isBanner}>
+      <IcGoback onClick={handleGoback} />
+      <StTitle isBanner={isBanner}>
+        <h1>{HeaderTitle}</h1>
+      </StTitle>
+    </StHeader>
   );
 };
 
@@ -29,15 +27,20 @@ export default HeaderLayout;
 const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
+
   position: sticky;
 
   top: 0rem;
   height: 8rem;
   padding-right: 5.4rem;
 
+  width: 100%;
+
   background: none;
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
+
+  z-index: 100;
 
   & > svg {
     width: 5.4rem;
@@ -50,6 +53,8 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
       stroke: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
     }
   }
+
+  z-index: 10;
 `;
 
 const StTitle = styled.div<{ isBanner?: boolean }>`
