@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { IcPickmeLogo } from '../../asset/icon';
 import { deleteUser, getUserInfo } from '../../lib/api/auth';
 import useModal from '../../lib/hooks/useModal';
-import { UserInfo } from '../../types/auth';
+import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
 const MemberInfo = () => {
   const { isShowing, toggle } = useModal();
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserInfo>();
+  const [user, setUser] = useState<MemberData>();
 
   const handleGoback = () => {
     navigate('/');

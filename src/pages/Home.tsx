@@ -1,12 +1,41 @@
+import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
+import { deleteUser } from '../lib/api/auth';
+// const Kakao = window.Kakao;
+const { Kakao } = window as any;
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const res = await Kakao.Auth.logout();
+      localStorage.removeItem('accessToken');
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUnLink = async () => {
+    try {
+      const res = await Kakao.API.request({
+        url: '/v1/user/unlink',
+      });
+      const result = await deleteUser();
+      console.log(result);
+      localStorage.removeItem('accessToken');
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <StHomeWrapper>
@@ -37,15 +66,12 @@ const StMakerVoting = styled.button`
   height: 12.4rem;
   padding: 0;
   margin-top: 1.5rem;
-
   border: none;
   border-radius: 1.2rem;
   background: inherit;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
-
   > p {
     padding-top: 1.6rem;
-
     color: #5c5c5c;
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }

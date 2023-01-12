@@ -1,5 +1,8 @@
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
+export { ReactComponent as IcAfterCheckbox } from './checkbox_after.svg';
+export { ReactComponent as IcBeforeCheckbox } from './checkbox_before.svg';
+export { ReactComponent as IcDelete } from './delete_btn.svg';
 export { ReactComponent as IcEmpty } from './emptyIcon.svg';
 export { ReactComponent as IcFaceMenu } from './face_menu.svg';
 export { ReactComponent as IcGuide } from './GuideImg.svg';
@@ -36,5 +39,7 @@ export { ReactComponent as IcJustMenu } from './just_menu.svg';
 export { ReactComponent as IcKakaoLogin } from './kakaologinbtn.svg';
 export { ReactComponent as IcLogo } from './logo.svg';
 export { ReactComponent as IcNextArrow } from './nextArrowIcon.svg';
+// export { ReactComponent as IcPickmeSticker } from './picme_sticker.svg';
 export { ReactComponent as IcPickmeLogo } from './picmeLogo.svg';
 export { ReactComponent as IcPlus } from './plusIcon.svg';
+export { ReactComponent as IcSignupBannerLogo } from './signup_banner.svg';

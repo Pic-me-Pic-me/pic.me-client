@@ -11,7 +11,8 @@ import Modal from '../components/common/Modal';
 import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
 import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
-import { patchCurrentVoteData } from '../lib/api/voting';
+import { STICKER_LIST } from '../constant/StickerIconList';
+import { getCurrentVoteDatailData, patchCurrentVoteData } from '../lib/api/voting';
 import { useCarouselSize } from '../lib/hooks/useCarouselSize';
 import { useGetCurrentVote } from '../lib/hooks/useGetCurrentVote';
 import { CurrentVoteInfo, StickerLocation, StickerResultInfo } from '../types/vote';
@@ -30,9 +31,9 @@ const CurrentVoteDetail = () => {
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
-  const { currentVoteInfo, isLoading, isError } = useGetCurrentVote(voteid);
-
   const { ref, width } = useCarouselSize();
+
+  const { currentVoteInfo, isError } = useGetCurrentVote(voteid);
 
   timeago.register('ko', ko);
   const createdAt =
@@ -40,10 +41,10 @@ const CurrentVoteDetail = () => {
 
   useEffect(() => {
     if (currentVoteInfo) {
-      setVoteInfo(currentVoteInfo);
-      setCurrentVote(currentVoteInfo.currentVote);
-      setPictureUrl([currentVoteInfo.Picture[0].url, currentVoteInfo.Picture[1].url]);
-      setPictureCount([currentVoteInfo.Picture[0].count, currentVoteInfo.Picture[1].count]);
+      setVoteInfo(currentVoteInfo.data);
+      setCurrentVote(currentVoteInfo.data.currentVote);
+      setPictureUrl([currentVoteInfo.data.Picture[0].url, currentVoteInfo.data.Picture[1].url]);
+      setPictureCount([currentVoteInfo.data.Picture[0].count, currentVoteInfo.data.Picture[1].count]);
     }
   }, [currentVoteInfo]);
 
@@ -60,7 +61,6 @@ const CurrentVoteDetail = () => {
           count,
         };
       });
-      console.log(getStickerList);
       setResultStickerList([...getStickerList]);
     }
   }, [voteInfo, currentIdx]);
@@ -70,17 +70,14 @@ const CurrentVoteDetail = () => {
     navigate(`/result/${voteid}`);
   };
 
-  if (isLoading && ref.current === null)
-    return (
-      <>
-        <LandingHeader />
-        <LandingCurrentVote />
-      </>
-    );
+  // if (isLoading && currentVoteInfo == undefined)
+  //   return (
+  //     <>
+  //       <LandingHeader />
+  //       <LandingCurrentVote />
+  //     </>
+  //   );
   if (isError) return <Error />;
-
-  // console.log('swr', currentVoteInfo, isLoading);
-  //   console.log(ref, width, currentIdx);
 
   return (
     <>
@@ -99,7 +96,7 @@ const CurrentVoteDetail = () => {
         <StImgWrapper ref={ref}>
           <StImgUl
             currentIdx={currentIdx}
-            dragItemWidth={363.25}
+            dragItemWidth={width}
             transX={transX}
             width={window.screen.width}
             {...picmeSliderEvent({
@@ -134,6 +131,14 @@ const CurrentVoteDetail = () => {
                 )}
               </li>
             ))}
+            {/* 스티커 붙이는 컴포넌트 쇽샥해서 여기에 뒀습니다. */}
+            {resultStickerList.map(({ stickerLocation, emoji }, idx) =>
+              stickerLocation.map(({ x, y, degRate }, stickerIdx) => (
+                <StEmojiIcon key={`sticker${stickerIdx}_${emoji}`} locationX={x} locationY={y} degRate={degRate}>
+                  {STICKER_LIST[emoji].icon()}
+                </StEmojiIcon>
+              )),
+            )}
           </StImgUl>
         </StImgWrapper>
         <StDotWrapper>
@@ -243,42 +248,48 @@ const StVoteStatus = styled.section`
 
 const StImgWrapper = styled.article`
   width: 100%;
+  height: 45.3rem;
 
-  padding: 0 2rem 0 2rem;
+  position: relative;
 
   overflow: hidden;
 `;
 
 const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
-  width: 100%;
-
   display: flex;
+
+  width: 100%;
+  align-items: center;
+  position: absolute;
   gap: 1.3rem;
 
   ${({ currentIdx, dragItemWidth, width }) =>
     currentIdx === 0
       ? css`
-          left: ${(dragItemWidth * 0.1) / 10}rem;
+          left: ${(dragItemWidth * 0.05) / 10}rem;
         `
       : css`
-          left: ${(width * 1.5) / 35 + (dragItemWidth * 0.1) / 30}rem;
+          left: ${(width * 1.5) / 45 + (dragItemWidth * 0.1) / 45}rem;
         `}
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
-      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 13.275}rem);
+      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10.55}rem);
     `};
   ${({ transX }) =>
     css`
       transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
     `};
+  width: ${({ width }) => (width * 1.5) / 10}rem;
+  touch-action: auto;
 `;
 
 const StSelectedImg = styled.img<{ width: number }>`
-  width: ${({ width }) => width * 0.0755}rem;
+  position: relative;
+
+  width: ${({ width }) => width * 0.075585}rem;
+  /* width: 32.5rem; */
 
   margin-top: 1.9rem;
-
-  width: 32.5rem;
   height: 43.4rem;
 
   border-radius: 1.2rem;
@@ -287,7 +298,8 @@ const StSelectedImg = styled.img<{ width: number }>`
 `;
 
 const StUnselectedImg = styled(StSelectedImg)`
-  width: ${({ width }) => width * 0.075}rem;
+  width: ${({ width }) => width * 0.075585}rem;
+  /* width: 32.5rem; */
 
   opacity: 0.5;
 `;
@@ -334,4 +346,20 @@ const StCompleteVoteBtn = styled.button`
 
   border: none;
   border-radius: 0.9rem;
+`;
+const StEmojiIcon = styled.div<{ locationX: number; locationY: number; degRate: number }>`
+  position: absolute;
+  left: ${({ locationX }) => locationX}rem;
+  top: ${({ locationY }) => locationY}rem;
+
+  & > svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5.3rem;
+    height: 5.3rem;
+    z-index: 3;
+    transform-origin: 50% 50%;
+    transform: ${({ degRate }) => `rotate(${degRate}deg)`};
+  }
 `;
