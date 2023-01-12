@@ -1,3 +1,11 @@
+// export interface UserInfo {
+//   user_id: number;
+//   user_name: string;
+//   email: string;
+//   password: string;
+//   refreshToken: string;
+// }
+
 export interface LoginType {
   provider_key: string;
   user_id: number;
@@ -51,3 +59,9 @@ export interface DeleteUserInfo {
   success: boolean;
   message: string;
 }
+
+// declare global {
+//   interface Window {
+//     example: any; // 👈️ turn off type checking
+//   }
+// }

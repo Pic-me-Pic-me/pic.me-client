@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { deleteUser } from '../lib/api/auth';
 
-const Kakao = window.Kakao;
+// const Kakao = window.Kakao;
+const { Kakao } = window as any;
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const Home = () => {
         url: '/v1/user/unlink',
       });
       const result = await deleteUser();
+      console.log(result);
       localStorage.removeItem('accessToken');
       navigate('/');
     } catch (error) {

@@ -52,6 +52,8 @@ const StModalWrapper = styled.div`
   padding: 0rem 6rem;
 
   background: rgba(0, 0, 0, 0.7);
+
+  z-index: 10000;
 `;
 
 const StModal = styled.section`
@@ -86,7 +88,6 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean }>`
   font-weight: 500;
   font-size: 0.9rem;
   line-height: 1.1rem;
-
   > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }

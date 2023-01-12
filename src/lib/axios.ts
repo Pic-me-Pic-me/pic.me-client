@@ -73,4 +73,5 @@ client.interceptors.response.use(
     return error.response;
   },
 );
+export const picmeGetFetcher = (url: string) => client.get(url).then((res) => res.data);
 export { client };

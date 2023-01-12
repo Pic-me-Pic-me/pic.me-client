@@ -8,7 +8,9 @@ import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/
 
 const AuthComponent = () => {
   const cookies = new Cookies();
-  const Kakao = window.Kakao;
+
+  const { Kakao } = window as any;
+  // const Kakao = window.Kakao;
   // const REDIRECT_URL = `https://with-picme.com/login/oauth/kakao/callback`;
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
