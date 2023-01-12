@@ -144,7 +144,7 @@ const StTitle = styled.h1`
   text-align: center;
 
   font-size: 1.8rem;
-  font-family: 'PretendardSemiBold';
+  font-family: 'PretendardSemiBold' !important;
   font-weight: 600;
   font-style: normal;
   line-height: 2.148rem;

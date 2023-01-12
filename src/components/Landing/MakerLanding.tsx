@@ -173,7 +173,7 @@ const StContents = styled.h1`
   margin-left: -0.245rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  font-family: 'Pretendard';
+  font-family: 'Pretendard', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 2.88035rem;
