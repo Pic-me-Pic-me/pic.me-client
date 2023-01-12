@@ -39,16 +39,13 @@ const AuthComponent = () => {
         localStorage.setItem('accessToken', signInData.accessToken);
         cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
         console.log(signInData);
-        // navigate('/home');
-        navigate('/');
+        navigate('/home');
       } else if (!data.isUser) {
         // 회원가입
-        const nick = '테스트닉네임';
-        const signUpData = await postKakaoSignUp(data.uid, 'kakao', data.email, nick);
-        const resp = signUpData.userName;
-        localStorage.setItem('accessToken', signUpData.accessToken);
-        cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
-        navigate('/nickname');
+        // const  { uid, socialType, email } = { data.uid, 'kakao', data.email};
+        // const kakaoSignupDataInfo = { uid, socialType, email };
+
+        navigate('/signup/kakaonickname', { state: { uid: data.uid, socialType: 'kakao', email: data.email } });
       }
     } catch (err) {
       console.error(err);

@@ -2629,6 +2629,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "@types/cookie@npm:0.3.3"
+  checksum: 450c930d792a4fd5a93645b4123f02596368f904dbb1fe6fbb5043bce8f6ecf877a08511c6ba11c8e28168f62bc278e68d214f002fab927c9056c0bc69f21370
+  languageName: node
+  linkType: hard
+
 "@types/cookie@npm:^0.4.1":
   version: 0.4.1
   resolution: "@types/cookie@npm:0.4.1"
@@ -4767,7 +4774,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.4.0, cookie@npm:^0.4.2":
+"cookie@npm:^0.4.0, cookie@npm:^0.4.0, cookie@npm:^0.4.2":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
@@ -9833,7 +9840,9 @@ __metadata:
     react: ^18.2.0
     react-cookie: ^4.1.1
     react-cookies: ^0.1.1
+    react-cookie: ^4.1.1
     react-dom: ^18.2.0
+    react-hook-form: ^7.41.5
     react-hook-form: ^7.41.5
     react-router-dom: ^6.6.1
     react-scripts: 5.0.1
@@ -11005,6 +11014,19 @@ __metadata:
     cookie: ^0.3.1
     object-assign: ^4.1.1
   checksum: a31a7f5e43cdbcf7a86dcbac152e9009668fd216926bcb3f6d0fd8e3df09f6b3f3061021fb61deb2d81db1139069a5df2205565659deca6083c71aae952bfc17
+  languageName: node
+  linkType: hard
+
+"react-cookie@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "react-cookie@npm:4.1.1"
+  dependencies:
+    "@types/hoist-non-react-statics": ^3.0.1
+    hoist-non-react-statics: ^3.0.0
+    universal-cookie: ^4.0.0
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: b734dcad35d790ced8c8fc3b19e3eb1f546e0923c637bad888c7c0096dbe2c996668416a49b48827ec7ad2d81522f1b57567694c791e1a5fb89ca41b39158a74
   languageName: node
   linkType: hard
 

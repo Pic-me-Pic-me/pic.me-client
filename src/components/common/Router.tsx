@@ -10,7 +10,9 @@ import PlayerLanding from '../../pages/PlayerLanding';
 import Signup from '../../pages/Signup';
 import Voting from '../../pages/Voting';
 import { AuthComponent } from '../Auth';
-import Nickname from '../Auth/Nickname';
+import AddAccount from '../Signup/AddAccount';
+import KakaoNickname from '../Signup/KakaoNickname';
+import Nickname from '../Signup/Nickname';
 
 const Router = () => (
   <BrowserRouter>
@@ -19,10 +21,13 @@ const Router = () => (
         <Route path="/" element={<MakerLanding />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login/oauth/kakao/callback" element={<AuthComponent />} />
-        <Route path="/nickname" element={<Nickname />} />
         <Route path="/home" element={<Home />} />
         <Route path="/library" element={<Library />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />}>
+          <Route path="" element={<AddAccount />} />
+          <Route path="nickname" element={<Nickname />} />
+          <Route path="kakaonickname" element={<KakaoNickname />} />
+        </Route>
         <Route path="/playerlanding" element={<PlayerLanding />} />
         <Route path="/voting" element={<Voting />} />
         <Route path="*" element={<Error404 />} />
