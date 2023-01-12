@@ -24,7 +24,7 @@ const StickerAttachment = () => {
         console.log('스티커 생성', data);
         navigate('/player/voting/result');
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
   };
   const handlePrevpage = () => {
