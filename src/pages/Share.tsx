@@ -23,7 +23,7 @@ const Share = () => {
 
   const handleDeepLink = () => {
     if (isIOS) {
-      window.location.replace('instagram-stories://share');
+      window.location.replace('https://www.instagram.com/create/story');
     } else if (isAndroid) {
       window.location.replace('intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end');
     } else {
@@ -33,7 +33,7 @@ const Share = () => {
 
   return (
     <>
-      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/')} />
+      <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/home')} />
       {isToastOn && <StShareToast>링크가 복사되었습니다!</StShareToast>}
       <StShareWrapper>
         <StShareTitle>
@@ -41,8 +41,8 @@ const Share = () => {
           <h2>아래 가이드 라인을 따라 나만의 투표를 공유해보세요!</h2>
         </StShareTitle>
         <StShareInfo>
-          <input type="text" defaultValue={`http://localhost:3000/vote/${voteId}`} />
-          <CopyToClipboard text={`http://localhost:3000/vote/${voteId}`}>
+          <input type="text" defaultValue={`https://with-picme.com/vote/${voteId}`} />
+          <CopyToClipboard text={`https://with-picme.com/vote/${voteId}`}>
             <button type="button" onClick={handleToast}>
               <IcShareBtn />
             </button>
@@ -56,7 +56,7 @@ const Share = () => {
           <StGoInstagramBtn type="button" onClick={handleDeepLink}>
             인스타그램으로 공유해보기
           </StGoInstagramBtn>
-          <StGoHomeBtn type="button" onClick={() => navigate('/')}>
+          <StGoHomeBtn type="button" onClick={() => navigate('/home')}>
             홈으로 가기
           </StGoHomeBtn>
         </StBtnLayout>

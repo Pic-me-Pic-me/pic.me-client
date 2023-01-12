@@ -126,7 +126,7 @@ const MakerVotingLayout = () => {
   };
 
   const handlePrevPage = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   return (

@@ -23,7 +23,7 @@ const StickerAttachment = () => {
         const { data } = await postStickerData(stickerVotingInfo);
         navigate('/player/voting/result');
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
   };
   const handlePrevpage = () => {

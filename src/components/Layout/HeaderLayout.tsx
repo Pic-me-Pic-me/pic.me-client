@@ -28,14 +28,19 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
 
-  top: 0rem;
+  position: sticky;
 
+  top: 0rem;
   height: 8rem;
   padding-right: 5.4rem;
+
+  width: 100%;
 
   background: none;
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
+
+  z-index: 100;
 
   & > svg {
     width: 5.4rem;

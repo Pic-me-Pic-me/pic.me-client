@@ -90,7 +90,7 @@ const StVotingTitle = styled.h1`
 const StVotingSubTitle = styled.h3<{ margin?: number }>`
   margin: ${({ margin }) => margin}rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
 `;
 const StPlayerBtn = styled.button<{ isActiveBtn: boolean }>`
   width: 100%;
