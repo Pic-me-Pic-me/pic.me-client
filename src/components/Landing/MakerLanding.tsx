@@ -9,21 +9,18 @@ import {
   IcOBD2,
   IcOBD3,
   IcOBD4,
-  IcOnboardingBackGround,
   IcOnboardingLogo,
   IcSolution1,
   IcSolution2,
   IcSolution3,
 } from '../../asset/icon';
+import { OnboardingBG } from '../../asset/image';
 import { lottie1, lottie2, lottie3 } from '../../asset/lottie';
 
 const MakerLanding = () => {
   const navigate = useNavigate();
   return (
     <StOnboarding>
-      <StStickers>
-        <IcOnboardingBackGround />
-      </StStickers>
       <StFirstSection>
         <StTitle>
           <StContents>
@@ -84,7 +81,7 @@ const MakerLanding = () => {
       </StSecondSection>
       <StThirdSection>
         <h1>
-          이에
+          이에&nbsp;
           <IcLogoSmall /> 는
         </h1>
         <h1>이러한 솔루션을 제안합니다!</h1>
@@ -134,11 +131,12 @@ const MakerLanding = () => {
 export default MakerLanding;
 
 const StOnboarding = styled.div`
-  width: 100%;
   position: absolute;
   top: 0;
-  z-index: -1;
 
+  width: 100%;
+  height: 556.1rem;
+  /* height: 600rem; */
   & > svg {
     width: 100%;
     top: 0;
@@ -159,8 +157,10 @@ const StStickers = styled.div`
 `;
 
 const StFirstSection = styled.section`
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  background-image: url(${OnboardingBG});
+  background-size: cover;
 
   width: 100%;
   height: 94.1rem;
@@ -169,18 +169,19 @@ const StFirstSection = styled.section`
 
 const StTitle = styled.header`
   width: 100%;
+
   & > p {
     display: flex;
     justify-content: center;
-    margin-top: 23.469rem;
-    margin-bottom: 12.463rem;
+    margin-top: 22.869rem;
+    margin-bottom: 2.3rem;
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16}
   }
 `;
 
 const StContents = styled.h1`
-  margin-top: 18.9rem;
+  padding-top: 18.9rem;
   margin-left: -0.245rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
@@ -193,7 +194,7 @@ const StContents = styled.h1`
   white-space: pre-wrap;
 
   & > svg {
-    margin-top: 3.6rem;
+    margin-top: 2.6rem;
     padding-right: 4.617rem;
   }
 `;
@@ -213,19 +214,18 @@ const StStartBtn = styled.button`
 // Section2
 
 const StSecondSection = styled.section`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
 
-  margin-top: 15.8rem;
-  padding: 0 6.2rem;
+  padding: 15.8rem 6.2rem 0rem 6.2rem;
 `;
 
 const StFirstContent = styled.article`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 
   & > p {
     ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
@@ -244,8 +244,8 @@ const StFirstContent = styled.article`
 `;
 
 const StSecondContent = styled.article`
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
 
   margin-top: 8.841rem;
 
@@ -258,7 +258,7 @@ const StSecondContent = styled.article`
     }
     :last-child {
       margin-top: 13.292rem;
-      padding-bottom: 10.972rem;
+      margin-bottom: 10.972rem;
     }
   }
   & > svg {
@@ -282,16 +282,18 @@ const StSecondContent = styled.article`
 // Section3
 
 const StThirdSection = styled.section`
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: center; */
   align-items: center;
 
-  padding: 8.817rem 1.8rem 0rem 1.8rem;
+  padding: 8.3rem 1.5rem 0rem 1.5rem;
   height: 245.3rem;
 
   background: linear-gradient(180deg, #000000 0%, #000000 91.15%, rgba(30, 31, 33, 0) 100%);
 
   & > h1 {
+    /* padding-top: 8.3rem; */
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
     text-align: center;
@@ -327,10 +329,10 @@ const StSecondSolution = styled(StFirstSolution)`
 
 const StThirdSolution = styled(StFirstSolution)`
   margin-top: 16.6rem;
+  margin-bottom: 40.1rem;
 `;
 
 const StStart = styled.div`
-  margin-top: 40.1rem;
   width: 100%;
   & > h1 {
     ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
@@ -342,15 +344,18 @@ const StStart = styled.div`
   }
   button:last-child {
     margin-top: 5.5rem;
+    margin-bottom: 6.237rem;
   }
 `;
 
 const StFooter = styled.footer`
-  padding-top: 6.237rem;
-  /* margin-bottom: 4.409rem; */
+  margin-top: 22.6rem;
+  margin-bottom: 4.409rem;
   width: 100%;
   height: 14.037rem;
+
   text-align: center;
+
   & > p {
     ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
     color:  ${({ theme }) => theme.colors.Pic_Color_Gray_3}

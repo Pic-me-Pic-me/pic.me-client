@@ -1,4 +1,4 @@
-export { default as OnboardingBG } from './homeback_img.png';
+export { default as OnboardingBG } from './bg_onboarding.png';
 export { default as ImgShareCapture } from './ImgShareCapture.png';
 export { default as PictureId1 } from './pictureId1.png';
 export { default as PictureId2 } from './pictureid2.png';
