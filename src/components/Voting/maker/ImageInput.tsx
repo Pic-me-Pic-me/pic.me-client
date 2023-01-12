@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
@@ -95,6 +95,11 @@ const ImageInput = (props: ImageInputProps) => {
 
     if (response.data.status === 200) {
       navigate('/share', { state: response.data.data });
+      setVotingForm({
+        title: '',
+        firstImageUrl: '',
+        secondImageUrl: '',
+      });
     }
   };
 
