@@ -1,7 +1,7 @@
 import { relative } from 'node:path/win32';
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
@@ -18,6 +18,7 @@ interface votingProps {
 
 const EndedVoting = (props: votingProps) => {
   const { voteData, id } = props;
+  const navigate = useNavigate();
 
   const [isShowing, setIsShowing] = useState<boolean>(false);
 
@@ -32,6 +33,10 @@ const EndedVoting = (props: votingProps) => {
     setIsShowing((prev) => !prev);
   };
 
+  const handleMoveResult = () => {
+    navigate(`/result/${id}`);
+  };
+
   const handleDelete = async () => {
     const res = await deleteVote(id);
     window.location.reload();
@@ -40,7 +45,7 @@ const EndedVoting = (props: votingProps) => {
 
   return (
     <>
-      <StVotingWrapper>
+      <StVotingWrapper onClick={handleMoveResult}>
         <StImageWrapper>
           <StVotingPic src={voteData.url} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
