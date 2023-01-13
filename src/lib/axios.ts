@@ -6,8 +6,7 @@ const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
 const client = axios.create({
-
-  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+  baseURL: `${process.env.REACT_APP_BASE_URL}`,
 
   headers: {
     'Content-type': 'application/json',
@@ -56,8 +55,7 @@ client.interceptors.response.use(
       };
       //리프레시 토큰도 만료 되면
       if (res.data.status === 400) {
-        const navigate = useNavigate();
-        navigate('/auth/signin');
+        window.location.href = '/login';
       }
 
       return axios(originalRequest);
