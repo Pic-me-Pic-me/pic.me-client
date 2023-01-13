@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcPickmeLogo } from '../../asset/icon';
+import { LoginBanner } from '../../asset/image';
 import { deleteUser, getUserInfo, postKakaoToken } from '../../lib/api/auth';
 import useModal from '../../lib/hooks/useModal';
 import { MemberData } from '../../types/auth';
@@ -56,12 +57,13 @@ const MemberInfo = () => {
     <>
       <HeaderLayout HeaderTitle="회원 정보" handleGoback={handleGoback} isBanner={true} />
       <StBannerWrapper>
-        <IcPickmeLogo />
+        <img src={LoginBanner} alt="배너" />
       </StBannerWrapper>
       <StWhiteSection>
         <h1>닉네임</h1>
         <p>{user?.userName}</p>
         <h1>아이디</h1>
+        {}
         <p>{user?.email}</p>
         <div>
           <button type="button" onClick={() => toggle()}>
@@ -93,14 +95,14 @@ const StBannerWrapper = styled.div`
   max-width: 43rem;
   width: 100%;
 
-  height: 22.9rem;
+  height: 19.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
-  > svg {
-    max-width: 43rem;
+  > img {
+    max-width: 100%;
     position: absolute;
-    top: 9.2rem;
+    /* top: 9.2rem; */
   }
 `;
 
