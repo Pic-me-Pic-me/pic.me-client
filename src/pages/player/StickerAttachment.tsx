@@ -57,8 +57,6 @@ const StickerAttachment = () => {
           </StStickerAttachmentWrapper>
         }
       </VotingLayout>
-
-      {/* )} */}
     </div>
   );
 };
