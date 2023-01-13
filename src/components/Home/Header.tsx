@@ -30,16 +30,17 @@ const StBannerWrapper = styled.header`
   flex-direction: column;
 
   width: 100%;
-  height: 26.4rem;
+  height: 23.49rem;
   margin-top: 8.8rem;
 
   border-radius: 1.2rem;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 `;
 
 const StBannerImg = styled.img`
-  height: 19rem;
+  width: 100%;
+  height: 23.49rem;
   border-radius: 1.2rem;
+  object-fit: fill;
 `;
 
 const StGuideBtn = styled.button`
@@ -48,14 +49,16 @@ const StGuideBtn = styled.button`
   align-items: center;
 
   height: 7.4rem;
+  margin-top: -7.5rem;
   padding: 2.8rem 2.9rem 2.7rem 2.4rem;
 
   border: none;
   border-radius: 1.2rem;
-  background: inherit;
+  background-color: rgba(0, 0, 0, 0);
 
   > p {
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
+    text-align: center;
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
   }
 `;
