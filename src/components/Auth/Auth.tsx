@@ -6,9 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/auth';
 
+const Kakao = window.Kakao;
+
 const AuthComponent = () => {
   const cookies = new Cookies();
-  const Kakao = window.Kakao;
+
+  // const { Kakao } = window as any;
   // const REDIRECT_URL = `https://with-picme.com/login/oauth/kakao/callback`;
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
@@ -32,24 +35,18 @@ const AuthComponent = () => {
 
       // 카카오 중복확인
       const data = await postKakaoToken('kakao', res.data.access_token);
-      console.log(data.isUser);
       if (data.isUser) {
         // 로그인
-        console.log('dd');
         const signInData = await postKakaoSignIn(data.uid, 'kakao');
         localStorage.setItem('accessToken', signInData.accessToken);
         cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
-        console.log(signInData);
-        // navigate('/home');
-        navigate('/');
+        navigate('/home');
       } else if (!data.isUser) {
         // 회원가입
-        const nick = '테스트닉네임';
-        const signUpData = await postKakaoSignUp(data.uid, 'kakao', data.email, nick);
-        const resp = signUpData.userName;
-        localStorage.setItem('accessToken', signUpData.accessToken);
-        cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
-        navigate('/nickname');
+        // const  { uid, socialType, email } = { data.uid, 'kakao', data.email};
+        // const kakaoSignupDataInfo = { uid, socialType, email };
+
+        navigate('/signup/kakaonickname', { state: { uid: data.uid, socialType: 'kakao', email: data.email } });
       }
     } catch (err) {
       console.error(err);

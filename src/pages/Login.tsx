@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { LoginComponent } from '../components/Auth';
-import LandingLogin from '../components/Landing/login/LandingLogin';
+import LandingLogin from '../components/Landing/maker/LandingLogin';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

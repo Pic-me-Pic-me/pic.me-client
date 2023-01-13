@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-import { DeleteUserInfo, LoginInfo, UsersResponse, UserToken } from '../../types/auth';
 import { client } from '../axios';
+import { DeleteUserInfo, GetUserData, LoginInfo, UsersResponse, UserToken } from './../../types/auth';
 
 export const postLoginInfo = async ({ email, password }: LoginInfo) => {
   try {
     const res = await client.post(`/auth/signin`, { email, password });
-    console.log(res);
     return res;
   } catch (error) {
     console.error(error);
@@ -29,16 +28,24 @@ export const postKakaoSignIn = async (uid: string, socialType: string) => {
   return data.data;
 };
 
-export const postKakaoSignUp = async (uid: string, socialType: string, user_name: string, email: string) => {
+export const postKakaoSignUp = async (uid: string, socialType: string, username: string, email: string) => {
   const { data } = await client.post<UserToken>('/auth/kakao', {
     uid,
     socialType,
+    userName: username,
     email,
-    user_name,
   });
   return data.data;
 };
 
+export const getUserInfo = async () => {
+  try {
+    const data = await client.get<GetUserData>('/user');
+    return data.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
 export const deleteUser = async () => {
   try {
     const data = await client.delete<DeleteUserInfo>('/user');

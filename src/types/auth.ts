@@ -1,13 +1,25 @@
+// export interface UserInfo {
+//   user_id: number;
+//   user_name: string;
+//   email: string;
+//   password: string;
+//   refreshToken: string;
+// }
+export interface MemberData {
+  userName: string;
+  email: string;
+}
+
 export interface LoginType {
   provider_key: string;
   user_id: number;
   provider_type: string;
 }
 
-export interface LoginInfo {
-  email: string;
-  password: string;
-}
+// export interface MemberData {
+//   email: string;
+//   password: string;
+// }
 
 export interface RefreshType {
   status: number;
@@ -50,4 +62,22 @@ export interface DeleteUserInfo {
   status: number;
   success: boolean;
   message: string;
+}
+
+declare global {
+  interface Window {
+    Kakao: any; // 👈️ turn off type checking
+  }
+}
+
+export interface LoginInfo {
+  email: string;
+  password: string;
+}
+
+export interface GetUserData {
+  status: number;
+  success: boolean;
+  message: string;
+  data: MemberData;
 }

@@ -5,7 +5,8 @@ const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
 const client = axios.create({
-  baseURL: process.env.REACT_APP_IP,
+  baseURL: `${process.env.REACT_APP_BASE_URL}`,
+
   headers: {
     'Content-type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,
@@ -25,9 +26,7 @@ client.interceptors.request.use((config: any) => {
 
 client.interceptors.response.use(
   function (response) {
-    console.log(response);
-
-    return response.data.data;
+    return response;
   },
   async (error) => {
     const {
@@ -35,11 +34,9 @@ client.interceptors.response.use(
       response: { status },
     } = error;
 
-    console.log(error);
     const originalRequest = config;
 
     if (status === 401) {
-      console.log('토큰 만료');
       //token refresh 요청
 
       const res = await client.post(
@@ -49,8 +46,6 @@ client.interceptors.response.use(
           refreshToken: cookies.get('refreshToken'),
         },
       );
-
-      console.log(res.data.message);
 
       const newAccessToken = res.data.data.accessToken;
 
@@ -66,8 +61,8 @@ client.interceptors.response.use(
 
       return axios(originalRequest);
     }
-    console.log(client.interceptors);
     return error.response;
   },
 );
+export const picmeGetFetcher = (url: string) => client.get(url).then((res) => res.data);
 export { client };
