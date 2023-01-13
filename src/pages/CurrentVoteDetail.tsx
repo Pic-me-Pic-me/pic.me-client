@@ -115,15 +115,17 @@ const CurrentVoteDetail = () => {
                 {currentIdx === idx ? (
                   <>
                     <StSelectedImg onLoad={handleImgSize} width={window.screen.width} src={url} alt="선택된 사진" />
-                    {stickerResult.map(({ stickerLocation, emoji }, idx) =>
-                      stickerLocation.map((sticker, stickerIdx) => (
-                        <StEmojiIcon
-                          key={`sticker${stickerIdx}_${emoji}`}
-                          location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-                          {STICKER_LIST[emoji].icon()}
-                        </StEmojiIcon>
-                      )),
-                    )}
+                    {imgViewInfo &&
+                      imgInfo &&
+                      stickerResult.map(({ stickerLocation, emoji }, idx) =>
+                        stickerLocation.map((sticker, stickerIdx) => (
+                          <StEmojiIcon
+                            key={`sticker${stickerIdx}_${emoji}`}
+                            location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
+                            {STICKER_LIST[emoji].icon()}
+                          </StEmojiIcon>
+                        )),
+                      )}
                   </>
                 ) : (
                   <StUnselectedImg width={window.screen.width} src={url} alt="선택되지 않은 사진" />
