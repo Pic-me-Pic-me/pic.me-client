@@ -20,13 +20,11 @@ const VoteList = () => {
   const [userName, setUserName] = useState<string>();
 
   const getMoreItem = useCallback(async () => {
-    setIsLoading(true);
     const newData = await getCurrentVoteData(Number(CursorId));
     if (newData) {
       setDataList(dataList?.concat(newData.data.result));
       setCursorId(newData.data.resCursorId);
     }
-    setIsLoading(false);
   }, [CursorId]);
 
   useEffect(() => {
@@ -37,9 +35,11 @@ const VoteList = () => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     if (dataList?.length !== 0 && inView) {
       getMoreItem();
     }
+    setIsLoading(false);
   }, [inView]);
 
   const getUserName = async () => {
