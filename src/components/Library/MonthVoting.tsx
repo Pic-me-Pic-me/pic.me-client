@@ -85,15 +85,6 @@ const StEndedVotingListWrapper = styled.section`
 
   overflow-x: scroll;
 
-  section:first-child {
-    margin-left: 2rem;
-  }
-
-  section:last-child {
-    margin-left: 0;
-    margin-right: 2rem;
-  }
-
   ::-webkit-scrollbar {
     display: none;
   }
