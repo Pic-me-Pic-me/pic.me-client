@@ -22,6 +22,10 @@ const StickerResultVoting = () => {
   const [resultStickerList, setResultStickerList] = useState<StickerResultInfo[]>([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (stickerInfo) {
       const { Sticker } = stickerInfo;
       setResultStickerList([...jsonGetStickerList(Sticker)]);
