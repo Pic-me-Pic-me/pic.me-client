@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 export interface ModalProps {
@@ -12,6 +12,18 @@ export interface ModalProps {
 
 const Modal = (props: ModalProps) => {
   const { isShowing, message, handleHide, handleConfirm, isFinishing, isDeleteUser } = props;
+  useEffect(() => {
+    document.body.style.cssText = `
+          position: fixed;
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    };
+  }, []);
   return (
     <>
       {isShowing && (
@@ -68,6 +80,7 @@ const StModal = styled.section`
   flex-direction: column;
 
   width: 100%;
+  max-width: 43rem;
   padding: 2.1rem 2.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
