@@ -78,7 +78,6 @@ const StStickerVotingWrapper = styled.article`
 const StStickerImg = styled.img`
   width: 100%;
   height: 52rem;
-  margin-top: 1.7rem;
 
   border-radius: 1rem;
 

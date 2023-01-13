@@ -69,7 +69,7 @@ const StPlayerVotingWrapper = styled.div<{ pageType: string }>`
   & > header {
     height: ${({ pageType }) => (pageType === 'PictureVoting' ? 7.2 : 5.6)}rem;
     margin-top: 2rem;
-    margin-bottom: ${({ pageType }) => (pageType === 'StickerAttachment' ? 1.7 : 0)}rem;
+    margin-bottom: ${({ pageType }) => (pageType === 'StickerAttachment' || pageType === 'ResultVoting' ? 1.7 : 0)}rem;
     padding: 0 ${({ pageType }) => (pageType === 'StickerAttachment' ? 2.8 : 4.2)}rem;
   }
   & > footer {
