@@ -15,22 +15,23 @@ import { stickerResultState } from '../../recoil/maker/atom';
 import { stickerCountSelector, stickerMaxCountSelctor } from '../../recoil/maker/selector';
 
 interface ResultReasonProps {
+  totalVoteCount: number;
   isOpenResultReason: boolean;
   handleIsOpenResultReason: () => void;
 }
 
 const ResultReason = (props: ResultReasonProps) => {
-  const { isOpenResultReason, handleIsOpenResultReason } = props;
-  const stickerCount = useRecoilValue(stickerCountSelector);
+  const { totalVoteCount, isOpenResultReason, handleIsOpenResultReason } = props;
   const stickerResult = useRecoilValue(stickerResultState);
   const stickerMaxIdx = useRecoilValue(stickerMaxCountSelctor);
 
+  const REASON_KEY = ['angle_reason', 'face_reason', 'mood_reason', 'just_reason'];
   const REASON_TITLE = ['얼굴이 좋아요', '구도가 좋아요', '분위기가 좋아요', '그냥 끌려요!'];
   const reasons = [
-    <IcAngleMenu key="angle" />,
     <IcFaceMenu key="face" />,
-    <IcJustMenu key="just" />,
+    <IcAngleMenu key="angle" />,
     <IcMood key="mood" />,
+    <IcJustMenu key="just" />,
   ];
 
   return (
@@ -41,7 +42,7 @@ const ResultReason = (props: ResultReasonProps) => {
             <IcReasonBtnAfter />
             <StBackground>
               <StTotalVote>
-                <p> 전체 {stickerCount}표 중</p>
+                <p> 전체 {totalVoteCount}표 중</p>
                 <StFirstReason>{stickerResult.length ? stickerResult[stickerMaxIdx].count : 0}표</StFirstReason>
               </StTotalVote>
               <StTitle>
@@ -50,22 +51,24 @@ const ResultReason = (props: ResultReasonProps) => {
               </StTitle>
 
               {reasons.map((reason, idx) => (
-                <>
-                  <StReasonWrapper key={REASON_TITLE[idx]}>
-                    {reason}
-                    <StPercentBarWrppaer>
-                      {stickerResult[idx] ? <p>{(stickerResult[idx].count / stickerCount) * 100}%</p> : <p>0%</p>}
-                      <StPercentBar>
-                        {stickerResult[idx] ? (
-                          <StDealtPercentBar
-                            percent={(stickerResult[idx].count / stickerCount) * 100}></StDealtPercentBar>
-                        ) : (
-                          <StDealtPercentBar percent={0}></StDealtPercentBar>
-                        )}
-                      </StPercentBar>
-                    </StPercentBarWrppaer>
-                  </StReasonWrapper>
-                </>
+                <StReasonWrapper key={REASON_KEY[idx]}>
+                  {reason}
+                  <StPercentBarWrppaer>
+                    {stickerResult[idx] ? (
+                      <p>{Math.floor((stickerResult[idx].count / totalVoteCount) * 100)}%</p>
+                    ) : (
+                      <p>0%</p>
+                    )}
+                    <StPercentBar>
+                      {stickerResult[idx] ? (
+                        <StDealtPercentBar
+                          percent={(stickerResult[idx].count / totalVoteCount) * 100}></StDealtPercentBar>
+                      ) : (
+                        <StDealtPercentBar percent={0}></StDealtPercentBar>
+                      )}
+                    </StPercentBar>
+                  </StPercentBarWrppaer>
+                </StReasonWrapper>
               ))}
             </StBackground>
           </>
