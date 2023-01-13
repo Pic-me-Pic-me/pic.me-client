@@ -13,6 +13,7 @@ interface voteAllInfoProps {
 
 const MonthVoting = (props: voteAllInfoProps) => {
   const { date, votes } = props;
+  const formattedDate = date.toString().substr(0, 4) + '. ' + date.toString().substr(4, 2);
   const nextIndex = useRef(votes.length - 1);
 
   const { ref, inView } = useInView({
@@ -47,7 +48,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   return (
     <StMonthVotingWrapper>
-      <StDateTitle>{date}</StDateTitle>
+      <StDateTitle>{formattedDate}</StDateTitle>
       <StEndedVotingListWrapper>
         {verticalScrollInfo.map((vote: VoteInfo, idx: number) =>
           idx === verticalScrollInfo.length - 1 ? (
