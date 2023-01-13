@@ -46,6 +46,11 @@ client.interceptors.response.use(
           refreshToken: cookies.get('refreshToken'),
         },
       );
+      console.log(res);
+      //리프레시 토큰도 만료돠거나 유효하지 않은 토큰인 경우
+      if (res.data.status === 400) {
+        window.location.href = '/login';
+      }
 
       const newAccessToken = res.data.data.accessToken;
 
@@ -53,11 +58,6 @@ client.interceptors.response.use(
       originalRequest.headers = {
         newAccessToken,
       };
-
-      //리프레시 토큰도 만료돠거나 유효하지 않은 토큰인 경우
-      if (res.data.status === 400) {
-        window.location.href = '/login';
-      }
 
       return axios(originalRequest);
     }

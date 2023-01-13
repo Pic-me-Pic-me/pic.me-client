@@ -53,10 +53,12 @@ const MonthVoting = (props: voteAllInfoProps) => {
         {verticalScrollInfo.map((vote: VoteInfo, idx: number) =>
           idx === verticalScrollInfo.length - 1 ? (
             <div key={idx} ref={ref}>
-              <EndedVoting id={vote.id} voteData={vote} key={idx}></EndedVoting>
+              <EndedVoting key={idx} id={vote.id} voteData={vote}></EndedVoting>
             </div>
           ) : (
-            <EndedVoting id={vote.id} voteData={vote} key={idx} isStart={idx === 0 ? true : false}></EndedVoting>
+            <div key={idx}>
+              <EndedVoting id={vote.id} voteData={vote} key={idx} isStart={idx === 0 ? true : false}></EndedVoting>
+            </div>
           ),
         )}
       </StEndedVotingListWrapper>
@@ -87,6 +89,10 @@ const StEndedVotingListWrapper = styled.section`
 
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  &:only-child {
+    margin-left: 2rem;
   }
 `;
 
