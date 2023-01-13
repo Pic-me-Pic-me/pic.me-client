@@ -169,10 +169,11 @@ const StTitle = styled.header`
 `;
 
 const StContents = styled.h1`
-  padding-top: 12.9rem;
+  padding-top: 13.9rem;
   margin-left: -0.245rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
+
   font-family: 'Pretendard', sans-serif;
   font-style: normal;
   font-weight: 700;

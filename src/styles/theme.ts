@@ -1,7 +1,7 @@
 import { css, DefaultTheme } from 'styled-components';
 
 const colors = {
-  Pic_Color_Coral: '#FF5E67',
+  Pic_Color_Coral: '#FF5D5D',
   Pic_Color_Yellow: '#FFFDC2',
   Pic_Color_Blue: '#3973CB',
   Pic_Color_Sky: '#C6DDFF',
