@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 
 import { IcGoback } from '../../asset/icon';
 
@@ -36,7 +36,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
 
   width: 100%;
 
-  background: none;
+  background: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 

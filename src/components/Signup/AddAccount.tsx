@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -22,7 +22,7 @@ const AddAccount = () => {
   };
 
   return (
-    <>
+    <StWhiteSection>
       <StWrapper>
         <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
           <StTitle>아이디</StTitle>
@@ -72,10 +72,16 @@ const AddAccount = () => {
           <StSubmitBtn disabled={!isValid}>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StWrapper>
-    </>
+    </StWhiteSection>
   );
 };
 
+const StWhiteSection = styled.section`
+  width: 100%;
+  padding: 4.2rem 2rem 0rem 2rem;
+  border-radius: 1.4rem 1.4rem 0rem 0rem;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_White};
+`;
 const StWrapper = styled.article`
   display: flex;
   justify-content: center;
@@ -86,9 +92,6 @@ const StForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  padding-left: 5%;
-  margin-top: 4.8rem;
 `;
 
 const StTitle = styled.h2`
@@ -98,7 +101,7 @@ const StTitle = styled.h2`
 `;
 
 const StInput = styled.input`
-  width: 92.85%;
+  width: 100%;
   height: 6rem;
   margin-top: 1.4rem;
   padding-left: 1.9rem;
@@ -122,7 +125,7 @@ const StInputDesc = styled.p`
 `;
 
 const StSubmitBtn = styled.button<{ disabled: boolean }>`
-  width: 92.85%;
+  width: 100%;
   height: 6rem;
   margin-top: 7.8rem;
 

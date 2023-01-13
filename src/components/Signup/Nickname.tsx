@@ -211,7 +211,7 @@ const StTermWrapper = styled.article`
 const StAllCheckWrapper = styled.section`
   display: flex;
 
-  width: 92.38%;
+  width: 100%;
   height: 3.2rem;
 
   border-left-width: 0rem;
@@ -237,7 +237,7 @@ const StTermContent = styled.div`
   display: flex;
   align-items: center;
 
-  width: 71.42%;
+  width: 100%;
   height: 2.2rem;
   margin-left: 2.14%;
 
@@ -249,15 +249,16 @@ const StTermContent = styled.div`
   }
 
   span {
+    gap: 1rem;
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }
 
   span:first-child {
+    margin-right: 0.71rem;
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   }
 
   span:last-child {
-    margin-left: 0.71rem;
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
   }
 `;
