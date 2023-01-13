@@ -66,6 +66,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
 const StMonthVotingWrapper = styled.article`
   margin-bottom: 4.906rem;
+  width: 100%;
 `;
 
 const StDateTitle = styled.h2`

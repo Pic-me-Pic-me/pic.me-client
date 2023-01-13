@@ -16,11 +16,15 @@ const KakaoNickname = () => {
   const navigate = useNavigate();
   const { uid, socialType, email }: KakaoAddNicknameInfo = location.state;
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
+  const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
   //   const [nickname, setNickname] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>();
+  const termAddress = [
+    'https://trusted-fir-e0c.notion.site/8040a51be7c74c7babf71d4ae344e162',
+    'https://trusted-fir-e0c.notion.site/9df42e8f5c7246adb74027814a5c0cc9',
+  ];
 
-  const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
   const {
     register,
     formState: { errors },
@@ -79,7 +83,10 @@ const KakaoNickname = () => {
                 })}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
-            <StCheckDuplicationBtn type="button" onClick={handleCheckNickname}>
+            <StCheckDuplicationBtn
+              type="button"
+              onClick={handleCheckNickname}
+              disabled={isNicknameExists ? false : true}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
@@ -96,23 +103,42 @@ const KakaoNickname = () => {
               </StTermContent>
             </StAllCheckWrapper>
             <StDetailTermWrapper>
-              {termList.map((term, idx) => (
-                <StDetailTerm key={term}>
-                  <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, idx + 1)}>
-                    {isChecked[idx + 1] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
-                  </StCheckboxBtn>
-                  <StTermContent>
-                    <span>(필수) </span>
-                    <span>{term}</span>
-                  </StTermContent>
-                </StDetailTerm>
-              ))}
+              <StDetailTerm>
+                <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, 1)}>
+                  {isChecked[1] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
+                </StCheckboxBtn>
+                <StTermContent>
+                  <span>(필수) </span>
+                  <span> 만 14세 이상이에요 </span>
+                </StTermContent>
+              </StDetailTerm>
+
+              <StDetailTerm>
+                <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, 2)}>
+                  {isChecked[2] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
+                </StCheckboxBtn>
+                <StTermContent>
+                  <span>(필수) </span>
+                  <span>
+                    <p onClick={() => window.open(termAddress[0], '_blank')}>
+                      <u>이용약관</u>
+                    </p>{' '}
+                    및{' '}
+                    <p onClick={() => window.open(termAddress[1], '_blank')}>
+                      <u>개인정보수집이용</u>
+                    </p>{' '}
+                    동의
+                  </span>
+                </StTermContent>
+              </StDetailTerm>
             </StDetailTermWrapper>
           </StTermWrapper>
 
           <StSubmitBtn
             disabled={
-              errors.username || JSON.stringify(isChecked) !== JSON.stringify([true, true, true]) ? true : false
+              isDuplicate || errors.username || JSON.stringify(isChecked) !== JSON.stringify([true, true, true])
+                ? true
+                : false
             }>
             계정 만들기
           </StSubmitBtn>

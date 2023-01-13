@@ -78,6 +78,8 @@ const StMonthVotingInfo = styled.article`
   display: flex;
   flex-direction: column;
 
+  width: 100%;
+
   margin-top: 3.3rem;
 
   overflow-y: scroll;

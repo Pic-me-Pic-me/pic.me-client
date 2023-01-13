@@ -33,6 +33,7 @@ const StBlackBackground = styled.article`
 
   > img {
     height: 19.3rem;
+    width: 100%;
   }
 `;
 

@@ -18,7 +18,6 @@ const AuthComponent = () => {
   useEffect(() => {
     getToken();
   }, []);
-
   const getToken = async () => {
     const payload = qs.stringify({
       grant_type: 'authorization_code',
@@ -31,6 +30,7 @@ const AuthComponent = () => {
       const res = await axios.post('https://kauth.kakao.com/oauth/token', payload);
       console.log(process.env.REACT_APP_REST_API_KEY);
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
+
       Kakao.Auth.setAccessToken(res.data.access_token);
       localStorage.setItem('kakaoAccessToken', res.data.access_token);
 
