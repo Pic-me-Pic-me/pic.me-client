@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import CurrentVoteDetail from '../../pages/CurrentVoteDetail';
-// import Error404 from '../../pages/Error404';
+import Error404 from '../../pages/Error404';
 import Home from '../../pages/Home';
 import Library from '../../pages/Library';
 import Login from '../../pages/Login';
@@ -41,14 +41,16 @@ const Router = () => (
           <Route path="nickname" element={<Nickname />} />
           <Route path="kakaonickname" element={<KakaoNickname />} />
         </Route>
-        <Route path="/vote/:voteId" element={<PlayerLanding />} />
+        <Route path="/vote/:voteId" element={<PlayerLanding />}>
+          <Route path="*" element={<Error404 />} />
+        </Route>
         <Route path="/player">
           <Route path="picture_voting/:voteid" element={<PictureVoting />} />
           <Route path="reason_voting" element={<ReasonVoting />} />
           <Route path="sticker_voting" element={<StickerAttachment />} />
           <Route path="voting/result" element={<ResultVoting />} />
         </Route>
-        {/* <Route path="*" element={<Error404 />} /> */}
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </RecoilRoot>
   </BrowserRouter>
