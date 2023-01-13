@@ -55,6 +55,8 @@ const StickerVoting = (props: StickerVotingProps) => {
           onClick={handleAttachSticker}
         />
         {!isStickerGuide &&
+          imgViewInfo &&
+          imgInfo &&
           stickerList.map((sticker, idx) => (
             <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
               {STICKER_LIST[emoji].icon()}

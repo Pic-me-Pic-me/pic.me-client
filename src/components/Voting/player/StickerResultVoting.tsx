@@ -45,15 +45,17 @@ const StickerResultVoting = () => {
     <StStickerVotingWrapper>
       <article>
         <StStickerImg onLoad={handleImgSize} src={pictureInfo?.url} ref={stickerImgRef} alt="selected_img" />
-        {resultStickerList.map(({ stickerLocation, emoji }, idx) =>
-          stickerLocation.map((stickerLocationInfo, stickerIdx) => (
-            <StEmojiIcon
-              key={`sticker${stickerIdx}_${emoji}`}
-              location={setStickerLocationData(stickerLocationInfo, imgViewInfo, imgInfo)}>
-              {STICKER_LIST[emoji].icon()}
-            </StEmojiIcon>
-          )),
-        )}
+        {imgViewInfo &&
+          imgInfo &&
+          resultStickerList.map(({ stickerLocation, emoji }, idx) =>
+            stickerLocation.map((stickerLocationInfo, stickerIdx) => (
+              <StEmojiIcon
+                key={`sticker${stickerIdx}_${emoji}`}
+                location={setStickerLocationData(stickerLocationInfo, imgViewInfo, imgInfo)}>
+                {STICKER_LIST[emoji].icon()}
+              </StEmojiIcon>
+            )),
+          )}
       </article>
     </StStickerVotingWrapper>
   );
