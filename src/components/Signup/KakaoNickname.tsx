@@ -18,7 +18,7 @@ const KakaoNickname = () => {
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
-  //   const [nickname, setNickname] = useState<string>('');
+  const [nickname, setNickname] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>();
   const termAddress = [
     'https://trusted-fir-e0c.notion.site/8040a51be7c74c7babf71d4ae344e162',
@@ -32,13 +32,18 @@ const KakaoNickname = () => {
     getValues,
   } = useForm<NicknameInfo>({ mode: 'onChange' });
 
+  useEffect(() => {
+    const currentNickname = watch('username');
+    currentNickname.length > 0 ? setIsNicknameExists(true) : setIsNicknameExists(false);
+  }, [watch('username')]);
+
   const { username } = getValues();
   const handleCheckNickname = () => {
     checkDuplicateNickname(username).then((result) => {
       if (result?.success) {
         setIsDuplicate(false);
         setErrorMsg('사용 가능한 닉네임입니다.');
-        // setNickname(username);
+        setNickname(username);
       } else {
         setErrorMsg('이미 사용 중인 닉네임입니다.');
         setIsDuplicate(true);
@@ -79,8 +84,8 @@ const KakaoNickname = () => {
                 type="text"
                 {...register('username', {
                   required: true,
-                  maxLength: 8,
                 })}
+                maxLength={8}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn
@@ -221,6 +226,15 @@ const StCheckDuplicationBtn = styled.button`
   color: ${({ theme }) => theme.colors.Pic_Color_White};
 
   cursor: pointer;
+
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+        `
+      : css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+        `}
 `;
 
 const StTermWrapper = styled.article`
@@ -272,15 +286,27 @@ const StTermContent = styled.div`
   }
 
   span {
+    display: flex;
+
+    gap: 0.5rem;
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+  }
+
+  span > p {
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+  }
+
+  span > p > u {
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }
 
   span:first-child {
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+    margin-right: 0.71rem;
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }
 
   span:last-child {
-    margin-left: 0.71rem;
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
   }
 `;
