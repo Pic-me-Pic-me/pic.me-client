@@ -41,8 +41,8 @@ const Share = () => {
           <h2>아래 가이드 라인을 따라 나만의 투표를 공유해보세요!</h2>
         </StShareTitle>
         <StShareInfo>
-          <input type="text" defaultValue={`https://with-picme.com/vote/${voteId}`} />
-          <CopyToClipboard text={`https://with-picme.com/vote/${voteId}`}>
+          <input type="text" defaultValue={`http://with-picme.com/vote/${voteId}`} />
+          <CopyToClipboard text={`http://with-picme.com/vote/${voteId}`}>
             <button type="button" onClick={handleToast}>
               <IcShareBtn />
             </button>

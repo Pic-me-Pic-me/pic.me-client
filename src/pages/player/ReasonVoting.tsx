@@ -31,7 +31,7 @@ const ReasonVoting = () => {
       <VotingLayout
         votingTitle="사진을 선택한 이유를 골라주세요"
         pageType="ReasonVoting"
-        btnTitle="이 사진으로 하기"
+        btnTitle="이유 확정하기"
         isActiveBtn={true}
         handlePlayer={handleVotingSuccess}>
         {

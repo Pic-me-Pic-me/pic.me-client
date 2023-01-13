@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 export interface ModalProps {
@@ -68,6 +68,7 @@ const StModal = styled.section`
   flex-direction: column;
 
   width: 100%;
+  max-width: 43rem;
   padding: 2.1rem 2.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { PlayerTitle } from '../../asset/image';
+import Onboarding from '../../pages/Onboarding';
 import { votingInfoState } from '../../recoil/player/atom';
 
 const FinishedLanding = () => {
@@ -11,21 +13,24 @@ const FinishedLanding = () => {
   const navigate = useNavigate();
 
   return (
-    <StModalWrapper>
-      <StModal>
-        <StTitle>
-          <div>
-            <h1>{voteTitle}</h1>
-          </div>
-        </StTitle>
-        <StDescription>
-          <p>이 투표는 마감되었습니다!</p>
-        </StDescription>
-        <button type="button" onClick={() => navigate('/makerlanding')}>
-          Pic.me! 에서 내 투표 만들기
-        </button>
-      </StModal>
-    </StModalWrapper>
+    <>
+      <Onboarding />
+      <StModalWrapper>
+        <StModal>
+          <StTitle>
+            <div>
+              <h1>{voteTitle}</h1>
+            </div>
+          </StTitle>
+          <StDescription>
+            <p>이 투표는 마감되었습니다!</p>
+          </StDescription>
+          <button type="button" onClick={() => navigate('/')}>
+            Pic.me! 에서 내 투표 만들기
+          </button>
+        </StModal>
+      </StModalWrapper>
+    </>
   );
 };
 
@@ -56,7 +61,7 @@ const StModal = styled.section`
   flex-direction: column;
 
   width: 100%;
-  height: 54.8rem;
+  height: 28.8rem;
   padding: 4.9rem 1.8rem 2.3rem 1.8rem;
   margin: auto;
 
@@ -88,26 +93,39 @@ const StModal = styled.section`
 const StTitle = styled.header`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 7.651rem;
   z-index: 1;
 
-  color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}; // Caption2로 바꿔야함!!
-
   & > div {
     display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 100;
 
-    width: 21.2rem;
-    height: 5.386rem;
-    padding: 0rem 3.7rem;
+    position: relative;
+    width: 100%;
+    height: inherit;
+    margin: 0rem 3.7rem;
+
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
+    background-image: url(${PlayerTitle});
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    text-align: center;
 
     & > h1 {
-      display: flex;
+      position: absolute;
       justify-content: center;
       align-items: center;
       text-align: center;
+      top: 20%;
+
+      padding: 0rem 2rem;
+
+      ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
     }
   }
 
