@@ -73,8 +73,19 @@ const StVotingWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
+  position: relative;
+
   width: 17.8rem;
   height: 21.4rem;
+
+  :first-child {
+    margin-left: 2rem;
+  }
+
+  :last-child {
+    margin-left: 0;
+    margin-right: 2rem;
+  }
 `;
 const StImageWrapper = styled.div`
   width: 17.8rem;
@@ -97,7 +108,7 @@ const StDeleteBtnWrapper = styled.button`
   justify-content: center;
   align-items: center;
 
-  z-index: 3;
+  z-index: 15;
 
   position: absolute;
 
