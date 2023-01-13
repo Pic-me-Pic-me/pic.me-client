@@ -44,14 +44,16 @@ const VoteList = () => {
 
   return (
     <>
-      <StCurrentVote>현재 진행중인 투표</StCurrentVote>
       {dataList.length !== 0 ? (
-        <StVoteListWrapper>
-          {dataList?.map((data, i) => (
-            <VoteCard voteData={data} key={i} />
-          ))}
-          <div ref={ref} />
-        </StVoteListWrapper>
+        <>
+          <StCurrentVote>현재 진행중인 투표</StCurrentVote>
+          <StVoteListWrapper>
+            {dataList?.map((data, i) => (
+              <VoteCard voteData={data} key={i} />
+            ))}
+            <div ref={ref} />
+          </StVoteListWrapper>
+        </>
       ) : (
         <StEmptyView>
           <IcEmpty />
