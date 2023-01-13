@@ -8,9 +8,12 @@ import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData } from '../../lib/api/voting';
 import { stickerInfoState } from '../../recoil/player/atom';
 import { VoteCardInfo } from '../../types/vote';
+import { LandingVoteList } from '../Landing/maker';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -37,9 +40,11 @@ const VoteList = () => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     if (dataList?.length !== 0 && inView) {
       getMoreItem();
     }
+    setIsLoading(false);
   }, [inView]);
 
   const getUserName = async () => {
@@ -47,6 +52,7 @@ const VoteList = () => {
     setUserName(name?.data.userName);
   };
 
+  if (isLoading) return <LandingVoteList />;
   return (
     <>
       {dataList.length !== 0 ? (
