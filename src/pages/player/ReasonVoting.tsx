@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { IcHeaderSecond } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { ReasonSlider, StickerGuide } from '../../components/Voting/player';
-import { postStickerData } from '../../lib/api/voting';
 import { stickerInfoState, votingInfoState } from '../../recoil/player/atom';
 import { pictureSelector } from '../../recoil/player/selector';
 
