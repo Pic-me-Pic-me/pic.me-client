@@ -44,7 +44,7 @@ const Nickname = () => {
   const handleCheckNickname = () => {
     checkDuplicateNickname(username).then((result) => {
       console.log(result);
-      if (result?.success && !errors.username) {
+      if (result?.success) {
         setIsDuplicate(false);
         setErrorMsg('사용 가능한 닉네임입니다.');
         setNickname(username);
@@ -80,7 +80,7 @@ const Nickname = () => {
       if (res?.success) {
         cookies.set('refreshToken', res.data.refreshToken);
         localStorage.setItem('accessToken', res.data.accessToken);
-        navigate('/login');
+        navigate('/home');
       }
     });
   };
@@ -96,8 +96,9 @@ const Nickname = () => {
                 type="text"
                 {...register('username', {
                   required: true,
-                  maxLength: 8,
                 })}
+                maxLength={8}
+                pattern="[A-Za-z0-9]{1,8}"
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn

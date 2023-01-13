@@ -46,12 +46,12 @@ const EndedVoting = (props: votingProps) => {
   return (
     <>
       <StVotingWrapper onClick={handleMoveResult}>
-        <StImageWrapper>
+        <StImgWrapper>
           <StVotingPic src={voteData.url} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
-        </StImageWrapper>
+        </StImgWrapper>
         <StVotingDesc>
           <StVotingTitle>{voteData.title}</StVotingTitle>
           <StVotingDate>
@@ -74,28 +74,22 @@ const StVotingWrapper = styled.section`
   flex-direction: column;
 
   position: relative;
-
-  width: 17.8rem;
-  height: 21.4rem;
-
-  :first-child {
-    margin-left: 2rem;
-  }
-
-  :last-child {
-    margin-left: 0;
-    margin-right: 2rem;
-  }
 `;
-const StImageWrapper = styled.div`
-  width: 17.8rem;
-  height: 12.8rem;
+
+const StImgWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  
+  margin : 0;
+  padding ; 0;
+
 `;
+
 const StVotingPic = styled.img`
   display: float;
 
-  width: 100%;
-  height: 17.638rem;
+  width: 17.8rem;
+  height: 12.8rem;
 
   object-fit: cover;
 
@@ -107,21 +101,12 @@ const StDeleteBtnWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  z-index: 15;
-
+  z-index: 3;
   position: absolute;
-
   top: 0.285rem;
   right: -0.7rem;
-
   border: none;
-
   background-color: transparent;
-
-  & > svg {
-    z-index: 5;
-  }
 `;
 
 const StVotingDesc = styled.div`
@@ -137,6 +122,9 @@ const StVotingDesc = styled.div`
 const StVotingTitle = styled.h2`
   margin-top: 1.3rem;
   margin-left: 1.4rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16}
