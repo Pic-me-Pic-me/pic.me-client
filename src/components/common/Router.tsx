@@ -13,7 +13,6 @@ import PlayerLanding from '../../pages/PlayerLanding';
 import { Result } from '../../pages/Result';
 import Share from '../../pages/Share';
 import Signup from '../../pages/Signup';
-// import Voting from '../../pages/Voting';
 import { AuthComponent } from '../Auth';
 import MemberInfo from '../Auth/MemberInfo';
 import AddAccount from '../Signup/AddAccount';
