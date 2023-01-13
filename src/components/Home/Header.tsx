@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { IcBannerImg, IcNextArrow } from '../../asset/icon';
-// import { BannerImg } from '../../asset/image';
 import useModal from '../../lib/hooks/useModal';
 import Guide from './Guide';
 
