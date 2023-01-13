@@ -49,7 +49,7 @@ const VoteList = () => {
   return (
     <>
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
-      {dataList ? (
+      {dataList.length !== 0 ? (
         <StVoteListWrapper>
           {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />

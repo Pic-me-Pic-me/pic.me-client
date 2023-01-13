@@ -61,6 +61,7 @@ const KakaoNickname = () => {
     localStorage.setItem('accessToken', signUpData.accessToken);
     cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
     navigate('/home');
+    window.location.reload();
   };
 
   return (

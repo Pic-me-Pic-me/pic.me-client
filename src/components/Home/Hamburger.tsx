@@ -93,7 +93,7 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
 const StHamburgerMenu = styled.li`
   padding: 2rem 2.8rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-  font-family: 'Pretendard' !important;
+  font-family: 'Pretendard', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 1.8rem;
@@ -103,7 +103,7 @@ const StHamburgerMenu = styled.li`
     display: block;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-    font-family: 'Pretendard' !important;
+    font-family: 'Pretendard', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 1.8rem;

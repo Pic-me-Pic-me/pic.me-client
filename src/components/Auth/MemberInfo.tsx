@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,6 +9,8 @@ import useModal from '../../lib/hooks/useModal';
 import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
+
+const Kakao = window.Kakao;
 
 const MemberInfo = () => {
   const { isShowing, toggle } = useModal();
@@ -24,9 +27,20 @@ const MemberInfo = () => {
   };
 
   const handleDeleteUser = async () => {
-    const result = await deleteUser();
-    localStorage.removeItem('accessToken');
-    navigate('/');
+    try {
+      const res = await axios({
+        method: 'POST',
+        url: 'https://kapi.kakao.com/v1/user/unlink',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('kakaoAccessToken')}`,
+        },
+      });
+      const result = await deleteUser();
+      localStorage.removeItem('accessToken');
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
