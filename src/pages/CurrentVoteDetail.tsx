@@ -57,14 +57,6 @@ const CurrentVoteDetail = () => {
     setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
-
-  // if (isLoading)
-  //   return (
-  //     <>
-  //       <LandingHeader />
-  //       <LandingCurrentVote />
-  //     </>
-  //   );
   if (isError) return <Error />;
 
   return (
