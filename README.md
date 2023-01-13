@@ -1,12 +1,14 @@
-# Pic.me-client
-<div align="center">
 
-![image](https://user-images.githubusercontent.com/79238676/210397614-f9d7549a-0a81-4da4-b432-308581c1b65c.png)
+<div align="center">
 
 <h2> ✨ 빠르게 골라보는 나의 사진, 뭐 올릴지 고민 될 땐? 픽미! ✨ </h2>
 
-![image](https://user-images.githubusercontent.com/79238676/210467092-feb8707f-9b6f-4e67-92f7-1ba491b05096.png)
-![image](https://user-images.githubusercontent.com/79238676/210467191-27e0e42c-e993-4dc6-be45-3b3f2a16af2b.png)
+![표지](https://user-images.githubusercontent.com/79238676/212324464-149e0bf3-a9da-4442-899e-ee97f84c530b.png)
+
+
+![인트로1](https://user-images.githubusercontent.com/79238676/212324638-7b18e6aa-1e5b-49ab-8b0f-6208bb7f06f7.png)
+
+![솔루션 (1)](https://user-images.githubusercontent.com/79238676/212324862-6a784db5-f949-4cc1-a71e-9318789d0d52.png)
 
 </div>
 
