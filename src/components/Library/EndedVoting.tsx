@@ -1,7 +1,7 @@
 import { relative } from 'node:path/win32';
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
@@ -18,6 +18,7 @@ interface votingProps {
 
 const EndedVoting = (props: votingProps) => {
   const { voteData, id } = props;
+  const navigate = useNavigate();
 
   const [isShowing, setIsShowing] = useState<boolean>(false);
 
@@ -32,6 +33,10 @@ const EndedVoting = (props: votingProps) => {
     setIsShowing((prev) => !prev);
   };
 
+  const handleMoveResult = () => {
+    navigate(`/result/${id}`);
+  };
+
   const handleDelete = async () => {
     const res = await deleteVote(id);
     window.location.reload();
@@ -41,13 +46,13 @@ const EndedVoting = (props: votingProps) => {
   return (
     <>
       <StVotingWrapper>
-        <div>
+        <StImageWrapper>
           <StVotingPic src={voteData.url} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
-        </div>
-        <StVotingDesc>
+        </StImageWrapper>
+        <StVotingDesc onClick={handleMoveResult}>
           <StVotingTitle>
             {voteData.title} {voteData.id}
           </StVotingTitle>
@@ -72,10 +77,17 @@ const StVotingWrapper = styled.section`
 
   position: relative;
 `;
+const StImageWrapper = styled.div`
+  width: 100%;
+  height: 12.8rem;
+`;
 const StVotingPic = styled.img`
   display: float;
-  width: 17.6rem;
-  height: 12.8rem;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   border-radius: 1.141rem 1.141rem 0rem 0rem;
@@ -96,6 +108,10 @@ const StDeleteBtnWrapper = styled.button`
   border: none;
 
   background-color: transparent;
+
+  & > svg {
+    z-index: 5;
+  }
 `;
 
 const StVotingDesc = styled.div`

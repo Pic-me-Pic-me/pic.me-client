@@ -5,6 +5,8 @@ export { default as ImgShareCapture } from './ImgShareCapture.png';
 // export { default as LoginBanner } from './ImgSignUpBanner.svg';
 // export { default as Logo } from './logo.svg';
 export { default as OnboardingBG } from './bg_onboarding.png';
+export { default as SignUpBanner } from './login_banner.png';
+export { default as LoginBanner } from './login_banner2.png';
 export { default as PictureId1 } from './pictureId1.png';
 export { default as PictureId2 } from './pictureid2.png';
 export { default as PlayerTitle } from './PlayerTitle.png';

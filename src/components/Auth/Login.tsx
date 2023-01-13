@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { IcPickmeLogo } from '../../asset/icon';
+import { LoginBanner } from '../../asset/image';
 import { postLoginInfo } from '../../lib/api/auth';
 import { LoginInfo } from '../../types/auth';
 import KakaoLogin from './KakaoLogin';
@@ -22,8 +22,11 @@ const LoginComponent = () => {
       if (res?.data.status === 200) {
         cookies.set('refreshToken', res.data.data.refreshToken, { httpOnly: true });
         localStorage.setItem('accessToken', res.data.data.accessToken);
+        if (localStorage.getItem('accessToken')) {
+          navigate('/home');
+          window.location.reload();
+        }
         setIsLoginFail(false);
-        navigate('/');
       } else {
         setIsLoginFail(true);
       }
@@ -33,7 +36,7 @@ const LoginComponent = () => {
   return (
     <>
       <StBannerWrapper>
-        <IcPickmeLogo />
+        <img src={LoginBanner} alt="배너" />
       </StBannerWrapper>
       <StWhiteSection>
         <StContainer>
@@ -42,9 +45,7 @@ const LoginComponent = () => {
             <StInput type="email" {...register('email')} placeholder="이메일을 입력해주세요" />
             <StInput type="password" {...register('password')} placeholder="비밀번호를 입력해주세요" />
             <StInputDesc>{isLoginFail ? '아이디 또는 비밀번호를 잘못 입력했습니다.' : ''}</StInputDesc>
-            <StAuthBtn type="submit" onClick={() => navigate('/home')}>
-              로그인
-            </StAuthBtn>
+            <StAuthBtn type="submit">로그인</StAuthBtn>
           </StForm>
           <StAuthBtn type="submit" isSignUp onClick={() => navigate('/signup')}>
             회원가입
@@ -68,9 +69,11 @@ const StBannerWrapper = styled.div`
   top: 0;
   z-index: -1;
   width: 100%;
-  height: 22.9rem;
+  max-width: 43rem;
+  height: 19.3rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   > svg {
+    max-width: 43rem;
     position: absolute;
     top: 6.8rem;
   }

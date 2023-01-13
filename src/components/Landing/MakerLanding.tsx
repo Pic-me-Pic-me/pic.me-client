@@ -135,6 +135,7 @@ const StOnboarding = styled.div`
   top: 0;
 
   width: 100%;
+  max-width: 43rem;
   height: 556.1rem;
 
   & > svg {
@@ -169,11 +170,12 @@ const StTitle = styled.header`
 `;
 
 const StContents = styled.h1`
-  padding-top: 12.9rem;
+  padding-top: 13.9rem;
   margin-left: -0.245rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  font-family: 'Pretendard';
+
+  font-family: 'Pretendard', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 2.88035rem;
@@ -189,6 +191,7 @@ const StContents = styled.h1`
 
 const StStartBtn = styled.button`
   width: 100%;
+  max-width: 43rem;
   height: 5.763rem;
   padding: 0rem;
 
@@ -200,7 +203,8 @@ const StStartBtn = styled.button`
 `;
 
 const StSecondSection = styled.section`
-  padding: 15.8rem 6.2rem 0rem 6.2rem;
+  width: 100%;
+  /* padding: 15.8rem 6.2rem 0rem 6.2rem; */
 `;
 
 const StFirstContent = styled.article`
@@ -283,7 +287,7 @@ const StFirstSolution = styled.article`
 
   & > h1 {
     margin-bottom: 1.8rem;
-    ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22};
+    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 

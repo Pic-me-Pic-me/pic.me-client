@@ -28,13 +28,10 @@ const Router = () => (
         <Route path="/login" element={<Login />} />
         <Route path="/login/oauth/kakao/callback" element={<AuthComponent />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/currentvote/:voteid" element={<CurrentVoteDetail />} />
-        <Route path="/" element={<Home />} />
         <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
         <Route path="/myPage" element={<MemberInfo />} />
         <Route path="/library" element={<Library />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
         <Route path="/result/:voteId" element={<Result />} />
         <Route path="/share" element={<Share />} />
         <Route path="/makervoting" element={<MakerVoting />} />

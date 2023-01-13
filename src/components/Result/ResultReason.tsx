@@ -2,7 +2,15 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcAngle, IcFace, IcJust, IcMood, IcReasonBtnAfter, IcReasonBtnBefore } from '../../asset/icon';
+import {
+  IcAngleMenu,
+  IcFace,
+  IcFaceMenu,
+  IcJustMenu,
+  IcMood,
+  IcReasonBtnAfter,
+  IcReasonBtnBefore,
+} from '../../asset/icon';
 import { stickerResultState } from '../../recoil/maker/atom';
 import { stickerCountSelector, stickerMaxCountSelctor } from '../../recoil/maker/selector';
 
@@ -18,7 +26,12 @@ const ResultReason = (props: ResultReasonProps) => {
   const stickerMaxIdx = useRecoilValue(stickerMaxCountSelctor);
 
   const REASON_TITLE = ['얼굴이 좋아요', '구도가 좋아요', '분위기가 좋아요', '그냥 끌려요!'];
-  const reasons = [<IcAngle key="angle" />, <IcFace key="face" />, <IcJust key="just" />, <IcMood key="mood" />];
+  const reasons = [
+    <IcAngleMenu key="angle" />,
+    <IcFaceMenu key="face" />,
+    <IcJustMenu key="just" />,
+    <IcMood key="mood" />,
+  ];
 
   return (
     <>
@@ -144,7 +157,7 @@ const StTitle = styled.h1`
   text-align: center;
 
   font-size: 1.8rem;
-  font-family: 'PretendardSemiBold';
+  font-family: 'PretendardSemiBold', sans-serif;
   font-weight: 600;
   font-style: normal;
   line-height: 2.148rem;

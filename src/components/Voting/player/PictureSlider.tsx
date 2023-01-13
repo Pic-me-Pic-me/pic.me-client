@@ -18,7 +18,8 @@ const PictureSlider = () => {
   const { ref, width } = useCarouselSize();
 
   const pictureInfoList: PictureInfo[] = votingInfoAtom.Picture;
-
+  console.log('그림리스트', pictureInfoList);
+  console.log('스티커 정보', stickerInfo);
   useEffect(() => {
     window.scrollTo(0, 0);
     setStickerInfo({ ...stickerInfo, pictureId: pictureInfoList[currentIdx].id });
