@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
 import { PictureId1, PictureId2 } from '../../asset/image';
-import { StickerInfo, VoteInfo } from './../../types/vote';
+import { StickerInfo, VoteInfo, VotingInfo } from '../../types/vote';
 
 //페이지가 변경되더라도 상태관리를 유지
 const { persistAtom } = recoilPersist();

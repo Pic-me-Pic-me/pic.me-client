@@ -5,7 +5,6 @@ export const modifySliderRange = (nextRange: number, minRange: number, maxRange:
   if (nextRange > maxRange) return maxRange;
   return nextRange;
 };
-
 export const picmeSliderEvent = ({
   onDragChange,
   onDragEnd,
@@ -30,7 +29,6 @@ export const picmeSliderEvent = ({
           const deltaX = moveEvent.changedTouches[0].pageX - touchEvent.changedTouches[0].pageX;
           const deltaY = moveEvent.changedTouches[0].pageY - touchEvent.changedTouches[0].pageY;
           onDragEnd?.(deltaX, deltaY);
-
           document.removeEventListener('touchmove', touchMoveHandler);
         };
 
