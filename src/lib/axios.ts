@@ -5,7 +5,7 @@ const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
 const client = axios.create({
-  baseURL: `${process.env.REACT_APP_BASE_URL}`,
+  baseURL: `${process.env.REACT_APP_IP}`,
 
   headers: {
     'Content-type': 'application/json',
