@@ -55,12 +55,6 @@ const Nickname = () => {
     });
   };
 
-  // const checkBlank = (e: any) => {
-  //   if (e.target.value.includes(' ')) {
-  //     e.target.value = e.target.value.replace(' ', '');
-  //   }
-  // };
-
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
     const target = e.target as HTMLInputElement;
     if (target.name === 'all') {
@@ -98,7 +92,6 @@ const Nickname = () => {
                   required: true,
                 })}
                 maxLength={8}
-                pattern="[A-Za-z0-9]{1,8}"
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn
