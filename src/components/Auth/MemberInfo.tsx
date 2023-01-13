@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcPickmeLogo } from '../../asset/icon';
-import { deleteUser, getUserInfo } from '../../lib/api/auth';
+import { deleteUser, getUserInfo, postKakaoToken } from '../../lib/api/auth';
 import useModal from '../../lib/hooks/useModal';
 import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
@@ -28,13 +28,18 @@ const MemberInfo = () => {
 
   const handleDeleteUser = async () => {
     try {
-      const res = await axios({
-        method: 'POST',
-        url: 'https://kapi.kakao.com/v1/user/unlink',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('kakaoAccessToken')}`,
-        },
-      });
+      const KAKAO_TOKEN = localStorage.getItem('kakaoAccessToken');
+      if (KAKAO_TOKEN) {
+        const data = await postKakaoToken('kakao', KAKAO_TOKEN);
+        const res = await axios({
+          method: 'POST',
+          url: 'https://kapi.kakao.com/v1/user/unlink',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('kakaoAccessToken')}`,
+          },
+        });
+        localStorage.removeItem('kakaoAccessToken');
+      }
       const result = await deleteUser();
       localStorage.removeItem('accessToken');
       navigate('/');
