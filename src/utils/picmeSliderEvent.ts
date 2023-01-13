@@ -1,5 +1,3 @@
-const isTouchScreen = typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-
 export const modifySliderRange = (nextRange: number, minRange: number, maxRange: number) => {
   if (nextRange < minRange) return minRange;
   if (nextRange > maxRange) return maxRange;
