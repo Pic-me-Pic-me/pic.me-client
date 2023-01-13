@@ -23,7 +23,6 @@ export const Result = () => {
   const [chosenPictureIdx, setChosenPictureIdx] = useState(0);
   const [isOpenResultReason, setIsOpenResultReason] = useState(false);
   const setStickerResultState = useSetRecoilState(stickerResultState);
-  const stickerCount = useRecoilValue(stickerCountSelector);
 
   const handleIsOpenResultReason = () => {
     setIsOpenResultReason(!isOpenResultReason);
@@ -33,9 +32,10 @@ export const Result = () => {
     if (voteResult) {
       setStickerResultState(jsonGetStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
     }
-  }, [chosenPictureIdx]);
-  if (isLoading) <Loading />;
+  }, [voteResult, chosenPictureIdx]);
+  if (isError) <Error />;
 
+  // if (voteResult) console.log(voteResult);
   if (voteResult)
     return (
       <>
@@ -53,11 +53,12 @@ export const Result = () => {
             <SliderTitle
               isChosenPic={!chosenPictureIdx}
               voteTitle={voteResult.voteTitle}
-              voteTotalNumber={stickerCount}></SliderTitle>
+              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
 
             <section>
               <ResultPicture src={voteResult.Picture[chosenPictureIdx].url}></ResultPicture>
               <ResultReason
+                totalVoteCount={voteResult.currentVote}
                 handleIsOpenResultReason={handleIsOpenResultReason}
                 isOpenResultReason={isOpenResultReason}
               />
@@ -66,7 +67,7 @@ export const Result = () => {
         </StBackgroundWrapper>
       </>
     );
-  return <Error />;
+  return <Loading />;
 };
 
 const StBackgroundWrapper = styled.div<{ src: string }>`
