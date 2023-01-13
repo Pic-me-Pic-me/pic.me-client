@@ -24,6 +24,7 @@ const ResultReason = (props: ResultReasonProps) => {
   const { totalVoteCount, isOpenResultReason, handleIsOpenResultReason } = props;
   const stickerResult = useRecoilValue(stickerResultState);
   const stickerMaxIdx = useRecoilValue(stickerMaxCountSelctor);
+  const stickerResultCount = useRecoilValue(stickerCountSelector);
 
   const REASON_KEY = ['angle_reason', 'face_reason', 'mood_reason', 'just_reason'];
   const REASON_TITLE = ['얼굴이 좋아요', '구도가 좋아요', '분위기가 좋아요', '그냥 끌려요!'];
@@ -43,7 +44,7 @@ const ResultReason = (props: ResultReasonProps) => {
             <StBackground>
               <StTotalVote>
                 <p> 전체 {totalVoteCount}표 중</p>
-                <StFirstReason>{stickerResult.length ? stickerResult[stickerMaxIdx].count : 0}표</StFirstReason>
+                <StFirstReason>{stickerResult.length ? stickerResultCount : 0}표</StFirstReason>
               </StTotalVote>
               <StTitle>
                 이 사진이 Pic된 가장 큰 이유는

@@ -14,7 +14,7 @@ import useGetVoteResult from '../lib/hooks/useGetVoteResult';
 import { stickerResultState } from '../recoil/maker/atom';
 import { stickerCountSelector } from '../recoil/maker/selector';
 import { MakerVoteInfo } from '../types/vote';
-import { jsonGetStickerList } from '../utils/jsonGetStickerList';
+import { jsonGetResultStickerList } from '../utils/jsonGetStickerList';
 
 export const Result = () => {
   const navigate = useNavigate();
@@ -30,12 +30,11 @@ export const Result = () => {
 
   useEffect(() => {
     if (voteResult) {
-      setStickerResultState(jsonGetStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
+      setStickerResultState(jsonGetResultStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
     }
   }, [voteResult, chosenPictureIdx]);
   if (isError) <Error />;
 
-  // if (voteResult) console.log(voteResult);
   if (voteResult)
     return (
       <>
