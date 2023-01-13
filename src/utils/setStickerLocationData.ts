@@ -5,10 +5,6 @@ export const setStickerLocationData = (
   imgViewInfo: NaturalImgInfo,
   imgInfo: NaturalImgInfo,
 ) => {
-  console.log('이미지 자체 정보', imgInfo);
-  console.log('이미지 뷰 정보', imgViewInfo);
-  console.log('이미지 정보', getStickerInfo);
-
   const { x, y, degRate } = getStickerInfo;
   const { width, height } = imgInfo;
 
