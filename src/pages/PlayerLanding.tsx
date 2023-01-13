@@ -17,9 +17,9 @@ const PlayerLanding = () => {
   const resetVotingInfoState = useResetRecoilState(stickerInfoState);
   const resetStickerInfoState = useResetRecoilState(stickerInfoState);
 
-  resetVotingInfoState();
   useEffect(() => {
     if (votingInfo?.data) {
+      resetVotingInfoState();
       resetStickerInfoState();
       setVotingInfoState({
         ...votingInfo?.data,
