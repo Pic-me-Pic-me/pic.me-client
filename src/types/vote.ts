@@ -97,6 +97,7 @@ export interface StickerInfo {
   pictureId: number;
   location: StickerLocation[];
   emoji: number;
+  imgViewInfo: NaturalImgInfo;
 }
 
 export interface GetStickerResultInfo {

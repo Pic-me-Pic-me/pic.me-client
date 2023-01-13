@@ -32,9 +32,10 @@ const StickerResultVoting = () => {
     }
   }, [stickerInfo]);
 
+  console.log(stickerVotingInfo.imgViewInfo);
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    setImgViewInfo({ width, height });
+    // setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
     // setResultStickerList([ resultStickerList.map(({ stickerLocation, emoji }, idx) =>
     //         stickerLocation.map((stickerLocationInfo, stickerIdx) => setStickerLocationData()])
@@ -47,13 +48,12 @@ const StickerResultVoting = () => {
     <StStickerVotingWrapper>
       <article>
         <StStickerImg onLoad={handleImgSize} src={pictureInfo?.url} ref={stickerImgRef} alt="selected_img" />
-        {imgViewInfo &&
-          imgInfo &&
+        {imgInfo &&
           resultStickerList.map(({ stickerLocation, emoji }, idx) =>
             stickerLocation.map((stickerLocationInfo, stickerIdx) => (
               <StEmojiIcon
                 key={`sticker${stickerIdx}_${emoji}`}
-                location={setStickerLocationData(stickerLocationInfo, imgViewInfo, imgInfo)}>
+                location={setStickerLocationData(stickerLocationInfo, stickerVotingInfo.imgViewInfo, imgInfo)}>
                 {STICKER_LIST[emoji].icon()}
               </StEmojiIcon>
             )),

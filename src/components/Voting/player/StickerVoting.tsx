@@ -29,7 +29,6 @@ const StickerVoting = (props: StickerVotingProps) => {
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
     if (stickerImgRef.current && stickerList.length !== 3 && imgInfo && imgViewInfo) {
       const { offsetX, offsetY } = e.nativeEvent;
-      console.log(offsetX, offsetY);
       if (offsetY - 27 >= 0 || offsetX - 27 >= 0) {
         const newSticker: StickerLocation = {
           x: Math.round((((offsetX - 27) * imgInfo.width) / imgViewInfo.width) * 100) / 100,
@@ -39,7 +38,12 @@ const StickerVoting = (props: StickerVotingProps) => {
         // console.log('이미지 자체 정보', imgInfo);
         // console.log('이미지 뷰 정보', imgViewInfo);
         // console.log('이미지 정보', newSticker);
-        setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
+        setStickerVotingInfo((prev) => ({
+          ...prev,
+          imgViewInfo,
+          location: [...prev.location, newSticker],
+          emoji,
+        }));
       }
     }
   };

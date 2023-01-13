@@ -27,7 +27,7 @@ const ReasonVoting = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setStickerInfo({ pictureId: stickerInfo.pictureId, location: [], emoji: 0 });
+    setStickerInfo((prev) => ({ ...prev, pictureId: stickerInfo.pictureId, location: [], emoji: 0 }));
   }, []);
 
   return (
