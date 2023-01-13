@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IcNextArrow } from '../../asset/icon';
-import { BannerImg } from '../../asset/image';
+import { IcBannerImg, IcNextArrow } from '../../asset/icon';
+// import { BannerImg } from '../../asset/image';
 import useModal from '../../lib/hooks/useModal';
 import Guide from './Guide';
 
@@ -12,7 +12,9 @@ const Header = () => {
   return (
     <>
       <StBannerWrapper>
-        <StBannerImg src={BannerImg} alt="배너 이미지" />
+        <StBannerImg>
+          <IcBannerImg />
+        </StBannerImg>
         <StGuideBtn type="button" onClick={() => toggle()}>
           <p>픽미 사용방법 A부터 Z까지</p>
           <IcNextArrow />
@@ -35,10 +37,13 @@ const StBannerWrapper = styled.header`
   border-radius: 1.2rem;
 `;
 
-const StBannerImg = styled.img`
-  width: 100%;
-  border-radius: 1.2rem;
-  object-fit: fill;
+const StBannerImg = styled.div`
+  & > svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.2rem;
+    object-fit: fill;
+  }
 `;
 
 const StGuideBtn = styled.button`
