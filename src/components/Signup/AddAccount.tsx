@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+import { SignUpBanner } from '../../asset/image';
 import { SignUpInfo } from '../../types/signup';
 
 const AddAccount = () => {

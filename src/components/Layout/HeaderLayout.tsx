@@ -36,7 +36,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
 
   width: 100%;
 
-  background: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  background: none;
 
   background-color: ${({ theme, isBanner }) => !isBanner && theme.colors.Pic_Color_White};
 
