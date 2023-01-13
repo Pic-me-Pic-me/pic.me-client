@@ -15,7 +15,7 @@ import { HeaderLayout } from '../components/Layout';
 import { STICKER_LIST } from '../constant/StickerIconList';
 import { getCurrentVoteDatailData, patchCurrentVoteData } from '../lib/api/voting';
 import { useCarouselSize } from '../lib/hooks/useCarouselSize';
-import useGetVoteResult from '../lib/hooks/useGetVoteResult';
+import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
 import { stickerResultState } from '../recoil/maker/atom';
 import { stickerCountSelector } from '../recoil/maker/selector';
 import { NaturalImgInfo, StickerLocation, StickerResultInfo } from '../types/vote';
@@ -26,7 +26,7 @@ import { setStickerLocationData } from '../utils/setStickerLocationData';
 const CurrentVoteDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
-  const { voteResult, isLoading, isError } = useGetVoteResult(voteId);
+  const { voteResult, isLoading, isError } = useGetCurrentVote(voteId);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
