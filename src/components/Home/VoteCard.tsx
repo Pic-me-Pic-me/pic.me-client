@@ -78,7 +78,7 @@ const StTitleWrapper = styled.div`
   > h1 {
     padding-bottom: 0.7rem;
     color: ${({ theme }) => theme.colors.Pic_Color_White};
-    font-family: 'Pretendard';
+    font-family: 'Pretendard', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 1.6rem;

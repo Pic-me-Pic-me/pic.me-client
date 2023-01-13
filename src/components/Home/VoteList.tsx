@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
@@ -9,45 +9,43 @@ import { VoteCardInfo } from '../../types/vote';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
+  const { ref, inView } = useInView({
+    threshold: 0.5,
   });
-  const [dataList, setDataList] = useState<VoteCardInfo[]>();
+  const [dataList, setDataList] = useState<VoteCardInfo[]>([]);
   const [CursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
 
+  const getMoreItem = useCallback(async () => {
+    const newData = await getCurrentVoteData(Number(CursorId));
+    if (newData) {
+      setDataList(dataList?.concat(newData.data.result));
+      setCursorId(newData.data.resCursorId);
+    }
+  }, [CursorId]);
+
   useEffect(() => {
     getUserName();
-    getMoreItem();
+    if (dataList?.length === 0) {
+      getMoreItem();
+    }
   }, []);
 
   useEffect(() => {
     if (dataList?.length !== 0 && inView) {
       getMoreItem();
     }
-  }, [CursorId, inView]);
+  }, [inView]);
 
   const getUserName = async () => {
     const name = await getUserInfo();
     setUserName(name?.data.userName);
   };
 
-  const getMoreItem = async () => {
-    const newData = await getCurrentVoteData(Number(CursorId));
-    console.log(newData);
-    if (!dataList) {
-      setDataList(newData?.data.result);
-      return;
-    } else if (newData) {
-      setCursorId(newData.data.resCursorId);
-      setDataList(dataList?.concat(newData.data.result));
-    }
-  };
-  console.log(dataList);
   return (
     <>
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
-      {dataList ? (
+      {dataList.length !== 0 ? (
         <StVoteListWrapper>
           {dataList?.map((data, i) => (
             <VoteCard voteData={data} key={i} />
@@ -71,7 +69,7 @@ const StCurrentVote = styled.h1`
   padding: 0rem 2rem;
   margin: 5.1rem 0rem 1.3rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
 `;
 
 const StVoteListWrapper = styled.main`

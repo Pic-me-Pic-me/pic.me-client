@@ -60,7 +60,8 @@ const KakaoNickname = () => {
     const signUpData = await postKakaoSignUp(uid, socialType, username, email);
     localStorage.setItem('accessToken', signUpData.accessToken);
     cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
-    navigate('/home');
+    navigate('/login');
+    window.location.reload();
   };
 
   return (

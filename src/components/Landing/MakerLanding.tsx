@@ -173,7 +173,12 @@ const StContents = styled.h1`
   margin-left: -0.245rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22}
+
+  font-family: 'Pretendard', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.88035rem;
+  line-height: 3.4rem;
 
   white-space: pre-wrap;
 
@@ -279,7 +284,7 @@ const StFirstSolution = styled.article`
 
   & > h1 {
     margin-bottom: 1.8rem;
-    ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22};
+    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 

@@ -62,7 +62,7 @@ const Nickname = () => {
       if (res?.success) {
         cookies.set('refreshToken', res.data.refreshToken);
         localStorage.setItem('accessToken', res.data.accessToken);
-        navigate('/');
+        navigate('/login');
       }
     });
   };
