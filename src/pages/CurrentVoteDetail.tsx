@@ -43,6 +43,7 @@ const CurrentVoteDetail = () => {
   useEffect(() => {
     if (voteResult) {
       setStickerResultState(jsonGetStickerList(voteResult.Picture[currentIdx].Sticker));
+      window.scrollTo(0, 0);
     }
   }, [currentIdx]);
 
@@ -57,7 +58,7 @@ const CurrentVoteDetail = () => {
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 
-  // if (isLoading && currentVoteInfo == undefined)
+  // if (isLoading)
   //   return (
   //     <>
   //       <LandingHeader />
@@ -78,11 +79,7 @@ const CurrentVoteDetail = () => {
         </StVoteInfo>
         <StVoteStatus>
           <span>{voteResult?.currentVote}명 투표 중</span>
-          {currentIdx === 0 ? (
-            <span>{voteResult?.currentVote}표</span>
-          ) : (
-            <span>{voteResult?.Picture[currentIdx].count}표</span>
-          )}
+          <span>{voteResult?.Picture[currentIdx].count}표</span>
         </StVoteStatus>
         <StImgWrapper ref={ref}>
           <StImgUl
@@ -133,7 +130,6 @@ const CurrentVoteDetail = () => {
                 )}
               </li>
             ))}
-            {/* 스티커 붙이는 컴포넌트 쇽샥해서 여기에 뒀습니다. */}
           </StImgUl>
         </StImgWrapper>
         <StDotWrapper>
@@ -149,8 +145,8 @@ const CurrentVoteDetail = () => {
             </>
           )}
         </StDotWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
         <StCompleteVoteBtnStructure>
+          <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
           <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
         </StCompleteVoteBtnStructure>
       </CurrentVoteDetailWrapper>
@@ -174,15 +170,6 @@ const CurrentVoteDetailWrapper = styled.section`
   align-items: center;
 
   width: 100%;
-
-  & > svg {
-    position: fixed;
-
-    top: 62vh;
-    left: 75%;
-
-    cursor: pointer;
-  }
 `;
 
 const StVoteInfo = styled.article`
@@ -326,6 +313,8 @@ const StUnselectedDot = styled(StDotStructure)`
 `;
 
 const StCompleteVoteBtnStructure = styled.div`
+  position: relative;
+
   width: 100%;
 
   display: flex;
@@ -333,6 +322,14 @@ const StCompleteVoteBtnStructure = styled.div`
   align-items: center;
 
   padding: 2rem;
+  & > svg {
+    position: absolute;
+
+    bottom: 13rem;
+    right: 3em;
+
+    cursor: pointer;
+  }
 `;
 
 const StCompleteVoteBtn = styled.button`
