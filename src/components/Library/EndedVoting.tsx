@@ -73,16 +73,17 @@ const StVotingWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 100%;
+  width: 17.8rem;
+  height: 21.4rem;
 `;
 const StImageWrapper = styled.div`
-  /* width: 100%; */
+  width: 17.8rem;
   height: 12.8rem;
 `;
 const StVotingPic = styled.img`
   display: float;
 
-  width: 30.52%;
+  width: 100%;
   height: 17.638rem;
 
   object-fit: cover;
@@ -113,7 +114,7 @@ const StDeleteBtnWrapper = styled.button`
 `;
 
 const StVotingDesc = styled.div`
-  width: 17.6rem;
+  width: 17.8rem;
   height: 8.6rem;
 
   position: relative;
