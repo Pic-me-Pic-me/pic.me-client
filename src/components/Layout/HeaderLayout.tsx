@@ -53,8 +53,6 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
       stroke: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
     }
   }
-
-  z-index: 10;
 `;
 
 const StTitle = styled.div<{ isBanner?: boolean }>`
