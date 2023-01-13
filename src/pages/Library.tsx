@@ -3,6 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import LandingLibrary from '../components/Landing/maker/LandingLibrary';
 import { HeaderLayout } from '../components/Layout';
 import MonthVoting from '../components/Library/MonthVoting';
 import { getAllVoteInfo } from '../lib/api/library';
@@ -16,6 +17,7 @@ const Library = () => {
   const [isEnd, setIsEnd] = useState(false);
   const nextIndex = useRef(0);
   const [data, setData] = useState<EndedVoteInfo[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getMoreItem();
@@ -32,6 +34,9 @@ const Library = () => {
 
     const res = await getAllVoteInfo(prevLastDate);
     const getItem = res?.data.data as EndedVoteInfo[];
+    if (res) {
+      setIsLoading(false);
+    }
 
     if (data.length > 0 && getItem.length === 0) return setIsEnd(true);
     if (getItem) {
@@ -40,6 +45,10 @@ const Library = () => {
       setData(newData);
     }
   };
+
+  if (isLoading) {
+    return <LandingLibrary />;
+  }
 
   return (
     <>

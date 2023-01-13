@@ -33,6 +33,7 @@ const CurrentVoteDetail = () => {
   const [stickerResult, setStickerResultState] = useRecoilState(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { ref, width } = useCarouselSize();
 
@@ -43,6 +44,7 @@ const CurrentVoteDetail = () => {
   useEffect(() => {
     if (voteResult) {
       setStickerResultState(jsonGetStickerList(voteResult.Picture[currentIdx].Sticker));
+      // setIsLoading(false);
     }
   }, [currentIdx]);
 
@@ -57,7 +59,7 @@ const CurrentVoteDetail = () => {
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 
-  // if (isLoading && currentVoteInfo == undefined)
+  // if (isLoading)
   //   return (
   //     <>
   //       <LandingHeader />
