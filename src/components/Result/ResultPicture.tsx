@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { IcReasonBtnBefore } from '../../asset/icon';
 import { STICKER_LIST } from '../../constant/StickerIconList';
 import { stickerResultState } from '../../recoil/maker/atom';
-import { NaturalImgInfo, StickerResultInfo } from '../../types/vote';
+import { NaturalImgInfo, StickerLocation, StickerResultInfo } from '../../types/vote';
+import { setStickerLocationData } from '../../utils/setStickerLocationData';
 
 interface ReasonPicProps {
   src: string;
@@ -15,9 +16,11 @@ const ResultPicture = (props: ReasonPicProps) => {
   const { src } = props;
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const stickerResult = useRecoilValue(stickerResultState);
+  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
   const handleImgSize = (e: React.SyntheticEvent) => {
-    const { naturalWidth, naturalHeight } = e.target as HTMLImageElement;
+    const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
+    setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 
@@ -26,8 +29,10 @@ const ResultPicture = (props: ReasonPicProps) => {
       <StPictureWrapper>
         <StPicture src={src} onLoad={handleImgSize} />
         {stickerResult.map(({ stickerLocation, emoji }, idx) =>
-          stickerLocation.map(({ x, y, degRate }, stickerIdx) => (
-            <StEmojiIconWrapper key={`sticker${stickerIdx}_${emoji}`} locationX={x} locationY={y} degRate={degRate}>
+          stickerLocation.map((sticker, stickerIdx) => (
+            <StEmojiIconWrapper
+              key={`sticker${stickerIdx}_${emoji}`}
+              location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
               {STICKER_LIST[emoji].icon()}
             </StEmojiIconWrapper>
           )),
@@ -59,10 +64,10 @@ const StPicture = styled.img<{ src: string }>`
 
   object-fit: cover;
 `;
-const StEmojiIconWrapper = styled.div<{ locationX: number; locationY: number; degRate: number }>`
+const StEmojiIconWrapper = styled.div<{ location: StickerLocation }>`
   position: absolute;
-  left: ${({ locationX }) => locationX}rem;
-  top: ${({ locationY }) => locationY}rem;
+  left: ${({ location }) => location.x}rem;
+  top: ${({ location }) => location.y}rem;
   & > svg {
     position: absolute;
     left: 0;
@@ -71,7 +76,7 @@ const StEmojiIconWrapper = styled.div<{ locationX: number; locationY: number; de
     height: 5.3rem;
     z-index: 3;
     transform-origin: 50% 50%;
-    transform: ${({ degRate }) => `rotate(${degRate}deg)`};
+    transform: ${({ location }) => `rotate(${location.degRate}deg)`};
   }
 `;
 export default ResultPicture;

@@ -1,12 +1,10 @@
-import { access } from 'node:fs';
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { IcPickmeLogo } from '../../asset/icon';
+import { LoginBanner } from '../../asset/image';
 import { postLoginInfo } from '../../lib/api/auth';
 import { LoginInfo } from '../../types/auth';
 import KakaoLogin from './KakaoLogin';
@@ -38,7 +36,7 @@ const LoginComponent = () => {
   return (
     <>
       <StBannerWrapper>
-        <IcPickmeLogo />
+        <img src={LoginBanner} alt="배너" />
       </StBannerWrapper>
       <StWhiteSection>
         <StContainer>
@@ -71,9 +69,11 @@ const StBannerWrapper = styled.div`
   top: 0;
   z-index: -1;
   width: 100%;
-  height: 22.9rem;
+  max-width: 43rem;
+  height: 19.3rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   > svg {
+    max-width: 43rem;
     position: absolute;
     top: 6.8rem;
   }

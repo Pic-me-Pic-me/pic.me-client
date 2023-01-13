@@ -2,7 +2,8 @@ import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcSignupBannerLogo } from '../asset/icon';
+import { IcPickmeLogo } from '../asset/icon';
+import { SignUpBanner } from '../asset/image';
 import HeaderLayout from '../components/Layout/HeaderLayout';
 
 const Signup = () => {
@@ -11,7 +12,7 @@ const Signup = () => {
     <>
       <HeaderLayout HeaderTitle="회원가입" isBanner handleGoback={() => navigate(-1)}></HeaderLayout>
       <StBlackBackground>
-        <IcSignupBannerLogo />
+        <img src={SignUpBanner} alt="배너" />
         <StWhiteSection>
           <Outlet />
         </StWhiteSection>
@@ -25,21 +26,19 @@ const StBlackBackground = styled.article`
   flex-direction: column;
   align-items: center;
 
-  height: 100%;
+  position: absolute;
+  top: 0;
+
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
-  > svg {
-    margin-top: 1.2rem;
+  > img {
+    height: 19.3rem;
   }
 `;
 
 const StWhiteSection = styled.section`
-  position: fixed;
-  bottom: 0;
-
   width: 100%;
-  height: 75.3rem;
-
+  margin-top: 3.039rem;
   border-radius: 1.4rem 1.4rem 0rem 0rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;

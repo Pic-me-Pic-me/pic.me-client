@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 
 import { IcGoback } from '../../asset/icon';
 
@@ -32,7 +32,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
 
   top: 0rem;
   height: 8rem;
-  padding-right: 5.4rem;
+  padding-right: 3.8rem;
 
   width: 100%;
 
@@ -43,7 +43,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   z-index: 100;
 
   & > svg {
-    width: 5.4rem;
+    width: 4.9rem;
 
     cursor: pointer;
     & > path {
@@ -65,7 +65,7 @@ const StTitle = styled.div<{ isBanner?: boolean }>`
   width: 100%;
 
   & > h1 {
-    ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20};
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
     color: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
   }
 `;

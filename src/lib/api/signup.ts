@@ -1,4 +1,4 @@
-import { AddAccountInfo, SignUpPostInfo } from '../../types/signup';
+import { AddAccountInfo } from '../../types/signup';
 import { client } from '../axios';
 
 export const checkDuplicateNickname = async (username: string) => {

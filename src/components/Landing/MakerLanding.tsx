@@ -135,6 +135,7 @@ const StOnboarding = styled.div`
   top: 0;
 
   width: 100%;
+  max-width: 43rem;
   height: 556.1rem;
 
   & > svg {
@@ -190,6 +191,7 @@ const StContents = styled.h1`
 
 const StStartBtn = styled.button`
   width: 100%;
+  max-width: 43rem;
   height: 5.763rem;
   padding: 0rem;
 
@@ -201,7 +203,8 @@ const StStartBtn = styled.button`
 `;
 
 const StSecondSection = styled.section`
-  padding: 15.8rem 6.2rem 0rem 6.2rem;
+  width: 100%;
+  /* padding: 15.8rem 6.2rem 0rem 6.2rem; */
 `;
 
 const StFirstContent = styled.article`

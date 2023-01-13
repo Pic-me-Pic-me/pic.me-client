@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 
 const TOKEN = localStorage.getItem('accessToken');
 const cookies = new Cookies();
 
 const client = axios.create({
-  baseURL: process.env.REACT_APP_IP,
+  baseURL: `${process.env.REACT_APP_IP}`,
+
   headers: {
     'Content-type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,
@@ -20,6 +20,7 @@ client.interceptors.request.use((config: any) => {
     accessToken: localStorage.getItem('accessToken'),
     refreshToken: cookies.get('refreshToken'),
   };
+
   return { ...config, headers };
 });
 
@@ -52,10 +53,10 @@ client.interceptors.response.use(
       originalRequest.headers = {
         newAccessToken,
       };
-      //리프레시 토큰도 만료 되면
+
+      //리프레시 토큰도 만료돠거나 유효하지 않은 토큰인 경우
       if (res.data.status === 400) {
-        const navigate = useNavigate();
-        navigate('/auth/signin');
+        window.location.href = '/login';
       }
 
       return axios(originalRequest);

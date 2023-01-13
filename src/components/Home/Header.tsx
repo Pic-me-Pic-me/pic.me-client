@@ -30,7 +30,6 @@ const StBannerWrapper = styled.header`
   flex-direction: column;
 
   width: 100%;
-  height: 23.49rem;
   margin-top: 8.8rem;
 
   border-radius: 1.2rem;
@@ -38,7 +37,6 @@ const StBannerWrapper = styled.header`
 
 const StBannerImg = styled.img`
   width: 100%;
-  height: 23.49rem;
   border-radius: 1.2rem;
   object-fit: fill;
 `;

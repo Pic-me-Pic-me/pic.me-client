@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import * as timeago from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
@@ -14,60 +15,46 @@ import { HeaderLayout } from '../components/Layout';
 import { STICKER_LIST } from '../constant/StickerIconList';
 import { getCurrentVoteDatailData, patchCurrentVoteData } from '../lib/api/voting';
 import { useCarouselSize } from '../lib/hooks/useCarouselSize';
-import { useGetCurrentVote } from '../lib/hooks/useGetCurrentVote';
-import { CurrentVoteInfo, StickerLocation, StickerResultInfo } from '../types/vote';
+import useGetVoteResult from '../lib/hooks/useGetVoteResult';
+import { stickerResultState } from '../recoil/maker/atom';
+import { stickerCountSelector } from '../recoil/maker/selector';
+import { NaturalImgInfo, StickerLocation, StickerResultInfo } from '../types/vote';
+import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 import { modifySliderRange, picmeSliderEvent } from '../utils/picmeSliderEvent';
+import { setStickerLocationData } from '../utils/setStickerLocationData';
 
 const CurrentVoteDetail = () => {
-  const { voteid } = useParams<{ voteid: string }>();
+  const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
-
-  const [voteInfo, setVoteInfo] = useState<CurrentVoteInfo>();
-  const [currentVote, setCurrentVote] = useState<number>();
-  const [pictureUrl, setPictureUrl] = useState<string[]>([]);
-  const [pictureCount, setPictureCount] = useState<number[]>([]);
-  const [resultStickerList, setResultStickerList] = useState<StickerResultInfo[]>([]);
+  const { voteResult, isLoading, isError } = useGetVoteResult(voteId);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
+  const [stickerResult, setStickerResultState] = useRecoilState(stickerResultState);
+  const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
+  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
   const { ref, width } = useCarouselSize();
 
-  const { currentVoteInfo, isError } = useGetCurrentVote(voteid);
-
   timeago.register('ko', ko);
   const createdAt =
-    voteInfo?.createdDate.toString().slice(0, 10) + ' ' + voteInfo?.createdDate.toString().slice(11, 19);
+    voteResult?.createdDate.toString().slice(0, 10) + ' ' + voteResult?.createdDate.toString().slice(11, 19);
 
   useEffect(() => {
-    if (currentVoteInfo) {
-      setVoteInfo(currentVoteInfo.data);
-      setCurrentVote(currentVoteInfo.data.currentVote);
-      setPictureUrl([currentVoteInfo.data.Picture[0].url, currentVoteInfo.data.Picture[1].url]);
-      setPictureCount([currentVoteInfo.data.Picture[0].count, currentVoteInfo.data.Picture[1].count]);
+    if (voteResult) {
+      setStickerResultState(jsonGetStickerList(voteResult.Picture[currentIdx].Sticker));
     }
-  }, [currentVoteInfo]);
-
-  useEffect(() => {
-    if (voteInfo) {
-      const { Picture } = voteInfo;
-      const getStickerList = Picture[currentIdx].Sticker.filter(
-        ({ emoji, count, stickerLocation }) => stickerLocation !== '',
-      ).map(({ emoji, count, stickerLocation }) => {
-        const jsonLocation = JSON.parse(stickerLocation) as StickerLocation[];
-        return {
-          stickerLocation: jsonLocation,
-          emoji,
-          count,
-        };
-      });
-      setResultStickerList([...getStickerList]);
-    }
-  }, [voteInfo, currentIdx]);
+  }, [currentIdx]);
 
   const handleGoResultPage = () => {
-    patchCurrentVoteData(voteid);
-    navigate(`/result/${voteid}`);
+    patchCurrentVoteData(voteId);
+    navigate(`/result/${voteId}`);
+  };
+
+  const handleImgSize = (e: React.SyntheticEvent) => {
+    const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
+    setImgViewInfo({ width, height });
+    setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 
   // if (isLoading && currentVoteInfo == undefined)
@@ -87,11 +74,15 @@ const CurrentVoteDetail = () => {
           <span>
             <TimeAgo datetime={createdAt} locale="ko" />
           </span>
-          <h1>{voteInfo?.voteTitle}</h1>
+          <h1>{voteResult?.voteTitle}</h1>
         </StVoteInfo>
         <StVoteStatus>
-          <span>{currentVote}명 투표 중</span>
-          {currentIdx === 0 ? <span>{pictureCount[0]}표</span> : <span>{pictureCount[1]}표</span>}
+          <span>{voteResult?.currentVote}명 투표 중</span>
+          {currentIdx === 0 ? (
+            <span>{voteResult?.currentVote}표</span>
+          ) : (
+            <span>{voteResult?.Picture[currentIdx].count}표</span>
+          )}
         </StVoteStatus>
         <StImgWrapper ref={ref}>
           <StImgUl
@@ -104,7 +95,7 @@ const CurrentVoteDetail = () => {
                 setTransX(modifySliderRange(deltaX, -width, width));
               },
               onDragEnd: (deltaX) => {
-                const maxIndex = pictureUrl.length - 1;
+                const maxIndex = 1;
                 Array(2)
                   .fill(0)
                   .map((v, i) => 2 - i)
@@ -122,23 +113,27 @@ const CurrentVoteDetail = () => {
                 setTransX(0);
               },
             })}>
-            {voteInfo?.Picture.map(({ pictureId, url, count }, idx) => (
+            {voteResult?.Picture.map(({ pictureId, url, count }, idx) => (
               <li key={idx}>
                 {currentIdx === idx ? (
-                  <StSelectedImg width={window.screen.width} src={url} alt="선택된 사진" />
+                  <>
+                    <StSelectedImg onLoad={handleImgSize} width={window.screen.width} src={url} alt="선택된 사진" />
+                    {stickerResult.map(({ stickerLocation, emoji }, idx) =>
+                      stickerLocation.map((sticker, stickerIdx) => (
+                        <StEmojiIcon
+                          key={`sticker${stickerIdx}_${emoji}`}
+                          location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
+                          {STICKER_LIST[emoji].icon()}
+                        </StEmojiIcon>
+                      )),
+                    )}
+                  </>
                 ) : (
                   <StUnselectedImg width={window.screen.width} src={url} alt="선택되지 않은 사진" />
                 )}
               </li>
             ))}
             {/* 스티커 붙이는 컴포넌트 쇽샥해서 여기에 뒀습니다. */}
-            {resultStickerList.map(({ stickerLocation, emoji }, idx) =>
-              stickerLocation.map(({ x, y, degRate }, stickerIdx) => (
-                <StEmojiIcon key={`sticker${stickerIdx}_${emoji}`} locationX={x} locationY={y} degRate={degRate}>
-                  {STICKER_LIST[emoji].icon()}
-                </StEmojiIcon>
-              )),
-            )}
           </StImgUl>
         </StImgWrapper>
         <StDotWrapper>
@@ -154,7 +149,7 @@ const CurrentVoteDetail = () => {
             </>
           )}
         </StDotWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteid })} />
+        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
         <StCompleteVoteBtnStructure>
           <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
         </StCompleteVoteBtnStructure>
@@ -281,6 +276,10 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
     `};
   width: ${({ width }) => (width * 1.5) / 10}rem;
   touch-action: auto;
+
+  & > li {
+    position: relative;
+  }
 `;
 
 const StSelectedImg = styled.img<{ width: number }>`
@@ -347,10 +346,10 @@ const StCompleteVoteBtn = styled.button`
   border: none;
   border-radius: 0.9rem;
 `;
-const StEmojiIcon = styled.div<{ locationX: number; locationY: number; degRate: number }>`
+const StEmojiIcon = styled.div<{ location: StickerLocation }>`
   position: absolute;
-  left: ${({ locationX }) => locationX}rem;
-  top: ${({ locationY }) => locationY}rem;
+  left: ${({ location }) => location.x}rem;
+  top: ${({ location }) => location.y}rem;
 
   & > svg {
     position: absolute;
@@ -360,6 +359,6 @@ const StEmojiIcon = styled.div<{ locationX: number; locationY: number; degRate: 
     height: 5.3rem;
     z-index: 3;
     transform-origin: 50% 50%;
-    transform: ${({ degRate }) => `rotate(${degRate}deg)`};
+    transform: ${({ location }) => `rotate(${location.degRate}deg)`};
   }
 `;

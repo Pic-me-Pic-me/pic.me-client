@@ -45,14 +45,14 @@ const EndedVoting = (props: votingProps) => {
 
   return (
     <>
-      <StVotingWrapper onClick={handleMoveResult}>
+      <StVotingWrapper>
         <StImageWrapper>
           <StVotingPic src={voteData.url} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
         </StImageWrapper>
-        <StVotingDesc>
+        <StVotingDesc onClick={handleMoveResult}>
           <StVotingTitle>
             {voteData.title} {voteData.id}
           </StVotingTitle>
@@ -108,6 +108,10 @@ const StDeleteBtnWrapper = styled.button`
   border: none;
 
   background-color: transparent;
+
+  & > svg {
+    z-index: 5;
+  }
 `;
 
 const StVotingDesc = styled.div`

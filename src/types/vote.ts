@@ -9,13 +9,13 @@ export interface MakerPictureData {
 }
 
 export interface MakerVoteInfo {
-  userName: string;
+  userName?: string;
   voteId: number;
   voteStatus: boolean;
   voteTitle: string;
   Picture: MakerPictureData[];
   currentVote: number;
-  createdVdate: Date;
+  createdDate: Date;
 }
 
 export interface VotingInfo {
@@ -42,15 +42,6 @@ export interface VotingInfo {
 //   location: string;
 //   emoji: number;
 // }
-
-export interface CurrentVoteInfo {
-  voteId: number;
-  voteStatus: boolean;
-  voteTitle: string;
-  currentVote: number;
-  createdDate: Date;
-  Picture: CurrentPictureInfo[];
-}
 
 export interface CurrentPictureInfo {
   pictureId?: number;
