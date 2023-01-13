@@ -92,11 +92,19 @@ const StModal = styled.section`
 
 const StTitle = styled.header`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 7.651rem;
   z-index: 1;
+
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
+
+  background-image: url(${PlayerTitle});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
 
   & > div {
     display: flex;
@@ -105,11 +113,9 @@ const StTitle = styled.header`
     z-index: 100;
 
     position: relative;
-    width: 100%;
-    height: inherit;
-    margin: 0rem 3.7rem;
+    width: 21.2rem;
+    height: 5.836rem;
 
-    color: ${({ theme }) => theme.colors.Pic_Color_White};
     background-image: url(${PlayerTitle});
     background-repeat: no-repeat;
     background-size: contain;
@@ -117,11 +123,11 @@ const StTitle = styled.header`
     text-align: center;
 
     & > h1 {
-      position: absolute;
       justify-content: center;
       align-items: center;
       text-align: center;
-      top: 20%;
+      position: absolute;
+      width: 100%;
 
       padding: 0rem 2rem;
 
