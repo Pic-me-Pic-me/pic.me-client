@@ -45,17 +45,15 @@ const EndedVoting = (props: votingProps) => {
 
   return (
     <>
-      <StVotingWrapper>
+      <StVotingWrapper onClick={handleMoveResult}>
         <StImageWrapper>
           <StVotingPic src={voteData.url} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
         </StImageWrapper>
-        <StVotingDesc onClick={handleMoveResult}>
-          <StVotingTitle>
-            {voteData.title} {voteData.id}
-          </StVotingTitle>
+        <StVotingDesc>
+          <StVotingTitle>{voteData.title}</StVotingTitle>
           <StVotingDate>
             {time1}월 {time2}일
           </StVotingDate>
@@ -75,17 +73,17 @@ const StVotingWrapper = styled.section`
   display: flex;
   flex-direction: column;
 
-  position: relative;
+  width: 100%;
 `;
 const StImageWrapper = styled.div`
-  width: 100%;
+  /* width: 100%; */
   height: 12.8rem;
 `;
 const StVotingPic = styled.img`
   display: float;
 
-  width: 100%;
-  height: 100%;
+  width: 30.52%;
+  height: 17.638rem;
 
   object-fit: cover;
 
