@@ -14,11 +14,12 @@ const PlayerLanding = () => {
   const { votingInfo, isLoading, isError } = useGetVotingInfo(Number(voteId));
 
   const setVotingInfoState = useSetRecoilState(votingInfoState);
+  const resetVotingInfoState = useResetRecoilState(stickerInfoState);
   const resetStickerInfoState = useResetRecoilState(stickerInfoState);
-  const check = useRecoilValue(votingInfoState);
-  console.log('초기 voting Recoil', check);
+
   useEffect(() => {
     if (votingInfo?.data) {
+      resetVotingInfoState();
       resetStickerInfoState();
       setVotingInfoState({
         ...votingInfo?.data,

@@ -72,10 +72,10 @@ const StBannerWrapper = styled.div`
   max-width: 43rem;
   height: 19.3rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  > svg {
-    max-width: 43rem;
+  > img {
+    max-width: 100%;
     position: absolute;
-    top: 6.8rem;
+    /* top: 6.8rem; */
   }
 `;
 

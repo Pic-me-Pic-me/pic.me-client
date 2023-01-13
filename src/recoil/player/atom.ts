@@ -28,6 +28,7 @@ export const stickerInfoState = atom<StickerInfo>({
     pictureId: 0,
     location: [],
     emoji: 0,
+    imgViewInfo: { width: 0, height: 0 },
   },
   effects_UNSTABLE: [persistAtom],
 });

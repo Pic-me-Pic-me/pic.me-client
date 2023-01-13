@@ -40,7 +40,7 @@ const Nav = () => {
         <StLogoBtn onClick={handleReLoad}>
           <IcHomeLogo />
         </StLogoBtn>
-        <StHambergerWrapper>
+        <StHamburgerWrapper>
           <StLogoutBtn type="button" onClick={() => toggle()}>
             로그아웃
           </StLogoutBtn>
@@ -53,9 +53,9 @@ const Nav = () => {
           <StHamburgerBtn type="button" onClick={handleHamburger}>
             {isOpen ? <IcClose width="2.13rem" height="1.4rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
           </StHamburgerBtn>
-        </StHambergerWrapper>
+        </StHamburgerWrapper>
+        <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
       </StHomeNav>
-      <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };
@@ -87,9 +87,10 @@ const StLogoBtn = styled.a`
   }
 `;
 
-const StHambergerWrapper = styled.div`
+const StHamburgerWrapper = styled.div`
   display: flex;
   align-items: center;
+  z-index: 100;
 `;
 
 const StLogoutBtn = styled.button`

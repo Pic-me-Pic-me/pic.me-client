@@ -22,16 +22,23 @@ const StickerResultVoting = () => {
   const [resultStickerList, setResultStickerList] = useState<StickerResultInfo[]>([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (stickerInfo) {
       const { Sticker } = stickerInfo;
       setResultStickerList([...jsonGetStickerList(Sticker)]);
     }
   }, [stickerInfo]);
 
+  console.log(stickerVotingInfo.imgViewInfo);
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    setImgViewInfo({ width, height });
+    // setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
+    // setResultStickerList([ resultStickerList.map(({ stickerLocation, emoji }, idx) =>
+    //         stickerLocation.map((stickerLocationInfo, stickerIdx) => setStickerLocationData()])
   };
 
   if (isLoading) return <Loading />;
@@ -39,16 +46,19 @@ const StickerResultVoting = () => {
 
   return (
     <StStickerVotingWrapper>
-      <StStickerImg onLoad={handleImgSize} src={pictureInfo?.url} ref={stickerImgRef} alt="selected_img" />
-      {resultStickerList.map(({ stickerLocation, emoji }, idx) =>
-        stickerLocation.map((stickerLocationInfo, stickerIdx) => (
-          <StEmojiIcon
-            key={`sticker${stickerIdx}_${emoji}`}
-            location={setStickerLocationData(stickerLocationInfo, imgViewInfo, imgInfo)}>
-            {STICKER_LIST[emoji].icon()}
-          </StEmojiIcon>
-        )),
-      )}
+      <article>
+        <StStickerImg onLoad={handleImgSize} src={pictureInfo?.url} ref={stickerImgRef} alt="selected_img" />
+        {imgInfo &&
+          resultStickerList.map(({ stickerLocation, emoji }, idx) =>
+            stickerLocation.map((stickerLocationInfo, stickerIdx) => (
+              <StEmojiIcon
+                key={`sticker${stickerIdx}_${emoji}`}
+                location={setStickerLocationData(stickerLocationInfo, stickerVotingInfo.imgViewInfo, imgInfo)}>
+                {STICKER_LIST[emoji].icon()}
+              </StEmojiIcon>
+            )),
+          )}
+      </article>
     </StStickerVotingWrapper>
   );
 };
@@ -62,13 +72,16 @@ const StStickerVotingWrapper = styled.article`
   width: 100%;
   margin-bottom: 2.6rem;
 
-  position: relative;
+  & > article {
+    width: 90%;
+
+    position: relative;
+  }
 `;
 
 const StStickerImg = styled.img`
-  width: 90%;
+  width: 100%;
   height: 52rem;
-  margin-top: 1.7rem;
 
   border-radius: 1rem;
 

@@ -29,33 +29,44 @@ const StickerVoting = (props: StickerVotingProps) => {
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
     if (stickerImgRef.current && stickerList.length !== 3 && imgInfo && imgViewInfo) {
       const { offsetX, offsetY } = e.nativeEvent;
-      const newSticker: StickerLocation = {
-        x: Math.round(((offsetX * imgInfo.width) / imgViewInfo.width) * 100) / 100,
-        y: Math.round(((offsetY * imgInfo.height) / imgViewInfo.height) * 100) / 100,
-        degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
-      };
-      // console.log('이미지 자체 정보', imgInfo);
-      // console.log('이미지 뷰 정보', imgViewInfo);
-      // console.log('이미지 정보', newSticker);
-      setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
+      if (offsetY - 27 >= 0 || offsetX - 27 >= 0) {
+        const newSticker: StickerLocation = {
+          x: Math.round((((offsetX - 27) * imgInfo.width) / imgViewInfo.width) * 100) / 100,
+          y: Math.round((((offsetY - 27) * imgInfo.height) / imgViewInfo.height) * 100) / 100,
+          degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
+        };
+        // console.log('이미지 자체 정보', imgInfo);
+        // console.log('이미지 뷰 정보', imgViewInfo);
+        // console.log('이미지 정보', newSticker);
+        setStickerVotingInfo((prev) => ({
+          ...prev,
+          imgViewInfo,
+          location: [...prev.location, newSticker],
+          emoji,
+        }));
+      }
     }
   };
 
   return (
     <StStickerVotingWrapper>
-      <StStickerImg
-        onLoad={handleImgSize}
-        src={pictureInfo?.url}
-        ref={stickerImgRef}
-        alt="selected_img"
-        onClick={handleAttachSticker}
-      />
-      {!isStickerGuide &&
-        stickerList.map((sticker, idx) => (
-          <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-            {STICKER_LIST[emoji].icon()}
-          </StEmojiIcon>
-        ))}
+      <article>
+        <StStickerImg
+          onLoad={handleImgSize}
+          src={pictureInfo?.url}
+          ref={stickerImgRef}
+          alt="selected_img"
+          onClick={handleAttachSticker}
+        />
+        {!isStickerGuide &&
+          imgViewInfo &&
+          imgInfo &&
+          stickerList.map((sticker, idx) => (
+            <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
+              {STICKER_LIST[emoji].icon()}
+            </StEmojiIcon>
+          ))}
+      </article>
     </StStickerVotingWrapper>
   );
 };
@@ -71,13 +82,16 @@ const StStickerVotingWrapper = styled.article`
   width: 100%;
   margin-bottom: 2.6rem;
 
-  position: relative;
+  & > article {
+    width: 90%;
+
+    position: relative;
+  }
 `;
 
 const StStickerImg = styled.img`
-  width: 90%;
+  width: 100%;
   height: 52rem;
-  margin-top: 1.7rem;
 
   border-radius: 1rem;
 

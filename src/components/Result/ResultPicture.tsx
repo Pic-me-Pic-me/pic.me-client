@@ -28,15 +28,17 @@ const ResultPicture = (props: ReasonPicProps) => {
     <>
       <StPictureWrapper>
         <StPicture src={src} onLoad={handleImgSize} />
-        {stickerResult.map(({ stickerLocation, emoji }, idx) =>
-          stickerLocation.map((sticker, stickerIdx) => (
-            <StEmojiIconWrapper
-              key={`sticker${stickerIdx}_${emoji}`}
-              location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-              {STICKER_LIST[emoji].icon()}
-            </StEmojiIconWrapper>
-          )),
-        )}
+        {imgViewInfo &&
+          imgInfo &&
+          stickerResult.map(({ stickerLocation, emoji }, idx) =>
+            stickerLocation.map((sticker, stickerIdx) => (
+              <StEmojiIconWrapper
+                key={`sticker${stickerIdx}_${emoji}`}
+                location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
+                {STICKER_LIST[emoji].icon()}
+              </StEmojiIconWrapper>
+            )),
+          )}
       </StPictureWrapper>
     </>
   );
