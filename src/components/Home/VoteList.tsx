@@ -6,9 +6,12 @@ import { IcEmpty } from '../../asset/icon';
 import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData } from '../../lib/api/voting';
 import { VoteCardInfo } from '../../types/vote';
+import { LandingVoteList } from '../Landing/maker';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -17,11 +20,13 @@ const VoteList = () => {
   const [userName, setUserName] = useState<string>();
 
   const getMoreItem = useCallback(async () => {
+    setIsLoading(true);
     const newData = await getCurrentVoteData(Number(CursorId));
     if (newData) {
       setDataList(dataList?.concat(newData.data.result));
       setCursorId(newData.data.resCursorId);
     }
+    setIsLoading(false);
   }, [CursorId]);
 
   useEffect(() => {
@@ -42,6 +47,7 @@ const VoteList = () => {
     setUserName(name?.data.userName);
   };
 
+  if (isLoading) return <LandingVoteList />;
   return (
     <>
       {dataList.length !== 0 ? (

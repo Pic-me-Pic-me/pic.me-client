@@ -20,6 +20,7 @@ const StLandingVoteListWrapper = styled.main`
 
   width: 100%;
   padding-left: 2rem;
+  margin-top: 8.8rem;
 
   overflow-x: hidden;
 `;
