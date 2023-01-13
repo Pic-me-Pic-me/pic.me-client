@@ -30,6 +30,7 @@ const KakaoNickname = () => {
     formState: { errors },
     handleSubmit,
     getValues,
+    watch,
   } = useForm<NicknameInfo>({ mode: 'onChange' });
 
   useEffect(() => {
@@ -127,11 +128,11 @@ const KakaoNickname = () => {
                   <span>
                     <p onClick={() => window.open(termAddress[0], '_blank')}>
                       <u>이용약관</u>
-                    </p>{' '}
-                    및{' '}
+                    </p>
+                    및
                     <p onClick={() => window.open(termAddress[1], '_blank')}>
                       <u>개인정보수집이용</u>
-                    </p>{' '}
+                    </p>
                     동의
                   </span>
                 </StTermContent>
