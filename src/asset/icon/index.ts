@@ -1,5 +1,7 @@
 export { ReactComponent as IcAngleMenu } from './angle_menu.svg';
 export { ReactComponent as IcBackgroundMenu } from './background_menu.svg';
+export { ReactComponent as IcBackGround } from './BackgroundImg.svg';
+export { ReactComponent as IcBannerImg } from './BannerImg.svg';
 export { ReactComponent as IcAfterCheckbox } from './checkbox_after.svg';
 export { ReactComponent as IcBeforeCheckbox } from './checkbox_before.svg';
 export { ReactComponent as IcDelete } from './delete_btn.svg';

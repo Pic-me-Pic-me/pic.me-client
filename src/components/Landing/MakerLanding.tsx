@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
+  IcBackGround,
   IcLogoSmall,
   IcOBD1,
   IcOBD2,
@@ -14,7 +15,6 @@ import {
   IcSolution2,
   IcSolution3,
 } from '../../asset/icon';
-import { OnboardingBG } from '../../asset/image';
 import { lottie1, lottie2, lottie3 } from '../../asset/lottie';
 
 const MakerLanding = () => {
@@ -22,6 +22,7 @@ const MakerLanding = () => {
   return (
     <StOnboarding>
       <StFirstSection>
+        <IcBackGround />
         <StTitle>
           <StContents>
             친구가
@@ -145,13 +146,16 @@ const StOnboarding = styled.div`
 `;
 
 const StFirstSection = styled.section`
-  background-image: url(${OnboardingBG});
-  background-size: contain;
-  background-repeat: no-repeat;
-
   width: 100%;
   height: 94.1rem;
   padding: 0rem 2.8rem;
+
+  & > svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
 `;
 
 const StTitle = styled.header`

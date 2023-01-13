@@ -15,6 +15,7 @@ const KakaoLogin = () => {
 
   const initKakao = () => {
     if (Kakao && !Kakao.isInitialized()) {
+      console.log(process.env.REACT_APP_JS_KEY);
       Kakao.init(process.env.REACT_APP_JS_KEY);
     }
   };
