@@ -275,11 +275,12 @@ const StTermContent = styled.div`
   display: flex;
   align-items: center;
 
-  width: 71.42%;
+  width: 100%;
   height: 2.2rem;
   margin-left: 2.14%;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   p {
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
