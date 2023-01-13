@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
 import { stickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
-import { StickerLocation } from '../../../types/vote';
+import { NaturalImgInfo, StickerLocation } from '../../../types/vote';
+import { setStickerLocationData } from '../../../utils/setStickerLocationData';
 
 interface StickerVotingProps {
   isStickerGuide: boolean;
@@ -16,27 +17,42 @@ const StickerVoting = (props: StickerVotingProps) => {
   const { location: stickerList, emoji } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
-  // const sss = useResetRecoilState(stickerInfoState);
-  // sss();
-  const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (stickerImgRef.current && stickerList.length !== 3) {
-      const { offsetX, offsetY } = e.nativeEvent;
+  const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
+  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
+  const handleImgSize = (e: React.SyntheticEvent) => {
+    const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
+    setImgViewInfo({ width, height });
+    setImgInfo({ width: naturalWidth, height: naturalHeight });
+  };
+
+  const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
+    if (stickerImgRef.current && stickerList.length !== 3 && imgInfo && imgViewInfo) {
+      const { offsetX, offsetY } = e.nativeEvent;
       const newSticker: StickerLocation = {
-        x: Math.round((offsetX / 10 - 1) * 100) / 100,
-        y: Math.round((offsetY / 10 - 1) * 100) / 100,
+        x: Math.round(((offsetX * imgInfo.width) / imgViewInfo.width) * 100) / 100,
+        y: Math.round(((offsetY * imgInfo.height) / imgViewInfo.height) * 100) / 100,
         degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
       };
+      // console.log('이미지 자체 정보', imgInfo);
+      // console.log('이미지 뷰 정보', imgViewInfo);
+      // console.log('이미지 정보', newSticker);
       setStickerVotingInfo((prev) => ({ ...prev, location: [...prev.location, newSticker], emoji }));
     }
   };
 
   return (
     <StStickerVotingWrapper>
-      <StStickerImg src={pictureInfo?.url} ref={stickerImgRef} alt="selected_img" onClick={handleAttachSticker} />
+      <StStickerImg
+        onLoad={handleImgSize}
+        src={pictureInfo?.url}
+        ref={stickerImgRef}
+        alt="selected_img"
+        onClick={handleAttachSticker}
+      />
       {!isStickerGuide &&
         stickerList.map((sticker, idx) => (
-          <StEmojiIcon key={`sticker.x${idx}`} location={sticker} degRate={sticker.degRate}>
+          <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
             {STICKER_LIST[emoji].icon()}
           </StEmojiIcon>
         ))}
@@ -67,7 +83,7 @@ const StStickerImg = styled.img`
 
   object-fit: cover;
 `;
-const StEmojiIcon = styled.div<{ location: StickerLocation; degRate: number }>`
+const StEmojiIcon = styled.div<{ location: StickerLocation }>`
   position: absolute;
   left: ${({ location }) => location.x}rem;
   top: ${({ location }) => location.y}rem;
@@ -83,6 +99,6 @@ const StEmojiIcon = styled.div<{ location: StickerLocation; degRate: number }>`
     z-index: 3;
 
     transform-origin: 50% 50%;
-    transform: ${({ degRate }) => `rotate(${degRate}deg)`};
+    transform: ${({ location }) => `rotate(${location.degRate}deg)`};
   }
 `;
