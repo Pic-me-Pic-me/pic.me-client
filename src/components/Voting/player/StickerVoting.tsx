@@ -100,9 +100,7 @@ const StStickerImg = styled.img`
 const StEmojiIcon = styled.div<{ location: StickerLocation }>`
   position: absolute;
   left: ${({ location }) => location.x}rem;
-  // left: 0rem;
   top: ${({ location }) => location.y}rem;
-  // top: 0rem;
 
   & > svg {
     position: absolute;
@@ -115,6 +113,6 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
     z-index: 3;
 
     transform-origin: 50% 50%;
-    // transform: ${({ location }) => `rotate(${location.degRate}deg)`};
+    transform: ${({ location }) => `rotate(${location.degRate}deg)`};
   }
 `;
