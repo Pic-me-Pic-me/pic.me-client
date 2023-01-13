@@ -16,12 +16,8 @@ const VoteList = () => {
   const [CursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
 
-  console.log(dataList);
-
   const getMoreItem = useCallback(async () => {
-    console.log(CursorId);
     const newData = await getCurrentVoteData(Number(CursorId));
-    console.log('newData', newData);
     if (newData) {
       setDataList(dataList?.concat(newData.data.result));
       setCursorId(newData.data.resCursorId);
@@ -45,7 +41,7 @@ const VoteList = () => {
     const name = await getUserInfo();
     setUserName(name?.data.userName);
   };
-  console.log('dataList1', dataList);
+
   return (
     <>
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
