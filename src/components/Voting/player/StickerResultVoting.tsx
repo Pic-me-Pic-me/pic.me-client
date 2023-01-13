@@ -39,16 +39,18 @@ const StickerResultVoting = () => {
 
   return (
     <StStickerVotingWrapper>
-      <StStickerImg onLoad={handleImgSize} src={pictureInfo?.url} ref={stickerImgRef} alt="selected_img" />
-      {resultStickerList.map(({ stickerLocation, emoji }, idx) =>
-        stickerLocation.map((stickerLocationInfo, stickerIdx) => (
-          <StEmojiIcon
-            key={`sticker${stickerIdx}_${emoji}`}
-            location={setStickerLocationData(stickerLocationInfo, imgViewInfo, imgInfo)}>
-            {STICKER_LIST[emoji].icon()}
-          </StEmojiIcon>
-        )),
-      )}
+      <article>
+        <StStickerImg onLoad={handleImgSize} src={pictureInfo?.url} ref={stickerImgRef} alt="selected_img" />
+        {resultStickerList.map(({ stickerLocation, emoji }, idx) =>
+          stickerLocation.map((stickerLocationInfo, stickerIdx) => (
+            <StEmojiIcon
+              key={`sticker${stickerIdx}_${emoji}`}
+              location={setStickerLocationData(stickerLocationInfo, imgViewInfo, imgInfo)}>
+              {STICKER_LIST[emoji].icon()}
+            </StEmojiIcon>
+          )),
+        )}
+      </article>
     </StStickerVotingWrapper>
   );
 };
@@ -62,11 +64,15 @@ const StStickerVotingWrapper = styled.article`
   width: 100%;
   margin-bottom: 2.6rem;
 
-  position: relative;
+  & > article {
+    width: 90%;
+
+    position: relative;
+  }
 `;
 
 const StStickerImg = styled.img`
-  width: 90%;
+  width: 100%;
   height: 52rem;
   margin-top: 1.7rem;
 

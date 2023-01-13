@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcHeaderSecond } from '../../asset/icon';
@@ -11,8 +11,10 @@ import { pictureSelector } from '../../recoil/player/selector';
 
 const ReasonVoting = () => {
   const navigate = useNavigate();
-  const { pictureId } = useRecoilValue(stickerInfoState);
-  const pictureInfo = useRecoilValue(pictureSelector(pictureId));
+  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+  const pictureInfo = useRecoilValue(pictureSelector(stickerInfo.pictureId));
+  const resetStickerInfoState = useResetRecoilState(stickerInfoState);
+  const sticker = useRecoilValue(stickerInfoState);
 
   const handleVotingSuccess = async () => {
     navigate('/player/sticker_voting');
@@ -21,8 +23,11 @@ const ReasonVoting = () => {
     navigate(-1);
   };
 
+  console.log(sticker);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    setStickerInfo({ pictureId: stickerInfo.pictureId, location: [], emoji: 0 });
   }, []);
 
   return (
