@@ -1,14 +1,19 @@
-import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
-import { deleteUser } from '../lib/api/auth';
+import { votingImageState } from '../recoil/maker/atom';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [votingForm, setVotingForm] = useRecoilState(votingImageState);
+
+  useEffect(() => {
+    setVotingForm({ title: '', firstImageUrl: '', secondImageUrl: '' });
+  }, []);
 
   return (
     <>
