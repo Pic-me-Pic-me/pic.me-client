@@ -41,12 +41,12 @@ const EndedVoting = (props: votingProps) => {
   return (
     <>
       <StVotingWrapper>
-        <div>
+        <StImageWrapper>
           <StVotingPic src={voteData.url} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
-        </div>
+        </StImageWrapper>
         <StVotingDesc>
           <StVotingTitle>
             {voteData.title} {voteData.id}
@@ -72,10 +72,17 @@ const StVotingWrapper = styled.section`
 
   position: relative;
 `;
+const StImageWrapper = styled.div`
+  width: 100%;
+  height: 12.8rem;
+`;
 const StVotingPic = styled.img`
   display: float;
-  width: 17.6rem;
-  height: 12.8rem;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   border-radius: 1.141rem 1.141rem 0rem 0rem;
