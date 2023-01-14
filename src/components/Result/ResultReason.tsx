@@ -57,7 +57,7 @@ const ResultReason = (props: ResultReasonProps) => {
                   <StPercentBarWrppaer>
                     {stickerResult[idx] ? (
                       <p>
-                        {stickerResult[idx].count != 0 && totalVoteCount != 0
+                        {stickerResult[idx].count && totalVoteCount
                           ? Math.floor((stickerResult[idx].count / totalVoteCount) * 100)
                           : 0}
                         %
@@ -68,7 +68,11 @@ const ResultReason = (props: ResultReasonProps) => {
                     <StPercentBar>
                       {stickerResult[idx] ? (
                         <StDealtPercentBar
-                          percent={(stickerResult[idx].count / totalVoteCount) * 100}></StDealtPercentBar>
+                          percent={
+                            stickerResult[idx].count && totalVoteCount
+                              ? (stickerResult[idx].count / totalVoteCount) * 100
+                              : 0
+                          }></StDealtPercentBar>
                       ) : (
                         <StDealtPercentBar percent={0}></StDealtPercentBar>
                       )}
