@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import * as timeago from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
@@ -31,6 +31,7 @@ const CurrentVoteDetail = () => {
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
   const [stickerResult, setStickerResultState] = useRecoilState(stickerResultState);
+  const resetStickerResult = useResetRecoilState(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
   // const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -38,6 +39,9 @@ const CurrentVoteDetail = () => {
   const { ref, width } = useCarouselSize();
 
   timeago.register('ko', ko);
+  useEffect(() => {
+    resetStickerResult();
+  }, []);
   const createdAt =
     voteResult?.createdDate.toString().slice(0, 10) + ' ' + voteResult?.createdDate.toString().slice(11, 19);
 
@@ -59,6 +63,7 @@ const CurrentVoteDetail = () => {
     setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
+
   if (isError) return <Error />;
 
   return (
