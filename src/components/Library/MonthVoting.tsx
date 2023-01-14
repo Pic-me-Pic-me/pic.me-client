@@ -57,7 +57,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   return (
     <StMonthVotingWrapper>
-      <StDateTitle>{formattedDate}</StDateTitle>
+      <StDateTitle>{verticalScrollInfo.length !== 0 && formattedDate}</StDateTitle>
       <StEndedVotingListWrapper>
         {verticalScrollInfo.map((vote: VoteInfo, idx: number) =>
           idx === verticalScrollInfo.length - 1 ? (
