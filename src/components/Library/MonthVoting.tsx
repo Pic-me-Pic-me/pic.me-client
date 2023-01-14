@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-import { getMonthlyLibraryInfo } from '../../lib/api/library';
+import { deleteVote, getMonthlyLibraryInfo } from '../../lib/api/library';
 import { VoteInfo } from '../../types/library';
 import EndedVoting from './EndedVoting';
 
@@ -22,6 +22,10 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>(votes);
   const [isEnd, setIsEnd] = useState(false);
+
+  useEffect(() => {
+    getMoreItem();
+  }, [verticalScrollInfo]);
 
   useEffect(() => {
     if (inView) {
@@ -46,6 +50,11 @@ const MonthVoting = (props: voteAllInfoProps) => {
     }
   };
 
+  const handleDeleteVote = async (id: number) => {
+    const res = await deleteVote(id);
+    setVerticalScrollInfo([...verticalScrollInfo.filter((info, idx) => info.id !== id)]);
+  };
+
   return (
     <StMonthVotingWrapper>
       <StDateTitle>{formattedDate}</StDateTitle>
@@ -53,11 +62,16 @@ const MonthVoting = (props: voteAllInfoProps) => {
         {verticalScrollInfo.map((vote: VoteInfo, idx: number) =>
           idx === verticalScrollInfo.length - 1 ? (
             <div key={idx} ref={ref}>
-              <EndedVoting key={idx} id={vote.id} voteData={vote}></EndedVoting>
+              <EndedVoting key={idx} id={vote.id} voteData={vote} handleDeleteVote={handleDeleteVote}></EndedVoting>
             </div>
           ) : (
             <div key={idx}>
-              <EndedVoting id={vote.id} voteData={vote} key={idx} isStart={idx === 0 ? true : false}></EndedVoting>
+              <EndedVoting
+                id={vote.id}
+                voteData={vote}
+                key={idx}
+                isStart={idx === 0 ? true : false}
+                handleDeleteVote={handleDeleteVote}></EndedVoting>
             </div>
           ),
         )}

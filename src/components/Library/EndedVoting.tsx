@@ -14,10 +14,11 @@ interface votingProps {
   id: number;
   isStart?: boolean;
   isEnd?: boolean;
+  handleDeleteVote: (id: number) => void;
 }
 
 const EndedVoting = (props: votingProps) => {
-  const { voteData, id } = props;
+  const { voteData, id, handleDeleteVote } = props;
   const navigate = useNavigate();
 
   const [isShowing, setIsShowing] = useState<boolean>(false);
@@ -29,21 +30,17 @@ const EndedVoting = (props: votingProps) => {
     time2 = time2.slice(1, 2);
   }
 
+  const handleConfirmModal = (id: number) => {
+    handleDeleteVote(id);
+    setIsShowing((prev) => !prev);
+  };
   const handleModal = (prev: boolean) => {
-    console.log('삭제');
     setIsShowing((prev) => !prev);
   };
 
   const handleMoveResult = () => {
     navigate(`/result/${id}`);
   };
-
-  const handleDelete = async () => {
-    const res = await deleteVote(id);
-    window.location.reload();
-    return res;
-  };
-
   return (
     <>
       <StVotingWrapper>
@@ -64,8 +61,9 @@ const EndedVoting = (props: votingProps) => {
       <Modal
         isShowing={isShowing}
         message={'해당 투표를 삭제하시겠습니까?'}
-        handleConfirm={() => handleDelete()}
-        handleHide={() => handleModal(isShowing)}></Modal>
+        handleConfirm={() => handleConfirmModal(id)}
+        handleHide={() => handleModal(isShowing)}
+      />
     </>
   );
 };
