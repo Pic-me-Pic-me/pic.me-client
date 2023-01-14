@@ -81,7 +81,6 @@ const StMonthVotingInfo = styled.article`
   width: 100%;
 
   margin-top: 3.3rem;
-  margin-left: 0.5rem;
 
   overflow-y: scroll;
 `;

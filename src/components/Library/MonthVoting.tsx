@@ -68,6 +68,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
 const StMonthVotingWrapper = styled.article`
   margin-bottom: 4.906rem;
+
   width: 100%;
 `;
 
@@ -84,6 +85,7 @@ const StEndedVotingListWrapper = styled.section`
 
   width: 100%;
   margin-top: 1.7rem;
+  margin-left: 5%;
 
   overflow-x: scroll;
 
