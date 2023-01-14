@@ -30,6 +30,7 @@ const EndedVoting = (props: votingProps) => {
   }
 
   const handleModal = (prev: boolean) => {
+    console.log('삭제');
     setIsShowing((prev) => !prev);
   };
 
@@ -45,14 +46,14 @@ const EndedVoting = (props: votingProps) => {
 
   return (
     <>
-      <StVotingWrapper onClick={handleMoveResult}>
+      <StVotingWrapper>
         <StImgWrapper>
-          <StVotingPic src={voteData.url} />
+          <StVotingPic src={voteData.url} onClick={handleMoveResult} />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
         </StImgWrapper>
-        <StVotingDesc>
+        <StVotingDesc onClick={handleMoveResult}>
           <StVotingTitle>{voteData.title}</StVotingTitle>
           <StVotingDate>
             {time1}월 {time2}일
@@ -79,10 +80,9 @@ const StVotingWrapper = styled.section`
 const StImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  
-  margin : 0;
-  padding ; 0;
 
+  margin: 0;
+  padding: 0;
 `;
 
 const StVotingPic = styled.img`
