@@ -56,7 +56,12 @@ const ResultReason = (props: ResultReasonProps) => {
                   {reason}
                   <StPercentBarWrppaer>
                     {stickerResult[idx] ? (
-                      <p>{Math.floor((stickerResult[idx].count / totalVoteCount) * 100)}%</p>
+                      <p>
+                        {stickerResult[idx].count != 0 && totalVoteCount != 0
+                          ? Math.floor((stickerResult[idx].count / totalVoteCount) * 100)
+                          : 0}
+                        %
+                      </p>
                     ) : (
                       <p>0%</p>
                     )}
