@@ -30,8 +30,8 @@ const MakerLanding = () => {
             골라주는
             <br />
             나의 베스트 Pic!
-            <IcOnboardingLogo />
           </StContents>
+          <IcOnboardingLogo />
           <p>스크롤 해주세요</p>
           <StStartBtn
             type="button"
