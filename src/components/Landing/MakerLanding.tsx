@@ -171,6 +171,9 @@ const StTitle = styled.header`
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16}
   }
+  & > svg {
+    margin-top: 2.6rem;
+  }
 `;
 
 const StContents = styled.h1`
