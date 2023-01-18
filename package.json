@@ -72,7 +72,6 @@
     "@types/react-copy-to-clipboard": "^5",
     "@types/styled-components": "^5.1.26",
     "@types/testing-library__jest-dom": "^5.14.5",
-    "@types/yarn eject": "^4",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "cra-bundle-analyzer": "^0.1.1",
