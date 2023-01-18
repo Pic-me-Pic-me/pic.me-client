@@ -44,35 +44,39 @@ const Nickname = lazy(() => import('../Signup/Nickname'));
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
-      <Routes>
-        <Route path="/" element={<Onboarding />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/login/oauth/kakao/callback" element={<Auth />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
-        <Route path="/myPage" element={<MemberInfo />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/result/:voteId" element={<Result />} />
-        <Route path="/share" element={<Share />} />
-        <Route path="/makervoting" element={<MakerVoting />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/signup" element={<Signup />}>
-          <Route path="" element={<AddAccount />} />
-          <Route path="nickname" element={<Nickname />} />
-          <Route path="kakaonickname" element={<KakaoNickname />} />
-        </Route>
-        <Route path="/vote/:voteId" element={<PlayerLanding />}>
+
+      <Suspense>
+        <Routes>
+          <Route path="/" element={<Onboarding />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/login/oauth/kakao/callback" element={<Auth />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
+          <Route path="/myPage" element={<MemberInfo />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/result/:voteId" element={<Result />} />
+          <Route path="/share" element={<Share />} />
+          <Route path="/makervoting" element={<MakerVoting />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/signup" element={<Signup />}>
+            <Route path="" element={<AddAccount />} />
+            <Route path="nickname" element={<Nickname />} />
+            <Route path="kakaonickname" element={<KakaoNickname />} />
+          </Route>
+          <Route path="/vote/:voteId" element={<PlayerLanding />}>
+            <Route path="*" element={<Error404 />} />
+          </Route>
+          <Route path="/player">
+            <Route path="picture_voting/:voteid" element={<PictureVoting />} />
+            <Route path="reason_voting" element={<ReasonVoting />} />
+            <Route path="sticker_voting" element={<StickerAttachment />} />
+            <Route path="voting/result" element={<ResultVoting />} />
+          </Route>
+
           <Route path="*" element={<Error404 />} />
-        </Route>
-        <Route path="/player">
-          <Route path="picture_voting/:voteid" element={<PictureVoting />} />
-          <Route path="reason_voting" element={<ReasonVoting />} />
-          <Route path="sticker_voting" element={<StickerAttachment />} />
-          <Route path="voting/result" element={<ResultVoting />} />
-        </Route>
-        <Route path="*" element={<Error404 />} />
-      </Routes>
+        </Routes>
+      </Suspense>
     </RecoilRoot>
   </BrowserRouter>
 );

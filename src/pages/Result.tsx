@@ -70,6 +70,8 @@ const Result = () => {
 };
 export default Result;
 
+export default Result;
+
 const StBackgroundWrapper = styled.div<{ src: string }>`
   height: 100%;
   background-image: url(${({ src }) => src});
