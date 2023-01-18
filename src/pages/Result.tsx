@@ -68,7 +68,6 @@ const Result = () => {
     );
   return <Loading />;
 };
-export default Result;
 
 export default Result;
 
