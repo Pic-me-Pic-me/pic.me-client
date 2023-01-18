@@ -8,7 +8,7 @@ import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/
 
 const Kakao = window.Kakao;
 
-const AuthComponent = () => {
+const Auth = () => {
   const cookies = new Cookies();
 
   // const REDIRECT_URL = `https://with-picme.com/login/oauth/kakao/callback`;
@@ -55,4 +55,4 @@ const AuthComponent = () => {
   return null;
 };
 
-export default AuthComponent;
+export default Auth;
