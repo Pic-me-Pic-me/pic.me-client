@@ -16,7 +16,7 @@ import { stickerCountSelector } from '../recoil/maker/selector';
 import { MakerVoteInfo } from '../types/vote';
 import { jsonGetResultStickerList } from '../utils/jsonGetStickerList';
 
-export const Result = () => {
+const Result = () => {
   const navigate = useNavigate();
   const { voteId } = useParams() as { voteId: string };
   const { voteResult, isLoading, isError } = useGetVoteResult(voteId);
@@ -68,6 +68,8 @@ export const Result = () => {
     );
   return <Loading />;
 };
+
+export default Result;
 
 const StBackgroundWrapper = styled.div<{ src: string }>`
   height: 100%;
