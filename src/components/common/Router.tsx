@@ -2,24 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-// import CurrentVoteDetail from '../../pages/CurrentVoteDetail';
-// import Error404 from '../../pages/Error404';
-// import Home from '../../pages/Home';
-// import Library from '../../pages/Library';
-// import Login from '../../pages/Login';
-// import MakerVoting from '../../pages/MakerVoting';
-// import Onboarding from '../../pages/Onboarding';
-// import { PictureVoting, ReasonVoting, ResultVoting, StickerAttachment } from '../../pages/player';
-// import PlayerLanding from '../../pages/PlayerLanding';
-// import Result from '../../pages/Result';
-// import Share from '../../pages/Share';
-// import Signup from '../../pages/Signup';
-// import Auth from '../Auth/Auth';
-// import MemberInfo from '../Auth/MemberInfo';
-// import AddAccount from '../Signup/AddAccount';
-// import KakaoNickname from '../Signup/KakaoNickname';
-// import Nickname from '../Signup/Nickname';
-
 const CurrentVoteDetail = lazy(() => import('../../pages/CurrentVoteDetail'));
 const Error404 = lazy(() => import('../../pages/Error404'));
 const Home = lazy(() => import('../../pages/Home'));
