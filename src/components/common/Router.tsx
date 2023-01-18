@@ -44,7 +44,7 @@ const Nickname = lazy(() => import('../Signup/Nickname'));
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <Routes>
           <Route path="/" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
