@@ -18,17 +18,17 @@ const VoteList = () => {
     threshold: 0.5,
   });
   const [dataList, setDataList] = useState<VoteCardInfo[]>([]);
-  const [CursorId, setCursorId] = useState(0);
+  const [cursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
   const resetStickerInfoState = useResetRecoilState(stickerInfoState);
 
   const getMoreItem = useCallback(async () => {
-    const newData = await getCurrentVoteData(Number(CursorId));
-    if (newData) {
-      setDataList(dataList?.concat(newData.data.result));
+    const newData = await getCurrentVoteData(Number(cursorId));
+    if (newData?.data.result) {
+      setDataList(dataList.concat(newData.data.result));
       setCursorId(newData.data.resCursorId);
     }
-  }, [CursorId]);
+  }, [cursorId]);
 
   useEffect(() => {
     getUserName();
