@@ -1,5 +1,7 @@
+import { AxiosResponse } from 'axios';
+
 import { client } from '../axios';
-import { StickerInfo, VoteListData } from './../../types/vote';
+import { StickerInfo, VoteResultData } from './../../types/vote';
 
 export const patchCurrentVoteData = async (voteid: string | undefined) => {
   const res = await client.patch(`/vote/close/${voteid}`);
@@ -35,7 +37,7 @@ export const getCurrentVoteDatailData = async (voteid: string | undefined) => {
 
 export const getCurrentVoteData = async (resCursorId: number) => {
   try {
-    const data = await client.get<VoteListData>(`vote/getCurrentVote/${resCursorId}`);
+    const data = await client.get<AxiosResponse<VoteResultData>>(`vote/getCurrentVote/${resCursorId}`);
     return data.data;
   } catch (err) {
     console.error(err);
