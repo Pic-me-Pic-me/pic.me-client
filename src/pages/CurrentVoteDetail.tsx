@@ -49,7 +49,7 @@ const CurrentVoteDetail = () => {
       setStickerResultState(jsonGetStickerList(voteResult.Picture[currentIdx].Sticker));
       window.scrollTo(0, 0);
     }
-  }, [currentIdx]);
+  }, [currentIdx, voteResult]);
 
   const handleGoResultPage = () => {
     patchCurrentVoteData(voteId);
@@ -132,7 +132,7 @@ const CurrentVoteDetail = () => {
           </StImgUl>
         </StImgWrapper>
         <StDotWrapper>
-          {currentIdx === 0 ? (
+          {!currentIdx ? (
             <>
               <StSelectedDot />
               <StUnselectedDot />
