@@ -139,14 +139,7 @@ export interface VoteCardInfo {
   totalVoteCount: number;
 }
 
-export interface Result {
+export interface VoteResultData {
   result: VoteCardInfo[];
   resCursorId: number;
-}
-
-export interface VoteListData {
-  status: number;
-  success: boolean;
-  message: string;
-  data: Result;
 }
