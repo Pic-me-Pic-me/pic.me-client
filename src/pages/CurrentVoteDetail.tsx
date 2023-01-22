@@ -38,9 +38,6 @@ const CurrentVoteDetail = () => {
   const { ref, width } = useCarouselSize();
 
   timeago.register('ko', ko);
-  useEffect(() => {
-    resetStickerResult();
-  }, []);
   const createdAt =
     voteResult?.createdDate.toString().slice(0, 10) + ' ' + voteResult?.createdDate.toString().slice(11, 19);
 
@@ -62,6 +59,13 @@ const CurrentVoteDetail = () => {
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 
+  // if (isLoading)
+  //   return (
+  //     <>
+  //       <LandingHeader />
+  //       <LandingCurrentVote />
+  //     </>
+  //   );
   if (isError) return <Error />;
 
   return (
