@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcGoback, IcResultLeft, IcResultRight } from '../asset/icon';
-import resultSample from '../asset/image/resultSample.png';
-import { Error, Loading } from '../components/common';
+import { IcResultLeft, IcResultRight } from '../asset/icon';
+import { Error, Loading, StickerAttachImg } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
-import ResultPicture from '../components/Result/ResultPicture';
 import ResultReason from '../components/Result/ResultReason';
 import SliderTitle from '../components/Result/SliderTitle';
 import useGetVoteResult from '../lib/hooks/useGetVoteResult';
 import { stickerResultState } from '../recoil/maker/atom';
-import { stickerCountSelector } from '../recoil/maker/selector';
-import { MakerVoteInfo } from '../types/vote';
 import { jsonGetResultStickerList } from '../utils/jsonGetStickerList';
 
 const Result = () => {
@@ -55,7 +51,11 @@ const Result = () => {
               voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
 
             <section>
-              <ResultPicture src={voteResult.Picture[chosenPictureIdx].url}></ResultPicture>
+              <StickerAttachImg
+                stickerAttachImgSrc={voteResult.Picture[chosenPictureIdx].url}
+                imgWrapperWidthPercent={87}
+                imgHight={48.836}
+              />
               <ResultReason
                 totalVoteCount={voteResult.currentVote}
                 handleIsOpenResultReason={handleIsOpenResultReason}
