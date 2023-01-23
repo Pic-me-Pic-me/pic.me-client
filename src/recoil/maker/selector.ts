@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 
-import { stickerResultState } from './atom';
+import { stickerResultState } from '../atom';
 
 export const stickerCountSelector = selector({
   key: 'stickerCountSelector',
