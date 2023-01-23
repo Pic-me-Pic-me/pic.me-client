@@ -42,6 +42,10 @@ const CurrentVoteDetail = () => {
     voteResult?.createdDate.toString().slice(0, 10) + ' ' + voteResult?.createdDate.toString().slice(11, 19);
 
   useEffect(() => {
+    resetStickerResult();
+  }, []);
+
+  useEffect(() => {
     if (voteResult) {
       setStickerResultState(jsonGetStickerList(voteResult.Picture[currentIdx].Sticker));
       window.scrollTo(0, 0);
