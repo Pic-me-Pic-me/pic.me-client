@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { STICKER_LIST } from '../../constant/StickerIconList';
-import { stickerResultState } from '../../recoil/atom';
+import { stickerResultState } from '../../recoil/maker/atom';
 import { NaturalImgInfo, StickerLocation, StickerResultInfo } from '../../types/vote';
 import { setStickerLocationData } from '../../utils/setStickerLocationData';
 
@@ -36,7 +36,7 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
               <StEmojiIcon
                 key={`sticker${stickerIdx}_${emoji}`}
                 location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-                {STICKER_LIST[emoji].icon()}
+                {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
               </StEmojiIcon>
             )),
           )}
@@ -76,8 +76,6 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
     position: absolute;
     left: 0;
     top: 0;
-    width: 5.3rem;
-    height: 5.3rem;
     z-index: 3;
     transform-origin: 50% 50%;
     transform: ${({ location }) => `rotate(${location.degRate}deg)`};
