@@ -2,8 +2,8 @@ export const STICKER_LIST = [
   {
     id: 1,
     name: 'IcFaceSticker',
-    icon: () => (
-      <svg width="854" height="854" viewBox="0 0 854 854" fill="none" xmlns="http://www.w3.org/2000/svg">
+    icon: (size) => (
+      <svg width={size} height={size} viewBox="0 0 854 854" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M427 846C658.407 846 846 658.407 846 427C846 195.593 658.407 8 427 8C195.593 8 8 195.593 8 427C8 658.407 195.593 846 427 846Z"
           fill="#FFFDC2"
@@ -101,8 +101,8 @@ export const STICKER_LIST = [
   {
     id: 2,
     name: 'IcAngleSticker',
-    icon: () => (
-      <svg width="854" height="854" viewBox="0 0 854 854" fill="none" xmlns="http://www.w3.org/2000/svg">
+    icon: (size) => (
+      <svg width={size} height={size} viewBox="0 0 854 854" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M427 846C658.407 846 846 658.407 846 427C846 195.593 658.407 8 427 8C195.593 8 8 195.593 8 427C8 658.407 195.593 846 427 846Z"
           fill="#3973CB"
@@ -240,8 +240,8 @@ export const STICKER_LIST = [
   {
     id: 3,
     name: 'IcBackGroundSticker',
-    icon: () => (
-      <svg width="854" height="854" viewBox="0 0 854 854" fill="none" xmlns="http://www.w3.org/2000/svg">
+    icon: (size) => (
+      <svg width={size} height={size} viewBox="0 0 854 854" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M427.148 846C658.555 846 846.148 658.407 846.148 427C846.148 195.593 658.555 8 427.148 8C195.741 8 8.14819 195.593 8.14819 427C8.14819 658.407 195.741 846 427.148 846Z"
           fill="#FF5D5D"
@@ -342,8 +342,8 @@ export const STICKER_LIST = [
   {
     id: 4,
     name: 'IcJustSticker',
-    icon: () => (
-      <svg width="847" height="847" viewBox="0 0 847 847" fill="none" xmlns="http://www.w3.org/2000/svg">
+    icon: (size) => (
+      <svg width={size} height={size} viewBox="0 0  847" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M423.841 838.678C653.227 838.678 839.18 652.725 839.18 423.339C839.18 193.954 653.227 8 423.841 8C194.456 8 8.5022 193.954 8.5022 423.339C8.5022 652.725 194.456 838.678 423.841 838.678Z"
           fill="#3973CB"

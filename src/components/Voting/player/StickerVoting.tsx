@@ -63,7 +63,7 @@ const StickerVoting = (props: StickerVotingProps) => {
           imgInfo &&
           stickerList.map((sticker, idx) => (
             <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-              {STICKER_LIST[emoji].icon()}
+              {STICKER_LIST[emoji].icon(window.screen.width * 0.85 * 0.13)}
             </StEmojiIcon>
           ))}
       </article>
@@ -106,9 +106,6 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
     position: absolute;
     left: 0;
     top: 0;
-
-    width: 5.3rem;
-    height: 5.3rem;
 
     z-index: 3;
 
