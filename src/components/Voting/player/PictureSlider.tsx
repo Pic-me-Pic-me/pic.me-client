@@ -4,14 +4,14 @@ import styled, { css } from 'styled-components';
 
 import { IcSelectRound } from '../../../asset/icon';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
-import { stickerInfoState, votingInfoState } from '../../../recoil/player/atom';
+import { playerStickerInfoState, votingInfoState } from '../../../recoil/player/atom';
 import { PictureInfo } from '../../../types/vote';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 import SelectPicture from './SelectPicture';
 
 const PictureSlider = () => {
   const votingInfoAtom = useRecoilValue(votingInfoState);
-  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
 
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
@@ -21,7 +21,7 @@ const PictureSlider = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setStickerInfo({ ...stickerInfo, pictureId: pictureInfoList[currentIdx].id });
+    setPlayerStickerInfo({ ...playerStickerInfo, pictureId: pictureInfoList[currentIdx].id });
   }, [transX]);
 
   return (

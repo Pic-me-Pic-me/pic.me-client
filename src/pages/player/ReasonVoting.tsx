@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import { IcHeaderSecond } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { ReasonSlider, StickerGuide } from '../../components/Voting/player';
-import { stickerInfoState, votingInfoState } from '../../recoil/player/atom';
+import { playerStickerInfoState } from '../../recoil/player/atom';
 import { pictureSelector } from '../../recoil/player/selector';
 
 const ReasonVoting = () => {
   const navigate = useNavigate();
-  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
-  const pictureInfo = useRecoilValue(pictureSelector(stickerInfo.pictureId));
+  const [playerStickerInfo, setStickerInfo] = useRecoilState(playerStickerInfoState);
+  const pictureInfo = useRecoilValue(pictureSelector(playerStickerInfo.pictureId));
 
   const handleVotingSuccess = async () => {
     navigate('/player/sticker_voting');
@@ -23,7 +23,7 @@ const ReasonVoting = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setStickerInfo((prev) => ({ ...prev, pictureId: stickerInfo.pictureId, location: [], emoji: 0 }));
+    setStickerInfo((prev) => ({ ...prev, pictureId: playerStickerInfo.pictureId, location: [], emoji: 0 }));
   }, []);
 
   return (

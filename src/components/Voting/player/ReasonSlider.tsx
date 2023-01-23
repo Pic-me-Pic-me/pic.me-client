@@ -7,14 +7,14 @@ import styled, { css } from 'styled-components';
 import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu, IcSelectRound } from '../../../asset/icon';
 import { Angle, Face, Just, Mood } from '../../../asset/lottie';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
-import { stickerInfoState } from '../../../recoil/player/atom';
+import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
 const ReasonSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
-  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
 
   const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = [
@@ -29,7 +29,7 @@ const ReasonSlider = () => {
   const navIconRenderList = Array(4).fill(0);
 
   useEffect(() => {
-    if (stickerInfo.location.length === 0) setStickerInfo({ ...stickerInfo, emoji: currentIdx });
+    if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx });
   }, [currentIdx]);
 
   return (

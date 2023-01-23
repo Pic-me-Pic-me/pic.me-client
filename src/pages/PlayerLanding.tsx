@@ -6,7 +6,7 @@ import { Error, Loading } from '../components/common';
 import { FinishedLanding, VoteLanding } from '../components/Landing';
 import { LandingPlayer } from '../components/Landing/player';
 import { useGetVotingInfo } from '../lib/hooks/useGetVotingInfo';
-import { stickerInfoState, votingInfoState } from '../recoil/player/atom';
+import { playerStickerInfoState, votingInfoState } from '../recoil/player/atom';
 
 const PlayerLanding = () => {
   const { voteId } = useParams<{ voteId: string }>();
@@ -14,8 +14,8 @@ const PlayerLanding = () => {
   const { votingInfo, isLoading, isError } = useGetVotingInfo(Number(voteId));
 
   const setVotingInfoState = useSetRecoilState(votingInfoState);
-  const resetVotingInfoState = useResetRecoilState(stickerInfoState);
-  const resetStickerInfoState = useResetRecoilState(stickerInfoState);
+  const resetVotingInfoState = useResetRecoilState(votingInfoState);
+  const resetStickerInfoState = useResetRecoilState(playerStickerInfoState);
 
   useEffect(() => {
     if (votingInfo?.data) {
