@@ -13,8 +13,6 @@ const ReasonVoting = () => {
   const navigate = useNavigate();
   const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
   const pictureInfo = useRecoilValue(pictureSelector(stickerInfo.pictureId));
-  const resetStickerInfoState = useResetRecoilState(stickerInfoState);
-  const sticker = useRecoilValue(stickerInfoState);
 
   const handleVotingSuccess = async () => {
     navigate('/player/sticker_voting');
@@ -22,8 +20,6 @@ const ReasonVoting = () => {
   const handlePrevpage = () => {
     navigate(-1);
   };
-
-  console.log(sticker);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -57,7 +53,10 @@ const StReasonVotingWrpper = styled.article`
   align-items: center;
   flex-direction: column;
 
+  position: relative;
+
   width: 100%;
+
   & > img {
     width: 90%;
     height: 52rem;

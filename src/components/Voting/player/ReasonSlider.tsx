@@ -97,7 +97,7 @@ const ReasonSlider = () => {
 export default ReasonSlider;
 const StReasonSliderWrapper = styled.section`
   position: absolute;
-  top: 45rem;
+  top: 55%;
 
   width: 100%;
 `;
