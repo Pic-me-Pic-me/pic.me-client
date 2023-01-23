@@ -11,7 +11,7 @@ import {
   IcReasonBtnAfter,
   IcReasonBtnBefore,
 } from '../../asset/icon';
-import { stickerResultState } from '../../recoil/maker/atom';
+import { stickerResultState } from '../../recoil/atom';
 import { stickerCountSelector, stickerMaxCountSelctor } from '../../recoil/maker/selector';
 
 interface ResultReasonProps {
