@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { STICKER_LIST } from '../../../constant/StickerIconList';
-import { stickerInfoState } from '../../../recoil/player/atom';
+import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
 import { NaturalImgInfo, StickerLocation } from '../../../types/vote';
 import { setStickerLocationData } from '../../../utils/setStickerLocationData';
@@ -13,7 +13,7 @@ interface StickerVotingProps {
 }
 const StickerVoting = (props: StickerVotingProps) => {
   const { isStickerGuide } = props;
-  const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(stickerInfoState);
+  const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(playerStickerInfoState);
   const { location: stickerList, emoji } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
@@ -35,9 +35,7 @@ const StickerVoting = (props: StickerVotingProps) => {
           y: Math.round((((offsetY - 27) * imgInfo.height) / imgViewInfo.height) * 100) / 100,
           degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
         };
-        // console.log('이미지 자체 정보', imgInfo);
-        // console.log('이미지 뷰 정보', imgViewInfo);
-        // console.log('이미지 정보', newSticker);
+
         setStickerVotingInfo((prev) => ({
           ...prev,
           imgViewInfo,
@@ -63,7 +61,7 @@ const StickerVoting = (props: StickerVotingProps) => {
           imgInfo &&
           stickerList.map((sticker, idx) => (
             <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-              {STICKER_LIST[emoji].icon(window.screen.width * 0.85 * 0.13)}
+              {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
             </StEmojiIcon>
           ))}
       </article>

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
-import { Error, Loading } from '../components/common';
+import { Error } from '../components/common';
 import { FinishedLanding, VoteLanding } from '../components/Landing';
 import { LandingPlayer } from '../components/Landing/player';
 import { useGetVotingInfo } from '../lib/hooks/useGetVotingInfo';

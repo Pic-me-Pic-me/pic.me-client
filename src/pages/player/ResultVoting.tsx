@@ -1,12 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
 
-import { IcHeaderLast, IcHeaderLogo } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
-import { StickerGuide, StickerResultVoting } from '../../components/Voting/player';
-import StickerVoting from '../../components/Voting/player/StickerVoting';
+import { StickerResultVoting } from '../../components/Voting/player';
 import { playerStickerInfoState } from '../../recoil/player/atom';
 
 const ResultVoting = () => {

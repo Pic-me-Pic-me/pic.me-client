@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { useGetResultVoting } from '../../../lib/hooks/useGetResultVoting';

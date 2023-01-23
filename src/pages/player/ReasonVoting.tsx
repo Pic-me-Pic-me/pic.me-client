@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IcHeaderSecond } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
-import { ReasonSlider, StickerGuide } from '../../components/Voting/player';
+import { ReasonSlider } from '../../components/Voting/player';
 import { playerStickerInfoState } from '../../recoil/player/atom';
 import { pictureSelector } from '../../recoil/player/selector';
 

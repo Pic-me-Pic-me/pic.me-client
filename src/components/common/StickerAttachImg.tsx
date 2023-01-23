@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { STICKER_LIST } from '../../constant/StickerIconList';
 import { stickerResultState } from '../../recoil/maker/atom';
-import { NaturalImgInfo, StickerLocation, StickerResultInfo } from '../../types/vote';
+import { NaturalImgInfo, StickerLocation } from '../../types/vote';
 import { setStickerLocationData } from '../../utils/setStickerLocationData';
 
 interface StickerAttachImgProps {

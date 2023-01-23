@@ -10,8 +10,6 @@ import { IcVoteShareBtn } from '../asset/icon';
 import { Error } from '../components/common';
 import Modal from '../components/common/Modal';
 import StickerAttachImg from '../components/common/StickerAttachImg';
-import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
-import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import { patchCurrentVoteData } from '../lib/api/voting';
 import { useCarouselSize } from '../lib/hooks/useCarouselSize';

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
