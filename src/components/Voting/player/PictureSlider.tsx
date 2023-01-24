@@ -40,7 +40,7 @@ const PictureSlider = () => {
               const maxIndex = pictureInfoList.length - 1;
               Array(2)
                 .fill(0)
-                .map((v, i) => 2 - i)
+                .map((_, i) => 2 - i)
                 .some((num) => {
                   if (deltaX < -156 * num) {
                     setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
@@ -96,7 +96,7 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
   align-items: center;
   position: absolute;
   ${({ currentIdx, dragItemWidth, width }) =>
-    currentIdx === 0
+    !currentIdx
       ? css`
           left: ${(dragItemWidth * 0.1) / 10}rem;
         `
