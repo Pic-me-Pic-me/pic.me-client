@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import LandingLibrary from '../components/Landing/maker/LandingLibrary';
 import { HeaderLayout } from '../components/Layout';
 import MonthVoting from '../components/Library/MonthVoting';
-import { getAllVoteInfo } from '../lib/api/library';
+import { useGetAllVoteInfo } from '../lib/hooks/useGetAllVoteInfo';
 import { EndedVoteInfo } from '../types/library';
+import Error404 from './Error404';
 
 const Library = () => {
   const navigate = useNavigate();
@@ -16,8 +17,10 @@ const Library = () => {
 
   const [isEnd, setIsEnd] = useState(false);
   const nextIndex = useRef(0);
-  const [data, setData] = useState<EndedVoteInfo[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [monthVoteData, setMonthVoteData] = useState<EndedVoteInfo[]>([]);
+  const { allVoteInfo, isLoading, isError } = useGetAllVoteInfo(
+    monthVoteData[nextIndex.current] ? monthVoteData[nextIndex.current].date : 0,
+  );
 
   useEffect(() => {
     getMoreItem();
@@ -29,25 +32,23 @@ const Library = () => {
     }
   }, [inView]);
 
-  const getMoreItem = async () => {
-    const prevLastDate = data[nextIndex.current] ? data[nextIndex.current].date : 0;
+  const getMoreItem = () => {
+    const getItem = allVoteInfo;
 
-    const res = await getAllVoteInfo(prevLastDate);
-    const getItem = res?.data.data as EndedVoteInfo[];
-    if (res) {
-      setIsLoading(false);
-    }
-
-    if (data.length > 0 && getItem.length === 0) return setIsEnd(true);
+    if (monthVoteData.length > 0 && getItem?.length === 0) return setIsEnd(true);
     if (getItem) {
-      const newData = [...data, ...getItem];
+      const newData = [...monthVoteData, ...getItem];
       nextIndex.current = newData.length - 1;
-      setData(newData);
+      setMonthVoteData(newData);
     }
   };
 
   if (isLoading) {
     return <LandingLibrary />;
+  }
+
+  if (isError) {
+    return <Error404 />;
   }
 
   return (
@@ -60,8 +61,8 @@ const Library = () => {
       />
 
       <StMonthVotingInfo>
-        {data.map((votingInfo: EndedVoteInfo, idx: number) =>
-          idx === data.length - 1 ? (
+        {monthVoteData.map((votingInfo: EndedVoteInfo, idx: number) =>
+          idx === monthVoteData.length - 1 ? (
             <div key={idx} ref={ref}>
               <MonthVoting date={votingInfo.date} votes={votingInfo.votes} key={idx}></MonthVoting>
             </div>
