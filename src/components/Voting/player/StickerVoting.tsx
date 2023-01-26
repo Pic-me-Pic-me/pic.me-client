@@ -52,7 +52,7 @@ const StickerVoting = (props: StickerVotingProps) => {
     }
   };
 
-  const handleCancelSticker = (e: React.MouseEvent<SVGSVGElement>) => {
+  const handleDeleteSticker = (e: React.MouseEvent<SVGSVGElement>) => {
     const stickerTarget = e.currentTarget as SVGSVGElement;
     const clickStickerIdx = Number(stickerTarget.dataset.sticker);
 
@@ -98,7 +98,7 @@ const StickerVoting = (props: StickerVotingProps) => {
             stickerList.map((sticker, idx) => (
               <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
                 {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
-                <IcCancel onClick={handleCancelSticker} data-sticker={`${idx}`} />
+                <IcCancel onClick={handleDeleteSticker} data-sticker={`${idx}`} />
               </StEmojiIcon>
             ))}
         </article>
