@@ -2,8 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-import { deleteVote, getMonthlyLibraryInfo } from '../../lib/api/library';
+import { deleteVote } from '../../lib/api/library';
+import { useGetMonthlyLibraryInfo } from '../../lib/hooks/useGetMonthlyLibraryInfo';
+import Error404 from '../../pages/Error404';
 import { VoteInfo } from '../../types/library';
+import LandingLibrary from '../Landing/maker/LandingLibrary';
 import EndedVoting from './EndedVoting';
 
 interface voteAllInfoProps {
@@ -22,6 +25,10 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>(votes);
   const [isEnd, setIsEnd] = useState(false);
+  const { monthlyVoteInfo, isLoading, isError } = useGetMonthlyLibraryInfo(
+    verticalScrollInfo[nextIndex.current] ? verticalScrollInfo[nextIndex.current].id : 0,
+    date,
+  );
 
   useEffect(() => {
     getMoreItem();
@@ -34,13 +41,9 @@ const MonthVoting = (props: voteAllInfoProps) => {
   }, [inView]);
 
   const getMoreItem = async () => {
-    const prevLastId = verticalScrollInfo[nextIndex.current] ? verticalScrollInfo[nextIndex.current].id : 0;
+    const getItem = monthlyVoteInfo;
 
-    const res = await getMonthlyLibraryInfo(prevLastId, date);
-
-    const getItem = res?.data.data as VoteInfo[];
-
-    if (getItem.length) {
+    if (getItem?.length) {
       const newData = [...verticalScrollInfo, ...getItem];
       nextIndex.current = newData.length - 1;
       setVerticalScrollInfo(newData);
@@ -54,6 +57,14 @@ const MonthVoting = (props: voteAllInfoProps) => {
     const res = await deleteVote(id);
     setVerticalScrollInfo([...verticalScrollInfo.filter((info, idx) => info.id !== id)]);
   };
+
+  if (isLoading) {
+    return <LandingLibrary />;
+  }
+
+  if (isError) {
+    return <Error404 />;
+  }
 
   return (
     <StMonthVotingWrapper>
