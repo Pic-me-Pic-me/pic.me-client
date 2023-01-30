@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
-import { Link, useInRouterContext, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
-import { checkDuplicateNickname, postSignupInfo } from '../../lib/api/signup';
+import { postSignupInfo } from '../../lib/api/signup';
+import { useGetUsernameCheck } from '../../lib/hooks/useGetUsernameCheck';
+import Error404 from '../../pages/Error404';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
+import LandingLibrary from '../Landing/maker/LandingLibrary';
 
 const Nickname = () => {
   const location = useLocation();
@@ -41,10 +44,11 @@ const Nickname = () => {
 
   const { username } = getValues();
 
+  const { isNicknamePossible, isLoading, isError } = useGetUsernameCheck(username);
+
   const handleCheckNickname = () => {
-    checkDuplicateNickname(username).then((result) => {
-      console.log(result);
-      if (result?.success) {
+    if (isNicknamePossible) {
+      if (isNicknamePossible?.success) {
         setIsDuplicate(false);
         setErrorMsg('사용 가능한 닉네임입니다.');
         setNickname(username);
@@ -52,7 +56,7 @@ const Nickname = () => {
         setErrorMsg('이미 사용 중인 닉네임입니다.');
         setIsDuplicate(true);
       }
-    });
+    }
   };
 
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
@@ -78,6 +82,14 @@ const Nickname = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return <LandingLibrary />;
+  }
+
+  if (isError) {
+    return <Error404 />;
+  }
 
   return (
     <>
