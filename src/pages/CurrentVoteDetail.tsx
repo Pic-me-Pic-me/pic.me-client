@@ -13,12 +13,11 @@ import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
 import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import { STICKER_LIST } from '../constant/StickerIconList';
-import { getCurrentVoteDatailData, patchCurrentVoteData } from '../lib/api/voting';
+import { patchCurrentVoteData } from '../lib/api/voting';
 import { useCarouselSize } from '../lib/hooks/useCarouselSize';
 import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
 import { stickerResultState } from '../recoil/maker/atom';
-import { stickerCountSelector } from '../recoil/maker/selector';
-import { NaturalImgInfo, StickerLocation, StickerResultInfo } from '../types/vote';
+import { NaturalImgInfo, StickerLocation } from '../types/vote';
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 import { modifySliderRange, picmeSliderEvent } from '../utils/picmeSliderEvent';
 import { setStickerLocationData } from '../utils/setStickerLocationData';
@@ -63,13 +62,13 @@ const CurrentVoteDetail = () => {
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 
-  // if (isLoading)
-  //   return (
-  //     <>
-  //       <LandingHeader />
-  //       <LandingCurrentVote />
-  //     </>
-  //   );
+  if (isLoading)
+    return (
+      <>
+        <LandingHeader />
+        <LandingCurrentVote />
+      </>
+    );
   if (isError) return <Error />;
 
   return (
