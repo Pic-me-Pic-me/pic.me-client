@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { SignUpBanner } from '../../asset/image';
 import { SignUpInfo } from '../../types/signup';
 
 const AddAccount = () => {
@@ -32,7 +31,7 @@ const AddAccount = () => {
             {...register('email', {
               required: true,
               pattern: {
-                value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                value: /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
                 message: '올바른 이메일 형식이 아닙니다!',
               },
             })}

@@ -7,19 +7,14 @@ import useModal from '../../lib/hooks/useModal';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
-const Kakao = window.Kakao;
-
 const Nav = () => {
   const { isShowing, toggle } = useModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  // const { Kakao } = window as any;
-  // const Kakao = window.Kakao;
 
   const handleLogout = async () => {
     try {
-      // const res = await Kakao.Auth.logout();
       localStorage.removeItem('accessToken');
       navigate('/');
     } catch (error) {

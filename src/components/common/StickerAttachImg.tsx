@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { IcReasonBtnBefore } from '../../asset/icon';
 import { STICKER_LIST } from '../../constant/StickerIconList';
 import { stickerResultState } from '../../recoil/maker/atom';
-import { NaturalImgInfo, StickerLocation, StickerResultInfo } from '../../types/vote';
+import { NaturalImgInfo, StickerLocation } from '../../types/vote';
 import { setStickerLocationData } from '../../utils/setStickerLocationData';
 
-interface ReasonPicProps {
-  src: string;
+interface StickerAttachImgProps {
+  stickerAttachImgSrc: string;
+  imgWrapperWidthPercent: number;
+  imgHight: number;
 }
-const ResultPicture = (props: ReasonPicProps) => {
-  const { src } = props;
-  const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
+const StickerAttachImg = (props: StickerAttachImgProps) => {
+  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight } = props;
+
   const stickerResult = useRecoilValue(stickerResultState);
+  const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
   const handleImgSize = (e: React.SyntheticEvent) => {
@@ -26,59 +27,57 @@ const ResultPicture = (props: ReasonPicProps) => {
 
   return (
     <>
-      <StPictureWrapper>
-        <StPicture src={src} onLoad={handleImgSize} />
+      <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
+        <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&
           imgInfo &&
           stickerResult.map(({ stickerLocation, emoji }, idx) =>
             stickerLocation.map((sticker, stickerIdx) => (
-              <StEmojiIconWrapper
+              <StEmojiIcon
                 key={`sticker${stickerIdx}_${emoji}`}
                 location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-                {STICKER_LIST[emoji].icon()}
-              </StEmojiIconWrapper>
+                {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
+              </StEmojiIcon>
             )),
           )}
-      </StPictureWrapper>
+      </StStickerAttachImgWrapper>
     </>
   );
 };
+export default StickerAttachImg;
 
-const StPictureWrapper = styled.div`
+const StStickerAttachImgWrapper = styled.div<{ width: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 
-  width: 87%;
-  margin-top: 2.3rem;
+  width: ${({ width }) => width}%;
   overflow: hidden;
-
-  > svg {
-    position: absolute;
-    bottom: -3rem;
-  }
 `;
 
-const StPicture = styled.img<{ src: string }>`
+const StStickerAttachImg = styled.img<{ height: number }>`
+  position: relative;
+
   width: 100%;
-  height: 48.836rem;
+  height: ${({ height }) => height}rem;
+
+  border-radius: 1.2rem;
 
   object-fit: cover;
 `;
-const StEmojiIconWrapper = styled.div<{ location: StickerLocation }>`
+
+const StEmojiIcon = styled.div<{ location: StickerLocation }>`
   position: absolute;
   left: ${({ location }) => location.x}rem;
   top: ${({ location }) => location.y}rem;
+
   & > svg {
     position: absolute;
     left: 0;
     top: 0;
-    width: 5.3rem;
-    height: 5.3rem;
     z-index: 3;
     transform-origin: 50% 50%;
     transform: ${({ location }) => `rotate(${location.degRate}deg)`};
   }
 `;
-export default ResultPicture;
