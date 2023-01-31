@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styled, { ThemeContext } from 'styled-components';
+import styled from 'styled-components';
 
 import { IcGoback } from '../../asset/icon';
 

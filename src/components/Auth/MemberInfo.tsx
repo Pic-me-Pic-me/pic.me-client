@@ -3,15 +3,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcPickmeLogo } from '../../asset/icon';
 import { LoginBanner } from '../../asset/image';
 import { deleteUser, getUserInfo, postKakaoToken } from '../../lib/api/auth';
 import useModal from '../../lib/hooks/useModal';
 import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
-
-const Kakao = window.Kakao;
 
 const MemberInfo = () => {
   const { isShowing, toggle } = useModal();
