@@ -1,11 +1,10 @@
 import { relative } from 'node:path/win32';
 
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { IcDelete } from '../../asset/icon';
-import { deleteVote } from '../../lib/api/library';
 import { VoteInfo } from '../../types/library';
 import Modal from '../common/Modal';
 
