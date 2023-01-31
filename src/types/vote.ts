@@ -113,7 +113,7 @@ export interface VoteReasonInfo {
   faceStickerCount: number;
   angleStickerCount: number;
   moodStickerCount: number;
-  jusStickerCount: number;
+  justStickerCount: number;
 }
 
 export interface ResultSticker {
