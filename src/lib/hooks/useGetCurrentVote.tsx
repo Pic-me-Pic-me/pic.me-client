@@ -6,13 +6,9 @@ import { MakerVoteInfo } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
 const useGetCurrentVote = (voteId: string | undefined) => {
-  const { data, error } = useSWR<AxiosResponse<MakerVoteInfo>>(
-    voteId == undefined ? `/vote/maker/currentSingleResult/${voteId}` : null,
-    picmeGetFetcher,
-    {
-      errorRetryCount: 3,
-    },
-  );
+  const { data, error } = useSWR<AxiosResponse<MakerVoteInfo>>(`/vote/${voteId}`, picmeGetFetcher, {
+    errorRetryCount: 3,
+  });
 
   return {
     voteResult: data?.data,
