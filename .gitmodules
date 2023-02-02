@@ -1,0 +1,3 @@
+[submodule "pic.me-client"]
+	path = pic.me-client
+	url = https://github.com/Pic-me-Pic-me/pic.me-client

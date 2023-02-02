@@ -16,39 +16,75 @@ const colors = {
 
 const fonts = {
   Pic_Title1_Pretendard_Bold_24: css`
-    font-family: 'PretendardBold';
-    font-size: 2.4rem;
-    font-weight: 700;
+    font-family: 'PretendardBold', sans-serif;
     font-style: normal;
+    font-weight: 700;
+    font-size: 2.4rem;
     line-height: 2.9rem;
   `,
-  Pic_Title2_Pretendard_Bold_20: css`
-    font-family: 'PretendardBold';
+  Pic_Title2_Pretendard_SemiBold_20: css`
+    font-family: 'PretendardBold', sans-serif;
+    font-style: normal;
+    font-weight: 700;
     font-size: 2rem;
+    line-height: 2.4rem;
+  `,
+  Pic_Title4_Pretendard_Bold_35: css`
+    font-family: 'PretendardSemiBold', sans-serif;
+    font-size: 3.5rem;
     font-weight: 700;
     font-style: normal;
-    line-height: 2.4rem;
+    line-height: 4.177rem;
   `,
   Pic_Subtitle1_Pretendard_Semibold_20: css`
-    font-family: 'PretendardSemiBold';
-    font-size: 2rem;
-    font-weight: 600;
+    font-family: 'PretendardSemiBold', sans-serif;
     font-style: normal;
+    font-weight: 600;
+    font-size: 2rem;
     line-height: 2.4rem;
   `,
-  Pic_Body1_Pretendard_Medium_16: css`
-    font-family: 'PretendardMedium';
-    font-size: 1.6rem;
-    font-weight: 500;
+  Pic_Subtitle2_Pretendard_Medium_18: css`
+    font-family: 'PretendardMedium', sans-serif;
     font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  `,
+  Pic_Subtitle3_Pretendard_Semibold_20: css`
+    font-family: 'PretendardSemiBold', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    line-height: 2.148rem;
+  `,
+  Pic_Body1_Pretendard_Medium_16: css`
+    font-family: 'PretendardMedium', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+  `,
+  Pic_Body2_Pretendard_Bold_16: css`
+    font-family: 'PretendardBold', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.6rem;
     line-height: 1.9rem;
   `,
   Pic_Caption1_Pretendard_Semibold_12: css`
-    font-family: 'PretendardSemiBold';
+    font-family: 'PretendardSemiBold', sans-serif;
     font-size: 1.2rem;
     font-weight: 600;
     font-style: normal;
-    line-height: 1.4rem;
+    line-height: 1.671rem;
+  `,
+  Pic_Caption2_Pretendard_Semibold_14: css`
+    font-family: 'PretendardSemiBold', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.671rem;
   `,
 };
 
