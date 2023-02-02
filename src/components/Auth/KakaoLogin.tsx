@@ -24,7 +24,6 @@ const KakaoLogin = () => {
     </StKakaoLoginBtn>
   );
 };
-
 export default KakaoLogin;
 
 const StKakaoLoginBtn = styled.a`
