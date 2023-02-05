@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { client } from '../axios';
 import { DeleteUserInfo, GetUserData, LoginInfo, UsersResponse, UserToken } from './../../types/auth';
 

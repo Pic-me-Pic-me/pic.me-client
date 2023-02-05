@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 export interface ModalProps {
@@ -50,6 +49,7 @@ const StModalWrapper = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
+
   z-index: 100000;
 
   width: 100%;

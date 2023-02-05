@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
-import { Link, useInRouterContext, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
@@ -68,6 +68,12 @@ const Nickname = () => {
       }
     }
   };
+  const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentInputValue = e.target.value;
+    if (currentInputValue.includes(' ')) {
+      e.target.value = currentInputValue.trim();
+    }
+  };
 
   const handleSignup = () => {
     postSignupInfo({ email, password }, nickname).then((res) => {
@@ -88,11 +94,10 @@ const Nickname = () => {
             <StInputWrapper>
               <StInput
                 type="text"
-                {...register('username', {
-                  required: true,
-                })}
+                {...register('username', { required: '닉네임은 필수 입력 요소입니다!' })}
                 maxLength={8}
-                placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
+                placeholder="닉네임을 입력해주세요 (최대 8자)"
+                onChange={(e) => handleSpace(e)}></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn
               type="button"

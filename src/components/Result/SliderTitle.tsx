@@ -38,15 +38,17 @@ const StTitleWrapper = styled.div`
   height: 11.4rem;
   margin: 2.6rem 7% 0 7%;
 
+  margin-bottom: 2.3rem;
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const StTitle = styled.div<{ isChosenPic: boolean }>`
   width: 52%;
   height: 4.2rem;
 
-  margin-top: 2.6rem;
   margin-left: 2%;
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Title4_Pretendard_Bold_35};
@@ -71,8 +73,6 @@ const StVotedNumber = styled.div`
 
   width: 6.6rem;
   height: 6.6rem;
-
-  margin-top: 4rem;
 
   border-radius: 50%;
   background-color: rgba(244, 245, 247, 0.2);

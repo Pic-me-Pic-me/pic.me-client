@@ -1,4 +1,4 @@
-import react, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { IcKakaoLogin } from '../../asset/icon';
@@ -6,7 +6,6 @@ import { IcKakaoLogin } from '../../asset/icon';
 const Kakao = window.Kakao;
 
 const KakaoLogin = () => {
-  // const { Kakao } = window as any;
   const kauthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&response_type=code`;
 
   useEffect(() => {
@@ -15,7 +14,6 @@ const KakaoLogin = () => {
 
   const initKakao = () => {
     if (Kakao && !Kakao.isInitialized()) {
-      console.log(process.env.REACT_APP_JS_KEY);
       Kakao.init(process.env.REACT_APP_JS_KEY);
     }
   };
@@ -26,7 +24,6 @@ const KakaoLogin = () => {
     </StKakaoLoginBtn>
   );
 };
-
 export default KakaoLogin;
 
 const StKakaoLoginBtn = styled.a`

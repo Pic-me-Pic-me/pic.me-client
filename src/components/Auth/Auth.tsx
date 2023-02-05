@@ -1,23 +1,23 @@
 import axios from 'axios';
 import qs from 'qs';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
-import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/auth';
+import { postKakaoSignIn, postKakaoToken } from '../../lib/api/auth';
 
 const Kakao = window.Kakao;
 
 const Auth = () => {
   const cookies = new Cookies();
 
-  // const REDIRECT_URL = `https://with-picme.com/login/oauth/kakao/callback`;
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
 
   useEffect(() => {
     getToken();
   }, []);
+
   const getToken = async () => {
     const payload = qs.stringify({
       grant_type: 'authorization_code',
@@ -28,7 +28,6 @@ const Auth = () => {
     });
     try {
       const res = await axios.post('https://kauth.kakao.com/oauth/token', payload);
-      console.log(process.env.REACT_APP_REST_API_KEY);
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
 
       Kakao.Auth.setAccessToken(res.data.access_token);

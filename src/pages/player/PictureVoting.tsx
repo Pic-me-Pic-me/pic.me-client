@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
-import { IcHeaderFirst, IcHeaderLogo } from '../../asset/icon';
-import { Error, Loading } from '../../components/common';
-import { LandingHeader, LandingPictureSlider, LandingVoting } from '../../components/Landing/player';
+import { IcHeaderFirst } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import PictureSlider from '../../components/Voting/player/PictureSlider';
-import { useGetVotingInfo } from '../../lib/hooks/useGetVotingInfo';
 import { votingInfoState } from '../../recoil/player/atom';
 
 const PictureVoting = () => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import * as timeago from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
@@ -9,8 +9,7 @@ import TimeAgo from 'timeago-react';
 import { IcVoteShareBtn } from '../asset/icon';
 import { Error } from '../components/common';
 import Modal from '../components/common/Modal';
-import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
-import LandingHeader from '../components/Landing/maker/LandingHeader';
+import StickerAttachImg from '../components/common/StickerAttachImg';
 import { HeaderLayout } from '../components/Layout';
 import { STICKER_LIST } from '../constant/StickerIconList';
 import { patchCurrentVoteData } from '../lib/api/voting';
@@ -20,7 +19,6 @@ import { stickerResultState } from '../recoil/maker/atom';
 import { NaturalImgInfo, StickerLocation } from '../types/vote';
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 import { modifySliderRange, picmeSliderEvent } from '../utils/picmeSliderEvent';
-import { setStickerLocationData } from '../utils/setStickerLocationData';
 
 const CurrentVoteDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
@@ -29,7 +27,7 @@ const CurrentVoteDetail = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
-  const [stickerResult, setStickerResultState] = useRecoilState(stickerResultState);
+  const setStickerResultState = useSetRecoilState(stickerResultState);
   const resetStickerResult = useResetRecoilState(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
@@ -49,7 +47,7 @@ const CurrentVoteDetail = () => {
       setStickerResultState(jsonGetStickerList(voteResult.Picture[currentIdx].Sticker));
       window.scrollTo(0, 0);
     }
-  }, [currentIdx]);
+  }, [currentIdx, voteResult]);
 
   const handleGoResultPage = () => {
     patchCurrentVoteData(voteId);
@@ -118,18 +116,7 @@ const CurrentVoteDetail = () => {
               <li key={idx}>
                 {currentIdx === idx ? (
                   <>
-                    <StSelectedImg onLoad={handleImgSize} width={window.screen.width} src={url} alt="선택된 사진" />
-                    {imgViewInfo &&
-                      imgInfo &&
-                      stickerResult.map(({ stickerLocation, emoji }, idx) =>
-                        stickerLocation.map((sticker, stickerIdx) => (
-                          <StEmojiIcon
-                            key={`sticker${stickerIdx}_${emoji}`}
-                            location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-                            {STICKER_LIST[emoji].icon()}
-                          </StEmojiIcon>
-                        )),
-                      )}
+                    <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={100} imgHight={43.4} />
                   </>
                 ) : (
                   <StUnselectedImg width={window.screen.width} src={url} alt="선택되지 않은 사진" />
@@ -139,7 +126,7 @@ const CurrentVoteDetail = () => {
           </StImgUl>
         </StImgWrapper>
         <StDotWrapper>
-          {currentIdx === 0 ? (
+          {!currentIdx ? (
             <>
               <StSelectedDot />
               <StUnselectedDot />
@@ -246,7 +233,6 @@ const StImgWrapper = styled.article`
 const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
   display: flex;
 
-  width: 100%;
   align-items: center;
   position: absolute;
   gap: 1.3rem;
@@ -267,33 +253,24 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
     css`
       transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
     `};
-  width: ${({ width }) => (width * 1.5) / 10}rem;
+  width: ${({ width }) => (width * 1.55) / 10}rem;
   touch-action: auto;
 
   & > li {
     position: relative;
+
+    width: 100%;
+
+    margin-top: 1.9rem;
   }
 `;
+const StUnselectedImg = styled.img<{ width: number }>`
+  width: 100%;
 
-const StSelectedImg = styled.img<{ width: number }>`
-  position: relative;
-
-  width: ${({ width }) => width * 0.075585}rem;
-  /* width: 32.5rem; */
-
-  margin-top: 1.9rem;
-  height: 43.4rem;
-
+  opacity: 0.5;
   border-radius: 1.2rem;
 
   object-fit: cover;
-`;
-
-const StUnselectedImg = styled(StSelectedImg)`
-  width: ${({ width }) => width * 0.075585}rem;
-  /* width: 32.5rem; */
-
-  opacity: 0.5;
 `;
 
 const StDotWrapper = styled.section`
@@ -348,20 +325,4 @@ const StCompleteVoteBtn = styled.button`
 
   border: none;
   border-radius: 0.9rem;
-`;
-const StEmojiIcon = styled.div<{ location: StickerLocation }>`
-  position: absolute;
-  left: ${({ location }) => location.x}rem;
-  top: ${({ location }) => location.y}rem;
-
-  & > svg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 5.3rem;
-    height: 5.3rem;
-    z-index: 3;
-    transform-origin: 50% 50%;
-    transform: ${({ location }) => `rotate(${location.degRate}deg)`};
-  }
 `;
