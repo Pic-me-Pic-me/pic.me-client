@@ -2,8 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
-import { deleteVote, getMonthlyLibraryInfo } from '../../lib/api/library';
+import { deleteVote } from '../../lib/api/library';
+import { useGetMonthlyLibraryInfo } from '../../lib/hooks/useGetMonthlyLibraryInfo';
+import Error404 from '../../pages/Error404';
 import { VoteInfo } from '../../types/library';
+import LandingLibrary from '../Landing/maker/LandingLibrary';
 import EndedVoting from './EndedVoting';
 
 interface voteAllInfoProps {
@@ -13,15 +16,17 @@ interface voteAllInfoProps {
 
 const MonthVoting = (props: voteAllInfoProps) => {
   const { date, votes } = props;
-  const formattedDate = date.toString().substr(0, 4) + '. ' + date.toString().substr(4, 2);
+  const formattedDate = date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6);
   const nextIndex = useRef(votes.length - 1);
+  const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>(votes);
+  const { monthlyVoteInfo, isLoading, isError } = useGetMonthlyLibraryInfo(
+    verticalScrollInfo[nextIndex.current] ? verticalScrollInfo[nextIndex.current].id : '0',
+    date,
+  );
 
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
-
-  const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>(votes);
-  const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
     getMoreItem();
@@ -34,26 +39,29 @@ const MonthVoting = (props: voteAllInfoProps) => {
   }, [inView]);
 
   const getMoreItem = async () => {
-    const prevLastId = verticalScrollInfo[nextIndex.current] ? verticalScrollInfo[nextIndex.current].id : 0;
+    const getItem = monthlyVoteInfo;
 
-    const res = await getMonthlyLibraryInfo(prevLastId, date);
-
-    const getItem = res?.data.data as VoteInfo[];
-
-    if (getItem.length) {
+    if (getItem?.length) {
       const newData = [...verticalScrollInfo, ...getItem];
       nextIndex.current = newData.length - 1;
       setVerticalScrollInfo(newData);
     } else {
-      setIsEnd(true);
       return;
     }
   };
 
-  const handleDeleteVote = async (id: number) => {
-    const res = await deleteVote(id);
+  const handleDeleteVote = async (id: string) => {
+    await deleteVote(id);
     setVerticalScrollInfo([...verticalScrollInfo.filter((info, idx) => info.id !== id)]);
   };
+
+  if (isLoading) {
+    return <LandingLibrary />;
+  }
+
+  if (isError) {
+    return <Error404 />;
+  }
 
   return (
     <StMonthVotingWrapper>
@@ -65,14 +73,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
               <EndedVoting key={idx} id={vote.id} voteData={vote} handleDeleteVote={handleDeleteVote}></EndedVoting>
             </div>
           ) : (
-            <div key={idx}>
-              <EndedVoting
-                id={vote.id}
-                voteData={vote}
-                key={idx}
-                isStart={idx === 0 ? true : false}
-                handleDeleteVote={handleDeleteVote}></EndedVoting>
-            </div>
+            <EndedVoting id={vote.id} voteData={vote} key={idx} handleDeleteVote={handleDeleteVote}></EndedVoting>
           ),
         )}
       </StEndedVotingListWrapper>
@@ -99,16 +100,11 @@ const StEndedVotingListWrapper = styled.section`
 
   width: 100%;
   margin-top: 1.7rem;
-  margin-left: 5%;
 
   overflow-x: scroll;
 
   ::-webkit-scrollbar {
     display: none;
-  }
-
-  &:only-child {
-    margin-left: 2rem;
   }
 `;
 
