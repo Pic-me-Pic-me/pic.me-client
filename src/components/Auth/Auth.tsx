@@ -4,8 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { postKakaoSignIn, postKakaoToken } from '../../lib/api/auth';
-import Cookie from '../../lib/cookies';
-import LocalStorage from '../../lib/localStorage';
+import Token from '../../lib/token';
 
 const Kakao = window.Kakao;
 
@@ -30,15 +29,14 @@ const Auth = () => {
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
 
       Kakao.Auth.setAccessToken(kakaoRes.access_token);
-      LocalStorage.setAccessToken('kakaoAccessToken', kakaoRes.access_token);
+      Token.setAccessToken('kakaoAccessToken', kakaoRes.access_token);
 
       // 카카오 중복확인
       const data = await postKakaoToken(kakaoRes.access_token);
       if (data.isUser) {
         // 로그인
         const signInData = await postKakaoSignIn(data.uid);
-        LocalStorage.setAccessToken('accessToken', signInData.accessToken);
-        Cookie.setRefreshToken('refreshToken', signInData.refreshToken);
+        Token.setUserSession(signInData.accessToken, signInData.refreshToken);
         navigate('/home');
         window.location.reload();
       } else if (!data.isUser) {

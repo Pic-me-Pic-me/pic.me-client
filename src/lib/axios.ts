@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Cookies } from 'react-cookie';
 
-const TOKEN = localStorage.getItem('accessToken');
-const cookies = new Cookies();
+import Token from './token';
+
+const TOKEN = Token.getAccessToken('accessToken');
 
 const client = axios.create({
   baseURL: 'https://with-picme-api.com',
@@ -17,8 +17,8 @@ const client = axios.create({
 client.interceptors.request.use((config: any) => {
   const headers = {
     ...config.headers,
-    accessToken: localStorage.getItem('accessToken'),
-    refreshToken: cookies.get('refreshToken'),
+    accessToken: Token.getAccessToken('accessToken'),
+    refreshToken: Token.getRefreshToken('refreshToken'),
   };
 
   return { ...config, headers };
@@ -42,8 +42,8 @@ client.interceptors.response.use(
       const res = await client.post(
         `/auth/token`, // token refresh api
         {
-          accessToken: localStorage.getItem('accessToken'),
-          refreshToken: cookies.get('refreshToken'),
+          accessToken: Token.getAccessToken('accessToken'),
+          refreshToken: Token.getRefreshToken('refreshToken'),
         },
       );
       console.log(res);
@@ -54,7 +54,7 @@ client.interceptors.response.use(
 
       const newAccessToken = res.data.data.accessToken;
 
-      localStorage.setItem('accessToken', newAccessToken);
+      Token.setAccessToken('accessToken', newAccessToken);
       originalRequest.headers = {
         newAccessToken,
       };

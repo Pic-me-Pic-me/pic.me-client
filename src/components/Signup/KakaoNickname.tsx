@@ -5,9 +5,8 @@ import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { postKakaoSignUp } from '../../lib/api/auth';
-import Cookie from '../../lib/cookies';
 import { useGetUsernameCheck } from '../../lib/hooks/useGetUsernameCheck';
-import LocalStorage from '../../lib/localStorage';
+import Token from '../../lib/token';
 import Error404 from '../../pages/Error404';
 import { KakaoAddNicknameInfo, NicknameInfo } from '../../types/signup';
 
@@ -72,8 +71,7 @@ const KakaoNickname = () => {
 
   const handleSignup = async () => {
     const signUpData = await postKakaoSignUp(uid, nickname, email);
-    LocalStorage.setAccessToken('accessToken', signUpData.accessToken);
-    Cookie.setRefreshToken('refreshToken', signUpData.refreshToken);
+    Token.setUserSession(signUpData.accessToken, signUpData.refreshToken);
     navigate('/home');
     window.location.reload();
   };

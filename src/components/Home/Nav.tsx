@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcClose, IcHamburger, IcHomeLogo } from '../../asset/icon';
-import Cookie from '../../lib/cookies';
 import useModal from '../../lib/hooks/useModal';
-import LocalStorage from '../../lib/localStorage';
+import Token from '../../lib/token';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
@@ -17,9 +16,7 @@ const Nav = () => {
 
   const handleLogout = async () => {
     try {
-      LocalStorage.removeAccessToken('accessToken');
-      LocalStorage.removeAccessToken('kakaoAccessToken');
-      Cookie.removeRefreshToken('refreshToken');
+      Token.clearUserSession();
       navigate('/');
     } catch (error) {
       console.error(error);
