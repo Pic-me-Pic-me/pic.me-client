@@ -41,12 +41,6 @@ export interface UserToken {
   data: UserTokenInfo;
 }
 
-// export interface DeleteUserInfo {
-//   status: number;
-//   success: boolean;
-//   message: string;
-// }
-
 declare global {
   interface Window {
     Kakao: any; // 👈️ turn off type checking
@@ -57,13 +51,6 @@ export interface LoginInfo {
   email: string;
   password: string;
 }
-
-// export interface GetUserData {
-//   status: number;
-//   success: boolean;
-//   message: string;
-//   data: MemberData;
-// }
 
 export interface MemberData {
   userName: string;

@@ -25,7 +25,6 @@ const VoteList = () => {
 
   const getMoreItem = useCallback(async () => {
     const { data: newData } = await getCurrentVoteData(cursorId);
-    console.log(newData);
 
     if (newData) {
       const newDataList = newData.result as VoteCardInfo[];
