@@ -1,5 +1,7 @@
+import { AxiosResponse } from 'axios';
+
 import { client } from '../axios';
-import { DeleteUserInfo, GetUserData, LoginInfo, UsersResponse, UserToken } from './../../types/auth';
+import { LoginInfo, MemberData, UsersResponse, UserToken } from './../../types/auth';
 
 export const postLoginInfo = async ({ email, password }: LoginInfo) => {
   try {
@@ -38,7 +40,7 @@ export const postKakaoSignUp = async (uid: string, socialType: string, username:
 
 export const getUserInfo = async () => {
   try {
-    const data = await client.get<GetUserData>('/user');
+    const data = await client.get<AxiosResponse<MemberData>>('/user');
     return data.data;
   } catch (err) {
     console.error(err);
@@ -47,7 +49,7 @@ export const getUserInfo = async () => {
 };
 export const deleteUser = async () => {
   try {
-    const data = await client.delete<DeleteUserInfo>('/user');
+    const data = await client.delete<AxiosResponse>('/user');
     return data;
   } catch (err) {
     console.error(err);

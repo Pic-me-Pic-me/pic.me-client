@@ -1,8 +1,3 @@
-export interface MemberData {
-  userName: string;
-  email: string;
-}
-
 export interface LoginType {
   provider_key: string;
   user_id: number;
@@ -46,11 +41,11 @@ export interface UserToken {
   data: UserTokenInfo;
 }
 
-export interface DeleteUserInfo {
-  status: number;
-  success: boolean;
-  message: string;
-}
+// export interface DeleteUserInfo {
+//   status: number;
+//   success: boolean;
+//   message: string;
+// }
 
 declare global {
   interface Window {
@@ -63,9 +58,14 @@ export interface LoginInfo {
   password: string;
 }
 
-export interface GetUserData {
-  status: number;
-  success: boolean;
-  message: string;
-  data: MemberData;
+// export interface GetUserData {
+//   status: number;
+//   success: boolean;
+//   message: string;
+//   data: MemberData;
+// }
+
+export interface MemberData {
+  userName: string;
+  email: string;
 }

@@ -24,13 +24,13 @@ const VoteList = () => {
   const [isEnd, setIsEnd] = useState(false);
 
   const getMoreItem = useCallback(async () => {
-    const newData = await getCurrentVoteData(cursorId);
+    const { data: newData } = await getCurrentVoteData(cursorId);
     console.log(newData);
 
-    if (newData?.data) {
-      const newDataList = newData.data.result as VoteCardInfo[];
+    if (newData) {
+      const newDataList = newData.result as VoteCardInfo[];
       setDataList(dataList.concat(newDataList));
-      setCursorId(newData.data.resCursorId);
+      setCursorId(newData.resCursorId);
     } else {
       setIsEnd(true);
     }
