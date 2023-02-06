@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 import { IcResultLeft, IcResultRight } from '../asset/icon';
 import { Error, Loading, StickerAttachImg } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
+import ResultPicSlider from '../components/Result/ResultPicSlider';
 import ResultReason from '../components/Result/ResultReason';
 import SliderTitle from '../components/Result/SliderTitle';
 import useGetVoteResult from '../lib/hooks/useGetVoteResult';
@@ -40,22 +41,14 @@ const Result = () => {
               HeaderTitle="최종 투표 결과"
               handleGoback={() => navigate('/library')}
               isBanner></HeaderLayout>
-            {!chosenPictureIdx ? (
-              <IcResultRight onClick={() => setChosenPictureIdx(1)} />
-            ) : (
-              <IcResultLeft onClick={() => setChosenPictureIdx(0)} />
-            )}
+
             <SliderTitle
               isChosenPic={!chosenPictureIdx}
               voteTitle={voteResult.voteTitle}
               voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
 
             <section>
-              <StickerAttachImg
-                stickerAttachImgSrc={voteResult.Picture[chosenPictureIdx].url}
-                imgWrapperWidthPercent={87}
-                imgHight={48.836}
-              />
+              <ResultPicSlider />
               <ResultReason
                 totalVoteCount={voteResult.currentVote}
                 handleIsOpenResultReason={handleIsOpenResultReason}
