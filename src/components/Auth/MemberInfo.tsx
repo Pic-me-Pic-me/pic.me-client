@@ -28,8 +28,8 @@ const MemberInfo = () => {
     try {
       const KAKAO_TOKEN = localStorage.getItem('kakaoAccessToken');
       if (KAKAO_TOKEN) {
-        const data = await postKakaoToken(KAKAO_TOKEN);
-        const res = await axios({
+        await postKakaoToken(KAKAO_TOKEN);
+        await axios({
           method: 'POST',
           url: 'https://kapi.kakao.com/v1/user/unlink',
           headers: {
@@ -38,7 +38,7 @@ const MemberInfo = () => {
         });
         localStorage.removeItem('kakaoAccessToken');
       }
-      const result = await deleteUser();
+      await deleteUser();
       localStorage.removeItem('accessToken');
       navigate('/');
     } catch (error) {
