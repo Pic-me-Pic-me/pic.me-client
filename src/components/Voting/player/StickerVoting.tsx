@@ -35,9 +35,6 @@ const StickerVoting = (props: StickerVotingProps) => {
           y: Math.round((((offsetY - 27) * imgInfo.height) / imgViewInfo.height) * 100) / 100,
           degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
         };
-        // console.log('이미지 자체 정보', imgInfo);
-        // console.log('이미지 뷰 정보', imgViewInfo);
-        // console.log('이미지 정보', newSticker);
         setStickerVotingInfo((prev) => ({
           ...prev,
           imgViewInfo,

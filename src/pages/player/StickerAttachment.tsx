@@ -21,7 +21,6 @@ const StickerAttachment = () => {
     if (isActiveBtn)
       try {
         const { data } = await postStickerData(stickerVotingInfo);
-        console.log('스티커 생성', data);
         navigate('/player/voting/result');
       } catch (e) {
         console.error(e);
