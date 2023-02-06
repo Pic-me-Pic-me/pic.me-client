@@ -17,9 +17,9 @@ const Nav = () => {
 
   const handleLogout = async () => {
     try {
-      LocalStorage.removeItem('accessToken');
-      LocalStorage.removeItem('kakaoAccessToken');
-      Cookie.removeItem('refreshToken');
+      LocalStorage.removeAccessToken('accessToken');
+      LocalStorage.removeAccessToken('kakaoAccessToken');
+      Cookie.removeRefreshToken('refreshToken');
       navigate('/');
     } catch (error) {
       console.error(error);

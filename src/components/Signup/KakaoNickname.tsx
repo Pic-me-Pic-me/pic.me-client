@@ -5,9 +5,10 @@ import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { postKakaoSignUp } from '../../lib/api/auth';
-import { checkDuplicateNickname } from '../../lib/api/signup';
 import Cookie from '../../lib/cookies';
+import { useGetUsernameCheck } from '../../lib/hooks/useGetUsernameCheck';
 import LocalStorage from '../../lib/localStorage';
+import Error404 from '../../pages/Error404';
 import { KakaoAddNicknameInfo, NicknameInfo } from '../../types/signup';
 
 const KakaoNickname = () => {
@@ -39,9 +40,12 @@ const KakaoNickname = () => {
   }, [watch('username')]);
 
   const { username } = getValues();
+
+  const { isNicknamePossible, isError } = useGetUsernameCheck(username);
+
   const handleCheckNickname = () => {
-    checkDuplicateNickname(username).then((result) => {
-      if (result?.success) {
+    if (isNicknamePossible) {
+      if (isNicknamePossible?.success) {
         setIsDuplicate(false);
         setErrorMsg('사용 가능한 닉네임입니다.');
         setNickname(username);
@@ -49,7 +53,7 @@ const KakaoNickname = () => {
         setErrorMsg('이미 사용 중인 닉네임입니다.');
         setIsDuplicate(true);
       }
-    });
+    }
   };
 
   const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
@@ -68,12 +72,15 @@ const KakaoNickname = () => {
 
   const handleSignup = async () => {
     const signUpData = await postKakaoSignUp(uid, nickname, email);
-    LocalStorage.setItem('accessToken', signUpData.accessToken);
-    Cookie.setItem('refreshToken', signUpData.refreshToken);
+    LocalStorage.setAccessToken('accessToken', signUpData.accessToken);
+    Cookie.setRefreshToken('refreshToken', signUpData.refreshToken);
     navigate('/home');
     window.location.reload();
   };
 
+  if (isError) {
+    return <Error404 />;
+  }
   return (
     <>
       <StWrapper>

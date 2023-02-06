@@ -1,29 +1,27 @@
 class LocalStorage {
-  //   constructor() {}
-
-  static setItem(key: string, item: string) {
+  static setAccessToken(key: string, item: string) {
     if (typeof window !== 'undefined') {
       localStorage.setItem(key, item);
     }
   }
 
-  static getItem(key: string) {
+  static getAccessToken(key: string) {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(key) as string;
     }
     return '';
   }
 
-  static removeItem(key: string) {
+  static removeAccessToken(key: string) {
     if (typeof window !== 'undefined') localStorage.removeItem(key);
   }
 
-  static setUserSession(accessToken: string) {
-    this.setItem('accessToken', accessToken);
+  static setUserAccessToken(accessToken: string) {
+    this.setAccessToken('accessToken', accessToken);
   }
 
-  static clearUserSession() {
-    this.removeItem('accessToken');
+  static clearAccessToken() {
+    this.removeAccessToken('accessToken');
   }
 }
 

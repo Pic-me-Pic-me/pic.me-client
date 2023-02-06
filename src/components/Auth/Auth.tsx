@@ -30,15 +30,15 @@ const Auth = () => {
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
 
       Kakao.Auth.setAccessToken(kakaoRes.access_token);
-      LocalStorage.setItem('kakaoAccessToken', kakaoRes.access_token);
+      LocalStorage.setAccessToken('kakaoAccessToken', kakaoRes.access_token);
 
       // 카카오 중복확인
       const data = await postKakaoToken(kakaoRes.access_token);
       if (data.isUser) {
         // 로그인
         const signInData = await postKakaoSignIn(data.uid);
-        LocalStorage.setItem('accessToken', signInData.accessToken);
-        Cookie.setItem('refreshToken', signInData.refreshToken);
+        LocalStorage.setAccessToken('accessToken', signInData.accessToken);
+        Cookie.setRefreshToken('refreshToken', signInData.refreshToken);
         navigate('/home');
         window.location.reload();
       } else if (!data.isUser) {

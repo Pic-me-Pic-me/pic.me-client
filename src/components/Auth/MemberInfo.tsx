@@ -28,21 +28,21 @@ const MemberInfo = () => {
 
   const handleDeleteUser = async () => {
     try {
-      const KAKAO_TOKEN = LocalStorage.getItem('kakaoAccessToken');
+      const KAKAO_TOKEN = LocalStorage.getAccessToken('kakaoAccessToken');
       if (KAKAO_TOKEN) {
         await postKakaoToken(KAKAO_TOKEN);
         await axios({
           method: 'POST',
           url: 'https://kapi.kakao.com/v1/user/unlink',
           headers: {
-            Authorization: `Bearer ${LocalStorage.getItem('kakaoAccessToken')}`,
+            Authorization: `Bearer ${LocalStorage.getAccessToken('kakaoAccessToken')}`,
           },
         });
-        LocalStorage.removeItem('kakaoAccessToken');
+        LocalStorage.removeAccessToken('kakaoAccessToken');
       }
       await deleteUser();
-      LocalStorage.removeItem('accessToken');
-      Cookie.removeItem('refreshToken');
+      LocalStorage.removeAccessToken('accessToken');
+      Cookie.removeRefreshToken('refreshToken');
       navigate('/');
     } catch (error) {
       console.error(error);
