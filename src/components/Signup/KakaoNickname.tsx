@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { postKakaoSignUp } from '../../lib/api/auth';
-import { checkDuplicateNickname, postSignupInfo } from '../../lib/api/signup';
-import { AddAccountInfo, KakaoAddNicknameInfo, NicknameInfo } from '../../types/signup';
+import { checkDuplicateNickname } from '../../lib/api/signup';
+import Cookie from '../../lib/cookies';
+import LocalStorage from '../../lib/localStorage';
+import { KakaoAddNicknameInfo, NicknameInfo } from '../../types/signup';
 
 const KakaoNickname = () => {
   const location = useLocation();
-  const cookies = new Cookies();
 
   const navigate = useNavigate();
-  const { uid, socialType, email }: KakaoAddNicknameInfo = location.state;
+  const { uid, email }: KakaoAddNicknameInfo = location.state;
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
@@ -67,10 +67,10 @@ const KakaoNickname = () => {
   };
 
   const handleSignup = async () => {
-    const signUpData = await postKakaoSignUp(uid, username, email);
-    localStorage.setItem('accessToken', signUpData.accessToken);
-    cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
-    navigate('/login');
+    const signUpData = await postKakaoSignUp(uid, nickname, email);
+    LocalStorage.setItem('accessToken', signUpData.accessToken);
+    Cookie.setItem('refreshToken', signUpData.refreshToken);
+    navigate('/home');
     window.location.reload();
   };
 
