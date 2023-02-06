@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { IcSkeletonBack, IcSkeletonHeader, IcSkeletonMenu } from '../../../asset/icon';
+import { IcSkeletonBack, IcSkeletonHeader } from '../../../asset/icon';
 import { loading } from '../../common/style/animation';
 
 interface LayoutProps {

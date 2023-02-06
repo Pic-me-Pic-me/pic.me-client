@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { IcEmpty } from '../../asset/icon';
 import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData } from '../../lib/api/voting';
-import { stickerInfoState } from '../../recoil/player/atom';
+import { stickerResultState } from '../../recoil/maker/atom';
 import { VoteCardInfo } from '../../types/vote';
 import { LandingVoteList } from '../Landing/maker';
 import VoteCard from './VoteCard';
@@ -20,7 +20,7 @@ const VoteList = () => {
   const [dataList, setDataList] = useState<VoteCardInfo[]>([]);
   const [cursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
-  const resetStickerInfoState = useResetRecoilState(stickerInfoState);
+  const resetStickerInfoState = useResetRecoilState(stickerResultState);
 
   const getMoreItem = useCallback(async () => {
     const newData = await getCurrentVoteData(Number(cursorId));

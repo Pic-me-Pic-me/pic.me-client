@@ -2,15 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import {
-  IcAngleMenu,
-  IcFace,
-  IcFaceMenu,
-  IcJustMenu,
-  IcMood,
-  IcReasonBtnAfter,
-  IcReasonBtnBefore,
-} from '../../asset/icon';
+import { IcAngleMenu, IcFaceMenu, IcJustMenu, IcMood, IcReasonBtnAfter, IcReasonBtnBefore } from '../../asset/icon';
 import { stickerResultState } from '../../recoil/maker/atom';
 import { stickerCountSelector, stickerMaxCountSelctor } from '../../recoil/maker/selector';
 
