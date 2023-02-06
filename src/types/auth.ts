@@ -1,10 +1,3 @@
-// export interface UserInfo {
-//   user_id: number;
-//   user_name: string;
-//   email: string;
-//   password: string;
-//   refreshToken: string;
-// }
 export interface MemberData {
   userName: string;
   email: string;
@@ -15,11 +8,6 @@ export interface LoginType {
   user_id: number;
   provider_type: string;
 }
-
-// export interface MemberData {
-//   email: string;
-//   password: string;
-// }
 
 export interface RefreshType {
   status: number;

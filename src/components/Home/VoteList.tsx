@@ -25,6 +25,7 @@ const VoteList = () => {
 
   const getMoreItem = useCallback(async () => {
     const newData = await getCurrentVoteData(cursorId);
+    console.log(newData);
 
     if (newData?.data) {
       const newDataList = newData.data.result as VoteCardInfo[];
@@ -53,8 +54,8 @@ const VoteList = () => {
   }, [inView]);
 
   const getUserName = async () => {
-    const name = await getUserInfo();
-    setUserName(name?.data.userName);
+    const { data: name } = await getUserInfo();
+    setUserName(name?.userName);
   };
 
   if (isLoading) return <LandingVoteList />;
