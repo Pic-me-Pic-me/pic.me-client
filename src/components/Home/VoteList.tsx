@@ -21,13 +21,17 @@ const VoteList = () => {
   const [cursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
   const resetStickerInfoState = useResetRecoilState(stickerResultState);
+  const [isEnd, setIsEnd] = useState(false);
 
   const getMoreItem = useCallback(async () => {
-    const newData = await getCurrentVoteData(Number(cursorId));
-    if (newData?.data) {
-      const newDataList = newData.data.result as VoteCardInfo[];
+    const { data: newData } = await getCurrentVoteData(cursorId);
+
+    if (newData) {
+      const newDataList = newData.result as VoteCardInfo[];
       setDataList(dataList.concat(newDataList));
-      setCursorId(newData.data.resCursorId);
+      setCursorId(newData.resCursorId);
+    } else {
+      setIsEnd(true);
     }
   }, [cursorId]);
 
@@ -42,15 +46,15 @@ const VoteList = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    if (dataList?.length !== 0 && inView) {
+    if (dataList?.length !== 0 && inView && !isEnd) {
       getMoreItem();
     }
     setIsLoading(false);
   }, [inView]);
 
   const getUserName = async () => {
-    const name = await getUserInfo();
-    setUserName(name?.data.userName);
+    const { data: name } = await getUserInfo();
+    setUserName(name?.userName);
   };
 
   if (isLoading) return <LandingVoteList />;
