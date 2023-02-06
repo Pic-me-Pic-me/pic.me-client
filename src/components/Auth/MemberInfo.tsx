@@ -4,24 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { LoginBanner } from '../../asset/image';
-import { deleteUser, getUserInfo, postKakaoToken } from '../../lib/api/auth';
+import { deleteUser, postKakaoToken } from '../../lib/api/auth';
+import useGetUserData from '../../lib/hooks/useGetUserData';
 import useModal from '../../lib/hooks/useModal';
-import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
 const MemberInfo = () => {
+  const { userInfo, isError } = useGetUserData();
   const { isShowing, toggle } = useModal();
   const navigate = useNavigate();
-  const [user, setUser] = useState<MemberData>();
-
   const handleGoback = () => {
     navigate('/home');
-  };
-
-  const getUserData = async () => {
-    const userinfo = await getUserInfo();
-    if (userinfo) setUser(userinfo.data);
   };
 
   const handleDeleteUser = async () => {
@@ -46,9 +40,9 @@ const MemberInfo = () => {
     }
   };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
 
   return (
     <>
@@ -58,10 +52,10 @@ const MemberInfo = () => {
       </StBannerWrapper>
       <StWhiteSection>
         <h1>닉네임</h1>
-        <p>{user?.userName}</p>
+        <p>{userInfo?.userName}</p>
         <h1>아이디</h1>
         {}
-        <p>{user?.email}</p>
+        <p>{userInfo?.email}</p>
         <div>
           <button type="button" onClick={() => toggle()}>
             회원 탈퇴하기
