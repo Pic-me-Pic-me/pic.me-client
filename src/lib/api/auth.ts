@@ -38,15 +38,6 @@ export const postKakaoSignUp = async (uid: string, socialType: string, username:
   return data.data;
 };
 
-export const getUserInfo = async () => {
-  try {
-    const data = await client.get<AxiosResponse<MemberData>>('/user');
-    return data.data;
-  } catch (err) {
-    console.error(err);
-    return { data: undefined };
-  }
-};
 export const deleteUser = async () => {
   try {
     const data = await client.delete<AxiosResponse>('/user');
