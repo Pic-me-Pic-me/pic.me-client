@@ -8,13 +8,12 @@ import {
   MOVE_THREE_SLIDER,
   PX_TO_REM,
   SLIDER_FULL_WIDTH_RATIO,
-  SLIDER_ITEM_HALF_WIDTH,
-  SLIDER_UNSELECT_WIDTH_RATIO,
 } from '../../constant/slider';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import useGetVoteResult from '../../lib/hooks/useGetVoteResult';
+import Error404 from '../../pages/Error404';
 import { MakerPictureData } from '../../types/vote';
-import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
+import { picmeSliderEvent } from '../../utils/picmeSliderEvent';
 import { StickerAttachImg } from '../common';
 
 export default function ResultPicSlider() {
@@ -27,28 +26,32 @@ export default function ResultPicSlider() {
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
 
+  if (isError) {
+    return <Error404 />;
+  }
+
   return (
     <>
       <StSliderPictureWrapper>
-        <StSliderPictureUl
+        <StSliderPicture
           currentIdx={currentIdx}
           dragItemWidth={width}
           transX={transX}
           width={window.screen.width}
           {...picmeSliderEvent({
             onDragChange: (deltaX, deltaY) => {
-              setTransX(modifySliderRange(deltaX, -width, width));
+              setTransX(deltaX);
             },
             onDragEnd: (deltaX, deltaY) => {
               Array(2)
                 .fill(0)
                 .map((_, i) => 2 - i)
                 .some((num) => {
-                  if (deltaX < -SLIDER_ITEM_HALF_WIDTH * num) {
+                  if (deltaX < -183 * num) {
                     setCurrentIdx(1);
                     return true;
                   }
-                  if (deltaX > SLIDER_ITEM_HALF_WIDTH * num) {
+                  if (deltaX > 183 * num) {
                     setCurrentIdx(0);
                     return true;
                   }
@@ -56,16 +59,12 @@ export default function ResultPicSlider() {
               setTransX(0);
             },
           })}>
-          {pictureInfoList.map(({ url }, idx) => (
-            <li key={idx}>
-              {idx === currentIdx ? (
-                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={90} imgHight={56} />
-              ) : (
-                <img src={url} className="unSelect_picture" alt="선택_안된_이미지1" />
-              )}
-            </li>
-          ))}
-        </StSliderPictureUl>
+          <StickerAttachImg
+            stickerAttachImgSrc={pictureInfoList[currentIdx].url}
+            imgWrapperWidthPercent={90}
+            imgHight={52}
+          />
+        </StSliderPicture>
       </StSliderPictureWrapper>
     </>
   );
@@ -80,10 +79,12 @@ const StSliderPictureWrapper = styled.section`
   position: relative;
 `;
 
-const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
+const StSliderPicture = styled.article<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
   display: flex;
+  justify-content: center;
   align-items: center;
   position: absolute;
+
   ${({ currentIdx, dragItemWidth, width }) =>
     !currentIdx
       ? css`
@@ -103,18 +104,6 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
     css`
       transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
     `};
-  width: ${({ width }) => (width * SLIDER_FULL_WIDTH_RATIO) / PX_TO_REM}rem;
+
   touch-action: auto;
-
-  img.unSelect_picture {
-    width: ${({ width }) => (width * SLIDER_UNSELECT_WIDTH_RATIO) / PX_TO_REM}rem;
-    height: 32.5rem;
-
-    margin: 6.1rem 1.3rem 0 1.3rem;
-    opacity: 0.5;
-
-    border-radius: 1rem;
-
-    object-fit: cover;
-  }
 `;
