@@ -7,6 +7,7 @@ import { LoginBanner } from '../../asset/image';
 import { deleteUser, postKakaoToken } from '../../lib/api/auth';
 import useGetUserData from '../../lib/hooks/useGetUserData';
 import useModal from '../../lib/hooks/useModal';
+import { Error } from '../common';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
@@ -40,37 +41,36 @@ const MemberInfo = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getUserData();
-  // }, []);
+  if (isError) return <Error />;
 
-  return (
-    <>
-      <HeaderLayout HeaderTitle="회원 정보" handleGoback={handleGoback} isBanner={true} />
-      <StBannerWrapper>
-        <img src={LoginBanner} alt="배너" />
-      </StBannerWrapper>
-      <StWhiteSection>
-        <h1>닉네임</h1>
-        <p>{userInfo?.userName}</p>
-        <h1>아이디</h1>
-        {}
-        <p>{userInfo?.email}</p>
-        <div>
-          <button type="button" onClick={() => toggle()}>
-            회원 탈퇴하기
-          </button>
-          <Modal
-            isShowing={isShowing}
-            message="정말 회원탈퇴 하시겠습니까??"
-            handleHide={toggle}
-            handleConfirm={handleDeleteUser}
-            isDeleteUser
-          />
-        </div>
-      </StWhiteSection>
-    </>
-  );
+  if (userInfo)
+    return (
+      <>
+        <HeaderLayout HeaderTitle="회원 정보" handleGoback={handleGoback} isBanner={true} />
+        <StBannerWrapper>
+          <img src={LoginBanner} alt="배너" />
+        </StBannerWrapper>
+        <StWhiteSection>
+          <h1>닉네임</h1>
+          <p>{userInfo.userName}</p>
+          <h1>아이디</h1>
+          {}
+          <p>{userInfo.email}</p>
+          <div>
+            <button type="button" onClick={() => toggle()}>
+              회원 탈퇴하기
+            </button>
+            <Modal
+              isShowing={isShowing}
+              message="정말 회원탈퇴 하시겠습니까??"
+              handleHide={toggle}
+              handleConfirm={handleDeleteUser}
+              isDeleteUser
+            />
+          </div>
+        </StWhiteSection>
+      </>
+    );
 };
 
 export default MemberInfo;
@@ -93,7 +93,6 @@ const StBannerWrapper = styled.div`
   > img {
     max-width: 100%;
     position: absolute;
-    /* top: 9.2rem; */
   }
 `;
 
@@ -112,8 +111,7 @@ const StWhiteSection = styled.section`
     margin-bottom: 0.9rem;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
-    // body2로 바꿔야 함!!
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+    ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16};
   }
 
   > p {
