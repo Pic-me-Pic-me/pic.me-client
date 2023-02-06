@@ -1,5 +1,5 @@
 export interface VoteInfo {
-  id: number;
+  id: string;
   title: string;
   count: number;
   url: string;
