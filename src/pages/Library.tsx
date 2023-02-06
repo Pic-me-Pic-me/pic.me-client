@@ -33,6 +33,8 @@ const Library = () => {
   const getMoreItem = () => {
     const getItem = allVoteInfo;
 
+    console.log(allVoteInfo);
+
     if (monthVoteData.length > 0 && getItem?.length === 0) return;
     if (getItem) {
       const newData = [...monthVoteData, ...getItem];

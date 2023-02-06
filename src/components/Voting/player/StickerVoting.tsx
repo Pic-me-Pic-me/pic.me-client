@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { STICKER_LIST } from '../../../constant/StickerIconList';
-import { playerStickerInfoState } from '../../../recoil/player/atom';
+import { stickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
 import { NaturalImgInfo, StickerLocation } from '../../../types/vote';
 import { setStickerLocationData } from '../../../utils/setStickerLocationData';
@@ -13,7 +13,7 @@ interface StickerVotingProps {
 }
 const StickerVoting = (props: StickerVotingProps) => {
   const { isStickerGuide } = props;
-  const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(playerStickerInfoState);
+  const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(stickerInfoState);
   const { location: stickerList, emoji } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);

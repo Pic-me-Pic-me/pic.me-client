@@ -22,7 +22,7 @@ export const votingInfoState = atom<VoteInfo>({
   },
   effects_UNSTABLE: [persistAtom],
 });
-export const playerStickerInfoState = atom<PlayerStickerInfo>({
+export const stickerInfoState = atom<PlayerStickerInfo>({
   key: 'playerStickerInfo',
   default: {
     pictureId: 0,

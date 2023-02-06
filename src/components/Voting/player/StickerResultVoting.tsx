@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 import { useGetResultVoting } from '../../../lib/hooks/useGetResultVoting';
 import { stickerResultState } from '../../../recoil/maker/atom';
-import { playerStickerInfoState } from '../../../recoil/player/atom';
+import { stickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
 import { jsonGetStickerList } from '../../../utils/jsonGetStickerList';
 import { Error, Loading, StickerAttachImg } from '../../common';
 
 const StickerResultVoting = () => {
-  const stickerVotingInfo = useRecoilValue(playerStickerInfoState);
+  const stickerVotingInfo = useRecoilValue(stickerInfoState);
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const { stickerInfo, isLoading, isError } = useGetResultVoting(stickerVotingInfo.pictureId);
 
