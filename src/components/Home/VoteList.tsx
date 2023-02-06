@@ -4,15 +4,18 @@ import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcEmpty } from '../../asset/icon';
-import { getUserInfo } from '../../lib/api/auth';
-import { getCurrentVoteData } from '../../lib/api/voting';
+import useGetCurrentVoteList from '../../lib/hooks/useGetCurrentVoteList';
+import useGetUserData from '../../lib/hooks/useGetUserData';
+import Error404 from '../../pages/Error404';
+// import { getUserInfo } from '../../lib/api/auth';
+// import { getCurrentVoteData } from '../../lib/api/voting';
 import { stickerResultState } from '../../recoil/maker/atom';
 import { VoteCardInfo } from '../../types/vote';
 import { LandingVoteList } from '../Landing/maker';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { ref, inView } = useInView({
     threshold: 0.5,
@@ -22,14 +25,16 @@ const VoteList = () => {
   const [userName, setUserName] = useState<string>();
   const resetStickerInfoState = useResetRecoilState(stickerResultState);
   const [isEnd, setIsEnd] = useState(false);
+  const { voteListResult, isLoading, isError } = useGetCurrentVoteList(cursorId);
+  const { userInfo } = useGetUserData();
 
   const getMoreItem = useCallback(async () => {
-    const { data: newData } = await getCurrentVoteData(cursorId);
+    // const { data: newData } = await getCurrentVoteData(cursorId);
 
-    if (newData) {
-      const newDataList = newData.result as VoteCardInfo[];
+    if (voteListResult) {
+      const newDataList = voteListResult.result as VoteCardInfo[];
       setDataList(dataList.concat(newDataList));
-      setCursorId(newData.resCursorId);
+      setCursorId(voteListResult.resCursorId);
     } else {
       setIsEnd(true);
     }
@@ -45,18 +50,19 @@ const VoteList = () => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     if (dataList?.length !== 0 && inView && !isEnd) {
       getMoreItem();
     }
-    setIsLoading(false);
+    // setIsLoading(false);
   }, [inView]);
 
   const getUserName = async () => {
-    const { data: name } = await getUserInfo();
-    setUserName(name?.userName);
+    // const { data: name } = await getUserInfo();
+    setUserName(userInfo?.userName);
   };
 
+  if (isError) return <Error404 />;
   if (isLoading) return <LandingVoteList />;
   return (
     <>

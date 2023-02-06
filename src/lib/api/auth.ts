@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { client } from '../axios';
-import { LoginInfo, MemberData, UsersResponse, UserToken } from './../../types/auth';
+import { LoginInfo, UsersResponse, UserToken } from './../../types/auth';
 
 export const postLoginInfo = async ({ email, password }: LoginInfo) => {
   try {

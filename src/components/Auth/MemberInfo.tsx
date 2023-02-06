@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,7 +6,7 @@ import { LoginBanner } from '../../asset/image';
 import { deleteUser, postKakaoToken } from '../../lib/api/auth';
 import useGetUserData from '../../lib/hooks/useGetUserData';
 import useModal from '../../lib/hooks/useModal';
-import { Error } from '../common';
+import Error404 from '../../pages/Error404';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
@@ -41,36 +40,35 @@ const MemberInfo = () => {
     }
   };
 
-  if (isError) return <Error />;
+  if (isError) return <Error404 />;
 
-  if (userInfo)
-    return (
-      <>
-        <HeaderLayout HeaderTitle="회원 정보" handleGoback={handleGoback} isBanner={true} />
-        <StBannerWrapper>
-          <img src={LoginBanner} alt="배너" />
-        </StBannerWrapper>
-        <StWhiteSection>
-          <h1>닉네임</h1>
-          <p>{userInfo.userName}</p>
-          <h1>아이디</h1>
-          {}
-          <p>{userInfo.email}</p>
-          <div>
-            <button type="button" onClick={() => toggle()}>
-              회원 탈퇴하기
-            </button>
-            <Modal
-              isShowing={isShowing}
-              message="정말 회원탈퇴 하시겠습니까??"
-              handleHide={toggle}
-              handleConfirm={handleDeleteUser}
-              isDeleteUser
-            />
-          </div>
-        </StWhiteSection>
-      </>
-    );
+  return (
+    <>
+      <HeaderLayout HeaderTitle="회원 정보" handleGoback={handleGoback} isBanner={true} />
+      <StBannerWrapper>
+        <img src={LoginBanner} alt="배너" />
+      </StBannerWrapper>
+      <StWhiteSection>
+        <h1>닉네임</h1>
+        <p>{userInfo?.userName}</p>
+        <h1>아이디</h1>
+        {}
+        <p>{userInfo?.email}</p>
+        <div>
+          <button type="button" onClick={() => toggle()}>
+            회원 탈퇴하기
+          </button>
+          <Modal
+            isShowing={isShowing}
+            message="정말 회원탈퇴 하시겠습니까??"
+            handleHide={toggle}
+            handleConfirm={handleDeleteUser}
+            isDeleteUser
+          />
+        </div>
+      </StWhiteSection>
+    </>
+  );
 };
 
 export default MemberInfo;
