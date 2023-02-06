@@ -67,7 +67,7 @@ const KakaoNickname = () => {
   };
 
   const handleSignup = async () => {
-    const signUpData = await postKakaoSignUp(uid, socialType, username, email);
+    const signUpData = await postKakaoSignUp(uid, username, email);
     localStorage.setItem('accessToken', signUpData.accessToken);
     cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
     navigate('/login');

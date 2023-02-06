@@ -27,24 +27,24 @@ const Auth = () => {
       client_secret: process.env.REACT_APP_CLIENT_SECRET,
     });
     try {
-      const res = await axios.post('https://kauth.kakao.com/oauth/token', payload);
+      const { data: kakaoRes } = await axios.post('https://kauth.kakao.com/oauth/token', payload);
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
 
-      Kakao.Auth.setAccessToken(res.data.access_token);
-      localStorage.setItem('kakaoAccessToken', res.data.access_token);
+      Kakao.Auth.setAccessToken(kakaoRes.access_token);
+      localStorage.setItem('kakaoAccessToken', kakaoRes.access_token);
 
       // 카카오 중복확인
-      const data = await postKakaoToken('kakao', res.data.access_token);
+      const data = await postKakaoToken(kakaoRes.access_token);
       if (data.isUser) {
         // 로그인
-        const signInData = await postKakaoSignIn(data.uid, 'kakao');
+        const signInData = await postKakaoSignIn(data.uid);
         localStorage.setItem('accessToken', signInData.accessToken);
         cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
         navigate('/home');
         window.location.reload();
       } else if (!data.isUser) {
         // 회원가입
-        navigate('/signup/kakaonickname', { state: { uid: data.uid, socialType: 'kakao', email: data.email } });
+        navigate('/signup/kakaonickname', { state: { uid: data.uid, email: data.email } });
       }
     } catch (err) {
       console.error(err);

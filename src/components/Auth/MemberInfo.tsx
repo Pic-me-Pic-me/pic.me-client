@@ -28,7 +28,7 @@ const MemberInfo = () => {
     try {
       const KAKAO_TOKEN = localStorage.getItem('kakaoAccessToken');
       if (KAKAO_TOKEN) {
-        const data = await postKakaoToken('kakao', KAKAO_TOKEN);
+        const data = await postKakaoToken(KAKAO_TOKEN);
         const res = await axios({
           method: 'POST',
           url: 'https://kapi.kakao.com/v1/user/unlink',
