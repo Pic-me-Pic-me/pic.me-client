@@ -42,6 +42,7 @@ export const getUserInfo = async () => {
     return data.data;
   } catch (err) {
     console.error(err);
+    return { data: undefined };
   }
 };
 export const deleteUser = async () => {
