@@ -28,6 +28,7 @@ export const voteResultState = atom<MakerVoteInfo>({
     currentVote: 0,
     createdDate: new Date(),
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const pictureResultState = atom<MakerPictureData[]>({

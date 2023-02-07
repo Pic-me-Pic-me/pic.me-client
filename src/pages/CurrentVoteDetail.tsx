@@ -12,7 +12,6 @@ import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
 import { pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
-// import { NaturalImgInfo } from '../types/vote';
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 
 const CurrentVoteDetail = () => {
@@ -22,8 +21,6 @@ const CurrentVoteDetail = () => {
   const { voteResult, isLoading, isError } = useGetCurrentVote(voteId);
 
   const [currentIdx, setCurrentIdx] = useState<number>(0);
-  // const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  // const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
   const setVoteResult = useSetRecoilState(voteResultState);
   const setPictureResultState = useSetRecoilState(pictureResultState);
@@ -46,12 +43,6 @@ const CurrentVoteDetail = () => {
       window.scrollTo(0, 0);
     }
   }, [currentIdx, voteResult]);
-
-  // const handleImgSize = (e: React.SyntheticEvent) => {
-  //   const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-  //   setImgViewInfo({ width, height });
-  //   setImgInfo({ width: naturalWidth, height: naturalHeight });
-  // };
 
   if (isLoading)
     return (
