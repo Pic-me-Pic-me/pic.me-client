@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -7,60 +7,53 @@ import { IcEmpty } from '../../asset/icon';
 import useGetCurrentVoteList from '../../lib/hooks/useGetCurrentVoteList';
 import useGetUserData from '../../lib/hooks/useGetUserData';
 import Error404 from '../../pages/Error404';
-// import { getUserInfo } from '../../lib/api/auth';
-// import { getCurrentVoteData } from '../../lib/api/voting';
 import { stickerResultState } from '../../recoil/maker/atom';
 import { VoteCardInfo } from '../../types/vote';
 import { LandingVoteList } from '../Landing/maker';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
-
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
   const [dataList, setDataList] = useState<VoteCardInfo[]>([]);
-  const [cursorId, setCursorId] = useState(0);
-  const [userName, setUserName] = useState<string>();
+  // const [cursorId, setCursorId] = useState<string>('0');
+  const cursorId = useRef<string>('0');
   const resetStickerInfoState = useResetRecoilState(stickerResultState);
-  const [isEnd, setIsEnd] = useState(false);
-  const { voteListResult, isLoading, isError } = useGetCurrentVoteList(cursorId);
+  const { voteListResult, isLoading, isError } = useGetCurrentVoteList(cursorId.current);
   const { userInfo } = useGetUserData();
 
   const getMoreItem = useCallback(async () => {
-    // const { data: newData } = await getCurrentVoteData(cursorId);
+    console.log(voteListResult);
 
-    if (voteListResult) {
-      const newDataList = voteListResult.result as VoteCardInfo[];
+    const voteListData = voteListResult;
+
+    if (voteListData) {
+      const newDataList = voteListData.result as VoteCardInfo[];
       setDataList(dataList.concat(newDataList));
-      setCursorId(voteListResult.resCursorId);
+      console.log(voteListData.resCursorId);
+      // setCursorId(voteListData.resCursorId);
+      cursorId.current = voteListData.resCursorId;
     } else {
-      setIsEnd(true);
+      return;
+      // setIsEnd(true);
     }
   }, [cursorId]);
 
   useEffect(() => {
-    getUserName();
     resetStickerInfoState();
-
+    console.log(cursorId);
+    console.log(dataList);
     if (dataList?.length === 0) {
       getMoreItem();
     }
   }, []);
 
   useEffect(() => {
-    // setIsLoading(true);
-    if (dataList?.length !== 0 && inView && !isEnd) {
+    if (dataList?.length !== 0 && inView) {
       getMoreItem();
     }
-    // setIsLoading(false);
   }, [inView]);
-
-  const getUserName = async () => {
-    // const { data: name } = await getUserInfo();
-    setUserName(userInfo?.userName);
-  };
 
   if (isError) return <Error404 />;
   if (isLoading) return <LandingVoteList />;
@@ -79,7 +72,7 @@ const VoteList = () => {
       ) : (
         <StEmptyView>
           <IcEmpty />
-          <p>{userName}님 만의 투표를</p>
+          <p>{userInfo?.userName}님 만의 투표를</p>
           <p>만들어보세요!</p>
         </StEmptyView>
       )}
