@@ -5,12 +5,12 @@ import * as timeago from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
 import TimeAgo from 'timeago-react';
 
-import { pictureResultState, voteResultState } from '../../recoil/maker/atom';
+import { pictureCurrentIdx, pictureResultState, voteResultState } from '../../recoil/maker/atom';
 
 const CurrentVoteInfo = () => {
   const voteInfoData = useRecoilValue(voteResultState);
   const pictureResult = useRecoilValue(pictureResultState);
-  const [currentIdx, setCurrentIdx] = useState<number>(0);
+  const currentIdx = useRecoilValue(pictureCurrentIdx);
 
   timeago.register('ko', ko);
   const createdAt =

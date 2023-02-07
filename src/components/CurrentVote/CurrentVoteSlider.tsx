@@ -4,16 +4,17 @@ import styled, { css } from 'styled-components';
 
 import StickerAttachImg from '../../components/common/StickerAttachImg';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
-import { pictureResultState, stickerResultState } from '../../recoil/maker/atom';
+import { pictureCurrentIdx, pictureResultState, stickerResultState } from '../../recoil/maker/atom';
 import { jsonGetStickerList } from '../../utils/jsonGetStickerList';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
 
 const CurrentVoteSlider = () => {
-  const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
 
   const setStickerResultState = useSetRecoilState(stickerResultState);
+  const setCurrentIdx = useSetRecoilState(pictureCurrentIdx);
   const pictureResult = useRecoilValue(pictureResultState);
+  const currentIdx = useRecoilValue(pictureCurrentIdx);
 
   const { ref, width } = useCarouselSize();
 

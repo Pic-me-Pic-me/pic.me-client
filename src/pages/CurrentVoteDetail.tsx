@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -11,8 +11,7 @@ import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
 import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
-import { pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
-import { jsonGetStickerList } from '../utils/jsonGetStickerList';
+import { pictureCurrentIdx, pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
 
 const CurrentVoteDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
@@ -20,11 +19,10 @@ const CurrentVoteDetail = () => {
 
   const { voteResult, isLoading, isError } = useGetCurrentVote(voteId);
 
-  const [currentIdx, setCurrentIdx] = useState<number>(0);
+  const currentIdx = useRecoilValue(pictureCurrentIdx);
 
   const setVoteResult = useSetRecoilState(voteResultState);
   const setPictureResultState = useSetRecoilState(pictureResultState);
-  const setStickerResultState = useSetRecoilState(stickerResultState);
   const resetVoteResult = useResetRecoilState(voteResultState);
   const resetPictureResult = useResetRecoilState(pictureResultState);
   const resetStickerResult = useResetRecoilState(stickerResultState);

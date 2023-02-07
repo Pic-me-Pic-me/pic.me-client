@@ -44,6 +44,11 @@ export const pictureResultState = atom<MakerPictureData[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const pictureCurrentIdx = atom<number>({
+  key: 'pictureCurrentIdx',
+  default: 0,
+});
+
 export const stickerResultState = atom<StickerResultInfo[]>({
   key: 'stickerResult',
   default: [
