@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { MakerPictureData, StickerResultInfo } from '../../types/vote';
+import { MakerPictureData, MakerVoteInfo, StickerResultInfo } from '../../types/vote';
 import { VotingImageInfo } from '../../types/votingImage';
 
 //페이지가 변경되더라도 상태관리를 유지
@@ -15,6 +15,19 @@ export const votingImageState = atom<VotingImageInfo>({
     secondImageUrl: '',
   },
   effects_UNSTABLE: [persistAtom],
+});
+
+export const voteResultState = atom<MakerVoteInfo>({
+  key: 'voteResult',
+  default: {
+    userName: '',
+    voteId: 0,
+    voteStatus: true,
+    voteTitle: '',
+    Picture: [],
+    currentVote: 0,
+    createdDate: new Date(),
+  },
 });
 
 export const pictureResultState = atom<MakerPictureData[]>({
