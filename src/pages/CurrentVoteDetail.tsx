@@ -7,6 +7,8 @@ import { Error } from '../components/common';
 import CurrentVoteBtn from '../components/CurrentVote/CurrentVoteBtn';
 import CurrentVoteInfo from '../components/CurrentVote/CurrentVoteInfo';
 import CurrentVoteSlider from '../components/CurrentVote/CurrentVoteSlider';
+import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
+import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
 import { pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
@@ -20,8 +22,8 @@ const CurrentVoteDetail = () => {
   const { voteResult, isLoading, isError } = useGetCurrentVote(voteId);
 
   const [currentIdx, setCurrentIdx] = useState<number>(0);
-  const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
+  // const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
+  // const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
   const setVoteResult = useSetRecoilState(voteResultState);
   const setPictureResultState = useSetRecoilState(pictureResultState);
@@ -45,19 +47,19 @@ const CurrentVoteDetail = () => {
     }
   }, [currentIdx, voteResult]);
 
-  const handleImgSize = (e: React.SyntheticEvent) => {
-    const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    setImgViewInfo({ width, height });
-    setImgInfo({ width: naturalWidth, height: naturalHeight });
-  };
+  // const handleImgSize = (e: React.SyntheticEvent) => {
+  //   const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
+  //   setImgViewInfo({ width, height });
+  //   setImgInfo({ width: naturalWidth, height: naturalHeight });
+  // };
 
-  // if (isLoading)
-  //   return (
-  //     <>
-  //       <LandingHeader />
-  //       <LandingCurrentVote />
-  //     </>
-  //   );
+  if (isLoading)
+    return (
+      <>
+        <LandingHeader />
+        <LandingCurrentVote />
+      </>
+    );
   if (isError) return <Error />;
 
   return (
