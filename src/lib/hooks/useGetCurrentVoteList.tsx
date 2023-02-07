@@ -9,6 +9,7 @@ const getKey = (cursorIdx: number, voteListData: AxiosResponse<VoteResultData>) 
   if (voteListData) return `vote/list/${voteListData.data.resCursorId}`;
   return null;
 };
+
 const useGetCurrentVoteList = () => {
   const { data, isLoading, error, size, setSize } = useSWRInfinite<AxiosResponse<VoteResultData>>(
     getKey,
@@ -18,7 +19,6 @@ const useGetCurrentVoteList = () => {
     },
   );
 
-  console.log(data);
   const parseResultList = data
     ?.map((item) => item.data.result)
     .flat()
