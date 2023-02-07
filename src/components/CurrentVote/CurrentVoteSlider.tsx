@@ -1,18 +1,25 @@
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import StickerAttachImg from '../../components/common/StickerAttachImg';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
-import { pictureResultState } from '../../recoil/maker/atom';
+import { pictureResultState, stickerResultState } from '../../recoil/maker/atom';
+import { jsonGetStickerList } from '../../utils/jsonGetStickerList';
 import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
 
 const CurrentVoteSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
+
+  const setStickerResultState = useSetRecoilState(stickerResultState);
   const pictureResult = useRecoilValue(pictureResultState);
 
   const { ref, width } = useCarouselSize();
+
+  useEffect(() => {
+    setStickerResultState(jsonGetStickerList(pictureResult[currentIdx].Sticker));
+  }, [currentIdx, pictureResult]);
 
   return (
     <>
