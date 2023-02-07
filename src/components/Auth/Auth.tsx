@@ -41,7 +41,7 @@ const Auth = () => {
         window.location.reload();
       } else if (!data.isUser) {
         // 회원가입
-        navigate('/signup/kakaonickname', { state: { uid: data.uid, email: data.email } });
+        navigate('/signup/nickname', { state: { uid: data.uid } });
       }
     } catch (err) {
       console.error(err);

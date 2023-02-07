@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
+import { postKakaoSignUp } from '../../lib/api/auth';
 import { postSignupInfo } from '../../lib/api/signup';
 import { useGetUsernameCheck } from '../../lib/hooks/useGetUsernameCheck';
+import Token from '../../lib/token';
 import Error404 from '../../pages/Error404';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
 import LandingLibrary from '../Landing/maker/LandingLibrary';
 
 const Nickname = () => {
   const location = useLocation();
-  const { email, password }: AddAccountInfo = location.state.signupDataInfo;
-
-  const cookies = new Cookies();
-
   const navigate = useNavigate();
 
   const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
@@ -39,7 +36,8 @@ const Nickname = () => {
 
   useEffect(() => {
     const currentNickname = watch('username');
-    currentNickname.length > 0 ? setIsNicknameExists(true) : setIsNicknameExists(false);
+    console.log(currentNickname);
+    currentNickname?.length > 0 ? setIsNicknameExists(true) : setIsNicknameExists(false);
   }, [watch('username')]);
 
   const { username } = getValues();
@@ -80,14 +78,19 @@ const Nickname = () => {
     }
   };
 
-  const handleSignup = () => {
-    postSignupInfo({ email, password }, nickname).then((res) => {
-      if (res?.success) {
-        cookies.set('refreshToken', res.data.refreshToken);
-        localStorage.setItem('accessToken', res.data.accessToken);
-        navigate('/home');
-      }
-    });
+  const handleSignup = async () => {
+    let signUpData;
+
+    if (Token.getAccessToken('kakaoAccessToken')) {
+      const uid: string = location.state;
+      signUpData = await postKakaoSignUp(uid, nickname);
+    } else {
+      const { email, password }: AddAccountInfo = location.state.signupDataInfo;
+      signUpData = await postSignupInfo({ email, password }, nickname);
+    }
+
+    Token.setUserSession(signUpData.accessToken, signUpData.refreshToken);
+    navigate('/home');
   };
 
   if (isLoading) {

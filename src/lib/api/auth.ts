@@ -28,12 +28,12 @@ export const postKakaoSignIn = async (uid: string) => {
   return data.data;
 };
 
-export const postKakaoSignUp = async (uid: string, username: string, email: string) => {
+export const postKakaoSignUp = async (uid: string, username: string) => {
   const { data } = await client.post<UserToken>('/auth/kakao', {
     uid,
     socialType: 'kakao',
     userName: username,
-    email,
+    email: '',
   });
   return data.data;
 };
