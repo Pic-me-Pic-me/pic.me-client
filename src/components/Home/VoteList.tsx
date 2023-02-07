@@ -24,14 +24,10 @@ const VoteList = () => {
   const { userInfo } = useGetUserData();
 
   const getMoreItem = useCallback(async () => {
-    console.log(voteListResult);
-
     const voteListData = voteListResult;
-
     if (voteListData) {
       const newDataList = voteListData.result as VoteCardInfo[];
       setDataList(dataList.concat(newDataList));
-      console.log(voteListData.resCursorId);
       // setCursorId(voteListData.resCursorId);
       cursorId.current = voteListData.resCursorId;
     } else {
@@ -43,11 +39,20 @@ const VoteList = () => {
   useEffect(() => {
     resetStickerInfoState();
     console.log(cursorId);
-    console.log(dataList);
-    if (dataList?.length === 0) {
+    console.log(dataList?.length);
+    if (!dataList?.length) {
       getMoreItem();
     }
   }, []);
+
+  // 여기서 swr데이터 가져오는 걸로 하나더 useEffect 만들었어!
+  useEffect(() => {
+    console.log('SWR훅', voteListResult, dataList);
+    if (!dataList.length && voteListResult) {
+      const newDataList = voteListResult.result as VoteCardInfo[];
+      setDataList([...dataList, ...newDataList]);
+    }
+  }, [voteListResult]);
 
   useEffect(() => {
     if (dataList?.length !== 0 && inView) {
