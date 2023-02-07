@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -39,6 +39,7 @@ const VoteList = () => {
 
   if (isError) return <Error404 />;
   if (isLoading) return <LandingVoteList />;
+
   return (
     <>
       {voteListResult.result.length !== 0 ? (

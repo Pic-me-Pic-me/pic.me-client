@@ -5,42 +5,30 @@ import { VoteResultData } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
 const getKey = (cursorIdx: number, voteListData: AxiosResponse<VoteResultData>) => {
-  // console.log('getKey', cursorIdx, voteListData);
-
   if (cursorIdx === 0) return `vote/list/${cursorIdx}`;
   if (voteListData) return `vote/list/${voteListData.data.resCursorId}`;
-  return `vote/list/${cursorIdx}`;
+  return null;
 };
 const useGetCurrentVoteList = () => {
-  const { data, error, size, setSize } = useSWRInfinite<AxiosResponse<VoteResultData>>(getKey, picmeGetFetcher, {
-    errorRetryCount: 3,
-  });
-  // console.log('useGet', data);
+  const { data, isLoading, error, size, setSize } = useSWRInfinite<AxiosResponse<VoteResultData>>(
+    getKey,
+    picmeGetFetcher,
+    {
+      errorRetryCount: 3,
+    },
+  );
 
-  const parseData = data?.map((item) => item.data);
-
-  // console.log('parseDaa', parseData);
-  // console.log(parseData?.map((item) => item.result));
-
-  const parseResultList = parseData
-    ?.map((item) => item.result)
+  console.log(data);
+  const parseResultList = data
+    ?.map((item) => item.data.result)
     .flat()
     .filter((result) => result);
-
-  const parseCursorIdList = parseData
-    ?.map((item) => item.resCursorId)
-    .flat()
-    .filter((resCursorId) => resCursorId);
-
-  // console.log('parseResultList', parseResultList);
-  // console.log('parseCursorIdList', parseCursorIdList);
 
   return {
     voteListResult: {
       result: parseResultList ? parseResultList : [],
-      resCursorId: parseCursorIdList ? parseCursorIdList[parseCursorIdList.length - 1] : '',
     },
-    isLoading: !error && !data,
+    isLoading,
     isError: error,
     size,
     setSize,
