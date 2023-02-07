@@ -85,17 +85,6 @@ const StSliderPicture = styled.article<{ currentIdx: number; dragItemWidth: numb
   align-items: center;
   position: absolute;
 
-  ${({ currentIdx, dragItemWidth, width }) =>
-    !currentIdx
-      ? css`
-          left: ${(dragItemWidth * IMAGE_MARGIN_RATIO) / PX_TO_REM}rem;
-        `
-      : css`
-          left: ${((width * SLIDER_FULL_WIDTH_RATIO) / MOVE_THREE_SLIDER +
-            (dragItemWidth * IMAGE_MARGIN_RATIO) / MOVE_THREE_MARGIN) /
-          PX_TO_REM}rem;
-        `}
-
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
       transform: translateX(${(-currentIdx * dragItemWidth + transX) / PX_TO_REM}rem);
