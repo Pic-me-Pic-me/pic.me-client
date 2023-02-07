@@ -15,7 +15,7 @@ import { pictureResultState, stickerResultState, voteResultState } from '../reco
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 
 const CurrentVoteDetail = () => {
-  const { voteid: voteId } = useParams<{ voteid: string }>();
+  const { voteId: voteId } = useParams<{ voteId: string }>();
   const navigate = useNavigate();
 
   const { voteResult, isLoading, isError } = useGetCurrentVote(voteId);
