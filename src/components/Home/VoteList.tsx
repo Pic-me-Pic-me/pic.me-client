@@ -8,7 +8,6 @@ import useGetCurrentVoteList from '../../lib/hooks/useGetCurrentVoteList';
 import useGetUserData from '../../lib/hooks/useGetUserData';
 import Error404 from '../../pages/Error404';
 import { stickerResultState } from '../../recoil/maker/atom';
-import { VoteCardInfo } from '../../types/vote';
 import { LandingVoteList } from '../Landing/maker';
 import VoteCard from './VoteCard';
 
@@ -16,46 +15,24 @@ const VoteList = () => {
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
-  const [dataList, setDataList] = useState<VoteCardInfo[]>([]);
-  // const [cursorId, setCursorId] = useState<string>('0');
-  const cursorId = useRef<string>('0');
   const resetStickerInfoState = useResetRecoilState(stickerResultState);
-  const { voteListResult, isLoading, isError } = useGetCurrentVoteList(cursorId.current);
+  const { voteListResult, isLoading, isError, size, setSize } = useGetCurrentVoteList();
   const { userInfo } = useGetUserData();
 
   const getMoreItem = useCallback(async () => {
-    const voteListData = voteListResult;
-    if (voteListData) {
-      const newDataList = voteListData.result as VoteCardInfo[];
-      setDataList(dataList.concat(newDataList));
-      // setCursorId(voteListData.resCursorId);
-      cursorId.current = voteListData.resCursorId;
+    if (voteListResult) {
+      setSize((prev) => prev + 1);
     } else {
       return;
-      // setIsEnd(true);
-    }
-  }, [cursorId]);
-
-  useEffect(() => {
-    resetStickerInfoState();
-    console.log(cursorId);
-    console.log(dataList?.length);
-    if (!dataList?.length) {
-      getMoreItem();
     }
   }, []);
 
-  // 여기서 swr데이터 가져오는 걸로 하나더 useEffect 만들었어!
   useEffect(() => {
-    console.log('SWR훅', voteListResult, dataList);
-    if (!dataList.length && voteListResult) {
-      const newDataList = voteListResult.result as VoteCardInfo[];
-      setDataList([...dataList, ...newDataList]);
-    }
-  }, [voteListResult]);
+    resetStickerInfoState();
+  }, []);
 
   useEffect(() => {
-    if (dataList?.length !== 0 && inView) {
+    if (inView && voteListResult.result) {
       getMoreItem();
     }
   }, [inView]);
@@ -64,11 +41,11 @@ const VoteList = () => {
   if (isLoading) return <LandingVoteList />;
   return (
     <>
-      {dataList.length !== 0 ? (
+      {voteListResult.result.length !== 0 ? (
         <>
           <StCurrentVote>현재 진행중인 투표</StCurrentVote>
           <StVoteListWrapper>
-            {dataList?.map((data, i) => (
+            {voteListResult.result?.map((data, i) => (
               <VoteCard voteData={data} key={i} />
             ))}
             <div ref={ref} />
