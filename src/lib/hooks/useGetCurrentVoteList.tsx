@@ -5,9 +5,10 @@ import { VoteResultData } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
 const getKey = (cursorIdx: number, voteListData: AxiosResponse<VoteResultData>) => {
+  console.log(voteListData);
   if (cursorIdx === 0) return `vote/list/${cursorIdx}`;
-  if (voteListData) return `vote/list/${voteListData.data.resCursorId}`;
-  return null;
+  if (voteListData && voteListData.data) return `vote/list/${voteListData.data.resCursorId}`;
+  if (voteListData && !voteListData.data) return null;
 };
 
 const useGetCurrentVoteList = () => {
