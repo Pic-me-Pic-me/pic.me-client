@@ -112,5 +112,5 @@ export interface VoteCardInfo {
 
 export interface VoteResultData {
   result: VoteCardInfo[];
-  resCursorId: number;
+  resCursorId: string;
 }
