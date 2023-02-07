@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { Error } from '../components/common';
@@ -15,7 +15,7 @@ import { pictureResultState, stickerResultState, voteResultState } from '../reco
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 
 const CurrentVoteDetail = () => {
-  const { voteId: voteId } = useParams<{ voteId: string }>();
+  const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
 
   const { voteResult, isLoading, isError } = useGetCurrentVote(voteId);
@@ -39,7 +39,6 @@ const CurrentVoteDetail = () => {
     if (voteResult) {
       setVoteResult(voteResult);
       setPictureResultState(voteResult.Picture);
-      setStickerResultState(jsonGetStickerList(voteResult.Picture[currentIdx].Sticker));
       window.scrollTo(0, 0);
     }
   }, [currentIdx, voteResult]);
