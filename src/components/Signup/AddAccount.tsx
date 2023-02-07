@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { SignUpBanner } from '../../asset/image';
 import { SignUpInfo } from '../../types/signup';
 
 const AddAccount = () => {
@@ -22,12 +21,20 @@ const AddAccount = () => {
     navigate(`/signup/nickname`, { state: { signupDataInfo } });
   };
 
+  const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentInputValue = e.target.value;
+    if (currentInputValue.includes(' ')) {
+      e.target.value = currentInputValue.trim();
+    }
+  };
+
   return (
     <StWhiteSection>
       <StWrapper>
         <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
           <StTitle>아이디</StTitle>
           <StInput
+            onChange={(e) => handleSpace(e)}
             type="email"
             {...register('email', {
               required: true,
@@ -38,7 +45,7 @@ const AddAccount = () => {
             })}
             placeholder="아이디로 이용할 이메일을 적어주세요!"
           />
-          <StInputDesc>{errors.email ? errors.email.message : ' '}</StInputDesc>
+          <StInputDesc>{errors.email && errors.email.message}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
           <StInput
@@ -51,8 +58,9 @@ const AddAccount = () => {
               },
             })}
             placeholder="비밀번호를 입력해주세요"
+            onChange={(e) => handleSpace(e)}
           />
-          <StInputDesc>{errors.password ? errors.password.message : ' '}</StInputDesc>
+          <StInputDesc>{errors.password && errors.password.message}</StInputDesc>
 
           <StTitle>비밀번호 재확인</StTitle>
           <StInput
@@ -67,8 +75,9 @@ const AddAccount = () => {
               },
             })}
             placeholder="확인을 위해 비밀번호를 입력해주세요"
+            onChange={(e) => handleSpace(e)}
           />
-          <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
+          <StInputDesc>{errors.passwordConfirm && errors.passwordConfirm.message}</StInputDesc>
 
           <StSubmitBtn disabled={!isValid}>다음 단계로 이동</StSubmitBtn>
         </StForm>
