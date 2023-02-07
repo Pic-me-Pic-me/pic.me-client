@@ -12,7 +12,7 @@ import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
 import { pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
-import { NaturalImgInfo } from '../types/vote';
+// import { NaturalImgInfo } from '../types/vote';
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 
 const CurrentVoteDetail = () => {
