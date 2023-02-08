@@ -11,14 +11,13 @@ import EndedVoting from './EndedVoting';
 
 interface voteAllInfoProps {
   date: number;
-  votes: VoteInfo[];
 }
 
 const MonthVoting = (props: voteAllInfoProps) => {
-  const { date, votes } = props;
+  const { date } = props;
   const formattedDate = date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6);
 
-  const { monthlyVoteInfoList, isLoading, isError, size, setSize } = useGetMonthlyLibraryInfo();
+  const { monthlyVoteInfoList, isLoading, isError, size, setSize } = useGetMonthlyLibraryInfo(date);
 
   const { ref, inView } = useInView({
     threshold: 0.5,
@@ -26,6 +25,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   const getMoreItem = useCallback(async () => {
     if (monthlyVoteInfoList) {
+      // voteInfoListRef.current = monthlyVoteInfoList.list;
       setSize((prev) => prev + 1);
     } else {
       return;
