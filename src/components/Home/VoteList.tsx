@@ -40,7 +40,6 @@ const VoteList = () => {
   if (isError) return <Error404 />;
   if (isLoading) return <LandingVoteList />;
 
-  console.log('----');
   return (
     <>
       {voteListResult.result.length !== 0 ? (
