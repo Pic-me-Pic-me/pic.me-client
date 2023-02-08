@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { Error } from '../components/common';
 import CurrentVoteBtn from '../components/CurrentVote/CurrentVoteBtn';
 import CurrentVoteInfo from '../components/CurrentVote/CurrentVoteInfo';
 import CurrentVoteSlider from '../components/CurrentVote/CurrentVoteSlider';
@@ -12,6 +11,7 @@ import LandingHeader from '../components/Landing/maker/LandingHeader';
 import { HeaderLayout } from '../components/Layout';
 import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
 import { pictureCurrentIdx, pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
+import Error404 from './Error404';
 
 const CurrentVoteDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
@@ -48,7 +48,7 @@ const CurrentVoteDetail = () => {
         <LandingCurrentVote />
       </>
     );
-  if (isError) return <Error />;
+  if (isError) return <Error404 />;
 
   return (
     <>
