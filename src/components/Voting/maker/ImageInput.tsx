@@ -4,12 +4,10 @@ import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
-import { client } from '../../../lib/axios';
+import { postImage } from '../../../lib/api/voting';
 import { votingImageState } from '../../../recoil/maker/atom';
 import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
 import { setImgCompress } from '../../../utils/setImgCompress';
-
-const ACCESS_TOKEN = localStorage.getItem('accessToken');
 
 type ToggleProps = {
   firstToggle: boolean;
@@ -21,6 +19,7 @@ interface ImageInputProps {
   handleToggleModify: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isToggle: ToggleProps;
 }
+
 const ImageInput = (props: ImageInputProps) => {
   const { handleCropImageToggle, handleToggleModify, isToggle } = props;
 
@@ -97,15 +96,10 @@ const ImageInput = (props: ImageInputProps) => {
       imageData.append('title', title);
     }
 
-    const response = await client.post(`/vote`, imageData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
-    });
+    const response = await postImage(imageData);
 
-    if (response.data.status === 200) {
-      navigate('/share', { state: response.data.data });
+    if (response === 200) {
+      navigate('/share', { state: response });
       setVotingForm({
         title: '',
         firstImageUrl: '',
