@@ -50,10 +50,10 @@ const Library = () => {
           {allVoteInfoList.list.map((votingInfo: EndedVoteInfo, idx: number) =>
             idx === allVoteInfoList.list.length - 1 ? (
               <div key={idx} ref={ref}>
-                <MonthVoting date={votingInfo.date} votes={votingInfo.votes} key={idx}></MonthVoting>
+                <MonthVoting date={votingInfo.date} key={idx}></MonthVoting>
               </div>
             ) : (
-              <MonthVoting date={votingInfo.date} votes={votingInfo.votes} key={idx}></MonthVoting>
+              <MonthVoting date={votingInfo.date} key={idx}></MonthVoting>
             ),
           )}
         </StMonthVotingInfo>
