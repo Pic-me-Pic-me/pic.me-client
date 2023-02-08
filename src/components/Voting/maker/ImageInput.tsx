@@ -96,9 +96,8 @@ const ImageInput = (props: ImageInputProps) => {
       imageData.append('title', title);
     }
     const response = await postImage(imageData);
-
-    if (response === 200) {
-      navigate('/share', { state: response });
+    if (response.status === 200) {
+      navigate('/share', { state: response.data });
       setVotingForm({
         title: '',
         firstImageUrl: '',

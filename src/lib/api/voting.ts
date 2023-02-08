@@ -43,7 +43,7 @@ export const postImage = async (imageData: FormData) => {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
       },
     });
-    return data.data.status;
+    return data.data;
   } catch (e) {
     console.error(e);
   }
