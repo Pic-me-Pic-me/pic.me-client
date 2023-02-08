@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -8,17 +8,51 @@ import { SignUpInfo } from '../../types/signup';
 const AddAccount = () => {
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    getValues,
-  } = useForm<SignUpInfo>({ mode: 'onChange' });
+  const EMAIL_REGEX = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
 
+  const [form, setForm] = useState({
+    email: ' ',
+    password: ' ',
+    passwordConfirm: ' ',
+  });
+  const warningMsg = [
+    '올바른 이메일 형식이 아닙니다!',
+    '영어/숫자를 포함하여 10-16자로 입력해주세요!',
+    '비밀번호가 틀립니다!',
+  ];
+
+  const [isValid, setIsValid] = useState({
+    isEmailValid: true,
+    isPasswordValid: true,
+    isPasswordConfirmValid: true,
+  });
+
+  const handleValidation = (inputValueType: string, inputValue: string) => {
+    switch (inputValueType) {
+      case 'email':
+        !EMAIL_REGEX.test(inputValue)
+          ? setIsValid({ ...isValid, isEmailValid: false })
+          : setIsValid({ ...isValid, isEmailValid: true });
+
+        break;
+
+      case 'password':
+        !PASSWORD_REGEX.test(inputValue)
+          ? setIsValid({ ...isValid, isPasswordValid: false })
+          : setIsValid({ ...isValid, isPasswordValid: true });
+        break;
+
+      case 'passwordConfirm':
+        inputValue !== form.password
+          ? setIsValid({ ...isValid, isPasswordConfirmValid: false })
+          : setIsValid({ ...isValid, isPasswordConfirmValid: true });
+        break;
+    }
+  };
   const handleSubmitAccount = () => {
-    const { email, password } = getValues();
-    const signupDataInfo = { email, password };
-    navigate(`/signup/nickname`, { state: { signupDataInfo } });
+    // const signupDataInfo = { form.email, form.password };
+    // navigate(`/signup/nickname`, { state: { signupDataInfo } });
   };
 
   const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,55 +65,49 @@ const AddAccount = () => {
   return (
     <StWhiteSection>
       <StWrapper>
-        <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
+        <StForm onSubmit={handleSubmitAccount}>
           <StTitle>아이디</StTitle>
           <StInput
-            onChange={(e) => handleSpace(e)}
             type="email"
-            {...register('email', {
-              required: true,
-              pattern: {
-                value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                message: '올바른 이메일 형식이 아닙니다!',
-              },
-            })}
+            required
             placeholder="아이디로 이용할 이메일을 적어주세요!"
+            onBlur={(e) => {
+              setForm((prevForm) => ({ ...prevForm, email: e.target.value }));
+              console.log('이메일', e.target.value, form.email);
+              handleValidation('email', form.email);
+            }}
+            onChange={(e) => handleSpace(e)}
           />
-          <StInputDesc>{errors.email && errors.email.message}</StInputDesc>
+          <StInputDesc>{!isValid.isEmailValid ? warningMsg[0] : ''}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
           <StInput
             type="password"
-            {...register('password', {
-              required: true,
-              pattern: {
-                value: /^[A-za-z0-9]{10,16}$/,
-                message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
-              },
-            })}
+            required
             placeholder="비밀번호를 입력해주세요"
-            onChange={(e) => handleSpace(e)}
+            onChange={(e) => {
+              handleSpace(e);
+              setForm({ ...form, password: e.target.value });
+              console.log('비번', e.currentTarget.value, e.target.value, form.password);
+              handleValidation('password', form.password);
+            }}
           />
-          <StInputDesc>{errors.password && errors.password.message}</StInputDesc>
+          <StInputDesc>{!isValid.isPasswordValid ? warningMsg[1] : ''}</StInputDesc>
 
           <StTitle>비밀번호 재확인</StTitle>
           <StInput
             type="password"
-            {...register('passwordConfirm', {
-              required: true,
-              validate: {
-                matchesPreviousPassword: (value) => {
-                  const { password } = getValues();
-                  return password === value || '비밀번호가 틀립니다!';
-                },
-              },
-            })}
             placeholder="확인을 위해 비밀번호를 입력해주세요"
-            onChange={(e) => handleSpace(e)}
+            required
+            onChange={(e) => {
+              handleSpace(e);
+              setForm({ ...form, passwordConfirm: e.target.value });
+              handleValidation('passwordConfirm', form.passwordConfirm);
+            }}
           />
-          <StInputDesc>{errors.passwordConfirm && errors.passwordConfirm.message}</StInputDesc>
+          <StInputDesc>{!isValid.isPasswordConfirmValid ? warningMsg[2] : ''}</StInputDesc>
 
-          <StSubmitBtn disabled={!isValid}>다음 단계로 이동</StSubmitBtn>
+          <StSubmitBtn disabled>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StWrapper>
     </StWhiteSection>
