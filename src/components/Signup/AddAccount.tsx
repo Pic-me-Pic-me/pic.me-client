@@ -34,25 +34,31 @@ const AddAccount = () => {
         !EMAIL_REGEX.test(inputValue)
           ? setIsValid({ ...isValid, isEmailValid: false })
           : setIsValid({ ...isValid, isEmailValid: true });
-
+        console.log(inputValue);
+        setForm((prev) => ({ ...prev, email: inputValue }));
         break;
 
       case 'password':
         !PASSWORD_REGEX.test(inputValue)
           ? setIsValid({ ...isValid, isPasswordValid: false })
           : setIsValid({ ...isValid, isPasswordValid: true });
+        setForm((prev) => ({ ...prev, password: inputValue }));
         break;
 
       case 'passwordConfirm':
         inputValue !== form.password
           ? setIsValid({ ...isValid, isPasswordConfirmValid: false })
           : setIsValid({ ...isValid, isPasswordConfirmValid: true });
+        setForm((prev) => ({ ...prev, passwordConfirm: inputValue }));
         break;
     }
   };
   const handleSubmitAccount = () => {
-    // const signupDataInfo = { form.email, form.password };
-    // navigate(`/signup/nickname`, { state: { signupDataInfo } });
+    console.log(form);
+    const finalEmail = form.email;
+    const finalPassword = form.password;
+    const signupDataInfo = { finalEmail, finalPassword };
+    navigate(`/signup/nickname`, { state: { signupDataInfo } });
   };
 
   const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,9 +78,7 @@ const AddAccount = () => {
             required
             placeholder="아이디로 이용할 이메일을 적어주세요!"
             onBlur={(e) => {
-              setForm((prevForm) => ({ ...prevForm, email: e.target.value }));
-              console.log('이메일', e.target.value, form.email);
-              handleValidation('email', form.email);
+              handleValidation('email', e.target.value);
             }}
             onChange={(e) => handleSpace(e)}
           />
@@ -87,9 +91,8 @@ const AddAccount = () => {
             placeholder="비밀번호를 입력해주세요"
             onChange={(e) => {
               handleSpace(e);
-              setForm({ ...form, password: e.target.value });
-              console.log('비번', e.currentTarget.value, e.target.value, form.password);
-              handleValidation('password', form.password);
+
+              handleValidation('password', e.target.value);
             }}
           />
           <StInputDesc>{!isValid.isPasswordValid ? warningMsg[1] : ''}</StInputDesc>
@@ -101,13 +104,12 @@ const AddAccount = () => {
             required
             onChange={(e) => {
               handleSpace(e);
-              setForm({ ...form, passwordConfirm: e.target.value });
-              handleValidation('passwordConfirm', form.passwordConfirm);
+              handleValidation('passwordConfirm', e.target.value);
             }}
           />
           <StInputDesc>{!isValid.isPasswordConfirmValid ? warningMsg[2] : ''}</StInputDesc>
 
-          <StSubmitBtn disabled>다음 단계로 이동</StSubmitBtn>
+          <StSubmitBtn disabled={false}>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StWrapper>
     </StWhiteSection>
