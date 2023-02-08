@@ -7,11 +7,13 @@ import { deleteUser, postKakaoToken } from '../../lib/api/auth';
 import useGetUserData from '../../lib/hooks/useGetUserData';
 import useModal from '../../lib/hooks/useModal';
 import Error404 from '../../pages/Error404';
+import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
 const MemberInfo = () => {
   const { userInfo, isError } = useGetUserData();
+  const { userName, email } = userInfo as MemberData;
   const { isShowing, toggle } = useModal();
   const navigate = useNavigate();
   const handleGoback = () => {
@@ -50,10 +52,10 @@ const MemberInfo = () => {
       </StBannerWrapper>
       <StWhiteSection>
         <h1>닉네임</h1>
-        <p>{userInfo?.userName}</p>
+        <p>{userName}</p>
         <h1>아이디</h1>
         {}
-        <p>{userInfo?.email}</p>
+        <p>{email}</p>
         <div>
           <button type="button" onClick={() => toggle()}>
             회원 탈퇴하기

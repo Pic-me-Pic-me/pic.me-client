@@ -42,7 +42,7 @@ const VoteList = () => {
 
   return (
     <>
-      {voteListResult.result.length !== 0 ? (
+      {voteListResult.result.length ? (
         <>
           <StCurrentVote>현재 진행중인 투표</StCurrentVote>
           <StVoteListWrapper>

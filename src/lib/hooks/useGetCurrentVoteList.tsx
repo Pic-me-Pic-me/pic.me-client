@@ -18,7 +18,6 @@ const useGetCurrentVoteList = () => {
       errorRetryCount: 3,
     },
   );
-
   const parseResultList = data
     ?.map((item) => item.data.result)
     .flat()
