@@ -95,7 +95,6 @@ const ImageInput = (props: ImageInputProps) => {
       imageData.append('file', secondImgToFile);
       imageData.append('title', title);
     }
-
     const response = await postImage(imageData);
 
     if (response === 200) {
