@@ -8,8 +8,6 @@ import { IcClose } from '../../../asset/icon';
 import useModal from '../../../lib/hooks/useModal';
 import { votingImageState } from '../../../recoil/maker/atom';
 import { setCroppedImg } from '../../../utils/setCroppedImg';
-import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
-import { setImgCompress } from '../../../utils/setImgCompress';
 import Modal from '../../common/Modal';
 import { ImageCrop, ImageInput, TitleInput } from '../../Voting/maker';
 import HeaderLayout from '../HeaderLayout';
@@ -26,7 +24,7 @@ const MakerVotingLayout = () => {
     firstToggle: true,
     secondToggle: true,
   });
-  const [croppedImage, setCroppedImage] = useState(null);
+
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | undefined>();
@@ -40,41 +38,20 @@ const MakerVotingLayout = () => {
   }, []);
 
   const handleShowCroppedImage = useCallback(async () => {
+    setIsCropToggle({ firstCrop: false, secondCrop: false });
+    setIsToggle({ firstToggle: true, secondToggle: true });
+
     if (firstCrop) {
       try {
-        const crop = await setCroppedImg(firstImageUrl, croppedAreaPixels, rotation);
-        if (crop) {
-          const baseToFile = setDataURLtoFile(crop, 'file') as File;
-          const reader = new FileReader();
-          const compressedImg = (await setImgCompress(baseToFile)) as File;
-          reader.readAsDataURL(compressedImg);
-          reader.onloadend = () => {
-            const base64data = reader.result as string;
-            setVotingForm({ ...votingForm, firstImageUrl: base64data });
-            setCroppedImage(croppedImage);
-            setIsCropToggle({ ...isCropToggle, firstCrop: false });
-            setIsToggle({ ...isToggle, firstToggle: !firstToggle });
-          };
-        }
+        const crop = (await setCroppedImg(firstImageUrl, croppedAreaPixels, rotation)) as string;
+        setVotingForm({ ...votingForm, firstImageUrl: crop });
       } catch (e) {
         console.error(e);
       }
     } else {
       try {
-        const crop = await setCroppedImg(secondImageUrl, croppedAreaPixels, rotation);
-        if (crop) {
-          const baseToFile = setDataURLtoFile(crop, 'file') as File;
-          const reader = new FileReader();
-          const compressedImg = (await setImgCompress(baseToFile)) as File;
-          reader.readAsDataURL(compressedImg);
-          reader.onloadend = () => {
-            const base64data = reader.result as string;
-            setVotingForm({ ...votingForm, secondImageUrl: base64data });
-            setCroppedImage(croppedImage);
-            setIsCropToggle({ ...isCropToggle, secondCrop: false });
-            setIsToggle({ ...isToggle, secondToggle: !secondToggle });
-          };
-        }
+        const crop = (await setCroppedImg(secondImageUrl, croppedAreaPixels, rotation)) as string;
+        setVotingForm({ ...votingForm, secondImageUrl: crop });
       } catch (e) {
         console.error(e);
       }
