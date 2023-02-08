@@ -3,11 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import CurrentVoteBtn from '../components/CurrentVote/CurrentVoteBtn';
-import CurrentVoteInfo from '../components/CurrentVote/CurrentVoteInfo';
-import CurrentVoteSlider from '../components/CurrentVote/CurrentVoteSlider';
-import LandingCurrentVote from '../components/Landing/maker/LandingCurrentVote';
-import LandingHeader from '../components/Landing/maker/LandingHeader';
+import { CurrentVoteBtn, CurrentVoteInfo, CurrentVoteSlider } from '../components/CurrentVote';
+import { LandingCurrentVote, LandingHeader } from '../components/Landing/maker';
 import { HeaderLayout } from '../components/Layout';
 import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
 import { pictureCurrentIdx, pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';

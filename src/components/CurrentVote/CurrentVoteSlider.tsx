@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import StickerAttachImg from '../../components/common/StickerAttachImg';
+import { StickerAttachImg } from '../../components/common';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import { pictureCurrentIdx, pictureResultState, stickerResultState } from '../../recoil/maker/atom';
 import { jsonGetStickerList } from '../../utils/jsonGetStickerList';

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { IcVoteShareBtn } from '../../asset/icon';
 import { patchCurrentVoteData } from '../../lib/api/voting';
-import Modal from '../common/Modal';
+import { Modal } from '../common';
 
 const CurrentVoteBtn = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
