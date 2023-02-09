@@ -25,6 +25,7 @@ const EndedVoting = (props: votingProps) => {
   const handleConfirmModal = (id: string) => {
     handleDeleteVote(id);
     setIsShowing((prev) => !prev);
+    window.location.reload();
   };
 
   const handleModal = (prev: boolean) => {
