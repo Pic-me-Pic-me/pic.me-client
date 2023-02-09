@@ -4,11 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { StickerResultVoting } from '../../components/Voting/player';
-<<<<<<< HEAD
 import { playerStickerInfoState } from '../../recoil/player/atom';
-=======
-import { stickerInfoState } from '../../recoil/player/atom';
->>>>>>> 7264b6dd294299171fd6f5e3477b0626f23f66c5
 
 const ResultVoting = () => {
   const navigate = useNavigate();
