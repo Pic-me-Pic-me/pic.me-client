@@ -25,6 +25,7 @@ export default function ResultPicSlider() {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
+  console.log(width);
 
   if (isError) {
     return <Error404 />;
@@ -32,39 +33,40 @@ export default function ResultPicSlider() {
 
   return (
     <>
-      <StSliderPictureWrapper>
-        <StSliderPicture
+      <StSliderPictureWrapper ref={ref}>
+        <StSliderPictureUl
           currentIdx={currentIdx}
           dragItemWidth={width}
           transX={transX}
-          width={window.screen.width}
           {...picmeSliderEvent({
             onDragChange: (deltaX, deltaY) => {
+              console.log('되니');
+              console.log(deltaX);
               setTransX(deltaX);
             },
             onDragEnd: (deltaX, deltaY) => {
-              Array(2)
-                .fill(0)
-                .map((_, i) => 2 - i)
-                .some((num) => {
-                  if (deltaX < -183 * num) {
-                    setCurrentIdx(1);
-                    return true;
-                  }
-                  if (deltaX > 183 * num) {
-                    setCurrentIdx(0);
-                    return true;
-                  }
-                });
+              if (currentIdx && deltaX < -183) {
+                setCurrentIdx(0);
+                return true;
+              }
+              if (currentIdx === 0 && deltaX > 183) {
+                setCurrentIdx(1);
+                return true;
+              }
+
               setTransX(0);
             },
           })}>
-          <StickerAttachImg
-            stickerAttachImgSrc={pictureInfoList[currentIdx].url}
-            imgWrapperWidthPercent={90}
-            imgHight={52}
-          />
-        </StSliderPicture>
+          {pictureInfoList.map(({ url }, idx) => (
+            <li key={idx}>
+              {idx === currentIdx ? (
+                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={95.8} imgHight={52} />
+              ) : (
+                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={52} />
+              )}
+            </li>
+          ))}
+        </StSliderPictureUl>
       </StSliderPictureWrapper>
     </>
   );
@@ -79,20 +81,30 @@ const StSliderPictureWrapper = styled.section`
   position: relative;
 `;
 
-const StSliderPicture = styled.article<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
+const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
 
+  width: 81.2rem;
+
+  overflow: hidden;
+
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
-      transform: translateX(${(-currentIdx * dragItemWidth + transX) / PX_TO_REM}rem);
+      transform: translateX(${((-currentIdx * dragItemWidth) / 2 + transX) / 10}rem);
     `};
+
   ${({ transX }) =>
     css`
-      transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
+      transition: transform ${transX ? 0 : 200}ms ease-in -out 0s;
     `};
+
+  > li {
+    display: flex;
+    justify-content: center;
+  }
 
   touch-action: auto;
 `;
