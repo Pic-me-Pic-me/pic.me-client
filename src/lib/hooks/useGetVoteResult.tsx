@@ -9,7 +9,6 @@ const useGetVoteResult = (voteId: string | undefined) => {
     errorRetryCount: 3,
   });
 
-  console.log(data);
   return {
     voteResult: data?.data,
     isLoading: !error && !data?.data,
