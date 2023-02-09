@@ -2,23 +2,28 @@ import { useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { IcCancel } from '../../../asset/icon';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
+import useModal from '../../../lib/hooks/useModal';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
 import { NaturalImgInfo, StickerLocation } from '../../../types/vote';
 import { setStickerLocationData } from '../../../utils/setStickerLocationData';
+import Modal from '../../common/Modal';
 
 interface StickerVotingProps {
   isStickerGuide: boolean;
 }
 const StickerVoting = (props: StickerVotingProps) => {
   const { isStickerGuide } = props;
+
   const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(playerStickerInfoState);
   const { location: stickerList, emoji } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
+  const { isShowing, toggle } = useModal();
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
@@ -34,6 +39,7 @@ const StickerVoting = (props: StickerVotingProps) => {
           x: Math.round((((offsetX - 27) * imgInfo.width) / imgViewInfo.width) * 100) / 100,
           y: Math.round((((offsetY - 27) * imgInfo.height) / imgViewInfo.height) * 100) / 100,
           degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
+          isDelete: false,
         };
 
         setStickerVotingInfo((prev) => ({
@@ -46,26 +52,58 @@ const StickerVoting = (props: StickerVotingProps) => {
     }
   };
 
+  const handleDeleteSticker = (e: React.MouseEvent<SVGSVGElement>) => {
+    const stickerTarget = e.currentTarget as SVGSVGElement;
+    const clickStickerIdx = Number(stickerTarget.dataset.sticker);
+
+    if (0 <= clickStickerIdx && clickStickerIdx <= 2) {
+      setStickerVotingInfo((prev) => ({
+        ...prev,
+        location: [
+          ...stickerList.map((sticker, idx) => (idx === clickStickerIdx ? { ...sticker, isDelete: true } : sticker)),
+        ],
+      }));
+      toggle();
+    }
+  };
+
+  const handleStickerCancel = () => {
+    setStickerVotingInfo((prev) => ({
+      ...prev,
+      location: [...stickerList.filter((sticker) => !sticker.isDelete && sticker)],
+    }));
+    toggle();
+  };
+
   return (
-    <StStickerVotingWrapper>
-      <article>
-        <StStickerImg
-          onLoad={handleImgSize}
-          src={pictureInfo?.url}
-          ref={stickerImgRef}
-          alt="selected_img"
-          onClick={handleAttachSticker}
-        />
-        {!isStickerGuide &&
-          imgViewInfo &&
-          imgInfo &&
-          stickerList.map((sticker, idx) => (
-            <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-              {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
-            </StEmojiIcon>
-          ))}
-      </article>
-    </StStickerVotingWrapper>
+    <>
+      <Modal
+        isShowing={isShowing}
+        message="정말로 스티커를 삭제하시겠습니까?"
+        handleHide={toggle}
+        handleConfirm={handleStickerCancel}
+      />
+      <StStickerVotingWrapper>
+        <article>
+          <StStickerImg
+            onLoad={handleImgSize}
+            src={pictureInfo?.url}
+            ref={stickerImgRef}
+            alt="selected_img"
+            onClick={handleAttachSticker}
+          />
+          {!isStickerGuide &&
+            imgViewInfo &&
+            imgInfo &&
+            stickerList.map((sticker, idx) => (
+              <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
+                {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
+                <IcCancel onClick={handleDeleteSticker} data-sticker={`${idx}`} />
+              </StEmojiIcon>
+            ))}
+        </article>
+      </StStickerVotingWrapper>
+    </>
   );
 };
 
@@ -109,5 +147,14 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
 
     transform-origin: 50% 50%;
     transform: ${({ location }) => `rotate(${location.degRate}deg)`};
+
+    :last-child {
+      display: none;
+    }
+  }
+  &:hover {
+    & > svg:last-child {
+      display: block;
+    }
   }
 `;

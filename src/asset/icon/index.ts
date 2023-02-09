@@ -15,6 +15,7 @@ export { ReactComponent as IcHomeLogo } from './homeLogo.svg';
 export { ReactComponent as IcAngle } from './ic_angle.svg';
 export { ReactComponent as IcAngleSticker } from './ic_angle.svg';
 export { ReactComponent as IcBackGroundSticker } from './ic_back_ground.svg';
+export { ReactComponent as IcCancel } from './ic_cancel.svg';
 export { ReactComponent as IcCheckedRound } from './ic_checked_round.svg';
 export { ReactComponent as IcClose } from './ic_close.svg';
 export { ReactComponent as IcCropImg } from './ic_cropImg.svg';
