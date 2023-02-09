@@ -1,11 +1,6 @@
-import { NONAME } from 'dns';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { waitForAllSettled } from 'recoil';
 import styled, { css } from 'styled-components';
-
-import { SignUpInfo } from '../../types/signup';
 
 const AddAccount = () => {
   const navigate = useNavigate();
@@ -66,8 +61,8 @@ const AddAccount = () => {
         setForm((prev) => ({ ...prev, passwordConfirm: inputValue }));
         break;
     }
-    return;
   };
+
   const handleSubmitAccount = () => {
     const finalEmail = form.email;
     const finalPassword = form.password;
@@ -77,8 +72,9 @@ const AddAccount = () => {
 
   const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInputValue = e.target.value;
+    console.log(currentInputValue);
     if (currentInputValue.includes(' ')) {
-      e.target.value = currentInputValue.trim();
+      e.target.value = currentInputValue.replace(' ', '');
     }
   };
 
@@ -88,7 +84,7 @@ const AddAccount = () => {
         <StForm onSubmit={handleSubmitAccount}>
           <StTitle>아이디</StTitle>
           <StInput
-            type="email"
+            type="text"
             required
             placeholder="아이디로 이용할 이메일을 적어주세요!"
             onBlur={(e) => {
@@ -96,7 +92,6 @@ const AddAccount = () => {
             }}
             onChange={(e) => {
               handleSpace(e);
-              console.log(form);
             }}
           />
           <StInputDesc>{warningMsg.emailWarningMsg}</StInputDesc>
