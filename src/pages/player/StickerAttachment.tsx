@@ -17,10 +17,13 @@ const StickerAttachment = () => {
   const isActiveBtn: boolean = playerStickerVotingInfo.location.length > 0;
 
   const handleVotingSuccess = async () => {
-    if (isActiveBtn) {
-      await postStickerData(playerStickerVotingInfo);
-      navigate('/player/voting/result');
-    }
+    if (isActiveBtn)
+      try {
+        const { data } = await postStickerData(stickerVotingInfo);
+        navigate('/player/voting/result');
+      } catch (e) {
+        console.error(e);
+      }
   };
   const handlePrevpage = () => {
     navigate(-1);
