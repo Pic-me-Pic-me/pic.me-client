@@ -63,7 +63,6 @@ export interface StickerLocation {
   x: number;
   y: number;
   degRate: number;
-  isDelete?: boolean;
 }
 export interface PlayerStickerInfo {
   pictureId: number;

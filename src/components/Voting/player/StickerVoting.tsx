@@ -23,7 +23,6 @@ const StickerVoting = (props: StickerVotingProps) => {
   const stickerImgRef = useRef<HTMLImageElement>(null);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
-  const { isShowing, toggle } = useModal();
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
@@ -39,7 +38,6 @@ const StickerVoting = (props: StickerVotingProps) => {
           x: Math.round((((offsetX - 27) * imgInfo.width) / imgViewInfo.width) * 100) / 100,
           y: Math.round((((offsetY - 27) * imgInfo.height) / imgViewInfo.height) * 100) / 100,
           degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
-          isDelete: false,
         };
 
         setStickerVotingInfo((prev) => ({
@@ -59,30 +57,13 @@ const StickerVoting = (props: StickerVotingProps) => {
     if (0 <= clickStickerIdx && clickStickerIdx <= 2) {
       setStickerVotingInfo((prev) => ({
         ...prev,
-        location: [
-          ...stickerList.map((sticker, idx) => (idx === clickStickerIdx ? { ...sticker, isDelete: true } : sticker)),
-        ],
+        location: [...stickerList.filter((_, idx) => idx !== clickStickerIdx)],
       }));
-      toggle();
     }
-  };
-
-  const handleStickerCancel = () => {
-    setStickerVotingInfo((prev) => ({
-      ...prev,
-      location: [...stickerList.filter((sticker) => !sticker.isDelete && sticker)],
-    }));
-    toggle();
   };
 
   return (
     <>
-      <Modal
-        isShowing={isShowing}
-        message="정말로 스티커를 삭제하시겠습니까?"
-        handleHide={toggle}
-        handleConfirm={handleStickerCancel}
-      />
       <StStickerVotingWrapper>
         <article>
           <StStickerImg
@@ -155,6 +136,7 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
   &:hover {
     & > svg:last-child {
       display: block;
+      transform: none;
     }
   }
 `;
