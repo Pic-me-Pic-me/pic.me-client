@@ -19,7 +19,7 @@ const StickerAttachment = () => {
   const handleVotingSuccess = async () => {
     if (isActiveBtn)
       try {
-        const { data } = await postStickerData(stickerVotingInfo);
+        const { data } = await postStickerData(playerStickerVotingInfo);
         navigate('/player/voting/result');
       } catch (e) {
         console.error(e);
