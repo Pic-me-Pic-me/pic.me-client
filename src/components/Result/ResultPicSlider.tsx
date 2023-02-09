@@ -16,7 +16,12 @@ import { MakerPictureData } from '../../types/vote';
 import { picmeSliderEvent } from '../../utils/picmeSliderEvent';
 import { StickerAttachImg } from '../common';
 
-export default function ResultPicSlider() {
+interface ResultPicSliderProps {
+  setChosenPictureIdx: (idx: number) => void;
+}
+export default function ResultPicSlider(props: ResultPicSliderProps) {
+  const { setChosenPictureIdx } = props;
+
   const { voteId } = useParams<{ voteId: string }>();
   const { voteResult, isLoading, isError } = useGetVoteResult(voteId);
 
@@ -40,20 +45,19 @@ export default function ResultPicSlider() {
           transX={transX}
           {...picmeSliderEvent({
             onDragChange: (deltaX, deltaY) => {
-              console.log('되니');
-              console.log(deltaX);
               setTransX(deltaX);
             },
             onDragEnd: (deltaX, deltaY) => {
-              if (currentIdx && deltaX < -183) {
+              if (deltaX < -183) {
                 setCurrentIdx(0);
+                setChosenPictureIdx(0);
                 return true;
               }
-              if (currentIdx === 0 && deltaX > 183) {
+              if (deltaX > 183) {
                 setCurrentIdx(1);
+                setChosenPictureIdx(1);
                 return true;
               }
-
               setTransX(0);
             },
           })}>
@@ -102,6 +106,7 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
     `};
 
   > li {
+    width: 36.6rem;
     display: flex;
     justify-content: center;
   }

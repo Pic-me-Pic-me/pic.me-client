@@ -48,7 +48,7 @@ const Result = () => {
               voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
 
             <section>
-              <ResultPicSlider />
+              <ResultPicSlider setChosenPictureIdx={(idx: number) => setChosenPictureIdx(idx)} />
               <ResultReason
                 totalVoteCount={voteResult.currentVote}
                 handleIsOpenResultReason={handleIsOpenResultReason}
