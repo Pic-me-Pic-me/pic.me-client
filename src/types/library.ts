@@ -7,6 +7,5 @@ export interface VoteInfo {
 }
 
 export interface EndedVoteInfo {
-  date: number;
-  votes: VoteInfo[];
+  dates: number[];
 }
