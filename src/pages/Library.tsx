@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -8,7 +8,6 @@ import LandingLibrary from '../components/Landing/maker/LandingLibrary';
 import { HeaderLayout } from '../components/Layout';
 import MonthVoting from '../components/Library/MonthVoting';
 import { useGetAllVoteInfo } from '../lib/hooks/useGetAllVoteInfo';
-import { EndedVoteInfo } from '../types/library';
 import Error404 from './Error404';
 
 const Library = () => {
@@ -45,15 +44,15 @@ const Library = () => {
           navigate('/home');
         }}
       />
-      {allVoteInfoList.list.length !== 0 ? (
+      {allVoteInfoList.dateList.length !== 0 ? (
         <StMonthVotingInfo>
-          {allVoteInfoList.list.map((votingInfo: EndedVoteInfo, idx: number) =>
-            idx === allVoteInfoList.list.length - 1 ? (
+          {allVoteInfoList.dateList.map((votingDate: number, idx: number) =>
+            idx === allVoteInfoList.dateList.length - 1 ? (
               <div key={idx} ref={ref}>
-                <MonthVoting date={votingInfo.date} key={idx}></MonthVoting>
+                <MonthVoting date={votingDate} key={idx}></MonthVoting>
               </div>
             ) : (
-              <MonthVoting date={votingInfo.date} key={idx}></MonthVoting>
+              <MonthVoting date={votingDate} key={idx}></MonthVoting>
             ),
           )}
         </StMonthVotingInfo>
