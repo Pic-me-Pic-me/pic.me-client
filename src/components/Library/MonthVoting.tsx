@@ -15,7 +15,7 @@ interface voteAllInfoProps {
 
 const MonthVoting = (props: voteAllInfoProps) => {
   const { date } = props;
-  const formattedDate = date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6);
+  const formattedDate = date ? date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6) : ' ';
 
   const { monthlyVoteInfoList, isLoading, isError, size, setSize } = useGetMonthlyLibraryInfo(date);
 
@@ -25,7 +25,6 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   const getMoreItem = useCallback(async () => {
     if (monthlyVoteInfoList) {
-      // voteInfoListRef.current = monthlyVoteInfoList.list;
       setSize((prev) => prev + 1);
     } else {
       return;
@@ -38,9 +37,8 @@ const MonthVoting = (props: voteAllInfoProps) => {
     }
   }, [inView]);
 
-  const handleDeleteVote = async (id: string) => {
-    await deleteVote(id);
-    // setVerticalScrollInfo([...verticalScrollInfo.filter((info, idx) => info.id !== id)]);
+  const handleDeleteVote = (id: string) => {
+    deleteVote(id);
   };
 
   if (isLoading) {
