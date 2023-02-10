@@ -15,12 +15,13 @@ export const getCurrentVoteDatailData = async (voteid: string | undefined) => {
   }
 };
 
-export const getCurrentVoteData = async (resCursorId: number) => {
+export const getCurrentVoteData = async (cursorId: number) => {
   try {
-    const data = await client.get<AxiosResponse<VoteResultData>>(`vote/list/${resCursorId}`);
+    const data = await client.get<AxiosResponse<VoteResultData>>(`vote/list/${cursorId}`);
     return data.data;
   } catch (err) {
     console.error(err);
+    return { data: undefined };
   }
 };
 

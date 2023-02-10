@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { LoginBanner } from '../../asset/image';
 import { deleteUser, getUserInfo, postKakaoToken } from '../../lib/api/auth';
 import useModal from '../../lib/hooks/useModal';
+import { clearUserSession, getAccessToken } from '../../lib/token';
 import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
@@ -26,23 +27,22 @@ const MemberInfo = () => {
 
   const handleDeleteUser = async () => {
     try {
-      const KAKAO_TOKEN = localStorage.getItem('kakaoAccessToken');
+      const KAKAO_TOKEN = getAccessToken('kakaoAccessToken');
       if (KAKAO_TOKEN) {
-        const data = await postKakaoToken('kakao', KAKAO_TOKEN);
-        const res = await axios({
+        await postKakaoToken(KAKAO_TOKEN);
+        await axios({
           method: 'POST',
           url: 'https://kapi.kakao.com/v1/user/unlink',
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('kakaoAccessToken')}`,
+            Authorization: `Bearer ${getAccessToken('kakaoAccessToken')}`,
           },
         });
-        localStorage.removeItem('kakaoAccessToken');
       }
-      const result = await deleteUser();
-      localStorage.removeItem('accessToken');
+      await deleteUser();
+      clearUserSession();
       navigate('/');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
