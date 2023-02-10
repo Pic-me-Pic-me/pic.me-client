@@ -30,6 +30,7 @@ const ReasonSlider = () => {
   useEffect(() => {
     if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx });
   }, [currentIdx]);
+  console.log(currentIdx);
 
   return (
     <StReasonSliderWrapper>
@@ -43,10 +44,10 @@ const ReasonSlider = () => {
               setTransX(modifySliderRange(deltaX, -width, width));
             },
             onDragEnd: (deltaX) => {
-              const maxIndex = menuIconList.length - 1;
-              Array(3)
+              const maxIndex = menuIconList.length - 2;
+              Array(4)
                 .fill(0)
-                .map((v, i) => 3 - i)
+                .map((v, i) => 4 - i)
                 .some((num) => {
                   if (deltaX < -156 * num) {
                     setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
@@ -62,7 +63,7 @@ const ReasonSlider = () => {
             },
           })}>
           {menuIconList.map((menu, idx) =>
-            idx === 0 ? (
+            !idx ? (
               <li key={idx} className="unselect_item">
                 {menu}
               </li>
