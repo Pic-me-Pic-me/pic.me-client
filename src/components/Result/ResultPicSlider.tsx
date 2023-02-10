@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { PX_TO_REM, RESULT_IMAGE_MARGIN_RATIO, RESULT_SLIDER_FULL_WIDTH_RATIO } from '../../constant/slider';
+import { PX_TO_REM, RESULT_SLIDER_FULL_WIDTH_RATIO } from '../../constant/slider';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import useGetVoteResult from '../../lib/hooks/useGetVoteResult';
 import Error404 from '../../pages/Error404';
@@ -27,7 +27,6 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
   if (isError) {
     return <Error404 />;
   }
-
   return (
     <>
       <StSliderPictureWrapper ref={ref}>
@@ -48,10 +47,12 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
                 .some((num) => {
                   if (deltaX < -183 * num) {
                     setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
+                    setChosenPictureIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
                     return true;
                   }
                   if (deltaX > 183 * num) {
                     setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
+                    setChosenPictureIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
                     return true;
                   }
                 });
@@ -89,8 +90,6 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
   position: absolute;
 
   width: ${({ width }) => (width * RESULT_SLIDER_FULL_WIDTH_RATIO) / PX_TO_REM}rem;
-
-  overflow: hidden;
 
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
