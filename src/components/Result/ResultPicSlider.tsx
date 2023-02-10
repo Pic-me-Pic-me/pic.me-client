@@ -11,19 +11,20 @@ import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEven
 import { StickerAttachImg } from '../common';
 
 interface ResultPicSliderProps {
+  chosenPictureIdx: number;
   setChosenPictureIdx: (idx: number) => void;
 }
 export default function ResultPicSlider(props: ResultPicSliderProps) {
-  const { setChosenPictureIdx } = props;
+  const { chosenPictureIdx, setChosenPictureIdx } = props;
 
   const { voteId } = useParams<{ voteId: string }>();
   const { voteResult, isLoading, isError } = useGetVoteResult(voteId);
 
   const pictureInfoList = voteResult?.Picture as MakerPictureData[];
 
-  const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
+
   if (isError) {
     return <Error404 />;
   }
@@ -31,7 +32,7 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
     <>
       <StSliderPictureWrapper ref={ref}>
         <StSliderPictureUl
-          currentIdx={currentIdx}
+          currentIdx={chosenPictureIdx}
           dragItemWidth={width}
           transX={transX}
           width={window.screen.width}
@@ -41,27 +42,22 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
             },
             onDragEnd: (deltaX, deltaY) => {
               const maxIndex = 1;
-              Array(2)
-                .fill(0)
-                .map((_, i) => 2 - i)
-                .some((num) => {
-                  if (deltaX < -183 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
-                    setChosenPictureIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
-                    return true;
-                  }
-                  if (deltaX > 183 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
-                    setChosenPictureIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
-                    return true;
-                  }
-                });
+              [2, 1].some((num) => {
+                if (deltaX < -183 * num) {
+                  setChosenPictureIdx(modifySliderRange(chosenPictureIdx + num, 0, maxIndex));
+                  return true;
+                }
+                if (deltaX > 183 * num) {
+                  setChosenPictureIdx(modifySliderRange(chosenPictureIdx - num, 0, maxIndex));
+                  return true;
+                }
+              });
               setTransX(0);
             },
           })}>
           {pictureInfoList.map(({ url }, idx) => (
             <li key={idx}>
-              {idx === currentIdx ? (
+              {idx === chosenPictureIdx ? (
                 <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={49} />
               ) : (
                 <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={49} />
