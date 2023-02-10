@@ -7,7 +7,7 @@ import { picmeGetFetcher } from '../axios';
 export const useGetMonthlyLibraryInfo = (date: number) => {
   const { data, isLoading, error, size, setSize, mutate } = useSWRInfinite<AxiosResponse<VoteInfo[]>>(
     (idx: number, monthlyVoteInfo: AxiosResponse<VoteInfo[]>) => {
-      if (idx === 0) return `/vote/library/scroll/month?flag=${0}&date=${date}`;
+      if (!idx) return `/vote/library/scroll/month?flag=0&date=${date}`;
       if (monthlyVoteInfo.data[0])
         return `/vote/library/scroll/month?flag=${
           monthlyVoteInfo.data[monthlyVoteInfo.data.length - 1].id

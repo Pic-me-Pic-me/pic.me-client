@@ -13,14 +13,14 @@ import Error404 from './Error404';
 const Library = () => {
   const navigate = useNavigate();
   const [ref, inView] = useInView();
-  const { allVoteInfoList, isLoading, isError, size, setSize } = useGetAllVoteInfo();
+  const { allVoteInfoList, isLoading, isError, size, setSize, mutate } = useGetAllVoteInfo();
 
   const getMoreItem = useCallback(async () => {
     if (allVoteInfoList) {
       setSize((prev) => prev + 1);
-    } else {
-      return;
+      return mutate();
     }
+    return;
   }, []);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Library = () => {
           navigate('/home');
         }}
       />
-      {allVoteInfoList.dateList.length !== 0 ? (
+      {allVoteInfoList.dateList.length ? (
         <StMonthVotingInfo>
           {allVoteInfoList.dateList.map((votingDate: number, idx: number) =>
             idx === allVoteInfoList.dateList.length - 1 ? (
@@ -58,10 +58,8 @@ const Library = () => {
         </StMonthVotingInfo>
       ) : (
         <StEmptyView>
-          <div>
-            <IcEmptyLibrary />
-            <p>아직 마감된 투표가 없어요!</p>
-          </div>
+          <IcEmptyLibrary />
+          <p>아직 마감된 투표가 없어요!</p>
         </StEmptyView>
       )}
     </>
@@ -80,18 +78,16 @@ const StMonthVotingInfo = styled.article`
 `;
 
 const StEmptyView = styled.main`
-  div {
-    margin-top: 22.4rem;
-    margin-bottom: 43.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  margin-top: 22.4rem;
 
-  div > p {
+  > p {
     margin-top: 3.429rem;
+    margin-bottom: 43.7rem;
     ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   }
