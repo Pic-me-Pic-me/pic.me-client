@@ -2,48 +2,33 @@ import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
-const Token = () => {
-  const setAccessToken = (key: string, item: string) => {
-    localStorage.setItem(key, item);
-  };
-
-  const getAccessToken = (key: string) => localStorage.getItem(key) as string;
-
-  const removeAccessToken = (key: string) => {
-    localStorage.removeItem(key);
-  };
-
-  const setRefreshToken = (key: string, item: string) => {
-    cookies.set(key, item, { httpOnly: true });
-  };
-
-  const getRefreshToken = (key: string) => cookies.get(key) as string;
-
-  const removeRefreshToken = (key: string) => {
-    cookies.remove(key);
-  };
-
-  const setUserSession = (accessToken: string, refreshToken: string) => {
-    setAccessToken('accessToken', accessToken);
-    setRefreshToken('refreshToken', refreshToken);
-  };
-
-  const clearUserSession = () => {
-    removeAccessToken('accessToken');
-    removeAccessToken('kakaoAccessToken');
-    removeRefreshToken('refreshToken');
-  };
-
-  return {
-    setAccessToken,
-    getAccessToken,
-    removeAccessToken,
-    setRefreshToken,
-    getRefreshToken,
-    removeRefreshToken,
-    setUserSession,
-    clearUserSession,
-  };
+export const setAccessToken = (key: string, item: string) => {
+  localStorage.setItem(key, item);
 };
 
-export default Token;
+export const getAccessToken = (key: string) => localStorage.getItem(key) as string;
+
+export const removeAccessToken = (key: string) => {
+  localStorage.removeItem(key);
+};
+
+export const setRefreshToken = (key: string, item: string) => {
+  cookies.set(key, item, { httpOnly: true });
+};
+
+export const getRefreshToken = (key: string) => cookies.get(key) as string;
+
+export const removeRefreshToken = (key: string) => {
+  cookies.remove(key);
+};
+
+export const setUserSession = (accessToken: string, refreshToken: string) => {
+  setAccessToken('accessToken', accessToken);
+  setRefreshToken('refreshToken', refreshToken);
+};
+
+export const clearUserSession = () => {
+  removeAccessToken('accessToken');
+  removeAccessToken('kakaoAccessToken');
+  removeRefreshToken('refreshToken');
+};

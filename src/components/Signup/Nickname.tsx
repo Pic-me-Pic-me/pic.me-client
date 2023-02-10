@@ -7,7 +7,7 @@ import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { postKakaoSignUp } from '../../lib/api/auth';
 import { postSignupInfo } from '../../lib/api/signup';
 import { useGetUsernameCheck } from '../../lib/hooks/useGetUsernameCheck';
-import Token from '../../lib/token';
+import { getAccessToken, setUserSession } from '../../lib/token';
 import Error404 from '../../pages/Error404';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
 import LandingLibrary from '../Landing/maker/LandingLibrary';
@@ -81,7 +81,7 @@ const Nickname = () => {
   const handleSignup = async () => {
     let signUpData;
 
-    if (Token.getAccessToken('kakaoAccessToken')) {
+    if (getAccessToken('kakaoAccessToken')) {
       const uid: string = location.state;
       signUpData = await postKakaoSignUp(uid, nickname);
     } else {
@@ -89,7 +89,7 @@ const Nickname = () => {
       signUpData = await postSignupInfo({ email, password }, nickname);
     }
 
-    Token.setUserSession(signUpData.accessToken, signUpData.refreshToken);
+    setUserSession(signUpData.accessToken, signUpData.refreshToken);
     navigate('/home');
   };
 

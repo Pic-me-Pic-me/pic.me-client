@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import Token from './token';
+import { getAccessToken, getRefreshToken, setAccessToken } from './token';
 
-const TOKEN = Token.getAccessToken('accessToken');
+const TOKEN = getAccessToken('accessToken');
 
 const client = axios.create({
   baseURL: 'https://with-picme-api.com',
@@ -17,8 +17,8 @@ const client = axios.create({
 client.interceptors.request.use((config: any) => {
   const headers = {
     ...config.headers,
-    accessToken: Token.getAccessToken('accessToken'),
-    refreshToken: Token.getRefreshToken('refreshToken'),
+    accessToken: getAccessToken('accessToken'),
+    refreshToken: getRefreshToken('refreshToken'),
   };
 
   return { ...config, headers };
@@ -42,8 +42,8 @@ client.interceptors.response.use(
       const res = await client.post(
         `/auth/token`, // token refresh api
         {
-          accessToken: Token.getAccessToken('accessToken'),
-          refreshToken: Token.getRefreshToken('refreshToken'),
+          accessToken: getAccessToken('accessToken'),
+          refreshToken: getRefreshToken('refreshToken'),
         },
       );
       console.log(res);
@@ -54,7 +54,7 @@ client.interceptors.response.use(
 
       const newAccessToken = res.data.data.accessToken;
 
-      Token.setAccessToken('accessToken', newAccessToken);
+      setAccessToken('accessToken', newAccessToken);
       originalRequest.headers = {
         newAccessToken,
       };

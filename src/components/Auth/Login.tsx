@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 
 import { LoginBanner } from '../../asset/image';
 import { postLoginInfo } from '../../lib/api/auth';
-import Token from '../../lib/token';
+import { getAccessToken, setUserSession } from '../../lib/token';
 import { LoginInfo } from '../../types/auth';
 import KakaoLogin from './KakaoLogin';
 
@@ -19,10 +19,9 @@ const LoginComponent = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
       if (res?.data.status === 200) {
-        Token.setUserSession(res.data.data.accessToken, res.data.data.refreshToken);
-        if (Token.getAccessToken('accessToken')) {
+        setUserSession(res.data.data.accessToken, res.data.data.refreshToken);
+        if (getAccessToken('accessToken')) {
           navigate('/home');
-          window.location.reload();
         }
         setIsLoginFail(false);
       } else {
