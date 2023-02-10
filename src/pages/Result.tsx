@@ -3,8 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcResultLeft, IcResultRight } from '../asset/icon';
-import { Error, Loading, StickerAttachImg } from '../components/common';
+import { Error, Loading } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
 import ResultPicSlider from '../components/Result/ResultPicSlider';
 import ResultReason from '../components/Result/ResultReason';
@@ -30,6 +29,7 @@ const Result = () => {
       setStickerResultState(jsonGetResultStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
     }
   }, [voteResult, chosenPictureIdx]);
+
   if (isError) <Error />;
 
   if (voteResult)
@@ -48,7 +48,10 @@ const Result = () => {
               voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
 
             <section>
-              <ResultPicSlider setChosenPictureIdx={(idx: number) => setChosenPictureIdx(idx)} />
+              <ResultPicSlider
+                chosenPictureIdx={chosenPictureIdx}
+                setChosenPictureIdx={(idx: number) => setChosenPictureIdx(idx)}
+              />
               <ResultReason
                 totalVoteCount={voteResult.currentVote}
                 handleIsOpenResultReason={handleIsOpenResultReason}
