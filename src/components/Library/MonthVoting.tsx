@@ -17,7 +17,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
   const { date } = props;
   const formattedDate = date ? date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6) : ' ';
 
-  const { monthlyVoteInfoList, isLoading, isError, size, setSize } = useGetMonthlyLibraryInfo(date);
+  const { monthlyVoteInfoList, isLoading, isError, size, setSize, mutate } = useGetMonthlyLibraryInfo(date);
 
   const { ref, inView } = useInView({
     threshold: 0.5,
@@ -37,8 +37,9 @@ const MonthVoting = (props: voteAllInfoProps) => {
     }
   }, [inView]);
 
-  const handleDeleteVote = (id: string) => {
-    deleteVote(id);
+  const handleDeleteVote = async (id: string) => {
+    await deleteVote(id);
+    return mutate();
   };
 
   if (isLoading) {

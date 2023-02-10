@@ -12,7 +12,7 @@ const getKey = (prevLastDate: number, allVoteInfo: AxiosResponse<EndedVoteInfo>)
 };
 
 export const useGetAllVoteInfo = () => {
-  const { data, isLoading, error, size, setSize } = useSWRInfinite<AxiosResponse<EndedVoteInfo>>(
+  const { data, isLoading, error, size, setSize, mutate } = useSWRInfinite<AxiosResponse<EndedVoteInfo>>(
     getKey,
     picmeGetFetcher,
     {
