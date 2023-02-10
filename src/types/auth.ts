@@ -26,10 +26,6 @@ export interface UserTokenInfo {
   refreshToken: string;
 }
 
-export interface UserToken {
-  data: UserTokenInfo;
-}
-
 export interface LoginInfo {
   email: string;
   password: string;

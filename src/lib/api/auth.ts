@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { client } from '../axios';
-import { LoginInfo, UserInfo, UserToken } from './../../types/auth';
+import { LoginInfo, UserInfo, UserTokenInfo } from './../../types/auth';
 
 export const postLoginInfo = async ({ email, password }: LoginInfo) => {
   try {
@@ -21,7 +21,7 @@ export const postKakaoToken = async (token: string) => {
 };
 
 export const postKakaoSignIn = async (uid: string) => {
-  const { data } = await client.post<UserToken>('/auth/kakao/signin', {
+  const { data } = await client.post<AxiosResponse<UserTokenInfo>>('/auth/kakao/signin', {
     uid,
     socialType: 'kakao',
   });
@@ -29,7 +29,7 @@ export const postKakaoSignIn = async (uid: string) => {
 };
 
 export const postKakaoSignUp = async (uid: string, username: string) => {
-  const { data } = await client.post<UserToken>('/auth/kakao', {
+  const { data } = await client.post<AxiosResponse<UserTokenInfo>>('/auth/kakao', {
     uid,
     socialType: 'kakao',
     userName: username,
