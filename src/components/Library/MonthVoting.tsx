@@ -88,6 +88,8 @@ const StEndedVotingListWrapper = styled.section`
   width: 100%;
   margin-top: 1.7rem;
 
+  padding-left: 2rem;
+
   overflow-x: scroll;
 
   ::-webkit-scrollbar {

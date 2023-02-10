@@ -68,11 +68,15 @@ const StVotingWrapper = styled.section`
 
   position: relative;
 
-  :first-child {
+  /* :first-child {
     margin-left: 2rem;
   }
   :last-child {
     margin-left: 0;
+    margin-right: 2rem;
+  } */
+
+  :last-child {
     margin-right: 2rem;
   }
 `;
