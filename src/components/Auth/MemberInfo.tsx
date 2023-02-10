@@ -7,6 +7,7 @@ import { deleteUser, postKakaoToken } from '../../lib/api/auth';
 import useGetUserData from '../../lib/hooks/useGetUserData';
 import useModal from '../../lib/hooks/useModal';
 import { clearUserSession, getAccessToken } from '../../lib/token';
+import Error404 from '../../pages/Error404';
 import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
