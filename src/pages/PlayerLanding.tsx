@@ -10,8 +10,8 @@ import { playerStickerInfoState, votingInfoState } from '../recoil/player/atom';
 
 const PlayerLanding = () => {
   const { voteId } = useParams<{ voteId: string }>();
-
-  const { votingInfo, isLoading, isError } = useGetVotingInfo(Number(voteId));
+  console.log(voteId);
+  const { votingInfo, isLoading, isError } = useGetVotingInfo(voteId);
 
   const setVotingInfoState = useSetRecoilState(votingInfoState);
   const resetVotingInfoState = useResetRecoilState(votingInfoState);
