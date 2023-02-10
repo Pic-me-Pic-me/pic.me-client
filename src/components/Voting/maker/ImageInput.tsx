@@ -5,11 +5,12 @@ import styled, { css } from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
 import { client } from '../../../lib/axios';
+import { getAccessToken } from '../../../lib/token';
 import { votingImageState } from '../../../recoil/maker/atom';
 import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
 import { setImgCompress } from '../../../utils/setImgCompress';
 
-const ACCESS_TOKEN = localStorage.getItem('accessToken');
+const ACCESS_TOKEN = getAccessToken('accessToken');
 
 type ToggleProps = {
   firstToggle: boolean;

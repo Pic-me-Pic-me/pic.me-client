@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { IcClose, IcHamburger, IcHomeLogo } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
+import { clearUserSession } from '../../lib/token';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
@@ -15,7 +16,7 @@ const Nav = () => {
 
   const handleLogout = async () => {
     try {
-      localStorage.removeItem('accessToken');
+      clearUserSession();
       navigate('/');
     } catch (error) {
       console.error(error);
