@@ -17,16 +17,3 @@ export interface AddAccountInfo {
   email: string;
   password: string;
 }
-
-export interface KakaoSignupPostInfo {
-  uid: string;
-  socialType: string;
-  userName: string;
-  email: string;
-}
-
-export interface KakaoAddNicknameInfo {
-  uid: string;
-  socialType: string;
-  email: string;
-}

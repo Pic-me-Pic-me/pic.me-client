@@ -13,21 +13,10 @@ export interface RefreshType {
   };
 }
 
-export interface UserData {
-  status: number;
-  success: boolean;
-  message: string;
-  data: UserInfo;
-}
-
 export interface UserInfo {
   uid: string;
   email: string;
   isUser: boolean;
-}
-
-export interface UsersResponse {
-  data: UserInfo;
 }
 
 export interface UserTokenInfo {
@@ -39,12 +28,6 @@ export interface UserTokenInfo {
 
 export interface UserToken {
   data: UserTokenInfo;
-}
-
-declare global {
-  interface Window {
-    Kakao: any; // 👈️ turn off type checking
-  }
 }
 
 export interface LoginInfo {
