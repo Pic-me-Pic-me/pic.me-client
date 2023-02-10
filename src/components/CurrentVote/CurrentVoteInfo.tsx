@@ -12,8 +12,8 @@ const CurrentVoteInfo = () => {
   const currentIdx = useRecoilValue(pictureCurrentIdx);
 
   timeago.register('ko', ko);
-  const createdAt =
-    voteInfoData.createdDate.toString().slice(0, 10) + ' ' + voteInfoData.createdDate.toString().slice(11, 19);
+  const strCreateDate = voteInfoData.createdDate.toString();
+  const createdAt = strCreateDate.slice(0, 10) + ' ' + strCreateDate.slice(11, 19);
 
   return (
     <StCurrentVoteInfoWrapper>
