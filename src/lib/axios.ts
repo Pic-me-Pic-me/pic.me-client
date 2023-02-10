@@ -5,7 +5,7 @@ import { getAccessToken, getRefreshToken, setAccessToken } from './token';
 const TOKEN = getAccessToken('accessToken');
 
 const client = axios.create({
-  baseURL: 'https://with-picme-api.com',
+  baseURL: process.env.REACT_APP_IP,
 
   headers: {
     'Content-type': 'application/json',
