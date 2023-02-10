@@ -2,51 +2,48 @@ import { Cookies } from 'react-cookie';
 
 const cookies = new Cookies();
 
-class Token {
-  static setAccessToken(key: string, item: string) {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(key, item);
-    }
-  }
+const Token = () => {
+  const setAccessToken = (key: string, item: string) => {
+    localStorage.setItem(key, item);
+  };
 
-  static getAccessToken(key: string) {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(key) as string;
-    }
-    return '';
-  }
+  const getAccessToken = (key: string) => localStorage.getItem(key) as string;
 
-  static setRefreshToken(key: string, item: string) {
-    if (typeof window !== 'undefined') {
-      cookies.set(key, item, { httpOnly: true });
-    }
-  }
+  const removeAccessToken = (key: string) => {
+    localStorage.removeItem(key);
+  };
 
-  static getRefreshToken(key: string) {
-    if (typeof window !== 'undefined') {
-      return cookies.get(key) as string;
-    }
-    return '';
-  }
+  const setRefreshToken = (key: string, item: string) => {
+    cookies.set(key, item, { httpOnly: true });
+  };
 
-  static removeAccessToken(key: string) {
-    if (typeof window !== 'undefined') localStorage.removeItem(key);
-  }
+  const getRefreshToken = (key: string) => cookies.get(key) as string;
 
-  static removeRefreshToken(key: string) {
-    if (typeof window !== 'undefined') cookies.remove(key);
-  }
+  const removeRefreshToken = (key: string) => {
+    cookies.remove(key);
+  };
 
-  static setUserSession(accessToken: string, refreshToken: string) {
-    this.setAccessToken('accessToken', accessToken);
-    this.setRefreshToken('refreshToken', refreshToken);
-  }
+  const setUserSession = (accessToken: string, refreshToken: string) => {
+    setAccessToken('accessToken', accessToken);
+    setRefreshToken('refreshToken', refreshToken);
+  };
 
-  static clearUserSession() {
-    this.removeAccessToken('accessToken');
-    this.removeAccessToken('kakaoAccessToken');
-    this.removeRefreshToken('refreshToken');
-  }
-}
+  const clearUserSession = () => {
+    removeAccessToken('accessToken');
+    removeAccessToken('kakaoAccessToken');
+    removeRefreshToken('refreshToken');
+  };
+
+  return {
+    setAccessToken,
+    getAccessToken,
+    removeAccessToken,
+    setRefreshToken,
+    getRefreshToken,
+    removeRefreshToken,
+    setUserSession,
+    clearUserSession,
+  };
+};
 
 export default Token;
