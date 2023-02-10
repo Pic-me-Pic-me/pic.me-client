@@ -16,7 +16,7 @@ const VoteList = () => {
     threshold: 0.5,
   });
   const resetStickerInfoState = useResetRecoilState(stickerResultState);
-  const { voteListResult, isLoading, isError, size, setSize } = useGetCurrentVoteList();
+  const { voteListResult, isLoading, isError, isEnd, setSize } = useGetCurrentVoteList();
   const { userInfo } = useGetUserData();
 
   const getMoreItem = useCallback(async () => {
@@ -32,7 +32,7 @@ const VoteList = () => {
   }, []);
 
   useEffect(() => {
-    if (inView && voteListResult.result) {
+    if (inView && voteListResult.result && !isEnd) {
       getMoreItem();
     }
   }, [inView]);
