@@ -2,18 +2,12 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import {
-  IMAGE_MARGIN_RATIO,
-  MOVE_THREE_MARGIN,
-  MOVE_THREE_SLIDER,
-  PX_TO_REM,
-  SLIDER_FULL_WIDTH_RATIO,
-} from '../../constant/slider';
+import { PX_TO_REM, RESULT_IMAGE_MARGIN_RATIO, RESULT_SLIDER_FULL_WIDTH_RATIO } from '../../constant/slider';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import useGetVoteResult from '../../lib/hooks/useGetVoteResult';
 import Error404 from '../../pages/Error404';
 import { MakerPictureData } from '../../types/vote';
-import { picmeSliderEvent } from '../../utils/picmeSliderEvent';
+import { modifySliderRange, picmeSliderEvent } from '../../utils/picmeSliderEvent';
 import { StickerAttachImg } from '../common';
 
 interface ResultPicSliderProps {
@@ -30,8 +24,6 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
-  console.log(width);
-
   if (isError) {
     return <Error404 />;
   }
@@ -43,30 +35,35 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
           currentIdx={currentIdx}
           dragItemWidth={width}
           transX={transX}
+          width={window.screen.width}
           {...picmeSliderEvent({
             onDragChange: (deltaX, deltaY) => {
               setTransX(deltaX);
             },
             onDragEnd: (deltaX, deltaY) => {
-              if (deltaX < -183) {
-                setCurrentIdx(0);
-                setChosenPictureIdx(0);
-                return true;
-              }
-              if (deltaX > 183) {
-                setCurrentIdx(1);
-                setChosenPictureIdx(1);
-                return true;
-              }
+              const maxIndex = 1;
+              Array(2)
+                .fill(0)
+                .map((_, i) => 2 - i)
+                .some((num) => {
+                  if (deltaX < -183 * num) {
+                    setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
+                    return true;
+                  }
+                  if (deltaX > 183 * num) {
+                    setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
+                    return true;
+                  }
+                });
               setTransX(0);
             },
           })}>
           {pictureInfoList.map(({ url }, idx) => (
             <li key={idx}>
               {idx === currentIdx ? (
-                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={95.8} imgHight={52} />
+                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={49} />
               ) : (
-                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={52} />
+                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={49} />
               )}
             </li>
           ))}
@@ -85,19 +82,19 @@ const StSliderPictureWrapper = styled.section`
   position: relative;
 `;
 
-const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
+const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
 
-  width: 81.2rem;
+  width: ${({ width }) => (width * RESULT_SLIDER_FULL_WIDTH_RATIO) / PX_TO_REM}rem;
 
   overflow: hidden;
 
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
-      transform: translateX(${((-currentIdx * dragItemWidth) / 2 + transX) / 10}rem);
+      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10}rem);
     `};
 
   ${({ transX }) =>
@@ -106,7 +103,7 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
     `};
 
   > li {
-    width: 36.6rem;
+    width: 100%;
     display: flex;
     justify-content: center;
   }
