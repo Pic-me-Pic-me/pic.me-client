@@ -42,7 +42,7 @@ const AddAccount = () => {
       case 'password':
         if (!PASSWORD_REGEX.test(inputValue)) {
           setIsValid({ ...isValid, isPasswordValid: false });
-          setWarningMsg({ ...warningMsg, pwdWarningMsg: '영어/숫자를 포함하여 10-16자로 입력해주세요!' });
+          setWarningMsg({ ...warningMsg, pwdWarningMsg: '영어,숫자,특수문자를 포함해 8-16자를 입력해주세요!' });
         } else {
           setIsValid({ ...isValid, isPasswordValid: true });
           setWarningMsg({ ...warningMsg, pwdWarningMsg: '' });
