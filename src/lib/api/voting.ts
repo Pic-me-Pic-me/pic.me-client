@@ -1,7 +1,5 @@
-import { AxiosResponse } from 'axios';
-
 import { client } from '../axios';
-import { PlayerStickerInfo, VoteResultData } from './../../types/vote';
+import { PlayerStickerInfo } from './../../types/vote';
 
 export const patchCurrentVoteData = async (voteid: string | undefined) => {
   const res = await client.patch(`/vote/close/${voteid}`);

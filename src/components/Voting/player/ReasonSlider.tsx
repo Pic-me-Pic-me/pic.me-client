@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 
 import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu, IcSelectRound } from '../../../asset/icon';
 import { Angle, Face, Just, Mood } from '../../../asset/lottie';
+import { REASON_MENU_ITEM_MAX_INDEX, REASON_MENU_ITEM_WIDTH } from '../../../constant/slider';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
@@ -36,33 +37,27 @@ const ReasonSlider = () => {
       <StDragWReasonWrapper ref={ref}>
         <StDragWReasonUl
           currentIdx={currentIdx}
-          dragItemWidth={170}
+          dragItemWidth={REASON_MENU_ITEM_WIDTH}
           transX={transX}
           {...picmeSliderEvent({
             onDragChange: (deltaX) => {
               setTransX(modifySliderRange(deltaX, -width, width));
             },
             onDragEnd: (deltaX) => {
-              const maxIndex = menuIconList.length - 1;
-              Array(3)
-                .fill(0)
-                .map((v, i) => 3 - i)
-                .some((num) => {
-                  if (deltaX < -156 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
-                    return true;
-                  }
-                  if (deltaX > 156 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
-                    return true;
-                  }
-                });
+              [2, 1].forEach((itemHalfCount) => {
+                if (deltaX < (-REASON_MENU_ITEM_WIDTH / 2) * itemHalfCount) {
+                  setCurrentIdx(modifySliderRange(currentIdx + 1, 0, REASON_MENU_ITEM_MAX_INDEX));
+                }
+                if (deltaX > (REASON_MENU_ITEM_WIDTH / 2) * itemHalfCount) {
+                  setCurrentIdx(modifySliderRange(currentIdx - 1, 0, REASON_MENU_ITEM_MAX_INDEX));
+                }
+              });
 
               setTransX(0);
             },
           })}>
           {menuIconList.map((menu, idx) =>
-            idx === 0 ? (
+            !idx ? (
               <li key={idx} className="unselect_item">
                 {menu}
               </li>
