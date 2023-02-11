@@ -1,58 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { Cookies } from 'react-cookie';
-import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { postSignupInfo } from '../../lib/api/signup';
-import { useGetUsernameCheck } from '../../lib/hooks/useGetUsernameCheck';
-import Error404 from '../../pages/Error404';
+import { getUsernameCheck, postSignupInfo } from '../../lib/api/signup';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
 import Terms from './Terms';
+
+const NICKNAME_MAX_LENGTH = 8;
 
 const Nickname = () => {
   const location = useLocation();
   const { email, password }: AddAccountInfo = location.state.signupDataInfo;
-
-  const cookies = new Cookies();
-
-  const navigate = useNavigate();
-
-  const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
-  const [isDuplicate, setIsDuplicate] = useState<boolean>();
-  const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
-  const [nickname, setNickname] = useState<string>('');
-  const [errorMsg, setErrorMsg] = useState<string>();
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    getValues,
-    watch,
-  } = useForm<NicknameInfo>({ mode: 'onBlur' });
+  const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
-    const currentNickname = watch('username');
-    currentNickname.length > 0 ? setIsNicknameExists(true) : setIsNicknameExists(false);
-  }, [watch('username')]);
+    console.log('바뀜');
+  }, [inputRef.current?.value]);
 
-  const { username } = getValues();
-  const { isNicknamePossible, isError } = useGetUsernameCheck(username);
+  const cookies = new Cookies();
+  const navigate = useNavigate();
 
-  const handleCheckNickname = () => {
-    if (isNicknamePossible) {
-      if (isNicknamePossible?.success) {
-        setIsDuplicate(false);
-        setErrorMsg('사용 가능한 닉네임입니다.');
-        setNickname(username);
-      } else {
-        setErrorMsg('이미 사용 중인 닉네임입니다.');
-        setIsDuplicate(true);
-      }
+  const [nickname, setNickname] = useState<string>('');
+  const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
+  const [isDuplicate, setIsDuplicate] = useState<boolean>();
+  const [errorMsg, setErrorMsg] = useState<string>();
+
+  const handleCheckNickname = async (currentNickname: string) => {
+    const response = await getUsernameCheck(currentNickname);
+
+    if (response.success) {
+      setIsDuplicate((prev) => !prev);
+      setErrorMsg('사용 가능한 닉네임입니다.');
+      setNickname(currentNickname);
+    } else {
+      setIsDuplicate((prev) => !prev);
+      setErrorMsg('이미 사용 중인 닉네임입니다.');
     }
   };
 
   const handleSignup = () => {
+    console.log(nickname);
     postSignupInfo({ email, password }, nickname).then((res) => {
       if (res?.success) {
         cookies.set('refreshToken', res.data.refreshToken);
@@ -62,46 +50,48 @@ const Nickname = () => {
     });
   };
 
-  const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNicknameCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInputValue = e.target.value;
-    console.log(currentInputValue);
     if (currentInputValue.includes(' ')) {
       e.target.value = currentInputValue.replace(' ', '');
     }
+    if (currentInputValue.length > NICKNAME_MAX_LENGTH) {
+      e.target.value = currentInputValue.slice(0, NICKNAME_MAX_LENGTH);
+    }
   };
-
-  if (isError) {
-    return <Error404 />;
-  }
 
   return (
     <>
       <StWrapper>
-        <StForm onSubmit={handleSubmit(handleSignup)}>
+        <StForm>
           <StTitle>닉네임을 입력해주세요!</StTitle>
           <StNicknameWrapper>
             <StInputWrapper>
               <StInput
                 type="text"
-                {...register('username', {
-                  required: true,
-                })}
+                minLength={1}
                 maxLength={8}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"
-                onChange={(e) => handleSpace(e)}></StInput>
+                ref={inputRef}
+                onChange={(e) => handleNicknameCondition(e)}></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn
               type="button"
-              onClick={handleCheckNickname}
-              disabled={isNicknameExists ? false : true}>
+              onClick={() => {
+                console.log(inputRef);
+                handleCheckNickname(inputRef.current.value);
+              }}
+              disabled={false}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
           <StInputDesc isDuplicate>{errorMsg}</StInputDesc>
 
-          <Terms isChecked={isChecked} setIsChecked={() => setIsChecked(isChecked)} />
+          <Terms isChecked={isChecked} setIsChecked={(isChecked) => setIsChecked(isChecked)} />
 
-          <StSubmitBtn disabled={isDuplicate || errors.username || isChecked !== Array(3).fill(true) ? true : false}>
+          <StSubmitBtn
+            disabled={isDuplicate || isChecked !== Array(3).fill(true) ? true : false}
+            onClick={handleSignup}>
             계정 만들기
           </StSubmitBtn>
         </StForm>

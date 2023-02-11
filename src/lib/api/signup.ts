@@ -1,7 +1,7 @@
 import { AddAccountInfo } from '../../types/signup';
 import { client } from '../axios';
 
-export const checkDuplicateNickname = async (username: string) => {
+export const getUsernameCheck = async (username: string) => {
   try {
     const res = await client.get(`/user/name?userName=${username}`);
     return res.data;
