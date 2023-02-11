@@ -5,7 +5,7 @@ export interface SignUpInfo {
 }
 
 export interface NicknameInfo {
-  username: string;
+  nickname: string;
 }
 
 export interface SignUpPostInfo {
