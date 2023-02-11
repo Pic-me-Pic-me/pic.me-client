@@ -44,14 +44,12 @@ const ReasonSlider = () => {
               setTransX(modifySliderRange(deltaX, -width, width));
             },
             onDragEnd: (deltaX) => {
-              [2, 1].forEach((itemHalfCount) => {
-                if (deltaX < (-REASON_MENU_ITEM_WIDTH / 2) * itemHalfCount) {
-                  setCurrentIdx(modifySliderRange(currentIdx + 1, 0, REASON_MENU_ITEM_MAX_INDEX));
-                }
-                if (deltaX > (REASON_MENU_ITEM_WIDTH / 2) * itemHalfCount) {
-                  setCurrentIdx(modifySliderRange(currentIdx - 1, 0, REASON_MENU_ITEM_MAX_INDEX));
-                }
-              });
+              if (deltaX < -REASON_MENU_ITEM_WIDTH / 2) {
+                setCurrentIdx(modifySliderRange(currentIdx + 1, 0, REASON_MENU_ITEM_MAX_INDEX));
+              }
+              if (deltaX > REASON_MENU_ITEM_WIDTH / 2) {
+                setCurrentIdx(modifySliderRange(currentIdx - 1, 0, REASON_MENU_ITEM_MAX_INDEX));
+              }
 
               setTransX(0);
             },
