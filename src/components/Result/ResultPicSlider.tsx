@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { PX_TO_REM, RESULT_SLIDER_FULL_WIDTH_RATIO } from '../../constant/slider';
+import { PX_TO_REM, RESULT_IMAGE_HALF_WIDTH, RESULT_SLIDER_FULL_WIDTH_RATIO } from '../../constant/slider';
 import { useCarouselSize } from '../../lib/hooks/useCarouselSize';
 import useGetVoteResult from '../../lib/hooks/useGetVoteResult';
 import Error404 from '../../pages/Error404';
@@ -43,11 +43,11 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
             onDragEnd: (deltaX, deltaY) => {
               const maxIndex = 1;
               [2, 1].some((num) => {
-                if (deltaX < -183 * num) {
+                if (deltaX < -RESULT_IMAGE_HALF_WIDTH) {
                   setChosenPictureIdx(modifySliderRange(chosenPictureIdx + num, 0, maxIndex));
                   return true;
                 }
-                if (deltaX > 183 * num) {
+                if (deltaX > RESULT_IMAGE_HALF_WIDTH) {
                   setChosenPictureIdx(modifySliderRange(chosenPictureIdx - num, 0, maxIndex));
                   return true;
                 }
@@ -57,11 +57,7 @@ export default function ResultPicSlider(props: ResultPicSliderProps) {
           })}>
           {pictureInfoList.map(({ url }, idx) => (
             <li key={idx}>
-              {idx === chosenPictureIdx ? (
-                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={49} />
-              ) : (
-                <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={49} />
-              )}
+              <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={85} imgHight={49} />
             </li>
           ))}
         </StSliderPictureUl>

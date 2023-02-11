@@ -45,7 +45,8 @@ const Result = () => {
             <SliderTitle
               isChosenPic={!chosenPictureIdx}
               voteTitle={voteResult.voteTitle}
-              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
+              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}
+            />
 
             <section>
               <ResultPicSlider
