@@ -5,147 +5,93 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
+import { IMPOSSIBLE_NICKNAME_MSG, POSSIBLE_NICKNAME_MSG } from '../../constant/signup';
 import { postKakaoSignUp } from '../../lib/api/auth';
-import { checkDuplicateNickname, postSignupInfo } from '../../lib/api/signup';
+import { getUsernameCheck } from '../../lib/api/signup';
 import { AddAccountInfo, KakaoAddNicknameInfo, NicknameInfo } from '../../types/signup';
+import Terms from './Terms';
+
+const NICKNAME_MAX_LENGTH = 8;
 
 const KakaoNickname = () => {
   const location = useLocation();
+
   const cookies = new Cookies();
-
   const navigate = useNavigate();
+
+  const [nickname, setNickname] = useState<NicknameInfo>({
+    typedNickname: '',
+    state: 'default',
+    finalNickname: null,
+    errorMsg: null,
+  });
+
   const { uid, socialType, email }: KakaoAddNicknameInfo = location.state;
-  const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
-  const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
-  const [isDuplicate, setIsDuplicate] = useState<boolean>();
-  const [nickname, setNickname] = useState<string>('');
-  const [errorMsg, setErrorMsg] = useState<string>();
-  const termAddress = [
-    'https://trusted-fir-e0c.notion.site/8040a51be7c74c7babf71d4ae344e162',
-    'https://trusted-fir-e0c.notion.site/9df42e8f5c7246adb74027814a5c0cc9',
-  ];
+  const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    getValues,
-    watch,
-  } = useForm<NicknameInfo>({ mode: 'onChange' });
+  const handleCheckNickname = async () => {
+    const response = await getUsernameCheck(nickname.typedNickname);
 
-  useEffect(() => {
-    const currentNickname = watch('username');
-    currentNickname.length > 0 ? setIsNicknameExists(true) : setIsNicknameExists(false);
-  }, [watch('username')]);
-
-  const { username } = getValues();
-  const handleCheckNickname = () => {
-    checkDuplicateNickname(username).then((result) => {
-      if (result?.success) {
-        setIsDuplicate(false);
-        setErrorMsg('사용 가능한 닉네임입니다.');
-        setNickname(username);
-      } else {
-        setErrorMsg('이미 사용 중인 닉네임입니다.');
-        setIsDuplicate(true);
-      }
-    });
-  };
-
-  const handleCheck = (e: React.MouseEvent<HTMLElement>, idx?: number) => {
-    const target = e.target as HTMLInputElement;
-    if (target.name === 'all') {
-      isChecked[0] ? setIsChecked([false, false, false]) : setIsChecked([true, true, true]);
+    if (response.success) {
+      setNickname({
+        ...nickname,
+        state: 'pass',
+        finalNickname: nickname.typedNickname,
+        errorMsg: POSSIBLE_NICKNAME_MSG,
+      });
     } else {
-      if (idx) {
-        isChecked[idx] = !isChecked[idx];
-        isChecked[0] = isChecked[1] && isChecked[2] ? true : false;
-
-        setIsChecked([...isChecked]);
-      }
+      setNickname({ ...nickname, state: 'error', finalNickname: null, errorMsg: IMPOSSIBLE_NICKNAME_MSG });
     }
   };
 
   const handleSignup = async () => {
-    const signUpData = await postKakaoSignUp(uid, socialType, username, email);
-    localStorage.setItem('accessToken', signUpData.accessToken);
-    cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
-    navigate('/login');
-    window.location.reload();
+    if (nickname.state === 'pass') {
+      const signUpData = await postKakaoSignUp(uid, socialType, nickname.finalNickname, email);
+      localStorage.setItem('accessToken', signUpData.accessToken);
+      cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
+      navigate('/login');
+      window.location.reload();
+    }
+  };
+
+  const handleNicknameCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentInputValue = e.target.value;
+    if (currentInputValue.includes(' ')) {
+      e.target.value = currentInputValue.replace(' ', '');
+    }
+    if (currentInputValue.length > NICKNAME_MAX_LENGTH) {
+      e.target.value = currentInputValue.slice(0, NICKNAME_MAX_LENGTH);
+    }
+    setNickname({ ...nickname, typedNickname: e.target.value });
   };
 
   return (
     <>
       <StWrapper>
-        <StForm onSubmit={handleSubmit(handleSignup)}>
+        <StForm>
           <StTitle>닉네임을 입력해주세요!</StTitle>
           <StNicknameWrapper>
             <StInputWrapper>
               <StInput
                 type="text"
-                {...register('username', {
-                  required: true,
-                })}
+                minLength={1}
                 maxLength={8}
-                placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
+                placeholder="닉네임을 입력해주세요 (최대 8자)"
+                onChange={(e) => {
+                  handleNicknameCondition(e);
+                }}></StInput>
             </StInputWrapper>
-            <StCheckDuplicationBtn
-              type="button"
-              onClick={handleCheckNickname}
-              disabled={isNicknameExists ? false : true}>
+            <StCheckDuplicationBtn type="button" onClick={handleCheckNickname} disabled={false}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc isDuplicate>{errorMsg}</StInputDesc>
+          <StInputDesc isDuplicate>{nickname.errorMsg}</StInputDesc>
 
-          <StTermWrapper>
-            <StAllCheckWrapper>
-              <StCheckboxBtn type="button" name="all" onClick={handleCheck}>
-                {isChecked[0] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
-              </StCheckboxBtn>
-
-              <StTermContent>
-                <p>전체 동의</p>
-              </StTermContent>
-            </StAllCheckWrapper>
-            <StDetailTermWrapper>
-              <StDetailTerm>
-                <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, 1)}>
-                  {isChecked[1] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
-                </StCheckboxBtn>
-                <StTermContent>
-                  <span>(필수) </span>
-                  <span> 만 14세 이상이에요 </span>
-                </StTermContent>
-              </StDetailTerm>
-
-              <StDetailTerm>
-                <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, 2)}>
-                  {isChecked[2] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
-                </StCheckboxBtn>
-                <StTermContent>
-                  <span>(필수) </span>
-                  <span>
-                    <p onClick={() => window.open(termAddress[0], '_blank')}>
-                      <u>이용약관</u>
-                    </p>
-                    및
-                    <p onClick={() => window.open(termAddress[1], '_blank')}>
-                      <u>개인정보수집이용</u>
-                    </p>
-                    동의
-                  </span>
-                </StTermContent>
-              </StDetailTerm>
-            </StDetailTermWrapper>
-          </StTermWrapper>
+          <Terms isChecked={isChecked} setIsChecked={(isChecked) => setIsChecked(isChecked)} />
 
           <StSubmitBtn
-            disabled={
-              isDuplicate || errors.username || JSON.stringify(isChecked) !== JSON.stringify([true, true, true])
-                ? true
-                : false
-            }>
+            disabled={nickname.state !== 'pass' || isChecked !== Array(3).fill(true) ? true : false}
+            onClick={handleSignup}>
             계정 만들기
           </StSubmitBtn>
         </StForm>
