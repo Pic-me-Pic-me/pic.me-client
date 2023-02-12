@@ -28,5 +28,6 @@ export const useGetAllVoteInfo = () => {
     isError: error,
     size,
     setSize,
+    mutate,
   };
 };
