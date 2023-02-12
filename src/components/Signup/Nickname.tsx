@@ -54,9 +54,13 @@ const Nickname = () => {
   };
 
   const handleNicknameCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentInput = e.target;
     const currentInputValue = e.target.value;
+
     if (currentInputValue.includes(' ')) {
+      const position = currentInput.selectionStart && currentInput.selectionStart - 1;
       e.target.value = currentInputValue.replace(' ', '');
+      currentInput.setSelectionRange(position, position);
     }
     if (currentInputValue.length > NICKNAME_MAX_LENGTH) {
       e.target.value = currentInputValue.slice(0, NICKNAME_MAX_LENGTH);
