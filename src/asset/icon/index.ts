@@ -19,6 +19,7 @@ export { ReactComponent as IcCancel } from './ic_cancel.svg';
 export { ReactComponent as IcCheckedRound } from './ic_checked_round.svg';
 export { ReactComponent as IcClose } from './ic_close.svg';
 export { ReactComponent as IcCropImg } from './ic_cropImg.svg';
+export { ReactComponent as IcEmptyLibrary } from './ic_emptyLibrary.svg';
 export { ReactComponent as IcErrorLogo } from './ic_error.svg';
 export { ReactComponent as IcFace } from './ic_face.svg';
 export { ReactComponent as IcHand } from './ic_hand.svg';
