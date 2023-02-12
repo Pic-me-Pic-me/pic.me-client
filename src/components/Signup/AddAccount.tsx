@@ -2,72 +2,84 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+import {
+  EMAIL_ERROR_MSG,
+  EMAIL_REGEX,
+  PASSWORD_CONFIRM_ERROR_MSG,
+  PASSWORD_ERROR_MSG,
+  PASSWORD_REGEX,
+} from '../../constant/signup';
+import { SignUpInfo } from '../../types/signup';
+
 const AddAccount = () => {
   const navigate = useNavigate();
-
-  const EMAIL_REGEX = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-    passwordConfirm: '',
-  });
-
-  const [warningMsg, setWarningMsg] = useState({
-    emailWarningMsg: '',
-    pwdWarningMsg: '',
-    pwdConfirmWarningMsg: '',
-  });
-
-  const [isValid, setIsValid] = useState({
-    isEmailValid: false,
-    isPasswordValid: false,
-    isPasswordConfirmValid: false,
+  const [signupInfo, setSignupInfo] = useState<SignUpInfo>({
+    emailInfo: {
+      email: null,
+      isValid: false,
+      errorMsg: null,
+    },
+    passwordInfo: {
+      password: null,
+      isValid: false,
+      errorMsg: null,
+    },
+    passwordConfirmInfo: {
+      isValid: false,
+      errorMsg: null,
+    },
   });
 
   const handleValidation = (inputValueType: string, inputValue: string) => {
     switch (inputValueType) {
       case 'email':
-        if (!EMAIL_REGEX.test(inputValue)) {
-          setIsValid({ ...isValid, isEmailValid: false });
-          setWarningMsg({ ...warningMsg, emailWarningMsg: '올바른 이메일 형식이 아닙니다!' });
-        } else {
-          setIsValid({ ...isValid, isEmailValid: true });
-          setWarningMsg({ ...warningMsg, emailWarningMsg: '' });
-        }
-        setForm((prev) => ({ ...prev, email: inputValue }));
+        !EMAIL_REGEX.test(inputValue)
+          ? setSignupInfo({
+              ...signupInfo,
+              emailInfo: { email: null, isValid: false, errorMsg: EMAIL_ERROR_MSG },
+            })
+          : setSignupInfo({
+              ...signupInfo,
+              emailInfo: { email: inputValue, isValid: true, errorMsg: null },
+            });
         break;
 
       case 'password':
-        if (!PASSWORD_REGEX.test(inputValue)) {
-          setIsValid({ ...isValid, isPasswordValid: false });
-          setWarningMsg({ ...warningMsg, pwdWarningMsg: '영어,숫자,특수문자를 포함해 8-16자를 입력해주세요!' });
-        } else {
-          setIsValid({ ...isValid, isPasswordValid: true });
-          setWarningMsg({ ...warningMsg, pwdWarningMsg: '' });
-        }
-        setForm((prev) => ({ ...prev, password: inputValue }));
+        !PASSWORD_REGEX.test(inputValue)
+          ? setSignupInfo({
+              ...signupInfo,
+              passwordInfo: { password: null, isValid: false, errorMsg: PASSWORD_ERROR_MSG },
+            })
+          : setSignupInfo({
+              ...signupInfo,
+              passwordInfo: { password: inputValue, isValid: true, errorMsg: null },
+            });
         break;
 
       case 'passwordConfirm':
-        if (inputValue !== form.password) {
-          setIsValid({ ...isValid, isPasswordConfirmValid: false });
-          setWarningMsg({ ...warningMsg, pwdConfirmWarningMsg: '비밀번호가 틀립니다!' });
-        } else {
-          setIsValid({ ...isValid, isPasswordConfirmValid: true });
-          setWarningMsg({ ...warningMsg, pwdConfirmWarningMsg: '' });
-        }
-        setForm((prev) => ({ ...prev, passwordConfirm: inputValue }));
+        inputValue !== signupInfo.passwordInfo.password
+          ? setSignupInfo({
+              ...signupInfo,
+              passwordConfirmInfo: { isValid: false, errorMsg: PASSWORD_CONFIRM_ERROR_MSG },
+            })
+          : setSignupInfo({
+              ...signupInfo,
+              passwordConfirmInfo: { isValid: true, errorMsg: null },
+            });
         break;
     }
   };
 
-  const handleSubmitAccount = () => {
-    const finalEmail = form.email;
-    const finalPassword = form.password;
+  const handleSubmitAccount = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const finalEmail = signupInfo.emailInfo.email;
+    const finalPassword = signupInfo.passwordInfo.password;
     const signupDataInfo = { finalEmail, finalPassword };
-    navigate(`/signup/nickname`, { state: { signupDataInfo } });
+    console.log(signupDataInfo);
+    if (signupDataInfo) {
+      navigate(`/signup/nickname`, { state: { signupDataInfo } });
+    }
   };
 
   const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +93,7 @@ const AddAccount = () => {
   return (
     <StWhiteSection>
       <StWrapper>
-        <StForm onSubmit={handleSubmitAccount}>
+        <StForm onSubmit={(e) => handleSubmitAccount(e)}>
           <StTitle>아이디</StTitle>
           <StInput
             type="text"
@@ -94,33 +106,40 @@ const AddAccount = () => {
               handleSpace(e);
             }}
           />
-          <StInputDesc>{warningMsg.emailWarningMsg}</StInputDesc>
+          <StInputDesc>{signupInfo.emailInfo.errorMsg}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
           <StInput
             type="password"
-            required
             placeholder="비밀번호를 입력해주세요"
+            minLength={8}
+            maxLength={16}
             onChange={(e) => {
               handleSpace(e);
               handleValidation('password', e.target.value);
             }}
           />
-          <StInputDesc>{warningMsg.pwdWarningMsg}</StInputDesc>
+          <StInputDesc>{signupInfo.passwordInfo.errorMsg}</StInputDesc>
 
           <StTitle>비밀번호 재확인</StTitle>
           <StInput
             type="password"
             placeholder="확인을 위해 비밀번호를 입력해주세요"
-            required
+            minLength={8}
+            maxLength={16}
             onChange={(e) => {
               handleSpace(e);
               handleValidation('passwordConfirm', e.target.value);
             }}
           />
-          <StInputDesc>{warningMsg.pwdConfirmWarningMsg}</StInputDesc>
+          <StInputDesc>{signupInfo.passwordConfirmInfo.errorMsg}</StInputDesc>
 
-          <StSubmitBtn disabled={JSON.stringify(Object.values(isValid)) !== '[true,true,true]'}>
+          <StSubmitBtn
+            disabled={
+              !signupInfo.emailInfo.isValid ||
+              !signupInfo.passwordInfo.isValid ||
+              !signupInfo.passwordConfirmInfo.isValid
+            }>
             다음 단계로 이동
           </StSubmitBtn>
         </StForm>
