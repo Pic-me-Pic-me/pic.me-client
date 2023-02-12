@@ -1,53 +1,54 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Cookies } from 'react-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+import { IMPOSSIBLE_NICKNAME_MSG, NICKNAME_MAX_LENGTH, POSSIBLE_NICKNAME_MSG } from '../../constant/signup';
 import { getUsernameCheck, postSignupInfo } from '../../lib/api/signup';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
 import Terms from './Terms';
 
-const NICKNAME_MAX_LENGTH = 8;
-
 const Nickname = () => {
   const location = useLocation();
-  const { email, password }: AddAccountInfo = location.state.signupDataInfo;
-  const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
-
-  useEffect(() => {
-    console.log('바뀜');
-  }, [inputRef.current?.value]);
+  const { email, password }: AddAccountInfo = location.state;
 
   const cookies = new Cookies();
+
   const navigate = useNavigate();
 
-  const [nickname, setNickname] = useState<string>('');
-  const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
-  const [isDuplicate, setIsDuplicate] = useState<boolean>();
-  const [errorMsg, setErrorMsg] = useState<string>();
+  const [nickname, setNickname] = useState<NicknameInfo>({
+    typedNickname: '',
+    state: 'default',
+    finalNickname: null,
+    errorMsg: null,
+  });
 
-  const handleCheckNickname = async (currentNickname: string) => {
-    const response = await getUsernameCheck(currentNickname);
+  const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
+
+  const handleCheckNickname = async () => {
+    const response = await getUsernameCheck(nickname.typedNickname);
 
     if (response.success) {
-      setIsDuplicate((prev) => !prev);
-      setErrorMsg('사용 가능한 닉네임입니다.');
-      setNickname(currentNickname);
+      setNickname({
+        ...nickname,
+        state: 'pass',
+        finalNickname: nickname.typedNickname,
+        errorMsg: POSSIBLE_NICKNAME_MSG,
+      });
     } else {
-      setIsDuplicate((prev) => !prev);
-      setErrorMsg('이미 사용 중인 닉네임입니다.');
+      setNickname({ ...nickname, state: 'error', finalNickname: null, errorMsg: IMPOSSIBLE_NICKNAME_MSG });
     }
   };
 
   const handleSignup = () => {
-    console.log(nickname);
-    postSignupInfo({ email, password }, nickname).then((res) => {
-      if (res?.success) {
-        cookies.set('refreshToken', res.data.refreshToken);
-        localStorage.setItem('accessToken', res.data.accessToken);
-        navigate('/home');
-      }
-    });
+    if (nickname.state === 'pass')
+      postSignupInfo({ email, password }, nickname.finalNickname).then((res) => {
+        if (res?.success) {
+          cookies.set('refreshToken', res.data.refreshToken);
+          localStorage.setItem('accessToken', res.data.accessToken);
+          navigate('/home');
+        }
+      });
   };
 
   const handleNicknameCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +59,7 @@ const Nickname = () => {
     if (currentInputValue.length > NICKNAME_MAX_LENGTH) {
       e.target.value = currentInputValue.slice(0, NICKNAME_MAX_LENGTH);
     }
+    setNickname({ ...nickname, typedNickname: e.target.value });
   };
 
   return (
@@ -72,25 +74,23 @@ const Nickname = () => {
                 minLength={1}
                 maxLength={8}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"
-                ref={inputRef}
-                onChange={(e) => handleNicknameCondition(e)}></StInput>
+                onChange={(e) => {
+                  handleNicknameCondition(e);
+                }}></StInput>
             </StInputWrapper>
             <StCheckDuplicationBtn
               type="button"
-              onClick={() => {
-                console.log(inputRef);
-                handleCheckNickname(inputRef.current.value);
-              }}
-              disabled={false}>
+              onClick={handleCheckNickname}
+              disabled={nickname.typedNickname.length === 0}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc isDuplicate>{errorMsg}</StInputDesc>
+          <StInputDesc isDuplicate>{nickname.errorMsg}</StInputDesc>
 
           <Terms isChecked={isChecked} setIsChecked={(isChecked) => setIsChecked(isChecked)} />
 
           <StSubmitBtn
-            disabled={isDuplicate || isChecked !== Array(3).fill(true) ? true : false}
+            disabled={nickname.state !== 'pass' || JSON.stringify(isChecked) !== JSON.stringify(Array(3).fill(true))}
             onClick={handleSignup}>
             계정 만들기
           </StSubmitBtn>
