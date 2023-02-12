@@ -75,16 +75,12 @@ const AddAccount = () => {
 
     const finalEmail = signupInfo.emailInfo.email;
     const finalPassword = signupInfo.passwordInfo.password;
-    const signupDataInfo = { finalEmail, finalPassword };
-    console.log(signupDataInfo);
-    if (signupDataInfo) {
-      navigate(`/signup/nickname`, { state: { signupDataInfo } });
-    }
+    const signupDataInfo = { email: finalEmail, password: finalPassword };
+    navigate(`/signup/nickname`, { state: { signupDataInfo } });
   };
 
   const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInputValue = e.target.value;
-    console.log(currentInputValue);
     if (currentInputValue.includes(' ')) {
       e.target.value = currentInputValue.replace(' ', '');
     }

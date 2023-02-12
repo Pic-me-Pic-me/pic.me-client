@@ -10,7 +10,7 @@ import Terms from './Terms';
 
 const Nickname = () => {
   const location = useLocation();
-  const { email, password }: AddAccountInfo = location.state;
+  const { email, password }: AddAccountInfo = location.state.signupDataInfo;
 
   const cookies = new Cookies();
 
@@ -40,7 +40,9 @@ const Nickname = () => {
     }
   };
 
-  const handleSignup = () => {
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (nickname.state === 'pass')
       postSignupInfo({ email, password }, nickname.finalNickname).then((res) => {
         if (res?.success) {
@@ -91,7 +93,7 @@ const Nickname = () => {
 
           <StSubmitBtn
             disabled={nickname.state !== 'pass' || JSON.stringify(isChecked) !== JSON.stringify(Array(3).fill(true))}
-            onClick={handleSignup}>
+            onClick={(e) => handleSignup(e)}>
             계정 만들기
           </StSubmitBtn>
         </StForm>
