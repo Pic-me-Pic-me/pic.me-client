@@ -11,6 +11,7 @@ import SliderTitle from '../components/Result/SliderTitle';
 import useGetVoteResult from '../lib/hooks/useGetVoteResult';
 import { stickerResultState } from '../recoil/maker/atom';
 import { jsonGetResultStickerList } from '../utils/jsonGetStickerList';
+import Error404 from './Error404';
 
 const Result = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Result = () => {
   const setStickerResultState = useSetRecoilState(stickerResultState);
 
   const handleIsOpenResultReason = () => {
-    setIsOpenResultReason(!isOpenResultReason);
+    setIsOpenResultReason((prev) => !prev);
   };
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const Result = () => {
     }
   }, [voteResult, chosenPictureIdx]);
 
-  if (isError) <Error />;
+  if (isError) <Error404 />;
 
   if (voteResult)
     return (
