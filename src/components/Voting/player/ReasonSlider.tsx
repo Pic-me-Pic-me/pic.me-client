@@ -7,14 +7,14 @@ import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu, IcSelectRound } 
 import { Angle, Face, Just, Mood } from '../../../asset/lottie';
 import { REASON_MENU_ITEM_MAX_INDEX, REASON_MENU_ITEM_WIDTH } from '../../../constant/slider';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
-import { playerStickerInfoState } from '../../../recoil/player/atom';
+import { stickerInfoState } from '../../../recoil/player/atom';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
 const ReasonSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
-  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(stickerInfoState);
 
   const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = [

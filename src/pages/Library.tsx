@@ -13,7 +13,6 @@ import Error404 from './Error404';
 const Library = () => {
   const navigate = useNavigate();
   const [ref, inView] = useInView();
-
   const { allVoteInfoList, isLoading, isError, size, setSize } = useGetAllVoteInfo();
 
   const getMoreItem = useCallback(async () => {

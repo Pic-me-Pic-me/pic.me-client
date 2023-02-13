@@ -16,7 +16,6 @@ interface StickerVotingProps {
 }
 const StickerVoting = (props: StickerVotingProps) => {
   const { isStickerGuide } = props;
-
   const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(playerStickerInfoState);
   const { location: stickerList, emoji } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
@@ -39,7 +38,6 @@ const StickerVoting = (props: StickerVotingProps) => {
           y: Math.round((((offsetY - 27) * imgInfo.height) / imgViewInfo.height) * 100) / 100,
           degRate: Math.round((Math.random() * 250 - 115) * 100) / 100,
         };
-
         setStickerVotingInfo((prev) => ({
           ...prev,
           imgViewInfo,

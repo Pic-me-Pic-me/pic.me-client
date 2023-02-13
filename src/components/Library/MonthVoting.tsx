@@ -18,7 +18,6 @@ const MonthVoting = (props: voteAllInfoProps) => {
   const formattedDate = date ? date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6) : ' ';
 
   const { monthlyVoteInfoList, isLoading, isError, size, setSize, mutate } = useGetMonthlyLibraryInfo(date);
-
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -31,16 +30,26 @@ const MonthVoting = (props: voteAllInfoProps) => {
     }
   }, []);
 
+
   useEffect(() => {
     if (inView) {
       getMoreItem();
     }
   }, [inView]);
 
+
   const handleDeleteVote = async (id: string) => {
     await deleteVote(id);
     return mutate();
   };
+
+  if (isLoading) {
+    return <LandingLibrary />;
+  }
+
+  if (isError) {
+    return <Error404 />;
+  }
 
   if (isLoading) {
     return <LandingLibrary />;
