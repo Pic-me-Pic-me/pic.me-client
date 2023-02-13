@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface TitleProps {
+interface SliderTitleProps {
   isChosenPic: boolean;
   voteTitle: string;
   voteTotalNumber: number;
 }
 
-const SliderTitle = (props: TitleProps) => {
+const SliderTitle = (props: SliderTitleProps) => {
   const { isChosenPic, voteTitle, voteTotalNumber } = props;
 
   return (

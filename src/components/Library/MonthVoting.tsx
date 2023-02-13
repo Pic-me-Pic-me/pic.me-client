@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
@@ -11,26 +11,25 @@ import EndedVoting from './EndedVoting';
 
 interface voteAllInfoProps {
   date: number;
-  votes: VoteInfo[];
 }
 
 const MonthVoting = (props: voteAllInfoProps) => {
-  const { date, votes } = props;
-  const formattedDate = date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6);
-  const nextIndex = useRef(votes.length - 1);
-  const [verticalScrollInfo, setVerticalScrollInfo] = useState<VoteInfo[]>(votes);
-  const { monthlyVoteInfo, isLoading, isError } = useGetMonthlyLibraryInfo(
-    verticalScrollInfo[nextIndex.current] ? verticalScrollInfo[nextIndex.current].id : '0',
-    date,
-  );
+  const { date } = props;
+  const formattedDate = date ? date.toString().slice(0, 4) + '. ' + date.toString().slice(4, 6) : ' ';
 
+  const { monthlyVoteInfoList, isLoading, isError, size, setSize, mutate } = useGetMonthlyLibraryInfo(date);
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
 
-  useEffect(() => {
-    getMoreItem();
-  }, [verticalScrollInfo]);
+  const getMoreItem = useCallback(async () => {
+    if (monthlyVoteInfoList) {
+      setSize((prev) => prev + 1);
+    } else {
+      return;
+    }
+  }, []);
+
 
   useEffect(() => {
     if (inView) {
@@ -38,22 +37,19 @@ const MonthVoting = (props: voteAllInfoProps) => {
     }
   }, [inView]);
 
-  const getMoreItem = async () => {
-    const getItem = monthlyVoteInfo;
-
-    if (getItem?.length) {
-      const newData = [...verticalScrollInfo, ...getItem];
-      nextIndex.current = newData.length - 1;
-      setVerticalScrollInfo(newData);
-    } else {
-      return;
-    }
-  };
 
   const handleDeleteVote = async (id: string) => {
     await deleteVote(id);
-    setVerticalScrollInfo([...verticalScrollInfo.filter((info, idx) => info.id !== id)]);
+    return mutate();
   };
+
+  if (isLoading) {
+    return <LandingLibrary />;
+  }
+
+  if (isError) {
+    return <Error404 />;
+  }
 
   if (isLoading) {
     return <LandingLibrary />;
@@ -65,10 +61,10 @@ const MonthVoting = (props: voteAllInfoProps) => {
 
   return (
     <StMonthVotingWrapper>
-      <StDateTitle>{verticalScrollInfo.length !== 0 && formattedDate}</StDateTitle>
+      <StDateTitle>{monthlyVoteInfoList.list.length !== 0 && formattedDate}</StDateTitle>
       <StEndedVotingListWrapper>
-        {verticalScrollInfo.map((vote: VoteInfo, idx: number) =>
-          idx === verticalScrollInfo.length - 1 ? (
+        {monthlyVoteInfoList.list.map((vote: VoteInfo, idx: number) =>
+          idx === monthlyVoteInfoList.list.length - 1 ? (
             <div key={idx} ref={ref}>
               <EndedVoting key={idx} id={vote.id} voteData={vote} handleDeleteVote={handleDeleteVote}></EndedVoting>
             </div>
@@ -82,8 +78,6 @@ const MonthVoting = (props: voteAllInfoProps) => {
 };
 
 const StMonthVotingWrapper = styled.article`
-  margin-bottom: 4.906rem;
-
   width: 100%;
 `;
 
@@ -100,6 +94,7 @@ const StEndedVotingListWrapper = styled.section`
 
   width: 100%;
   margin-top: 1.7rem;
+  padding-left: 2rem;
 
   overflow-x: scroll;
 

@@ -39,7 +39,7 @@ const EndedVoting = (props: votingProps) => {
     <>
       <StVotingWrapper>
         <StImgWrapper>
-          <StVotingPic src={voteData.url} onClick={handleGoToResult} />
+          <StVotingPic src={voteData.url} onClick={handleGoToResult} alt="종료된 투표의 선택된 사진" />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
@@ -67,14 +67,12 @@ const StVotingWrapper = styled.section`
   flex-direction: column;
 
   position: relative;
+  margin-bottom: 4.906rem;
 
-  :first-child {
-    margin-left: 2rem;
-  }
   :last-child {
-    margin-left: 0;
     margin-right: 2rem;
   }
+  cursor: pointer;
 `;
 
 const StImgWrapper = styled.div`

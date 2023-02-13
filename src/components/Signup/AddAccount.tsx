@@ -21,6 +21,13 @@ const AddAccount = () => {
     navigate(`/signup/nickname`, { state: { signupDataInfo } });
   };
 
+  const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentInputValue = e.target.value;
+    if (currentInputValue.includes(' ')) {
+      e.target.value = currentInputValue.trim();
+    }
+  };
+
   return (
     <StWhiteSection>
       <StWrapper>
@@ -36,6 +43,7 @@ const AddAccount = () => {
               },
             })}
             placeholder="아이디로 이용할 이메일을 적어주세요!"
+            onChange={(e) => handleSpace(e)}
           />
           <StInputDesc>{errors.email ? errors.email.message : ' '}</StInputDesc>
 
@@ -49,6 +57,7 @@ const AddAccount = () => {
                 message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
               },
             })}
+            onChange={(e) => handleSpace(e)}
             placeholder="비밀번호를 입력해주세요"
           />
           <StInputDesc>{errors.password ? errors.password.message : ' '}</StInputDesc>
@@ -66,6 +75,7 @@ const AddAccount = () => {
               },
             })}
             placeholder="확인을 위해 비밀번호를 입력해주세요"
+            onChange={(e) => handleSpace(e)}
           />
           <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
 
