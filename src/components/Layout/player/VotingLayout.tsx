@@ -13,7 +13,7 @@ interface VotingLayoutProps {
   handlePlayer: React.MouseEventHandler;
 }
 
-const Voting = (props: VotingLayoutProps) => {
+const VotingLayout = (props: VotingLayoutProps) => {
   const {
     votingTitle,
     votingNextLineTitle,
@@ -41,7 +41,7 @@ const Voting = (props: VotingLayoutProps) => {
     </StPlayerVotingWrapper>
   );
 };
-export default Voting;
+export default VotingLayout;
 
 const StPlayerVotingWrapper = styled.div<{ pageType: string }>`
   display: flex;
@@ -69,6 +69,7 @@ const StPlayerVotingWrapper = styled.div<{ pageType: string }>`
   & > header {
     height: ${({ pageType }) => (pageType === 'PictureVoting' ? 7.2 : 5.6)}rem;
     margin-top: 2rem;
+    margin-bottom: ${({ pageType }) => (pageType === 'StickerAttachment' || pageType === 'ResultVoting' ? 1.7 : 0)}rem;
     padding: 0 ${({ pageType }) => (pageType === 'StickerAttachment' ? 2.8 : 4.2)}rem;
   }
   & > footer {
@@ -83,14 +84,14 @@ const StVotingTitle = styled.h1`
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
-  ${({ theme }) => theme.fonts.Pic_Subtitle3_Pretendard_Semibold_20};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
 
   word-break: break-all;
 `;
 const StVotingSubTitle = styled.h3<{ margin?: number }>`
   margin: ${({ margin }) => margin}rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  ${({ theme }) => theme.fonts.Pic_Subtitle3_Pretendard_Semibold_20};
+  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 `;
 const StPlayerBtn = styled.button<{ isActiveBtn: boolean }>`
   width: 100%;

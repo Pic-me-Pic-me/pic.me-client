@@ -2,23 +2,30 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcAngle, IcFace, IcJust, IcMood, IcReasonBtnAfter, IcReasonBtnBefore } from '../../asset/icon';
+import { IcAngleMenu, IcFaceMenu, IcJustMenu, IcMood, IcReasonBtnAfter, IcReasonBtnBefore } from '../../asset/icon';
 import { stickerResultState } from '../../recoil/maker/atom';
 import { stickerCountSelector, stickerMaxCountSelctor } from '../../recoil/maker/selector';
 
 interface ResultReasonProps {
+  totalVoteCount: number;
   isOpenResultReason: boolean;
   handleIsOpenResultReason: () => void;
 }
 
 const ResultReason = (props: ResultReasonProps) => {
-  const { isOpenResultReason, handleIsOpenResultReason } = props;
-  const stickerCount = useRecoilValue(stickerCountSelector);
+  const { totalVoteCount, isOpenResultReason, handleIsOpenResultReason } = props;
   const stickerResult = useRecoilValue(stickerResultState);
   const stickerMaxIdx = useRecoilValue(stickerMaxCountSelctor);
+  const stickerResultCount = useRecoilValue(stickerCountSelector);
 
+  const REASON_KEY = ['angle_reason', 'face_reason', 'mood_reason', 'just_reason'];
   const REASON_TITLE = ['얼굴이 좋아요', '구도가 좋아요', '분위기가 좋아요', '그냥 끌려요!'];
-  const reasons = [<IcAngle key="angle" />, <IcFace key="face" />, <IcJust key="just" />, <IcMood key="mood" />];
+  const reasons = [
+    <IcFaceMenu key="face" />,
+    <IcAngleMenu key="angle" />,
+    <IcMood key="mood" />,
+    <IcJustMenu key="just" />,
+  ];
 
   return (
     <>
@@ -28,8 +35,8 @@ const ResultReason = (props: ResultReasonProps) => {
             <IcReasonBtnAfter />
             <StBackground>
               <StTotalVote>
-                <p> 전체 {stickerCount}표 중</p>
-                <StFirstReason>{stickerResult.length ? stickerResult[stickerMaxIdx].count : 0}표</StFirstReason>
+                <p> 전체 {totalVoteCount}표 중</p>
+                <StFirstReason>{stickerResult.length ? stickerResultCount : 0}표</StFirstReason>
               </StTotalVote>
               <StTitle>
                 이 사진이 Pic된 가장 큰 이유는
@@ -37,22 +44,33 @@ const ResultReason = (props: ResultReasonProps) => {
               </StTitle>
 
               {reasons.map((reason, idx) => (
-                <>
-                  <StReasonWrapper key={REASON_TITLE[idx]}>
-                    {reason}
-                    <StPercentBarWrppaer>
-                      {stickerResult[idx] ? <p>{(stickerResult[idx].count / stickerCount) * 100}%</p> : <p>0%</p>}
-                      <StPercentBar>
-                        {stickerResult[idx] ? (
-                          <StDealtPercentBar
-                            percent={(stickerResult[idx].count / stickerCount) * 100}></StDealtPercentBar>
-                        ) : (
-                          <StDealtPercentBar percent={0}></StDealtPercentBar>
-                        )}
-                      </StPercentBar>
-                    </StPercentBarWrppaer>
-                  </StReasonWrapper>
-                </>
+                <StReasonWrapper key={REASON_KEY[idx]}>
+                  {reason}
+                  <StPercentBarWrppaer>
+                    {stickerResult[idx] ? (
+                      <p>
+                        {stickerResult[idx].count && totalVoteCount
+                          ? Math.floor((stickerResult[idx].count / totalVoteCount) * 100)
+                          : 0}
+                        %
+                      </p>
+                    ) : (
+                      <p>0%</p>
+                    )}
+                    <StPercentBar>
+                      {stickerResult[idx] ? (
+                        <StDealtPercentBar
+                          percent={
+                            stickerResult[idx].count && totalVoteCount
+                              ? (stickerResult[idx].count / totalVoteCount) * 100
+                              : 0
+                          }></StDealtPercentBar>
+                      ) : (
+                        <StDealtPercentBar percent={0}></StDealtPercentBar>
+                      )}
+                    </StPercentBar>
+                  </StPercentBarWrppaer>
+                </StReasonWrapper>
               ))}
             </StBackground>
           </>
@@ -144,7 +162,7 @@ const StTitle = styled.h1`
   text-align: center;
 
   font-size: 1.8rem;
-  font-family: 'PretendardSemiBold';
+  font-family: 'PretendardSemiBold', sans-serif;
   font-weight: 600;
   font-style: normal;
   line-height: 2.148rem;

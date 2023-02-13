@@ -1,60 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcGoback, IcResultLeft, IcResultRight } from '../asset/icon';
-import resultSample from '../asset/image/resultSample.png';
 import { Error, Loading } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
-import ResultPicture from '../components/Result/ResultPicture';
+import ResultPicSlider from '../components/Result/ResultPicSlider';
 import ResultReason from '../components/Result/ResultReason';
 import SliderTitle from '../components/Result/SliderTitle';
 import useGetVoteResult from '../lib/hooks/useGetVoteResult';
 import { stickerResultState } from '../recoil/maker/atom';
-import { stickerCountSelector } from '../recoil/maker/selector';
-import { MakerVoteInfo } from '../types/vote';
-import { jsonGetStickerList } from '../utils/jsonGetStickerList';
+import { jsonGetResultStickerList } from '../utils/jsonGetStickerList';
+import Error404 from './Error404';
 
-export const Result = () => {
+const Result = () => {
   const navigate = useNavigate();
   const { voteId } = useParams() as { voteId: string };
   const { voteResult, isLoading, isError } = useGetVoteResult(voteId);
   const [chosenPictureIdx, setChosenPictureIdx] = useState(0);
   const [isOpenResultReason, setIsOpenResultReason] = useState(false);
   const setStickerResultState = useSetRecoilState(stickerResultState);
-  const stickerCount = useRecoilValue(stickerCountSelector);
 
   const handleIsOpenResultReason = () => {
-    setIsOpenResultReason(!isOpenResultReason);
+    setIsOpenResultReason((prev) => !prev);
   };
 
   useEffect(() => {
     if (voteResult) {
-      setStickerResultState(jsonGetStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
+      setStickerResultState(jsonGetResultStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
     }
-  }, [chosenPictureIdx]);
-  if (isLoading) <Loading />;
+  }, [voteResult, chosenPictureIdx]);
+
+  if (isError) <Error404 />;
 
   if (voteResult)
     return (
       <>
         <StBackgroundWrapper src={voteResult.Picture[chosenPictureIdx].url}>
           <StBackground isChosenPic={!chosenPictureIdx}>
-            <HeaderLayout HeaderTitle="최종 투표 결과" handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
-            {!chosenPictureIdx ? (
-              <IcResultRight onClick={() => setChosenPictureIdx(1)} />
-            ) : (
-              <IcResultLeft onClick={() => setChosenPictureIdx(0)} />
-            )}
+            <HeaderLayout
+              HeaderTitle="최종 투표 결과"
+              handleGoback={() => navigate('/library')}
+              isBanner></HeaderLayout>
+
             <SliderTitle
               isChosenPic={!chosenPictureIdx}
               voteTitle={voteResult.voteTitle}
-              voteTotalNumber={stickerCount}></SliderTitle>
+              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}
+            />
 
             <section>
-              <ResultPicture src={voteResult.Picture[chosenPictureIdx].url}></ResultPicture>
+              <ResultPicSlider
+                chosenPictureIdx={chosenPictureIdx}
+                setChosenPictureIdx={(idx: number) => setChosenPictureIdx(idx)}
+              />
               <ResultReason
+                totalVoteCount={voteResult.currentVote}
                 handleIsOpenResultReason={handleIsOpenResultReason}
                 isOpenResultReason={isOpenResultReason}
               />
@@ -63,8 +64,10 @@ export const Result = () => {
         </StBackgroundWrapper>
       </>
     );
-  return <Error />;
+  return <Loading />;
 };
+
+export default Result;
 
 const StBackgroundWrapper = styled.div<{ src: string }>`
   height: 100%;

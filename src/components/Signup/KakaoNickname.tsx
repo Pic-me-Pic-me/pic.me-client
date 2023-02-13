@@ -16,17 +16,27 @@ const KakaoNickname = () => {
   const navigate = useNavigate();
   const { uid, socialType, email }: KakaoAddNicknameInfo = location.state;
   const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
+  const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
-  //   const [nickname, setNickname] = useState<string>('');
+  const [nickname, setNickname] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string>();
+  const termAddress = [
+    'https://trusted-fir-e0c.notion.site/8040a51be7c74c7babf71d4ae344e162',
+    'https://trusted-fir-e0c.notion.site/9df42e8f5c7246adb74027814a5c0cc9',
+  ];
 
-  const termList: string[] = ['만 14세 이상이에요', '이용약관 및 개인정보수집이용 동의'];
   const {
     register,
     formState: { errors },
     handleSubmit,
     getValues,
+    watch,
   } = useForm<NicknameInfo>({ mode: 'onChange' });
+
+  useEffect(() => {
+    const currentNickname = watch('username');
+    currentNickname.length > 0 ? setIsNicknameExists(true) : setIsNicknameExists(false);
+  }, [watch('username')]);
 
   const { username } = getValues();
   const handleCheckNickname = () => {
@@ -34,7 +44,7 @@ const KakaoNickname = () => {
       if (result?.success) {
         setIsDuplicate(false);
         setErrorMsg('사용 가능한 닉네임입니다.');
-        // setNickname(username);
+        setNickname(username);
       } else {
         setErrorMsg('이미 사용 중인 닉네임입니다.');
         setIsDuplicate(true);
@@ -60,7 +70,8 @@ const KakaoNickname = () => {
     const signUpData = await postKakaoSignUp(uid, socialType, username, email);
     localStorage.setItem('accessToken', signUpData.accessToken);
     cookies.set('refreshToken', signUpData.refreshToken, { httpOnly: true });
-    navigate('/home');
+    navigate('/login');
+    window.location.reload();
   };
 
   return (
@@ -74,11 +85,14 @@ const KakaoNickname = () => {
                 type="text"
                 {...register('username', {
                   required: true,
-                  maxLength: 8,
                 })}
+                maxLength={8}
                 placeholder="닉네임을 입력해주세요 (최대 8자)"></StInput>
             </StInputWrapper>
-            <StCheckDuplicationBtn type="button" onClick={handleCheckNickname}>
+            <StCheckDuplicationBtn
+              type="button"
+              onClick={handleCheckNickname}
+              disabled={isNicknameExists ? false : true}>
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
@@ -95,23 +109,42 @@ const KakaoNickname = () => {
               </StTermContent>
             </StAllCheckWrapper>
             <StDetailTermWrapper>
-              {termList.map((term, idx) => (
-                <StDetailTerm key={term}>
-                  <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, idx + 1)}>
-                    {isChecked[idx + 1] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
-                  </StCheckboxBtn>
-                  <StTermContent>
-                    <span>(필수) </span>
-                    <span>{term}</span>
-                  </StTermContent>
-                </StDetailTerm>
-              ))}
+              <StDetailTerm>
+                <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, 1)}>
+                  {isChecked[1] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
+                </StCheckboxBtn>
+                <StTermContent>
+                  <span>(필수) </span>
+                  <span> 만 14세 이상이에요 </span>
+                </StTermContent>
+              </StDetailTerm>
+
+              <StDetailTerm>
+                <StCheckboxBtn type="button" name="first" onClick={(e) => handleCheck(e, 2)}>
+                  {isChecked[2] ? <IcAfterCheckbox /> : <IcBeforeCheckbox />}
+                </StCheckboxBtn>
+                <StTermContent>
+                  <span>(필수) </span>
+                  <span>
+                    <p onClick={() => window.open(termAddress[0], '_blank')}>
+                      <u>이용약관</u>
+                    </p>
+                    및
+                    <p onClick={() => window.open(termAddress[1], '_blank')}>
+                      <u>개인정보수집이용</u>
+                    </p>
+                    동의
+                  </span>
+                </StTermContent>
+              </StDetailTerm>
             </StDetailTermWrapper>
           </StTermWrapper>
 
           <StSubmitBtn
             disabled={
-              errors.username || JSON.stringify(isChecked) !== JSON.stringify([true, true, true]) ? true : false
+              isDuplicate || errors.username || JSON.stringify(isChecked) !== JSON.stringify([true, true, true])
+                ? true
+                : false
             }>
             계정 만들기
           </StSubmitBtn>
@@ -194,6 +227,15 @@ const StCheckDuplicationBtn = styled.button`
   color: ${({ theme }) => theme.colors.Pic_Color_White};
 
   cursor: pointer;
+
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+        `
+      : css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+        `}
 `;
 
 const StTermWrapper = styled.article`
@@ -233,11 +275,12 @@ const StTermContent = styled.div`
   display: flex;
   align-items: center;
 
-  width: 71.42%;
+  width: 100%;
   height: 2.2rem;
   margin-left: 2.14%;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
 
   p {
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
@@ -245,15 +288,27 @@ const StTermContent = styled.div`
   }
 
   span {
+    display: flex;
+
+    gap: 0.5rem;
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+  }
+
+  span > p {
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+  }
+
+  span > p > u {
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }
 
   span:first-child {
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+    margin-right: 0.71rem;
+    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }
 
   span:last-child {
-    margin-left: 0.71rem;
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
   }
 `;

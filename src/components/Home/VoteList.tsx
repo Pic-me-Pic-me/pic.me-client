@@ -1,59 +1,71 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcEmpty } from '../../asset/icon';
 import { getUserInfo } from '../../lib/api/auth';
 import { getCurrentVoteData } from '../../lib/api/voting';
+import { stickerResultState } from '../../recoil/maker/atom';
 import { VoteCardInfo } from '../../types/vote';
+import { LandingVoteList } from '../Landing/maker';
 import VoteCard from './VoteCard';
 
 const VoteList = () => {
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const { ref, inView } = useInView({
+    threshold: 0.5,
   });
-  const [dataList, setDataList] = useState<VoteCardInfo[]>();
-  const [CursorId, setCursorId] = useState(0);
+  const [dataList, setDataList] = useState<VoteCardInfo[]>([]);
+  const [cursorId, setCursorId] = useState(0);
   const [userName, setUserName] = useState<string>();
+  const resetStickerInfoState = useResetRecoilState(stickerResultState);
+
+  const getMoreItem = useCallback(async () => {
+    const newData = await getCurrentVoteData(Number(cursorId));
+    if (newData?.data) {
+      const newDataList = newData.data.result as VoteCardInfo[];
+      setDataList(dataList.concat(newDataList));
+      setCursorId(newData.data.resCursorId);
+    }
+  }, [cursorId]);
 
   useEffect(() => {
     getUserName();
-    getMoreItem();
+    resetStickerInfoState();
+
+    if (dataList?.length === 0) {
+      getMoreItem();
+    }
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     if (dataList?.length !== 0 && inView) {
       getMoreItem();
     }
-  }, [CursorId, inView]);
+    setIsLoading(false);
+  }, [inView]);
 
   const getUserName = async () => {
     const name = await getUserInfo();
     setUserName(name?.data.userName);
   };
 
-  const getMoreItem = async () => {
-    const newData = await getCurrentVoteData(Number(CursorId));
-    console.log(newData);
-    if (!dataList) {
-      setDataList(newData?.data.result);
-      return;
-    } else if (newData) {
-      setCursorId(newData.data.resCursorId);
-      setDataList(dataList?.concat(newData.data.result));
-    }
-  };
-  console.log(dataList);
+  if (isLoading) return <LandingVoteList />;
   return (
     <>
-      <StCurrentVote>현재 진행중인 투표</StCurrentVote>
-      {dataList ? (
-        <StVoteListWrapper>
-          {dataList?.map((data, i) => (
-            <VoteCard voteData={data} key={i} />
-          ))}
-          <div ref={ref} />
-        </StVoteListWrapper>
+      {dataList.length !== 0 ? (
+        <>
+          <StCurrentVote>현재 진행중인 투표</StCurrentVote>
+          <StVoteListWrapper>
+            {dataList?.map((data, i) => (
+              <VoteCard voteData={data} key={i} />
+            ))}
+            <div ref={ref} />
+          </StVoteListWrapper>
+        </>
       ) : (
         <StEmptyView>
           <IcEmpty />
@@ -71,7 +83,7 @@ const StCurrentVote = styled.h1`
   padding: 0rem 2rem;
   margin: 5.1rem 0rem 1.3rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
+  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
 `;
 
 const StVoteListWrapper = styled.main`

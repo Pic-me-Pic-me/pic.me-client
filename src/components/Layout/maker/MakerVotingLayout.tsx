@@ -126,6 +126,7 @@ const MakerVotingLayout = () => {
   };
 
   const handlePrevPage = () => {
+    setVotingForm({ title: '', firstImageUrl: '', secondImageUrl: '' });
     navigate('/home');
   };
 

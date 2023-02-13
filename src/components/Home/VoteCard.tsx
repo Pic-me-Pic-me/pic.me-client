@@ -1,8 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import * as timeago from 'timeago.js';
-import { format } from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
 import TimeAgo from 'timeago-react'; // var TimeAgo = require('timeago-react');
 
@@ -78,7 +76,7 @@ const StTitleWrapper = styled.div`
   > h1 {
     padding-bottom: 0.7rem;
     color: ${({ theme }) => theme.colors.Pic_Color_White};
-    font-family: 'Pretendard';
+    font-family: 'Pretendard', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 1.6rem;

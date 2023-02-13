@@ -1,9 +1,10 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcPickmeLogo } from '../../asset/icon';
-import { deleteUser, getUserInfo } from '../../lib/api/auth';
+import { LoginBanner } from '../../asset/image';
+import { deleteUser, getUserInfo, postKakaoToken } from '../../lib/api/auth';
 import useModal from '../../lib/hooks/useModal';
 import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
@@ -24,8 +25,25 @@ const MemberInfo = () => {
   };
 
   const handleDeleteUser = async () => {
-    const result = await deleteUser();
-    navigate('/playerlanding');
+    try {
+      const KAKAO_TOKEN = localStorage.getItem('kakaoAccessToken');
+      if (KAKAO_TOKEN) {
+        const data = await postKakaoToken('kakao', KAKAO_TOKEN);
+        const res = await axios({
+          method: 'POST',
+          url: 'https://kapi.kakao.com/v1/user/unlink',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('kakaoAccessToken')}`,
+          },
+        });
+        localStorage.removeItem('kakaoAccessToken');
+      }
+      const result = await deleteUser();
+      localStorage.removeItem('accessToken');
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -36,12 +54,13 @@ const MemberInfo = () => {
     <>
       <HeaderLayout HeaderTitle="회원 정보" handleGoback={handleGoback} isBanner={true} />
       <StBannerWrapper>
-        <IcPickmeLogo />
+        <img src={LoginBanner} alt="배너" />
       </StBannerWrapper>
       <StWhiteSection>
         <h1>닉네임</h1>
         <p>{user?.userName}</p>
         <h1>아이디</h1>
+        {}
         <p>{user?.email}</p>
         <div>
           <button type="button" onClick={() => toggle()}>
@@ -70,14 +89,17 @@ const StBannerWrapper = styled.div`
   top: 0;
   z-index: -1;
 
+  max-width: 43rem;
   width: 100%;
-  height: 22.9rem;
+
+  height: 19.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
-  > svg {
+  > img {
+    max-width: 100%;
     position: absolute;
-    top: 9.2rem;
+    /* top: 9.2rem; */
   }
 `;
 
@@ -104,7 +126,7 @@ const StWhiteSection = styled.section`
     margin-bottom: 3rem;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_Bold_20};
+    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
   }
 
   > div {

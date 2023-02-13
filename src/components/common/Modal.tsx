@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export interface ModalProps {
@@ -50,6 +49,7 @@ const StModalWrapper = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
+
   z-index: 100000;
 
   width: 100%;
@@ -68,6 +68,7 @@ const StModal = styled.section`
   flex-direction: column;
 
   width: 100%;
+  max-width: 43rem;
   padding: 2.1rem 2.3rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
@@ -89,7 +90,7 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boole
   transform: translate(-50%, -50%);
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  font-family: 'Pretendard';
+  font-family: 'Pretendard', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 0.9rem;

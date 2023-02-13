@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IcHeaderSecond } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
-import { ReasonSlider, StickerGuide } from '../../components/Voting/player';
-import { postStickerData } from '../../lib/api/voting';
-import { stickerInfoState, votingInfoState } from '../../recoil/player/atom';
+import { ReasonSlider } from '../../components/Voting/player';
+import { stickerInfoState } from '../../recoil/player/atom';
 import { pictureSelector } from '../../recoil/player/selector';
 
 const ReasonVoting = () => {
   const navigate = useNavigate();
-  const { pictureId } = useRecoilValue(stickerInfoState);
-  const pictureInfo = useRecoilValue(pictureSelector(pictureId));
+  const [playerStickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+  const pictureInfo = useRecoilValue(pictureSelector(playerStickerInfo.pictureId));
 
   const handleVotingSuccess = async () => {
     navigate('/player/sticker_voting');
@@ -24,6 +23,7 @@ const ReasonVoting = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setStickerInfo((prev) => ({ ...prev, pictureId: playerStickerInfo.pictureId, location: [], emoji: 0 }));
   }, []);
 
   return (
@@ -32,7 +32,7 @@ const ReasonVoting = () => {
       <VotingLayout
         votingTitle="사진을 선택한 이유를 골라주세요"
         pageType="ReasonVoting"
-        btnTitle="이 사진으로 하기"
+        btnTitle="이유 확정하기"
         isActiveBtn={true}
         handlePlayer={handleVotingSuccess}>
         {
@@ -53,7 +53,10 @@ const StReasonVotingWrpper = styled.article`
   align-items: center;
   flex-direction: column;
 
+  position: relative;
+
   width: 100%;
+
   & > img {
     width: 90%;
     height: 52rem;

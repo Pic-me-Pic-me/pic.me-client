@@ -42,7 +42,9 @@ const Hamburger = (props: HamburgerProps) => {
             }}>
             라이브러리
           </StHamburgerMenu>
-          <StHamburgerMenu>픽미 팀소개</StHamburgerMenu>
+          <StHamburgerMenu>
+            <a href="https://www.notion.so/Team-Pic-me-e24dfca43b6b4ed296556f835e7662eb">픽미 팀소개</a>
+          </StHamburgerMenu>
         </StHamburgerWrapper>
       </StOutsideHamburger>
     </>
@@ -54,10 +56,11 @@ export default Hamburger;
 const StOutsideHamburger = styled.div<{ isOpen?: boolean }>`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
   position: fixed;
-  top: 0;
+  top: 9rem;
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 1;
 
   width: 100%;
   height: 100%;
@@ -90,13 +93,24 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
 
 const StHamburgerMenu = styled.li`
   padding: 2rem 2.8rem;
-
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-  font-family: 'Pretendard';
+  font-family: 'Pretendard', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 1.8rem;
   line-height: 2.1rem;
+
+  & > a {
+    display: block;
+
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
+    font-family: 'Pretendard', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 2.1rem;
+    text-decoration: none;
+  }
 
   cursor: pointer;
 `;

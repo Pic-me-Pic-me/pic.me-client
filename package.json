@@ -2,6 +2,7 @@
   "name": "picme-client",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": false,
   "dependencies": {
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,7 +20,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "lottie-react": "^2.3.1",
-    "msw": "^0.49.2",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
@@ -33,12 +33,14 @@
     "react-scripts": "5.0.1",
     "recoil": "^0.7.6",
     "recoil-persist": "^4.2.0",
+    "source-map-explorer": "^2.5.3",
     "styled-components": "^5.3.6",
     "swr": "^2.0.0",
     "timeago-react": "^3.0.5",
     "timeago.js": "^4.0.2",
     "typescript": "^4.9.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack-bundle-analyzer": "^4.7.0"
   },
   "workspaces": [
     "packages/*"
@@ -72,6 +74,7 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
+    "cra-bundle-analyzer": "^0.1.1",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react": "^1.1.7",

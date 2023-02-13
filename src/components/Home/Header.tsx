@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IcNextArrow } from '../../asset/icon';
-import { BannerImg } from '../../asset/image';
+import { IcBannerImg, IcNextArrow } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
 import Guide from './Guide';
 
@@ -12,7 +11,9 @@ const Header = () => {
   return (
     <>
       <StBannerWrapper>
-        <StBannerImg src={BannerImg} alt="배너 이미지" />
+        <StBannerImg>
+          <IcBannerImg />
+        </StBannerImg>
         <StGuideBtn type="button" onClick={() => toggle()}>
           <p>픽미 사용방법 A부터 Z까지</p>
           <IcNextArrow />
@@ -30,16 +31,18 @@ const StBannerWrapper = styled.header`
   flex-direction: column;
 
   width: 100%;
-  height: 26.4rem;
   margin-top: 8.8rem;
 
   border-radius: 1.2rem;
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 `;
 
-const StBannerImg = styled.img`
-  height: 19rem;
-  border-radius: 1.2rem;
+const StBannerImg = styled.div`
+  & > svg {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.2rem;
+    object-fit: fill;
+  }
 `;
 
 const StGuideBtn = styled.button`
@@ -48,14 +51,16 @@ const StGuideBtn = styled.button`
   align-items: center;
 
   height: 7.4rem;
+  margin-top: -7.5rem;
   padding: 2.8rem 2.9rem 2.7rem 2.4rem;
 
   border: none;
   border-radius: 1.2rem;
-  background: inherit;
+  background-color: rgba(0, 0, 0, 0);
 
   > p {
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
+    text-align: center;
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
   }
 `;

@@ -7,6 +7,15 @@ import { VotingImageInfo } from '../../types/votingImage';
 //페이지가 변경되더라도 상태관리를 유지
 const { persistAtom } = recoilPersist();
 
+export const votingImageState = atom<VotingImageInfo>({
+  key: 'votingImage',
+  default: {
+    title: '',
+    firstImageUrl: '',
+    secondImageUrl: '',
+  },
+  effects_UNSTABLE: [persistAtom],
+});
 
 export const stickerResultState = atom<StickerResultInfo[]>({
   key: 'stickerResult',
@@ -17,15 +26,5 @@ export const stickerResultState = atom<StickerResultInfo[]>({
       count: 0,
     },
   ],
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const votingImageState = atom<VotingImageInfo>({
-  key: 'votingImage',
-  default: {
-    title: '',
-    firstImageUrl: '',
-    secondImageUrl: '',
-  },
   effects_UNSTABLE: [persistAtom],
 });

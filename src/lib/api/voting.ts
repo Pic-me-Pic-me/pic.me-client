@@ -1,5 +1,7 @@
+import { AxiosResponse } from 'axios';
+
 import { client } from '../axios';
-import { StickerInfo, VoteListData } from './../../types/vote';
+import { PlayerStickerInfo, VoteResultData } from './../../types/vote';
 
 export const patchCurrentVoteData = async (voteid: string | undefined) => {
   const res = await client.patch(`/vote/close/${voteid}`);
@@ -13,33 +15,20 @@ export const getCurrentVoteDatailData = async (voteid: string | undefined) => {
   }
 };
 
-// export interface VoteInfo {
-//   voteId: number;
-//   title: string;
-//   voteThumbnail: string;
-//   createdAt: Date;
-//   totalVoteCount: number;
-// }
-
-// export interface Result {
-//   result: VoteInfo[];
-// }
-
-// export interface VoteListData {
-//   status: number;
-//   success: boolean;
-//   message: string;
-//   data: Result;
-//   resCursorId: number;
-// }
-
 export const getCurrentVoteData = async (resCursorId: number) => {
   try {
-    const data = await client.get<VoteListData>(`vote/getCurrentVote/${resCursorId}`);
+    const data = await client.get<AxiosResponse<VoteResultData>>(`vote/list/${resCursorId}`);
     return data.data;
   } catch (err) {
     console.error(err);
   }
 };
 
-export const postStickerData = (stickerInfo: StickerInfo) => client.post('/sticker', stickerInfo);
+export const postStickerData = async (stickerInfo: PlayerStickerInfo) => {
+  try {
+    const { data } = await client.post('/sticker', stickerInfo);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};

@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { IcHeaderLast, IcHeaderLogo } from '../../asset/icon';
-import { LandingHeader, LandingVoting } from '../../components/Landing/player';
+import { IcHeaderLast } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { StickerGuide } from '../../components/Voting/player';
 import StickerVoting from '../../components/Voting/player/StickerVoting';
@@ -56,8 +55,6 @@ const StickerAttachment = () => {
           </StStickerAttachmentWrapper>
         }
       </VotingLayout>
-
-      {/* )} */}
     </div>
   );
 };

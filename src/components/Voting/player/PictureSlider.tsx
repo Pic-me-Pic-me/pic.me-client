@@ -3,6 +3,15 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcSelectRound } from '../../../asset/icon';
+import {
+  IMAGE_MARGIN_RATIO,
+  MOVE_THREE_MARGIN,
+  MOVE_THREE_SLIDER,
+  PX_TO_REM,
+  SLIDER_FULL_WIDTH_RATIO,
+  SLIDER_ITEM_HALF_WIDTH,
+  SLIDER_UNSELECT_WIDTH_RATIO,
+} from '../../../constant/slider';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { stickerInfoState, votingInfoState } from '../../../recoil/player/atom';
 import { PictureInfo } from '../../../types/vote';
@@ -11,7 +20,7 @@ import SelectPicture from './SelectPicture';
 
 const PictureSlider = () => {
   const votingInfoAtom = useRecoilValue(votingInfoState);
-  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(stickerInfoState);
 
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
@@ -21,7 +30,7 @@ const PictureSlider = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setStickerInfo({ ...stickerInfo, pictureId: pictureInfoList[currentIdx].id });
+    setPlayerStickerInfo({ ...playerStickerInfo, pictureId: pictureInfoList[currentIdx].id });
   }, [transX]);
 
   return (
@@ -38,16 +47,15 @@ const PictureSlider = () => {
             },
             onDragEnd: (deltaX, deltaY) => {
               const maxIndex = pictureInfoList.length - 1;
-
               Array(2)
                 .fill(0)
-                .map((v, i) => 2 - i)
+                .map((_, i) => 2 - i)
                 .some((num) => {
-                  if (deltaX < -156 * num) {
+                  if (deltaX < -SLIDER_ITEM_HALF_WIDTH * num) {
                     setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
                     return true;
                   }
-                  if (deltaX > 156 * num) {
+                  if (deltaX > SLIDER_ITEM_HALF_WIDTH * num) {
                     setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
                     return true;
                   }
@@ -97,27 +105,29 @@ const StSliderPictureUl = styled.ul<{ currentIdx: number; dragItemWidth: number;
   align-items: center;
   position: absolute;
   ${({ currentIdx, dragItemWidth, width }) =>
-    currentIdx === 0
+    !currentIdx
       ? css`
-          left: ${(dragItemWidth * 0.1) / 10}rem;
+          left: ${(dragItemWidth * IMAGE_MARGIN_RATIO) / PX_TO_REM}rem;
         `
       : css`
-          left: ${(width * 1.5) / 35 + (dragItemWidth * 0.1) / 30}rem;
+          left: ${((width * SLIDER_FULL_WIDTH_RATIO) / MOVE_THREE_SLIDER +
+            (dragItemWidth * IMAGE_MARGIN_RATIO) / MOVE_THREE_MARGIN) /
+          PX_TO_REM}rem;
         `}
 
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
-      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10}rem);
+      transform: translateX(${(-currentIdx * dragItemWidth + transX) / PX_TO_REM}rem);
     `};
   ${({ transX }) =>
     css`
       transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
     `};
-  width: ${({ width }) => (width * 1.5) / 10}rem;
+  width: ${({ width }) => (width * SLIDER_FULL_WIDTH_RATIO) / PX_TO_REM}rem;
   touch-action: auto;
 
   img.unSelect_picture {
-    width: ${({ width }) => width * 0.06}rem;
+    width: ${({ width }) => (width * SLIDER_UNSELECT_WIDTH_RATIO) / PX_TO_REM}rem;
     height: 32.5rem;
 
     margin: 6.1rem 1.3rem 0 1.3rem;

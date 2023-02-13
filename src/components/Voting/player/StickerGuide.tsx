@@ -33,7 +33,7 @@ const StStickerGuideWrapper = styled.article`
     object-fit: cover;
     & > h2 {
       margin-bottom: 3rem;
-      ${({ theme }) => theme.fonts.Pic_Title3_Pretendard_Bold_22}
+      ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20}
     }
     & > p {
       ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}

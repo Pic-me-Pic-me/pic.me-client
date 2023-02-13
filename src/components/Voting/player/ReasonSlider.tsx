@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -14,7 +13,7 @@ const ReasonSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
-  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(stickerInfoState);
 
   const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = [
@@ -29,7 +28,7 @@ const ReasonSlider = () => {
   const navIconRenderList = Array(4).fill(0);
 
   useEffect(() => {
-    if (stickerInfo.location.length === 0) setStickerInfo({ ...stickerInfo, emoji: currentIdx });
+    if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx });
   }, [currentIdx]);
 
   return (
@@ -97,7 +96,7 @@ const ReasonSlider = () => {
 export default ReasonSlider;
 const StReasonSliderWrapper = styled.section`
   position: absolute;
-  top: 45rem;
+  top: 55%;
 
   width: 100%;
 `;

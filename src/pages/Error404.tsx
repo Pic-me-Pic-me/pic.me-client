@@ -1,5 +1,7 @@
 import React from 'react';
 
-const Error404 = () => <div>에러페이지</div>;
+import { Error } from '../components/common';
+
+const Error404 = () => <Error />;
 
 export default Error404;

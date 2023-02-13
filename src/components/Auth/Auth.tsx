@@ -1,18 +1,16 @@
 import axios from 'axios';
 import qs from 'qs';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
-import { postKakaoSignIn, postKakaoSignUp, postKakaoToken } from '../../lib/api/auth';
+import { postKakaoSignIn, postKakaoToken } from '../../lib/api/auth';
 
 const Kakao = window.Kakao;
 
-const AuthComponent = () => {
+const Auth = () => {
   const cookies = new Cookies();
 
-  // const { Kakao } = window as any;
-  // const REDIRECT_URL = `https://with-picme.com/login/oauth/kakao/callback`;
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
 
@@ -31,7 +29,9 @@ const AuthComponent = () => {
     try {
       const res = await axios.post('https://kauth.kakao.com/oauth/token', payload);
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
+
       Kakao.Auth.setAccessToken(res.data.access_token);
+      localStorage.setItem('kakaoAccessToken', res.data.access_token);
 
       // 카카오 중복확인
       const data = await postKakaoToken('kakao', res.data.access_token);
@@ -41,11 +41,9 @@ const AuthComponent = () => {
         localStorage.setItem('accessToken', signInData.accessToken);
         cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
         navigate('/home');
+        window.location.reload();
       } else if (!data.isUser) {
         // 회원가입
-        // const  { uid, socialType, email } = { data.uid, 'kakao', data.email};
-        // const kakaoSignupDataInfo = { uid, socialType, email };
-
         navigate('/signup/kakaonickname', { state: { uid: data.uid, socialType: 'kakao', email: data.email } });
       }
     } catch (err) {
@@ -56,4 +54,4 @@ const AuthComponent = () => {
   return null;
 };
 
-export default AuthComponent;
+export default Auth;

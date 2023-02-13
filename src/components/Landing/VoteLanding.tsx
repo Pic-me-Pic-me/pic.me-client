@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { IcModalBG } from '../../asset/icon';
 import { PlayerTitle } from '../../asset/image';
+import Onboarding from '../../pages/Onboarding';
 import { votingInfoState } from '../../recoil/player/atom';
 
 const VoteLanding = () => {
@@ -12,30 +13,33 @@ const VoteLanding = () => {
   const { voteTitle, userName, voteId } = votingInfoAtom;
   const navigate = useNavigate();
   return (
-    <StModalWrapper>
-      <StModal>
-        <StTitle>
-          <div>
-            <h1>{voteTitle}</h1>
-          </div>
-        </StTitle>
-        <StContent>
-          <IcModalBG fill="#FF5E67" />
-          <StDescription>
-            <p>{userName}님의 사진</p>
-            <p>2개 중 1개를 골라주세요!</p>
-          </StDescription>
-        </StContent>
-        <StButtonWrapper>
-          <button type="button" onClick={() => navigate(`/player/picture_voting/${voteId}`)}>
-            익명 투표 시작하기
-          </button>
-          <button type="button" onClick={() => navigate('/home')}>
-            홈으로 가기
-          </button>
-        </StButtonWrapper>
-      </StModal>
-    </StModalWrapper>
+    <>
+      <Onboarding />
+      <StModalWrapper>
+        <StModal>
+          <StTitle>
+            <div>
+              <h1>{voteTitle}</h1>
+            </div>
+          </StTitle>
+          <StContent>
+            <IcModalBG fill="#FF5E67" />
+            <StDescription>
+              <p>{userName}님의 사진</p>
+              <p>2개 중 1개를 골라주세요!</p>
+            </StDescription>
+          </StContent>
+          <StButtonWrapper>
+            <button type="button" onClick={() => navigate(`/player/picture_voting/${voteId}`)}>
+              익명 투표 시작하기
+            </button>
+            <button type="button" onClick={() => navigate('/')}>
+              홈으로 가기
+            </button>
+          </StButtonWrapper>
+        </StModal>
+      </StModalWrapper>
+    </>
   );
 };
 export default VoteLanding;
@@ -80,15 +84,19 @@ const StModal = styled.section`
 
 const StTitle = styled.header`
   display: flex;
-  justify-content: center;
-
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 7.651rem;
   z-index: 1;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
+
+  background-image: url(${PlayerTitle});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
 
   & > div {
     display: flex;
@@ -97,21 +105,21 @@ const StTitle = styled.header`
     z-index: 100;
 
     position: relative;
-    width: 100%;
-    height: inherit;
-    margin: 0rem 3.7rem;
-
-    background-image: url(${PlayerTitle});
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
+    width: 21.2rem;
+    height: 5.836rem;
 
     & > h1 {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       position: absolute;
-      top: 30%;
+      width: 100%;
+
+      padding: 0rem 2rem;
+
+      ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
     }
   }
-
   & > svg {
     position: absolute;
     width: 21.2rem;

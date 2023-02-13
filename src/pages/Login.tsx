@@ -8,7 +8,7 @@ const Login = () => {
 
   useEffect(() => {
     setIsLoading(false);
-  });
+  }, []);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../../asset/icon';
@@ -29,6 +29,7 @@ const ImageInput = (props: ImageInputProps) => {
   const { title, firstImageUrl, secondImageUrl } = votingForm;
   const { firstToggle, secondToggle } = isToggle;
   const navigate = useNavigate();
+  let submitFlag = false;
 
   useEffect(() => {
     if (!title) {
@@ -36,6 +37,14 @@ const ImageInput = (props: ImageInputProps) => {
     }
     handleCheckImageObj();
   }, [title, votingForm]);
+
+  const handleSubmitCheck = () => {
+    if (submitFlag) {
+      return submitFlag;
+    }
+    submitFlag = true;
+    return false;
+  };
 
   const handleReadFileUrl = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -76,6 +85,9 @@ const ImageInput = (props: ImageInputProps) => {
   };
 
   const handlePostImage = async () => {
+    if (handleSubmitCheck()) {
+      return;
+    }
     const imageData = new FormData();
     const firstImgToFile = setDataURLtoFile(firstImageUrl, 'firstImg');
     const secondImgToFile = setDataURLtoFile(secondImageUrl, 'secondImg');
@@ -159,7 +171,7 @@ const ImageInput = (props: ImageInputProps) => {
             </StImageTextBlock>
           </StImageInputLabel>
         )}
-        <StImageSubmitButton type="button" isComplete={isComplete} disabled={!isComplete} onClick={handlePostImage}>
+        <StImageSubmitButton type="submit" isComplete={isComplete} disabled={!isComplete} onClick={handlePostImage}>
           투표 만들기 완료
         </StImageSubmitButton>
       </StImageInputWrapper>

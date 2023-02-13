@@ -7,19 +7,14 @@ import useModal from '../../lib/hooks/useModal';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
-const Kakao = window.Kakao;
-
 const Nav = () => {
   const { isShowing, toggle } = useModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  // const { Kakao } = window as any;
-  // const Kakao = window.Kakao;
 
   const handleLogout = async () => {
     try {
-      // const res = await Kakao.Auth.logout();
       localStorage.removeItem('accessToken');
       navigate('/');
     } catch (error) {
@@ -40,7 +35,7 @@ const Nav = () => {
         <StLogoBtn onClick={handleReLoad}>
           <IcHomeLogo />
         </StLogoBtn>
-        <StHambergerWrapper>
+        <StHamburgerWrapper>
           <StLogoutBtn type="button" onClick={() => toggle()}>
             로그아웃
           </StLogoutBtn>
@@ -53,9 +48,9 @@ const Nav = () => {
           <StHamburgerBtn type="button" onClick={handleHamburger}>
             {isOpen ? <IcClose width="2.13rem" height="1.4rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
           </StHamburgerBtn>
-        </StHambergerWrapper>
+        </StHamburgerWrapper>
+        <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
       </StHomeNav>
-      <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };
@@ -87,9 +82,10 @@ const StLogoBtn = styled.a`
   }
 `;
 
-const StHambergerWrapper = styled.div`
+const StHamburgerWrapper = styled.div`
   display: flex;
   align-items: center;
+  z-index: 100;
 `;
 
 const StLogoutBtn = styled.button`
