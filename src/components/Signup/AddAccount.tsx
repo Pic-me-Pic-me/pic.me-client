@@ -35,39 +35,40 @@ const AddAccount = () => {
   const handleValidation = (inputValueType: string, inputValue: string) => {
     switch (inputValueType) {
       case 'email':
-        !EMAIL_REGEX.test(inputValue)
+        EMAIL_REGEX.test(inputValue)
           ? setSignupInfo({
               ...signupInfo,
-              emailInfo: { email: null, isValid: false, errorMsg: EMAIL_ERROR_MSG },
+              emailInfo: { email: inputValue, isValid: true, errorMsg: null },
             })
           : setSignupInfo({
               ...signupInfo,
-              emailInfo: { email: inputValue, isValid: true, errorMsg: null },
+              emailInfo: { email: null, isValid: false, errorMsg: EMAIL_ERROR_MSG },
             });
         break;
 
       case 'password':
-        !PASSWORD_REGEX.test(inputValue)
+        PASSWORD_REGEX.test(inputValue)
           ? setSignupInfo({
               ...signupInfo,
-              passwordInfo: { password: null, isValid: false, errorMsg: PASSWORD_ERROR_MSG },
+              passwordInfo: { password: inputValue, isValid: true, errorMsg: null },
             })
           : setSignupInfo({
               ...signupInfo,
-              passwordInfo: { password: inputValue, isValid: true, errorMsg: null },
+              passwordInfo: { password: null, isValid: false, errorMsg: PASSWORD_ERROR_MSG },
             });
         break;
 
       case 'passwordConfirm':
-        inputValue !== signupInfo.passwordInfo.password
+        inputValue === signupInfo.passwordInfo.password
           ? setSignupInfo({
               ...signupInfo,
-              passwordConfirmInfo: { isValid: false, errorMsg: PASSWORD_CONFIRM_ERROR_MSG },
+              passwordConfirmInfo: { isValid: true, errorMsg: null },
             })
           : setSignupInfo({
               ...signupInfo,
-              passwordConfirmInfo: { isValid: true, errorMsg: null },
+              passwordConfirmInfo: { isValid: false, errorMsg: PASSWORD_CONFIRM_ERROR_MSG },
             });
+
         break;
     }
   };
