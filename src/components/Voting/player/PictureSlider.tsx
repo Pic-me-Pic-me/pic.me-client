@@ -13,14 +13,14 @@ import {
   SLIDER_UNSELECT_WIDTH_RATIO,
 } from '../../../constant/slider';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
-import { playerStickerInfoState, votingInfoState } from '../../../recoil/player/atom';
+import { stickerInfoState, votingInfoState } from '../../../recoil/player/atom';
 import { PictureInfo } from '../../../types/vote';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 import SelectPicture from './SelectPicture';
 
 const PictureSlider = () => {
   const votingInfoAtom = useRecoilValue(votingInfoState);
-  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(stickerInfoState);
 
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);

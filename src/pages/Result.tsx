@@ -3,14 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcResultLeft, IcResultRight } from '../asset/icon';
-import { Error, Loading, StickerAttachImg } from '../components/common';
+import { Error, Loading } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
+import ResultPicSlider from '../components/Result/ResultPicSlider';
 import ResultReason from '../components/Result/ResultReason';
 import SliderTitle from '../components/Result/SliderTitle';
 import useGetVoteResult from '../lib/hooks/useGetVoteResult';
 import { stickerResultState } from '../recoil/maker/atom';
 import { jsonGetResultStickerList } from '../utils/jsonGetStickerList';
+import Error404 from './Error404';
 
 const Result = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Result = () => {
   const setStickerResultState = useSetRecoilState(stickerResultState);
 
   const handleIsOpenResultReason = () => {
-    setIsOpenResultReason(!isOpenResultReason);
+    setIsOpenResultReason((prev) => !prev);
   };
 
   useEffect(() => {
@@ -29,7 +30,8 @@ const Result = () => {
       setStickerResultState(jsonGetResultStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
     }
   }, [voteResult, chosenPictureIdx]);
-  if (isError) <Error />;
+
+  if (isError) <Error404 />;
 
   if (voteResult)
     return (
@@ -40,21 +42,17 @@ const Result = () => {
               HeaderTitle="최종 투표 결과"
               handleGoback={() => navigate('/library')}
               isBanner></HeaderLayout>
-            {!chosenPictureIdx ? (
-              <IcResultRight onClick={() => setChosenPictureIdx(1)} />
-            ) : (
-              <IcResultLeft onClick={() => setChosenPictureIdx(0)} />
-            )}
+
             <SliderTitle
               isChosenPic={!chosenPictureIdx}
               voteTitle={voteResult.voteTitle}
-              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
+              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}
+            />
 
             <section>
-              <StickerAttachImg
-                stickerAttachImgSrc={voteResult.Picture[chosenPictureIdx].url}
-                imgWrapperWidthPercent={87}
-                imgHight={48.836}
+              <ResultPicSlider
+                chosenPictureIdx={chosenPictureIdx}
+                setChosenPictureIdx={(idx: number) => setChosenPictureIdx(idx)}
               />
               <ResultReason
                 totalVoteCount={voteResult.currentVote}

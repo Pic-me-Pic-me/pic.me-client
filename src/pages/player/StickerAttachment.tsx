@@ -8,19 +8,22 @@ import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { StickerGuide } from '../../components/Voting/player';
 import StickerVoting from '../../components/Voting/player/StickerVoting';
 import { postStickerData } from '../../lib/api/voting';
-import { playerStickerInfoState } from '../../recoil/player/atom';
+import { stickerInfoState } from '../../recoil/player/atom';
 
 const StickerAttachment = () => {
   const navigate = useNavigate();
   const [isStickerGuide, setIsStickerGuide] = useState<boolean>(true);
-  const playerStickerVotingInfo = useRecoilValue(playerStickerInfoState);
-  const isActiveBtn: boolean = playerStickerVotingInfo.location.length > 0;
+  const stickerVotingInfo = useRecoilValue(stickerInfoState);
+  const isActiveBtn: boolean = stickerVotingInfo.location.length > 0;
 
   const handleVotingSuccess = async () => {
-    if (isActiveBtn) {
-      await postStickerData(playerStickerVotingInfo);
-      navigate('/player/voting/result');
-    }
+    if (isActiveBtn)
+      try {
+        const { data } = await postStickerData(playerStickerVotingInfo);
+        navigate('/player/voting/result');
+      } catch (e) {
+        console.error(e);
+      }
   };
   const handlePrevpage = () => {
     navigate(-1);
@@ -40,7 +43,7 @@ const StickerAttachment = () => {
       <VotingLayout
         votingTitle="그 이유를 사진에 스티커로 표현해보세요!"
         pageType="StickerAttachment"
-        votingSubTitle={isStickerGuide ? '최대 3회' : `${3 - playerStickerVotingInfo.location.length}회 남음`}
+        votingSubTitle={isStickerGuide ? '최대 3회' : `${3 - stickerVotingInfo.location.length}회 남음`}
         margin={0.9}
         btnTitle="투표 완료하기"
         isActiveBtn={isActiveBtn}

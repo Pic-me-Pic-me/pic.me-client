@@ -22,13 +22,12 @@ const Signup = lazy(() => import('../../pages/Signup'));
 const Auth = lazy(() => import('../Auth/Auth'));
 const MemberInfo = lazy(() => import('../Auth/MemberInfo'));
 const AddAccount = lazy(() => import('../Signup/AddAccount'));
-const KakaoNickname = lazy(() => import('../Signup/KakaoNickname'));
 const Nickname = lazy(() => import('../Signup/Nickname'));
 
 const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
-      <Suspense fallback={<Loading />}>
+      <Suspense>
         <Routes>
           <Route path="/" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
@@ -45,7 +44,6 @@ const Router = () => (
           <Route path="/signup" element={<Signup />}>
             <Route path="" element={<AddAccount />} />
             <Route path="nickname" element={<Nickname />} />
-            <Route path="kakaonickname" element={<KakaoNickname />} />
           </Route>
           <Route path="/vote/:voteId" element={<PlayerLanding />}>
             <Route path="*" element={<Error404 />} />

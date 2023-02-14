@@ -4,11 +4,11 @@ import { useRecoilValue } from 'recoil';
 
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { StickerResultVoting } from '../../components/Voting/player';
-import { playerStickerInfoState } from '../../recoil/player/atom';
+import { stickerInfoState } from '../../recoil/player/atom';
 
 const ResultVoting = () => {
   const navigate = useNavigate();
-  const playerStickerVotingInfo = useRecoilValue(playerStickerInfoState);
+  const playerStickerVotingInfo = useRecoilValue(stickerInfoState);
 
   const isActiveBtn: boolean = playerStickerVotingInfo.location.length > 0;
 

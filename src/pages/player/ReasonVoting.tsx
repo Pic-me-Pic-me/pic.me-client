@@ -6,12 +6,12 @@ import styled from 'styled-components';
 import { IcHeaderSecond } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { ReasonSlider } from '../../components/Voting/player';
-import { playerStickerInfoState } from '../../recoil/player/atom';
+import { stickerInfoState } from '../../recoil/player/atom';
 import { pictureSelector } from '../../recoil/player/selector';
 
 const ReasonVoting = () => {
   const navigate = useNavigate();
-  const [playerStickerInfo, setStickerInfo] = useRecoilState(playerStickerInfoState);
+  const [playerStickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
   const pictureInfo = useRecoilValue(pictureSelector(playerStickerInfo.pictureId));
 
   const handleVotingSuccess = async () => {
