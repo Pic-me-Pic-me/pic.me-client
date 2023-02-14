@@ -7,6 +7,8 @@ import {
   EMAIL_REGEX,
   PASSWORD_CONFIRM_ERROR_MSG,
   PASSWORD_ERROR_MSG,
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from '../../constant/signup';
 import { SignUpInfo } from '../../types/signup';
@@ -124,8 +126,8 @@ const AddAccount = () => {
           <StInput
             type="password"
             placeholder="확인을 위해 비밀번호를 입력해주세요"
-            minLength={8}
-            maxLength={16}
+            minLength={PASSWORD_MIN_LENGTH}
+            maxLength={PASSWORD_MAX_LENGTH}
             onChange={(e) => {
               handleSpace(e);
               handleValidation('passwordConfirm', e.target.value);
