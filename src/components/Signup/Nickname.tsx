@@ -42,7 +42,7 @@ const Nickname = () => {
     let signUpData;
     if (nickname.state === 'pass') {
       if (getAccessToken('kakaoAccessToken')) {
-        const uid: string = location.state;
+        const uid: number = location.state.uid;
         signUpData = await postKakaoSignUp(uid, nickname.finalNickname);
       } else {
         const { email, password }: AddAccountInfo = location.state.signupDataInfo;

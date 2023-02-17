@@ -20,7 +20,7 @@ export const postKakaoToken = async (token: string) => {
   return data.data;
 };
 
-export const postKakaoSignIn = async (uid: string) => {
+export const postKakaoSignIn = async (uid: number) => {
   const { data } = await client.post<AxiosResponse<UserTokenInfo>>('/auth/kakao/signin', {
     uid,
     socialType: 'kakao',
@@ -28,7 +28,8 @@ export const postKakaoSignIn = async (uid: string) => {
   return data.data;
 };
 
-export const postKakaoSignUp = async (uid: string, username: string) => {
+export const postKakaoSignUp = async (uid: number, username: string) => {
+  console.log(uid, username);
   const { data } = await client.post<AxiosResponse<UserTokenInfo>>('/auth/kakao', {
     uid,
     socialType: 'kakao',

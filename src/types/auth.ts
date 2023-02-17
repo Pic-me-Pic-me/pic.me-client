@@ -14,7 +14,7 @@ export interface RefreshType {
 }
 
 export interface UserInfo {
-  uid: string;
+  uid: number;
   email: string;
   isUser: boolean;
 }
