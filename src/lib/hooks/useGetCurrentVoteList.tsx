@@ -11,12 +11,14 @@ const getKey = (cursorIdx: number, voteListData: AxiosResponse<VoteResultData>) 
 };
 
 const useGetCurrentVoteList = () => {
-  const { data, isLoading, error, setSize } = useSWRInfinite<AxiosResponse<VoteResultData>>(getKey, picmeGetFetcher, {
-    persistSize: true,
-    revalidateFirstPage: false,
-  });
+  const { data, isLoading, error, size, setSize } = useSWRInfinite<AxiosResponse<VoteResultData>>(
+    getKey,
+    picmeGetFetcher,
+    {
+      errorRetryCount: 3,
+    },
+  );
 
-  const lastData = data?.[data.length - 1].data.result;
   const parseResultList = data
     ?.map((item) => item.data.result)
     .flat()
@@ -28,7 +30,7 @@ const useGetCurrentVoteList = () => {
     },
     isLoading,
     isError: error,
-    isEnd: lastData === undefined,
+    size,
     setSize,
   };
 };
