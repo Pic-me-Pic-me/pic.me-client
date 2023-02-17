@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import {
   EMAIL_ERROR_MSG,
   EMAIL_REGEX,
+  initialSignupInfo,
   PASSWORD_CONFIRM_ERROR_MSG,
   PASSWORD_ERROR_MSG,
   PASSWORD_MAX_LENGTH,
@@ -12,30 +13,18 @@ import {
   PASSWORD_REGEX,
 } from '../../constant/signup';
 import { SignUpInfo } from '../../types/signup';
+import { checkIsValid } from '../../utils/checkIsValidate';
 
 const AddAccount = () => {
   const navigate = useNavigate();
-  const [signupInfo, setSignupInfo] = useState<SignUpInfo>({
-    emailInfo: {
-      email: null,
-      isValid: false,
-      errorMsg: null,
-    },
-    passwordInfo: {
-      password: null,
-      isValid: false,
-      errorMsg: null,
-    },
-    passwordConfirmInfo: {
-      isValid: false,
-      errorMsg: null,
-    },
-  });
+  const [signupInfo, setSignupInfo] = useState<SignUpInfo>(initialSignupInfo);
+  const isSubmitBtnDiabled =
+    !signupInfo.emailInfo.isValid || !signupInfo.passwordInfo.isValid || !signupInfo.passwordConfirmInfo.isValid;
 
   const handleValidation = (inputValueType: string, inputValue: string) => {
     switch (inputValueType) {
       case 'email':
-        EMAIL_REGEX.test(inputValue)
+        checkIsValid(EMAIL_REGEX, inputValue)
           ? setSignupInfo({
               ...signupInfo,
               emailInfo: { email: inputValue, isValid: true, errorMsg: null },
@@ -47,7 +36,7 @@ const AddAccount = () => {
         break;
 
       case 'password':
-        PASSWORD_REGEX.test(inputValue)
+        checkIsValid(PASSWORD_REGEX, inputValue)
           ? setSignupInfo({
               ...signupInfo,
               passwordInfo: { password: inputValue, isValid: true, errorMsg: null },
@@ -85,6 +74,7 @@ const AddAccount = () => {
   const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInput = e.target;
     const currentInputValue = e.target.value;
+
     if (currentInputValue.includes(' ')) {
       const position = currentInput.selectionStart && currentInput.selectionStart - 1;
       e.target.value = currentInputValue.replace(' ', '');
@@ -136,14 +126,7 @@ const AddAccount = () => {
           />
           <StInputDesc>{signupInfo.passwordConfirmInfo.errorMsg}</StInputDesc>
 
-          <StSubmitBtn
-            disabled={
-              !signupInfo.emailInfo.isValid ||
-              !signupInfo.passwordInfo.isValid ||
-              !signupInfo.passwordConfirmInfo.isValid
-            }>
-            다음 단계로 이동
-          </StSubmitBtn>
+          <StSubmitBtn disabled={isSubmitBtnDiabled}>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StWrapper>
     </StWhiteSection>

@@ -23,21 +23,18 @@ export interface PasswordComfirmInfo {
 export interface DefaultNicknameInfo {
   typedNickname: string;
   state: 'default';
-  finalNickname: null;
-  errorMsg: null;
 }
 
 export interface ErrorNicknameInfo {
   typedNickname: string;
   state: 'error';
-  finalNickname: null;
   errorMsg: string | null;
 }
 export interface PassNicknameInfo {
   typedNickname: string;
   state: 'pass';
   finalNickname: string;
-  errorMsg: string;
+  passMsg: string;
 }
 
 export type NicknameInfo = DefaultNicknameInfo | ErrorNicknameInfo | PassNicknameInfo;

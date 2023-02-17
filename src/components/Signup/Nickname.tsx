@@ -19,8 +19,6 @@ const Nickname = () => {
   const [nickname, setNickname] = useState<NicknameInfo>({
     typedNickname: '',
     state: 'default',
-    finalNickname: null,
-    errorMsg: null,
   });
 
   const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
@@ -33,10 +31,10 @@ const Nickname = () => {
         ...nickname,
         state: 'pass',
         finalNickname: nickname.typedNickname,
-        errorMsg: POSSIBLE_NICKNAME_MSG,
+        passMsg: POSSIBLE_NICKNAME_MSG,
       });
     } else {
-      setNickname({ ...nickname, state: 'error', finalNickname: null, errorMsg: IMPOSSIBLE_NICKNAME_MSG });
+      setNickname({ ...nickname, state: 'error', errorMsg: IMPOSSIBLE_NICKNAME_MSG });
     }
   };
 
@@ -91,7 +89,9 @@ const Nickname = () => {
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc isDuplicate>{nickname.errorMsg}</StInputDesc>
+          <StInputDesc isDuplicate={nickname.state === 'error'}>
+            {nickname.state !== 'default' && (nickname.state === 'error' ? nickname.errorMsg : nickname.passMsg)}
+          </StInputDesc>
 
           <Terms isChecked={isChecked} setIsChecked={(isChecked) => setIsChecked(isChecked)} />
 

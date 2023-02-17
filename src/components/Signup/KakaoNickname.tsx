@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Cookies } from 'react-cookie';
-import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { IcAfterCheckbox, IcBeforeCheckbox } from '../../asset/icon';
 import { IMPOSSIBLE_NICKNAME_MSG, POSSIBLE_NICKNAME_MSG } from '../../constant/signup';
 import { postKakaoSignUp } from '../../lib/api/auth';
 import { getUsernameCheck } from '../../lib/api/signup';
-import { AddAccountInfo, KakaoAddNicknameInfo, NicknameInfo } from '../../types/signup';
+import { KakaoAddNicknameInfo, NicknameInfo } from '../../types/signup';
 import Terms from './Terms';
 
 const NICKNAME_MAX_LENGTH = 8;
@@ -22,8 +20,6 @@ const KakaoNickname = () => {
   const [nickname, setNickname] = useState<NicknameInfo>({
     typedNickname: '',
     state: 'default',
-    finalNickname: null,
-    errorMsg: null,
   });
 
   const { uid, socialType, email }: KakaoAddNicknameInfo = location.state;
@@ -37,10 +33,10 @@ const KakaoNickname = () => {
         ...nickname,
         state: 'pass',
         finalNickname: nickname.typedNickname,
-        errorMsg: POSSIBLE_NICKNAME_MSG,
+        passMsg: POSSIBLE_NICKNAME_MSG,
       });
     } else {
-      setNickname({ ...nickname, state: 'error', finalNickname: null, errorMsg: IMPOSSIBLE_NICKNAME_MSG });
+      setNickname({ ...nickname, state: 'error', errorMsg: IMPOSSIBLE_NICKNAME_MSG });
     }
   };
 
@@ -85,7 +81,9 @@ const KakaoNickname = () => {
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc isDuplicate>{nickname.errorMsg}</StInputDesc>
+          <StInputDesc isDuplicate={nickname.state === 'error'}>
+            {nickname.state !== 'default' && (nickname.state === 'error' ? nickname.errorMsg : nickname.passMsg)}
+          </StInputDesc>
 
           <Terms isChecked={isChecked} setIsChecked={(isChecked) => setIsChecked(isChecked)} />
 
