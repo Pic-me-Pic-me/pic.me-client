@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
+import Footer from '../components/Home/Footer';
 import { votingImageState } from '../recoil/maker/atom';
 
 const Home = () => {
@@ -30,6 +31,7 @@ const Home = () => {
         </StMakerVoting>
       </StHomeWrapper>
       <VoteList />
+      <Footer />
     </>
   );
 };
