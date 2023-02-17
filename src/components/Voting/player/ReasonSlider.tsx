@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -6,15 +5,16 @@ import styled, { css } from 'styled-components';
 
 import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu, IcSelectRound } from '../../../asset/icon';
 import { Angle, Face, Just, Mood } from '../../../asset/lottie';
+import { REASON_MENU_ITEM_MAX_INDEX, REASON_MENU_ITEM_WIDTH } from '../../../constant/slider';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
-import { stickerInfoState } from '../../../recoil/player/atom';
+import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
 const ReasonSlider = () => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
-  const [stickerInfo, setStickerInfo] = useRecoilState(stickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
 
   const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = [
@@ -29,7 +29,7 @@ const ReasonSlider = () => {
   const navIconRenderList = Array(4).fill(0);
 
   useEffect(() => {
-    if (stickerInfo.location.length === 0) setStickerInfo({ ...stickerInfo, emoji: currentIdx });
+    if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx });
   }, [currentIdx]);
 
   return (
@@ -37,33 +37,25 @@ const ReasonSlider = () => {
       <StDragWReasonWrapper ref={ref}>
         <StDragWReasonUl
           currentIdx={currentIdx}
-          dragItemWidth={170}
+          dragItemWidth={REASON_MENU_ITEM_WIDTH}
           transX={transX}
           {...picmeSliderEvent({
             onDragChange: (deltaX) => {
               setTransX(modifySliderRange(deltaX, -width, width));
             },
             onDragEnd: (deltaX) => {
-              const maxIndex = menuIconList.length - 1;
-              Array(3)
-                .fill(0)
-                .map((v, i) => 3 - i)
-                .some((num) => {
-                  if (deltaX < -156 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx + num, 0, maxIndex));
-                    return true;
-                  }
-                  if (deltaX > 156 * num) {
-                    setCurrentIdx(modifySliderRange(currentIdx - num, 0, maxIndex));
-                    return true;
-                  }
-                });
+              if (deltaX < -REASON_MENU_ITEM_WIDTH / 2) {
+                setCurrentIdx(modifySliderRange(currentIdx + 1, 0, REASON_MENU_ITEM_MAX_INDEX));
+              }
+              if (deltaX > REASON_MENU_ITEM_WIDTH / 2) {
+                setCurrentIdx(modifySliderRange(currentIdx - 1, 0, REASON_MENU_ITEM_MAX_INDEX));
+              }
 
               setTransX(0);
             },
           })}>
           {menuIconList.map((menu, idx) =>
-            idx === 0 ? (
+            !idx ? (
               <li key={idx} className="unselect_item">
                 {menu}
               </li>
@@ -97,7 +89,7 @@ const ReasonSlider = () => {
 export default ReasonSlider;
 const StReasonSliderWrapper = styled.section`
   position: absolute;
-  top: 45rem;
+  top: 55%;
 
   width: 100%;
 `;

@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcGoback, IcResultLeft, IcResultRight } from '../asset/icon';
-import resultSample from '../asset/image/resultSample.png';
 import { Error, Loading } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
-import ResultPicture from '../components/Result/ResultPicture';
+import ResultPicSlider from '../components/Result/ResultPicSlider';
 import ResultReason from '../components/Result/ResultReason';
 import SliderTitle from '../components/Result/SliderTitle';
 import useGetVoteResult from '../lib/hooks/useGetVoteResult';
 import { stickerResultState } from '../recoil/maker/atom';
-import { stickerCountSelector } from '../recoil/maker/selector';
-import { MakerVoteInfo } from '../types/vote';
 import { jsonGetResultStickerList } from '../utils/jsonGetStickerList';
+import Error404 from './Error404';
 
 const Result = () => {
   const navigate = useNavigate();
@@ -25,7 +22,7 @@ const Result = () => {
   const setStickerResultState = useSetRecoilState(stickerResultState);
 
   const handleIsOpenResultReason = () => {
-    setIsOpenResultReason(!isOpenResultReason);
+    setIsOpenResultReason((prev) => !prev);
   };
 
   useEffect(() => {
@@ -33,7 +30,8 @@ const Result = () => {
       setStickerResultState(jsonGetResultStickerList(voteResult.Picture[chosenPictureIdx].Sticker));
     }
   }, [voteResult, chosenPictureIdx]);
-  if (isError) <Error />;
+
+  if (isError) <Error404 />;
 
   if (voteResult)
     return (
@@ -44,18 +42,18 @@ const Result = () => {
               HeaderTitle="최종 투표 결과"
               handleGoback={() => navigate('/library')}
               isBanner></HeaderLayout>
-            {!chosenPictureIdx ? (
-              <IcResultRight onClick={() => setChosenPictureIdx(1)} />
-            ) : (
-              <IcResultLeft onClick={() => setChosenPictureIdx(0)} />
-            )}
+
             <SliderTitle
               isChosenPic={!chosenPictureIdx}
               voteTitle={voteResult.voteTitle}
-              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}></SliderTitle>
+              voteTotalNumber={voteResult.Picture[chosenPictureIdx].count}
+            />
 
             <section>
-              <ResultPicture src={voteResult.Picture[chosenPictureIdx].url}></ResultPicture>
+              <ResultPicSlider
+                chosenPictureIdx={chosenPictureIdx}
+                setChosenPictureIdx={(idx: number) => setChosenPictureIdx(idx)}
+              />
               <ResultReason
                 totalVoteCount={voteResult.currentVote}
                 handleIsOpenResultReason={handleIsOpenResultReason}

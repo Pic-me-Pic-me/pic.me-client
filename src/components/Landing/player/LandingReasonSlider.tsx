@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { IcSelectRound } from '../../../asset/icon';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';

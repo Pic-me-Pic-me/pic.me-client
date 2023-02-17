@@ -1,57 +1,48 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcPickmeLogo } from '../../asset/icon';
 import { LoginBanner } from '../../asset/image';
-import { deleteUser, getUserInfo, postKakaoToken } from '../../lib/api/auth';
+import { deleteUser, postKakaoToken } from '../../lib/api/auth';
+import useGetUserData from '../../lib/hooks/useGetUserData';
 import useModal from '../../lib/hooks/useModal';
+import { clearUserSession, getAccessToken } from '../../lib/token';
+import Error404 from '../../pages/Error404';
 import { MemberData } from '../../types/auth';
 import Modal from '../common/Modal';
 import { HeaderLayout } from '../Layout';
 
-const Kakao = window.Kakao;
-
 const MemberInfo = () => {
+  const { userInfo, isError } = useGetUserData();
+  const { userName, email } = userInfo as MemberData;
   const { isShowing, toggle } = useModal();
   const navigate = useNavigate();
-  const [user, setUser] = useState<MemberData>();
-
   const handleGoback = () => {
     navigate('/home');
   };
 
-  const getUserData = async () => {
-    const userinfo = await getUserInfo();
-    if (userinfo) setUser(userinfo.data);
-  };
-
   const handleDeleteUser = async () => {
     try {
-      const KAKAO_TOKEN = localStorage.getItem('kakaoAccessToken');
+      const KAKAO_TOKEN = getAccessToken('kakaoAccessToken');
       if (KAKAO_TOKEN) {
-        const data = await postKakaoToken('kakao', KAKAO_TOKEN);
-        const res = await axios({
+        await postKakaoToken(KAKAO_TOKEN);
+        await axios({
           method: 'POST',
           url: 'https://kapi.kakao.com/v1/user/unlink',
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('kakaoAccessToken')}`,
+            Authorization: `Bearer ${getAccessToken('kakaoAccessToken')}`,
           },
         });
-        localStorage.removeItem('kakaoAccessToken');
       }
-      const result = await deleteUser();
-      localStorage.removeItem('accessToken');
+      await deleteUser();
+      clearUserSession();
       navigate('/');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  if (isError) return <Error404 />;
 
   return (
     <>
@@ -61,10 +52,10 @@ const MemberInfo = () => {
       </StBannerWrapper>
       <StWhiteSection>
         <h1>닉네임</h1>
-        <p>{user?.userName}</p>
+        <p>{userName}</p>
         <h1>아이디</h1>
         {}
-        <p>{user?.email}</p>
+        <p>{email}</p>
         <div>
           <button type="button" onClick={() => toggle()}>
             회원 탈퇴하기
@@ -102,7 +93,6 @@ const StBannerWrapper = styled.div`
   > img {
     max-width: 100%;
     position: absolute;
-    /* top: 9.2rem; */
   }
 `;
 
@@ -121,8 +111,7 @@ const StWhiteSection = styled.section`
     margin-bottom: 0.9rem;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
-    // body2로 바꿔야 함!!
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+    ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16};
   }
 
   > p {

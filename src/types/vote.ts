@@ -1,6 +1,3 @@
-// 서버에서 pictures라고 지정해서,,우리는 복수명 안되는데! 어쩔수 없었오!
-import { PicMeResponse } from './api';
-
 export interface MakerPictureData {
   pictureId: number;
   url: string;
@@ -28,38 +25,12 @@ export interface VotingInfo {
   maximum_vote: number;
   created_date: Date;
 }
-
-// export interface PictureInfo {
-//   picture_id: number;
-//   vote_id: number;
-//   url: string;
-//   count: number;
-// }
-
-// export interface StickerInfo {
-//   sticker_id: number;
-//   picture_id: number;
-//   location: string;
-//   emoji: number;
-// }
-
 export interface CurrentPictureInfo {
   pictureId?: number;
   url: string;
   count: number;
   Sticker: GetStickerResultInfo[];
 }
-
-// export interface StickerResultInfo {
-//   stickerLocation: StickerLocation[];
-//   emoji: number;
-//   count: number;
-// }
-// export interface GetStickerResultInfo {
-//   stickerLocation: string;
-//   emoji: number;
-//   count: number;
-// }
 export interface VoteData {
   status: number;
   data?: VoteInfo;
@@ -93,7 +64,7 @@ export interface StickerLocation {
   y: number;
   degRate: number;
 }
-export interface StickerInfo {
+export interface PlayerStickerInfo {
   pictureId: number;
   location: StickerLocation[];
   emoji: number;
@@ -113,7 +84,7 @@ export interface VoteReasonInfo {
   faceStickerCount: number;
   angleStickerCount: number;
   moodStickerCount: number;
-  jusStickerCount: number;
+  justStickerCount: number;
 }
 
 export interface ResultSticker {
@@ -141,5 +112,5 @@ export interface VoteCardInfo {
 
 export interface VoteResultData {
   result: VoteCardInfo[];
-  resCursorId: number;
+  resCursorId: string;
 }

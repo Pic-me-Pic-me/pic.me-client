@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcPickmeLogo } from '../asset/icon';
 import { SignUpBanner } from '../asset/image';
 import HeaderLayout from '../components/Layout/HeaderLayout';
 

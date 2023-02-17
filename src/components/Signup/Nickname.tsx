@@ -4,16 +4,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { IMPOSSIBLE_NICKNAME_MSG, NICKNAME_MAX_LENGTH, POSSIBLE_NICKNAME_MSG } from '../../constant/signup';
+import { postKakaoSignUp } from '../../lib/api/auth';
 import { getUsernameCheck, postSignupInfo } from '../../lib/api/signup';
+import { getAccessToken, setUserSession } from '../../lib/token';
 import { AddAccountInfo, NicknameInfo } from '../../types/signup';
 import Terms from './Terms';
 
 const Nickname = () => {
   const location = useLocation();
-  const { email, password }: AddAccountInfo = location.state.signupDataInfo;
-
-  const cookies = new Cookies();
-
   const navigate = useNavigate();
 
   const [nickname, setNickname] = useState<NicknameInfo>({
@@ -38,17 +36,21 @@ const Nickname = () => {
     }
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (nickname.state === 'pass')
-      postSignupInfo({ email, password }, nickname.finalNickname).then((res) => {
-        if (res?.success) {
-          cookies.set('refreshToken', res.data.refreshToken);
-          localStorage.setItem('accessToken', res.data.accessToken);
-          navigate('/home');
-        }
-      });
+    let signUpData;
+    if (nickname.state === 'pass') {
+      if (getAccessToken('kakaoAccessToken')) {
+        const uid: string = location.state;
+        signUpData = await postKakaoSignUp(uid, nickname.finalNickname);
+      } else {
+        const { email, password }: AddAccountInfo = location.state.signupDataInfo;
+        signUpData = await postSignupInfo({ email, password }, nickname.finalNickname);
+      }
+    }
+    setUserSession(signUpData.accessToken, signUpData.refreshToken);
+    navigate('/home');
   };
 
   const handleNicknameCondition = (e: React.ChangeEvent<HTMLInputElement>) => {

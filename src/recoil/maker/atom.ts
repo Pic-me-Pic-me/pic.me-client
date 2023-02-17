@@ -1,11 +1,54 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { StickerResultInfo } from '../../types/vote';
+import { MakerPictureData, MakerVoteInfo, StickerResultInfo } from '../../types/vote';
 import { VotingImageInfo } from '../../types/votingImage';
 
 //페이지가 변경되더라도 상태관리를 유지
 const { persistAtom } = recoilPersist();
+
+export const votingImageState = atom<VotingImageInfo>({
+  key: 'votingImage',
+  default: {
+    title: '',
+    firstImageUrl: '',
+    secondImageUrl: '',
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const voteResultState = atom<MakerVoteInfo>({
+  key: 'voteResult',
+  default: {
+    userName: '',
+    voteId: 0,
+    voteStatus: true,
+    voteTitle: '',
+    Picture: [],
+    currentVote: 0,
+    createdDate: new Date(),
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const pictureResultState = atom<MakerPictureData[]>({
+  key: 'pictureResult',
+  default: [
+    {
+      Sticker: [],
+      count: 0,
+      pictureId: 0,
+      url: '',
+    },
+  ],
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const pictureCurrentIdx = atom<number>({
+  key: 'pictureCurrentIdx',
+  default: 0,
+});
+
 export const stickerResultState = atom<StickerResultInfo[]>({
   key: 'stickerResult',
   default: [
@@ -15,15 +58,5 @@ export const stickerResultState = atom<StickerResultInfo[]>({
       count: 0,
     },
   ],
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const votingImageState = atom<VotingImageInfo>({
-  key: 'votingImage',
-  default: {
-    title: '',
-    firstImageUrl: '',
-    secondImageUrl: '',
-  },
   effects_UNSTABLE: [persistAtom],
 });
