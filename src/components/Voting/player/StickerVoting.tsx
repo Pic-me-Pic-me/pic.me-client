@@ -4,12 +4,10 @@ import styled from 'styled-components';
 
 import { IcCancel } from '../../../asset/icon';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
-import useModal from '../../../lib/hooks/useModal';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
 import { NaturalImgInfo, StickerLocation } from '../../../types/vote';
 import { setStickerLocationData } from '../../../utils/setStickerLocationData';
-import Modal from '../../common/Modal';
 
 interface StickerVotingProps {
   isStickerGuide: boolean;
