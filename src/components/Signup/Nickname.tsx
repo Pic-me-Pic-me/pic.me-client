@@ -70,13 +70,15 @@ const Nickname = () => {
   };
 
   const handleSignup = () => {
-    postSignupInfo({ email, password }, nickname).then((res) => {
-      if (res?.success) {
-        cookies.set('refreshToken', res.data.refreshToken, { httpOnly: true });
-        localStorage.setItem('accessToken', res.data.accessToken);
-        navigate('/home');
-      }
-    });
+    cookies.set('refreshToken', 'test', { httpOnly: true });
+
+    // postSignupInfo({ email, password }, nickname).then((res) => {
+    //   if (res?.success) {
+    //     cookies.set('refreshToken', res.data.refreshToken, { httpOnly: true });
+    //     localStorage.setItem('accessToken', res.data.accessToken);
+    //     navigate('/home');
+    //   }
+    // });
   };
 
   return (
