@@ -16,7 +16,7 @@ const Nickname = () => {
 
   const navigate = useNavigate();
 
-  const [isChecked, setIsChecked] = useState<boolean[]>([true, true, true]);
+  const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
   const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
   const [nickname, setNickname] = useState<string>('');
