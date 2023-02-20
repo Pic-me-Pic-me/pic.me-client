@@ -72,7 +72,7 @@ const Nickname = () => {
   const handleSignup = () => {
     postSignupInfo({ email, password }, nickname).then((res) => {
       if (res?.success) {
-        cookies.set('refreshToken', res.data.refreshToken);
+        cookies.set('refreshToken', res.data.refreshToken, { httpOnly: true });
         localStorage.setItem('accessToken', res.data.accessToken);
         navigate('/home');
       }
