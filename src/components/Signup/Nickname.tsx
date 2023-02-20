@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Cookies } from 'react-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
@@ -20,7 +19,6 @@ const Nickname = () => {
   });
 
   const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
-
   const handleCheckNickname = async () => {
     const response = await getUsernameCheck(nickname.typedNickname);
 
@@ -38,7 +36,6 @@ const Nickname = () => {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-
     let signUpData;
     if (nickname.state === 'pass') {
       if (getAccessToken('kakaoAccessToken')) {
@@ -49,8 +46,11 @@ const Nickname = () => {
         signUpData = await postSignupInfo({ email, password }, nickname.finalNickname);
       }
     }
-    setUserSession(signUpData.accessToken, signUpData.refreshToken);
-    navigate('/home');
+
+    if (signUpData) {
+      setUserSession(signUpData.accessToken, signUpData.refreshToken);
+      navigate('/home');
+    }
   };
 
   const handleNicknameCondition = (e: React.ChangeEvent<HTMLInputElement>) => {
