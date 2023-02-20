@@ -71,6 +71,7 @@ const Nickname = () => {
 
   const handleSignup = () => {
     cookies.set('refreshToken', 'test', { httpOnly: true });
+    console.log(cookies.get('refreschToken'));
 
     // postSignupInfo({ email, password }, nickname).then((res) => {
     //   if (res?.success) {
