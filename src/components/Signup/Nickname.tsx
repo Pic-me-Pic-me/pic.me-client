@@ -71,8 +71,8 @@ const Nickname = () => {
 
   const handleSignup = () => {
     // cookies.set('refreshToken', 'test', { domain: 'https://with-picme.com', httpOnly: true });
-    cookies.set('refreshToken', 'test123', { domain: 'localhost', httpOnly: true });
-    cookies.set('refreshToken', 'test123', { domain: 'with-picme.com', httpOnly: true });
+    cookies.set('refreshToken', 'test123', { domain: 'localhost' });
+    cookies.set('refreshToken', 'test123', { domain: '.with-picme.com', httpOnly: true });
 
     console.log(cookies.get('refreshToken'));
 
