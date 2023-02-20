@@ -70,19 +70,13 @@ const Nickname = () => {
   };
 
   const handleSignup = () => {
-    // cookies.set('refreshToken', 'test', { domain: 'https://with-picme.com', httpOnly: true });
-    cookies.set('refreshToken', 'test123', { domain: 'localhost' });
-    cookies.set('refreshToken', 'test123', { domain: '.with-picme.com', httpOnly: true });
-
-    console.log(cookies.get('refreshToken'));
-
-    // postSignupInfo({ email, password }, nickname).then((res) => {
-    //   if (res?.success) {
-    //     cookies.set('refreshToken', res.data.refreshToken, { httpOnly: true });
-    //     localStorage.setItem('accessToken', res.data.accessToken);
-    //     navigate('/home');
-    //   }
-    // });
+    postSignupInfo({ email, password }, nickname).then((res) => {
+      if (res?.success) {
+        cookies.set('refreshToken', res.data.refreshToken);
+        localStorage.setItem('accessToken', res.data.accessToken);
+        navigate('/home');
+      }
+    });
   };
 
   return (
