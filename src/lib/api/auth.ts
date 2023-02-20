@@ -29,7 +29,6 @@ export const postKakaoSignIn = async (uid: number) => {
 };
 
 export const postKakaoSignUp = async (uid: number, username: string) => {
-  console.log(uid, username);
   const { data } = await client.post<AxiosResponse<UserTokenInfo>>('/auth/kakao', {
     uid,
     socialType: 'kakao',
