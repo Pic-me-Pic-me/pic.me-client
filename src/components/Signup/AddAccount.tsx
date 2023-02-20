@@ -12,6 +12,7 @@ import {
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from '../../constant/signup';
+import { clearUserSession } from '../../lib/token';
 import { SignUpInfo } from '../../types/signup';
 import { checkIsValid } from '../../utils/checkIsValidate';
 
@@ -82,6 +83,7 @@ const AddAccount = () => {
     }
   };
 
+  clearUserSession();
   return (
     <StWhiteSection>
       <StWrapper>
