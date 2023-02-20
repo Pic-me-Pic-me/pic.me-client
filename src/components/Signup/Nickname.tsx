@@ -43,13 +43,12 @@ const Nickname = () => {
         signUpData = await postKakaoSignUp(uid, nickname.finalNickname);
       } else {
         const { email, password }: AddAccountInfo = location.state.signupDataInfo;
-        // signUpData = await postSignupInfo({ email, password }, nickname.finalNickname);
+        signUpData = await postSignupInfo({ email, password }, nickname.finalNickname);
       }
     }
-    signUpData = { accessToken: '테스트', refreshToken: '리프레시' };
     if (signUpData) {
       setUserSession(signUpData.accessToken, signUpData.refreshToken);
-      // navigate('/home');
+      navigate('/home');
     }
   };
 

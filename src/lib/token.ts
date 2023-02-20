@@ -13,8 +13,7 @@ export const removeAccessToken = (key: string) => {
 };
 
 export const setRefreshToken = (key: string, item: string) => {
-  // cookies.set(key, item, { httpOnly: true });
-  cookies.set('seohee2', 'seohee', { httpOnly: true });
+  cookies.set(key, item, { httpOnly: true });
 };
 
 export const getRefreshToken = (key: string) => cookies.get(key) as string;
