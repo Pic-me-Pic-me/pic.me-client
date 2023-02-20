@@ -40,13 +40,11 @@ const StFooterWrapper = styled.footer`
 `;
 
 const StLeftSection = styled.section`
-  display: flex;
-  flex-direction: column;
   flex: 1;
 
-  gap: 3rem;
-
   > p {
+    padding-bottom: 3rem;
+
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
   }
 `;
