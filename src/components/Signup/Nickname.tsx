@@ -16,7 +16,7 @@ const Nickname = () => {
 
   const navigate = useNavigate();
 
-  const [isChecked, setIsChecked] = useState<boolean[]>([false, false, false]);
+  const [isChecked, setIsChecked] = useState<boolean[]>([true, true, true]);
   const [isDuplicate, setIsDuplicate] = useState<boolean>();
   const [isNicknameExists, setIsNicknameExists] = useState<boolean>();
   const [nickname, setNickname] = useState<string>('');
@@ -70,8 +70,11 @@ const Nickname = () => {
   };
 
   const handleSignup = () => {
-    cookies.set('refreshToken', 'test', { httpOnly: true });
-    console.log(cookies.get('refreschToken'));
+    // cookies.set('refreshToken', 'test', { domain: 'https://with-picme.com', httpOnly: true });
+    cookies.set('refreshToken', 'test123', { domain: 'localhost', httpOnly: true });
+    cookies.set('refreshToken', 'test123', { domain: 'with-picme.com', httpOnly: true });
+
+    console.log(cookies.get('refreshToken'));
 
     // postSignupInfo({ email, password }, nickname).then((res) => {
     //   if (res?.success) {
