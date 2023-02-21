@@ -11,8 +11,8 @@ const client = axios.create({
     'Content-type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,
   },
+  withCredentials: true,
 });
-client.defaults.withCredentials = true;
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
 client.interceptors.request.use((config: any) => {
   const headers = {
@@ -20,12 +20,14 @@ client.interceptors.request.use((config: any) => {
     accessToken: getAccessToken('accessToken'),
     refreshToken: getRefreshToken('refreshToken'),
   };
-
+  console.log(document.cookie);
   return { ...config, headers };
 });
 
 client.interceptors.response.use(
   function (response) {
+    console.log('응답인터셉터', response.headers);
+
     return response;
   },
   async (error) => {

@@ -19,10 +19,11 @@ const LoginComponent = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
       if (res?.data.status === 200) {
+        console.log('응답', res);
         setUserSession(res.data.data.accessToken, res.data.data.refreshToken);
-        if (getAccessToken('accessToken')) {
-          navigate('/home');
-        }
+        // if (getAccessToken('accessToken')) {
+        //   navigate('/home');
+        // }
         setIsLoginFail(false);
       } else {
         setIsLoginFail(true);
