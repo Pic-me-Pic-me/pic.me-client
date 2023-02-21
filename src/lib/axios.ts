@@ -6,8 +6,9 @@ const TOKEN = getAccessToken('accessToken');
 
 const client = axios.create({
   baseURL: process.env.REACT_APP_IP,
-
   headers: {
+    'Access-Control-Allow-Origin': process.env.REACT_APP_IP,
+
     'Content-type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,
   },
