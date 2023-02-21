@@ -12,7 +12,7 @@ const client = axios.create({
     Authorization: `Bearer ${TOKEN}`,
   },
 });
-
+client.defaults.withCredentials = true;
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
 client.interceptors.request.use((config: any) => {
   const headers = {
