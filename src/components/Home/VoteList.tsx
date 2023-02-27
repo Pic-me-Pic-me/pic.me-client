@@ -26,7 +26,7 @@ const VoteList = () => {
     const newData = await getCurrentVoteData(Number(cursorId));
     if (newData?.data) {
       const newDataList = newData.data.result as VoteCardInfo[];
-      setDataList(dataList.concat(newDataList));
+      if (newDataList) setDataList(dataList.concat(newDataList));
       setCursorId(newData.data.resCursorId);
     }
   }, [cursorId]);
@@ -54,6 +54,7 @@ const VoteList = () => {
   };
 
   if (isLoading) return <LandingVoteList />;
+
   return (
     <>
       {dataList.length !== 0 ? (
