@@ -31,14 +31,9 @@ const StickerResultVoting = () => {
       setResultStickerList([...jsonGetStickerList(Sticker)]);
     }
   }, [stickerInfo]);
-
-  console.log(stickerVotingInfo.imgViewInfo);
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    // setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
-    // setResultStickerList([ resultStickerList.map(({ stickerLocation, emoji }, idx) =>
-    //         stickerLocation.map((stickerLocationInfo, stickerIdx) => setStickerLocationData()])
   };
 
   if (isLoading) return <Loading />;
