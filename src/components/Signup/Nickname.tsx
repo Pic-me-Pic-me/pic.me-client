@@ -48,7 +48,7 @@ const Nickname = () => {
     }
     if (signUpData) {
       setUserSession(signUpData.accessToken, signUpData.refreshToken);
-      // navigate('/home');
+      navigate('/home');
     }
   };
 

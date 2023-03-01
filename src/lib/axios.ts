@@ -21,14 +21,11 @@ client.interceptors.request.use((config: any) => {
     accessToken: getAccessToken('accessToken'),
     refreshToken: getRefreshToken('refreshToken'),
   };
-  console.log(document.cookie);
   return { ...config, headers };
 });
 
 client.interceptors.response.use(
   function (response) {
-    console.log('응답인터셉터', response.headers);
-
     return response;
   },
   async (error) => {
