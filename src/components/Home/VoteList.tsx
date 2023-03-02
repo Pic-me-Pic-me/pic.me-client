@@ -77,7 +77,7 @@ const StVoteListWrapper = styled.main`
   overflow-x: scroll;
   overflow-y: hidden;
 
-  padding-bottom: 19.3rem;
+  margin-bottom: 19.3rem;
   height: 15.4rem;
 
   cursor: pointer;
@@ -93,8 +93,7 @@ const StEmptyView = styled.main`
   justify-content: center;
   align-items: center;
 
-  margin-top: 5.1rem;
-  padding-bottom: 19.3rem;
+  margin: 5.1rem 0rem 19.3rem 0rem;
 
   > svg {
     width: 13.8rem;
