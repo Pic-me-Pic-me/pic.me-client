@@ -4,8 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
-import { Header, Nav, VoteList } from '../components/Home';
-import Footer from '../components/Home/Footer';
+import { Footer, Header, Nav, VoteList } from '../components/Home';
 import { votingImageState } from '../recoil/maker/atom';
 
 const Home = () => {
