@@ -42,9 +42,6 @@ const Hamburger = (props: HamburgerProps) => {
             }}>
             라이브러리
           </StHamburgerMenu>
-          <StHamburgerMenu>
-            <a href="https://www.notion.so/Team-Pic-me-e24dfca43b6b4ed296556f835e7662eb">픽미 팀소개</a>
-          </StHamburgerMenu>
         </StHamburgerWrapper>
       </StOutsideHamburger>
     </>
@@ -73,7 +70,7 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
   left: 0;
 
   width: 100%;
-  height: 20.3rem;
+  height: 14.5rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 
