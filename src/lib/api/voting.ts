@@ -6,7 +6,7 @@ import { PlayerStickerInfo, VoteResultData } from './../../types/vote';
 const ACCESS_TOKEN = localStorage.getItem('accessToken');
 
 export const patchCurrentVoteData = async (voteid: string | undefined) => {
-  const res = await client.patch(`/vote/close/${voteid}`);
+  const res = await client.patch(`/vote/${voteid}`);
   return res;
 };
 
