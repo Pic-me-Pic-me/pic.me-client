@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getAccessToken, getRefreshToken, setAccessToken } from './token';
+import { getAccessToken, setAccessToken } from './token';
 
 const TOKEN = getAccessToken('accessToken');
 
@@ -12,14 +12,12 @@ const client = axios.create({
     'Content-type': 'application/json',
     Authorization: `Bearer ${TOKEN}`,
   },
-  withCredentials: true,
 });
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
 client.interceptors.request.use((config: any) => {
   const headers = {
     ...config.headers,
     accessToken: getAccessToken('accessToken'),
-    refreshToken: getRefreshToken('refreshToken'),
   };
   return { ...config, headers };
 });
@@ -43,10 +41,11 @@ client.interceptors.response.use(
         `/auth/token`, // token refresh api
         {
           accessToken: getAccessToken('accessToken'),
-          refreshToken: getRefreshToken('refreshToken'),
+        },
+        {
+          withCredentials: true,
         },
       );
-      console.log(res);
       //리프레시 토큰도 만료돠거나 유효하지 않은 토큰인 경우
       if (res.data.status === 400) {
         window.location.href = '/login';
