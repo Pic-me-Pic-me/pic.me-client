@@ -2,15 +2,11 @@ import axios from 'axios';
 
 import { getAccessToken, setAccessToken } from './token';
 
-const TOKEN = getAccessToken('accessToken');
-
 const client = axios.create({
   baseURL: process.env.REACT_APP_IP,
   headers: {
     'Access-Control-Allow-Origin': process.env.REACT_APP_IP,
-
     'Content-type': 'application/json',
-    Authorization: `Bearer ${TOKEN}`,
   },
 });
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
