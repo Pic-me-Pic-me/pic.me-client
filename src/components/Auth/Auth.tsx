@@ -36,7 +36,7 @@ const Auth = () => {
       if (data.isUser) {
         // 로그인
         const signInData = await postKakaoSignIn(data.uid);
-        setUserSession(signInData.accessToken, signInData.refreshToken);
+        setUserSession(signInData.accessToken);
         navigate('/home');
         window.location.reload();
       } else if (!data.isUser) {

@@ -19,7 +19,7 @@ const LoginComponent = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
       if (res?.data.status === 200) {
-        setUserSession(res.data.data.accessToken, res.data.data.refreshToken);
+        setUserSession(res.data.data.accessToken);
         if (getAccessToken('accessToken')) {
           navigate('/home');
         }
