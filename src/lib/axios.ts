@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { getAccessToken, setAccessToken } from './token';
 
-console.log('getAccessToken', localStorage.getItem('accessToken'));
 const TOKEN = getAccessToken('accessToken');
 
 const client = axios.create({
@@ -21,6 +20,7 @@ client.interceptors.request.use((config: any) => {
     accessToken: getAccessToken('accessToken'),
   };
 
+  console.log('getAccessToken', getAccessToken('accessToken'));
   return { ...config, headers };
 });
 
