@@ -6,12 +6,14 @@ import styled from 'styled-components';
 import { IcPlus } from '../asset/icon';
 import { Header, Nav, VoteList } from '../components/Home';
 import Footer from '../components/Home/Footer';
+import { getAccessToken } from '../lib/token';
 import { votingImageState } from '../recoil/maker/atom';
 
 const Home = () => {
   const navigate = useNavigate();
   const setVotingForm = useSetRecoilState(votingImageState);
 
+  console.log('home', getAccessToken('accessToken'));
   useEffect(() => {
     setVotingForm({ title: '', firstImageUrl: '', secondImageUrl: '' });
   }, []);
