@@ -21,6 +21,7 @@ const LoginComponent = () => {
       if (res?.data.status === 200) {
         setUserSession(res.data.data.accessToken);
         if (getAccessToken('accessToken')) {
+          console.log('로그인', getAccessToken('accessToken'));
           navigate('/home');
         }
         setIsLoginFail(false);
