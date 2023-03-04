@@ -11,6 +11,8 @@ const client = axios.create({
 });
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
 client.interceptors.request.use((config: any) => {
+  console.log('header', getAccessToken('accessToken'));
+
   const headers = {
     ...config.headers,
     Authorization: `Bearer ${getAccessToken('accessToken')}`,
