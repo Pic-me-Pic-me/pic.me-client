@@ -19,6 +19,7 @@ client.interceptors.request.use((config: any) => {
     ...config.headers,
     accessToken: getAccessToken('accessToken'),
   };
+
   return { ...config, headers };
 });
 
@@ -31,7 +32,6 @@ client.interceptors.response.use(
       config,
       response: { status },
     } = error;
-
     const originalRequest = config;
 
     if (status === 401) {
@@ -46,18 +46,17 @@ client.interceptors.response.use(
           withCredentials: true,
         },
       );
-      //리프레시 토큰도 만료돠거나 유효하지 않은 토큰인 경우
-      if (res.data.status === 400) {
-        window.location.href = '/login';
-      }
+      // if (res.data.status === 400) {
+      //   window.location.href = '/login';
+      // }
 
       const newAccessToken = res.data.data.accessToken;
 
       setAccessToken('accessToken', newAccessToken);
       originalRequest.headers = {
         newAccessToken,
+        withCredentials: true,
       };
-
       return axios(originalRequest);
     }
     return error.response;
