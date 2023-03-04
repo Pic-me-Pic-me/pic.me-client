@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { getAccessToken, setAccessToken } from './token';
 
+console.log('getAccessToken', getAccessToken('accessToken'));
 const TOKEN = getAccessToken('accessToken');
 
 const client = axios.create({
