@@ -12,23 +12,11 @@ export const removeAccessToken = (key: string) => {
   localStorage.removeItem(key);
 };
 
-export const setRefreshToken = (key: string, item: string) => {
-  cookies.set(key, item, { path: '/', httpOnly: true, secure: true, sameSite: 'none' });
-};
-
-export const getRefreshToken = (key: string) => cookies.get(key) as string;
-
-export const removeRefreshToken = (key: string) => {
-  cookies.remove(key);
-};
-
-export const setUserSession = (accessToken: string, refreshToken: string) => {
+export const setUserSession = (accessToken: string) => {
   setAccessToken('accessToken', accessToken);
-  setRefreshToken('refreshToken', refreshToken);
 };
 
 export const clearUserSession = () => {
   removeAccessToken('accessToken');
   removeAccessToken('kakaoAccessToken');
-  removeRefreshToken('refreshToken');
 };
