@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 
 import { LoginBanner } from '../../asset/image';
 import { postLoginInfo } from '../../lib/api/auth';
-import { getAccessToken, setUserSession } from '../../lib/token';
+import { clearUserSession, getAccessToken, setUserSession } from '../../lib/token';
 import { LoginInfo } from '../../types/auth';
 import KakaoLogin from './KakaoLogin';
 
@@ -14,12 +14,13 @@ const LoginComponent = () => {
 
   const [isLoginFail, setIsLoginFail] = useState(false);
   const { register, handleSubmit, getValues } = useForm<LoginInfo>();
-
+  clearUserSession();
   const handleSubmitLoginInfo = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
       if (res?.data.status === 200) {
         setUserSession(res.data.data.accessToken);
+
         if (getAccessToken('accessToken')) {
           console.log('로그인', getAccessToken('accessToken'));
           navigate('/home');
