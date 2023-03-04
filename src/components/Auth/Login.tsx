@@ -20,9 +20,10 @@ const LoginComponent = () => {
     postLoginInfo({ email, password }).then((res) => {
       if (res?.data.status === 200) {
         setUserSession(res.data.data.accessToken);
+        console.log('로그인1', getAccessToken('accessToken'));
 
         if (getAccessToken('accessToken')) {
-          console.log('로그인', getAccessToken('accessToken'));
+          console.log('로그인2', getAccessToken('accessToken'));
           navigate('/home');
         }
         setIsLoginFail(false);
