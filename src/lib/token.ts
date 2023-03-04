@@ -1,7 +1,3 @@
-import { Cookies } from 'react-cookie';
-
-const cookies = new Cookies();
-
 export const setAccessToken = (key: string, item: string) => {
   localStorage.setItem(key, item);
 };
