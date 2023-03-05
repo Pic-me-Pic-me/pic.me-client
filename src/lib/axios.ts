@@ -8,18 +8,16 @@ const client = axios.create({
     'Access-Control-Allow-Origin': process.env.REACT_APP_IP,
     'Content-type': 'application/json',
   },
+  withCredentials: true,
 });
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
 client.interceptors.request.use((config: any) => {
-  console.log('header', getAccessToken('accessToken'));
-
   const headers = {
     ...config.headers,
     Authorization: `Bearer ${getAccessToken('accessToken')}`,
     accessToken: getAccessToken('accessToken'),
   };
 
-  console.log('getAccessToken', getAccessToken('accessToken'));
   return { ...config, headers };
 });
 
