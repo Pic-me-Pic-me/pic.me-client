@@ -44,16 +44,15 @@ client.interceptors.response.use(
           withCredentials: true,
         },
       );
-      // if (res.data.status === 400) {
-      //   window.location.href = '/login';
-      // }
+      if (res.data.status === 400) {
+        window.location.href = '/login';
+      }
 
       const newAccessToken = res.data.data.accessToken;
 
       setAccessToken('accessToken', newAccessToken);
       originalRequest.headers = {
         newAccessToken,
-        withCredentials: true,
       };
       return axios(originalRequest);
     }
