@@ -87,7 +87,7 @@ export default CurrentVoteSlider;
 
 const CurrentVoteSliderWrapper = styled.article`
   width: 100%;
-  height: 45.3rem;
+  height: 43.4rem;
 
   position: relative;
 
@@ -101,6 +101,7 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
   position: absolute;
   gap: 1.3rem;
 
+  height: 43rem;
   ${({ currentIdx, dragItemWidth, width }) =>
     currentIdx === 0
       ? css`
@@ -124,12 +125,11 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
     position: relative;
 
     width: 100%;
-
-    margin-top: 1.9rem;
   }
 `;
 const StUnselectedImg = styled.img<{ width: number }>`
   width: 100%;
+  height: 43.4rem;
 
   opacity: 0.5;
   border-radius: 1.2rem;
