@@ -343,7 +343,7 @@ export const STICKER_LIST = [
     id: 4,
     name: 'IcJustSticker',
     icon: (size) => (
-      <svg width={size} height={size} viewBox="0 0  847" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width={size} height={size} viewBox="0 0 854 854" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M423.841 838.678C653.227 838.678 839.18 652.725 839.18 423.339C839.18 193.954 653.227 8 423.841 8C194.456 8 8.5022 193.954 8.5022 423.339C8.5022 652.725 194.456 838.678 423.841 838.678Z"
           fill="#3973CB"
