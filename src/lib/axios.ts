@@ -40,9 +40,6 @@ client.interceptors.response.use(
         {
           accessToken: getAccessToken('accessToken'),
         },
-        {
-          withCredentials: true,
-        },
       );
       if (res.data.status === 400) {
         window.location.href = '/login';
