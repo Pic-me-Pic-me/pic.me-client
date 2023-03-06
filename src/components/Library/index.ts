@@ -1,1 +1,2 @@
-export { default as Header } from './Header';
+export { default as EndedVoting } from './EndedVoting';
+export { default as MonthVoting } from './MonthVoting';

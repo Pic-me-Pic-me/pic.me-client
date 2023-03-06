@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { IcCancel } from '../../../asset/icon';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
-import { stickerInfoState } from '../../../recoil/player/atom';
+import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
 import { NaturalImgInfo, StickerLocation } from '../../../types/vote';
 import { setStickerLocationData } from '../../../utils/setStickerLocationData';
@@ -13,7 +14,7 @@ interface StickerVotingProps {
 }
 const StickerVoting = (props: StickerVotingProps) => {
   const { isStickerGuide } = props;
-  const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(stickerInfoState);
+  const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(playerStickerInfoState);
   const { location: stickerList, emoji } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
@@ -45,26 +46,41 @@ const StickerVoting = (props: StickerVotingProps) => {
     }
   };
 
+  const handleDeleteSticker = (e: React.MouseEvent<SVGSVGElement>) => {
+    const stickerTarget = e.currentTarget as SVGSVGElement;
+    const clickStickerIdx = Number(stickerTarget.dataset.sticker);
+
+    if (0 <= clickStickerIdx && clickStickerIdx <= 2) {
+      setStickerVotingInfo((prev) => ({
+        ...prev,
+        location: [...stickerList.filter((_, idx) => idx !== clickStickerIdx)],
+      }));
+    }
+  };
+
   return (
-    <StStickerVotingWrapper>
-      <article>
-        <StStickerImg
-          onLoad={handleImgSize}
-          src={pictureInfo?.url}
-          ref={stickerImgRef}
-          alt="selected_img"
-          onClick={handleAttachSticker}
-        />
-        {!isStickerGuide &&
-          imgViewInfo &&
-          imgInfo &&
-          stickerList.map((sticker, idx) => (
-            <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-              {STICKER_LIST[emoji].icon()}
-            </StEmojiIcon>
-          ))}
-      </article>
-    </StStickerVotingWrapper>
+    <>
+      <StStickerVotingWrapper>
+        <article>
+          <StStickerImg
+            onLoad={handleImgSize}
+            src={pictureInfo?.url}
+            ref={stickerImgRef}
+            alt="selected_img"
+            onClick={handleAttachSticker}
+          />
+          {!isStickerGuide &&
+            imgViewInfo &&
+            imgInfo &&
+            stickerList.map((sticker, idx) => (
+              <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
+                {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
+                <IcCancel onClick={handleDeleteSticker} data-sticker={`${idx}`} />
+              </StEmojiIcon>
+            ))}
+        </article>
+      </StStickerVotingWrapper>
+    </>
   );
 };
 
@@ -104,12 +120,19 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
     left: 0;
     top: 0;
 
-    width: 5.3rem;
-    height: 5.3rem;
-
     z-index: 3;
 
     transform-origin: 50% 50%;
     transform: ${({ location }) => `rotate(${location.degRate}deg)`};
+
+    :last-child {
+      display: none;
+    }
+  }
+  &:hover {
+    & > svg:last-child {
+      display: block;
+      transform: none;
+    }
   }
 `;

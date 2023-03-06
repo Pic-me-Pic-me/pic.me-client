@@ -1,5 +1,5 @@
 export interface VoteInfo {
-  id: number;
+  id: string;
   title: string;
   count: number;
   url: string;
@@ -7,6 +7,5 @@ export interface VoteInfo {
 }
 
 export interface EndedVoteInfo {
-  date: number;
-  votes: VoteInfo[];
+  dates: number[];
 }

@@ -23,12 +23,12 @@ const Share = () => {
 
   const handleDeepLink = () => {
     if (isIOS) {
-      window.location.replace('https://www.instagram.com/create/story');
-    } else if (isAndroid) {
-      window.location.replace('intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end');
-    } else {
-      window.location.replace('https://www.instagram.com/');
+      return window.location.replace('https://www.instagram.com/create/story');
     }
+    if (isAndroid) {
+      return window.location.replace('intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end');
+    }
+    window.location.replace('https://www.instagram.com/');
   };
 
   return (

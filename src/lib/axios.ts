@@ -1,24 +1,21 @@
 import axios from 'axios';
-import { Cookies } from 'react-cookie';
 
-const TOKEN = localStorage.getItem('accessToken');
-const cookies = new Cookies();
+import { getAccessToken, setAccessToken } from './token';
 
 const client = axios.create({
   baseURL: process.env.REACT_APP_IP,
-
   headers: {
+    'Access-Control-Allow-Origin': process.env.REACT_APP_IP,
     'Content-type': 'application/json',
-    Authorization: `Bearer ${TOKEN}`,
   },
+  withCredentials: true,
 });
-
 ///** config에는 위의 axiosInstance 객체를 이용하여 request를 보냈을떄의 모든 설정값들이 들어있다.
 client.interceptors.request.use((config: any) => {
   const headers = {
     ...config.headers,
-    accessToken: localStorage.getItem('accessToken'),
-    refreshToken: cookies.get('refreshToken'),
+    Authorization: `Bearer ${getAccessToken('accessToken')}`,
+    accessToken: getAccessToken('accessToken'),
   };
 
   return { ...config, headers };
@@ -33,7 +30,6 @@ client.interceptors.response.use(
       config,
       response: { status },
     } = error;
-
     const originalRequest = config;
 
     if (status === 401) {
@@ -42,23 +38,19 @@ client.interceptors.response.use(
       const res = await client.post(
         `/auth/token`, // token refresh api
         {
-          accessToken: localStorage.getItem('accessToken'),
-          refreshToken: cookies.get('refreshToken'),
+          accessToken: getAccessToken('accessToken'),
         },
       );
-      console.log(res);
-      //리프레시 토큰도 만료돠거나 유효하지 않은 토큰인 경우
       if (res.data.status === 400) {
         window.location.href = '/login';
       }
 
       const newAccessToken = res.data.data.accessToken;
 
-      localStorage.setItem('accessToken', newAccessToken);
+      setAccessToken('accessToken', newAccessToken);
       originalRequest.headers = {
         newAccessToken,
       };
-
       return axios(originalRequest);
     }
     return error.response;

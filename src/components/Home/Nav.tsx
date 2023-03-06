@@ -4,23 +4,19 @@ import styled from 'styled-components';
 
 import { IcClose, IcHamburger, IcHomeLogo } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
+import { clearUserSession } from '../../lib/token';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
-
-const Kakao = window.Kakao;
 
 const Nav = () => {
   const { isShowing, toggle } = useModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  // const { Kakao } = window as any;
-  // const Kakao = window.Kakao;
 
   const handleLogout = async () => {
     try {
-      // const res = await Kakao.Auth.logout();
-      localStorage.removeItem('accessToken');
+      clearUserSession();
       navigate('/');
     } catch (error) {
       console.error(error);

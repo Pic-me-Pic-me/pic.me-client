@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import React from 'react';
 import useSWR from 'swr';
 
 import { MakerVoteInfo } from '../../types/vote';
