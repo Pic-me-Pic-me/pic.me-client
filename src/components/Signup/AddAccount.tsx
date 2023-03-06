@@ -26,21 +26,25 @@ const AddAccount = () => {
       <StWrapper>
         <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
           <StTitle>아이디</StTitle>
-          <StInput
-            type="email"
-            {...register('email', {
-              required: true,
-              pattern: {
-                value: /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                message: '올바른 이메일 형식이 아닙니다!',
-              },
-            })}
-            placeholder="아이디로 이용할 이메일을 적어주세요!"
-          />
+          <StEmailInputWrapper>
+            <StEmailInput
+              type="email"
+              {...register('email', {
+                required: true,
+                pattern: {
+                  value: /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                  message: '올바른 이메일 형식이 아닙니다!',
+                },
+              })}
+              placeholder="아이디로 이용할 이메일을 적어주세요!"
+            />
+
+            <StCheckDuplicateBtn type="button">중복 확인</StCheckDuplicateBtn>
+          </StEmailInputWrapper>
           <StInputDesc>{errors.email ? errors.email.message : ' '}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
-          <StInput
+          <StPwdInput
             type="password"
             {...register('password', {
               required: true,
@@ -54,7 +58,7 @@ const AddAccount = () => {
           <StInputDesc>{errors.password ? errors.password.message : ' '}</StInputDesc>
 
           <StTitle>비밀번호 재확인</StTitle>
-          <StInput
+          <StPwdInput
             type="password"
             {...register('passwordConfirm', {
               required: true,
@@ -101,7 +105,6 @@ const StTitle = styled.h2`
 `;
 
 const StInput = styled.input`
-  width: 100%;
   height: 6rem;
   margin-top: 1.4rem;
   padding-left: 1.9rem;
@@ -116,6 +119,31 @@ const StInput = styled.input`
   }
 `;
 
+const StEmailInput = styled(StInput)`
+  width: 30rem;
+`;
+
+const StPwdInput = styled(StInput)`
+  width: 100%;
+  padding-left: 1.9rem;
+`;
+
+const StEmailInputWrapper = styled.div`
+  display: flex;
+`;
+
+const StCheckDuplicateBtn = styled.button`
+  width: 8rem;
+  height: 6rem;
+  margin-left: 1rem;
+  margin-top: 1.4rem;
+
+  border-radius: 0.6rem;
+  border: none;
+  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
+  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14}
+`;
 const StInputDesc = styled.p`
   height: 1.7rem;
   margin-top: 0.6rem;
