@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose, IcHamburger, IcHomeLogo } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
+import useOnClickOutside from '../../lib/hooks/useOnClickOutside';
 import { clearUserSession } from '../../lib/token';
+import { hamburgerState } from '../../recoil/maker/atom';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
 const Nav = () => {
   const { isShowing, toggle } = useModal();
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [hamburger, setHamburger] = useRecoilState(hamburgerState);
+  const sidebarRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -24,12 +27,19 @@ const Nav = () => {
   };
 
   const handleHamburger = () => {
-    setIsOpen((isOpen) => !isOpen);
+    setHamburger((hamburger) => !hamburger);
   };
 
   const handleReLoad = () => {
     window.location.reload();
   };
+
+  const handleClickOutside = (event: Event) => {
+    setHamburger(false);
+  };
+
+  useOnClickOutside({ ref: sidebarRef, handler: handleClickOutside });
+
   return (
     <>
       <StHomeNav>
@@ -47,10 +57,10 @@ const Nav = () => {
             handleConfirm={handleLogout}
           />
           <StHamburgerBtn type="button" onClick={handleHamburger}>
-            {isOpen ? <IcClose width="2.13rem" height="1.4rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
+            {hamburger ? <IcClose /> : <IcHamburger />}
           </StHamburgerBtn>
         </StHamburgerWrapper>
-        <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
+        <Hamburger isOpen={hamburger} ref={sidebarRef} />
       </StHomeNav>
     </>
   );
@@ -77,6 +87,7 @@ const StHomeNav = styled.nav`
 
 const StLogoBtn = styled.a`
   cursor: pointer;
+
   > svg {
     width: 11.1rem;
     height: 5.4rem;

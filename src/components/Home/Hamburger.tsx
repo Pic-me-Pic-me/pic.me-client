@@ -1,35 +1,18 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 export interface HamburgerProps {
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Hamburger = (props: HamburgerProps) => {
-  const { isOpen, setIsOpen } = props;
-
-  const sidebarRef = useRef<HTMLElement>(null);
+const Hamburger = React.forwardRef<HTMLUListElement, HamburgerProps>(({ isOpen }, ref) => {
   const navigate = useNavigate();
-
-  const onClickOutSide = (event: Event) => {
-    if (!sidebarRef.current?.contains(event.target as Node)) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', onClickOutSide, true);
-    return () => {
-      document.removeEventListener('click', onClickOutSide, true);
-    };
-  });
 
   return (
     <>
       <StOutsideHamburger isOpen={isOpen}>
-        <StHamburgerWrapper isOpen={isOpen}>
+        <StHamburgerWrapper isOpen={isOpen} ref={ref}>
           <StHamburgerMenu
             onClick={() => {
               navigate('/mypage');
@@ -46,7 +29,8 @@ const Hamburger = (props: HamburgerProps) => {
       </StOutsideHamburger>
     </>
   );
-};
+});
+Hamburger.displayName = 'Hamburger';
 
 export default Hamburger;
 
