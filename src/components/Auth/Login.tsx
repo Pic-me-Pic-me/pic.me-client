@@ -89,7 +89,7 @@ const StInput = styled.input`
   height: 6rem;
   margin-top: 1.4rem;
   padding-left: 1.9rem;
-  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border: 0.1rem solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   border-radius: 0.6rem;
   outline: none;
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
@@ -110,7 +110,7 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
   width: 100%;
   height: 6rem;
   border: none;
-  border-radius: 9px;
+  border-radius: 0.9rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
   color: white;
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};

@@ -54,8 +54,7 @@ const fonts = {
     font-family: 'PretendardSemiBold', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 2rem;
     line-height: 2.148rem;
   `,
   Pic_Body1_Pretendard_Medium_16: css`
@@ -106,48 +105,48 @@ const fonts = {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
     letter-spacing: -0.05em;
   `,
   Pic_Noto_SB_Subtitle_2: css`
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
     letter-spacing: -0.02em;
   `,
   Pic_Noto_M_Subtitle_3: css`
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
     letter-spacing: -0.02em;
   `,
   Pic_Noto_M_Subtitle_4: css`
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
     letter-spacing: -0.02em;
   `,
   Pic_Noto_M_Subtitle_5: css`
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 19px;
+    font-size: 1.4rem;
+    line-height: 1.9rem;
     letter-spacing: -0.05em;
   `,
   Pic_Noto_SB_Subtitle_6: css`
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
+    font-size: 1.4rem;
+    line-height: 1.9rem;
     letter-spacing: -0.05em;
   `,
 };

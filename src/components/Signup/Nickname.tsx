@@ -143,7 +143,7 @@ const StInput = styled.input`
   margin-top: 1.4rem;
   padding-left: 7.14%;
 
-  border: 1px solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+  border: 0.1rem solid ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   border-radius: 0.6rem;
   outline: none;
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
