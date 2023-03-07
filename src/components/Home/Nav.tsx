@@ -1,19 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose, IcHamburger, IcHomeLogo } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
 import useOnClickOutside from '../../lib/hooks/useOnClickOutside';
 import { clearUserSession } from '../../lib/token';
-import { hamburgerState } from '../../recoil/maker/atom';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
 const Nav = () => {
   const { isShowing, toggle } = useModal();
-  const [hamburger, setHamburger] = useRecoilState(hamburgerState);
+  const [hamburger, setHamburger] = useState(false);
   const sidebarRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
 

@@ -60,8 +60,3 @@ export const stickerResultState = atom<StickerResultInfo[]>({
   ],
   effects_UNSTABLE: [persistAtom],
 });
-
-export const hamburgerState = atom<boolean>({
-  key: 'hamburger',
-  default: false,
-});

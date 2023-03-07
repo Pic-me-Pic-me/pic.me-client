@@ -10,24 +10,22 @@ const Hamburger = React.forwardRef<HTMLUListElement, HamburgerProps>(({ isOpen }
   const navigate = useNavigate();
 
   return (
-    <>
-      <StOutsideHamburger isOpen={isOpen}>
-        <StHamburgerWrapper isOpen={isOpen} ref={ref}>
-          <StHamburgerMenu
-            onClick={() => {
-              navigate('/mypage');
-            }}>
-            회원 정보
-          </StHamburgerMenu>
-          <StHamburgerMenu
-            onClick={() => {
-              navigate('/library');
-            }}>
-            라이브러리
-          </StHamburgerMenu>
-        </StHamburgerWrapper>
-      </StOutsideHamburger>
-    </>
+    <StOutsideHamburger isOpen={isOpen}>
+      <StHamburgerWrapper isOpen={isOpen} ref={ref}>
+        <StHamburgerMenu
+          onClick={() => {
+            navigate('/mypage');
+          }}>
+          회원 정보
+        </StHamburgerMenu>
+        <StHamburgerMenu
+          onClick={() => {
+            navigate('/library');
+          }}>
+          라이브러리
+        </StHamburgerMenu>
+      </StHamburgerWrapper>
+    </StOutsideHamburger>
   );
 });
 Hamburger.displayName = 'Hamburger';
