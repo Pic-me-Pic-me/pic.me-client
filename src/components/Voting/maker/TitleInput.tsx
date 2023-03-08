@@ -31,6 +31,7 @@ const StTitleInput = styled.textarea`
   outline: none;
 
   text-align: center;
+  resize: none;
 
   ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
 

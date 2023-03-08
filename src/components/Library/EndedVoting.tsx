@@ -8,10 +8,8 @@ import Modal from '../common/Modal';
 
 interface votingProps {
   voteData: VoteInfo;
-  id: number;
-  isStart?: boolean;
-  isEnd?: boolean;
-  handleDeleteVote: (id: number) => void;
+  id: string;
+  handleDeleteVote: (id: string) => void;
 }
 
 const EndedVoting = (props: votingProps) => {
@@ -20,37 +18,36 @@ const EndedVoting = (props: votingProps) => {
 
   const [isShowing, setIsShowing] = useState<boolean>(false);
 
-  const time1 = voteData.createdAt.toString().slice(6, 7);
-  let time2 = voteData.createdAt.toString().slice(8, 10);
+  const createdAtStr = voteData.createdAt.toString();
+  const createdMonth = createdAtStr.slice(5, 6) === '0' ? createdAtStr.slice(6, 7) : createdAtStr.slice(5, 7);
+  const createdDate = createdAtStr.slice(8, 9) === '0' ? createdAtStr.slice(9, 10) : createdAtStr.slice(8, 10);
 
-  if (time2[0] === '0') {
-    time2 = time2.slice(1, 2);
-  }
-
-  const handleConfirmModal = (id: number) => {
+  const handleConfirmModal = (id: string) => {
     handleDeleteVote(id);
     setIsShowing((prev) => !prev);
   };
+
   const handleModal = (prev: boolean) => {
     setIsShowing((prev) => !prev);
   };
 
-  const handleMoveResult = () => {
+  const handleGoToResult = () => {
     navigate(`/result/${id}`);
   };
+
   return (
     <>
       <StVotingWrapper>
         <StImgWrapper>
-          <StVotingPic src={voteData.url} onClick={handleMoveResult} />
+          <StVotingPic src={voteData.url} onClick={handleGoToResult} alt="종료된 투표의 선택된 사진" />
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
         </StImgWrapper>
-        <StVotingDesc onClick={handleMoveResult}>
+        <StVotingDesc onClick={handleGoToResult}>
           <StVotingTitle>{voteData.title}</StVotingTitle>
           <StVotingDate>
-            {time1}월 {time2}일
+            {createdMonth}월 {createdDate}일
           </StVotingDate>
           <StVotingPeopleNum>{voteData.count}명 투표 완</StVotingPeopleNum>
         </StVotingDesc>
@@ -70,6 +67,12 @@ const StVotingWrapper = styled.section`
   flex-direction: column;
 
   position: relative;
+  margin-bottom: 4.906rem;
+
+  :last-child {
+    margin-right: 2rem;
+  }
+  cursor: pointer;
 `;
 
 const StImgWrapper = styled.div`

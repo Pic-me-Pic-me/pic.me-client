@@ -1,16 +1,14 @@
 import axios from 'axios';
 import qs from 'qs';
 import { useEffect } from 'react';
-import { Cookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 import { postKakaoSignIn, postKakaoToken } from '../../lib/api/auth';
+import { setAccessToken, setUserSession } from '../../lib/token';
 
 const Kakao = window.Kakao;
 
 const Auth = () => {
-  const cookies = new Cookies();
-
   const code = new URL(window.location.href).searchParams.get('code');
   const navigate = useNavigate();
 
@@ -27,24 +25,23 @@ const Auth = () => {
       client_secret: process.env.REACT_APP_CLIENT_SECRET,
     });
     try {
-      const res = await axios.post('https://kauth.kakao.com/oauth/token', payload);
+      const { data: kakaoRes } = await axios.post('https://kauth.kakao.com/oauth/token', payload);
       Kakao.init(process.env.REACT_APP_REST_API_KEY);
 
-      Kakao.Auth.setAccessToken(res.data.access_token);
-      localStorage.setItem('kakaoAccessToken', res.data.access_token);
+      Kakao.Auth.setAccessToken(kakaoRes.access_token);
+      setAccessToken('kakaoAccessToken', kakaoRes.access_token);
 
       // 카카오 중복확인
-      const data = await postKakaoToken('kakao', res.data.access_token);
+      const data = await postKakaoToken(kakaoRes.access_token);
       if (data.isUser) {
         // 로그인
-        const signInData = await postKakaoSignIn(data.uid, 'kakao');
-        localStorage.setItem('accessToken', signInData.accessToken);
-        cookies.set('refreshToken', signInData.refreshToken, { httpOnly: true });
+        const signInData = await postKakaoSignIn(data.uid);
+        setUserSession(signInData.accessToken);
         navigate('/home');
         window.location.reload();
       } else if (!data.isUser) {
         // 회원가입
-        navigate('/signup/kakaonickname', { state: { uid: data.uid, socialType: 'kakao', email: data.email } });
+        navigate('/signup/nickname', { state: { uid: data.uid } });
       }
     } catch (err) {
       console.error(err);

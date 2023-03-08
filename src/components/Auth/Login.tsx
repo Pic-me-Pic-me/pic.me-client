@@ -1,30 +1,30 @@
 import { useState } from 'react';
-import { Cookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { LoginBanner } from '../../asset/image';
 import { postLoginInfo } from '../../lib/api/auth';
+import { clearUserSession, getAccessToken, setUserSession } from '../../lib/token';
 import { LoginInfo } from '../../types/auth';
 import KakaoLogin from './KakaoLogin';
 
 const LoginComponent = () => {
   const navigate = useNavigate();
-  const cookies = new Cookies();
 
   const [isLoginFail, setIsLoginFail] = useState(false);
   const { register, handleSubmit, getValues } = useForm<LoginInfo>();
-
+  clearUserSession();
   const handleSubmitLoginInfo = () => {
     const { email, password } = getValues();
     postLoginInfo({ email, password }).then((res) => {
       if (res?.data.status === 200) {
-        cookies.set('refreshToken', res.data.data.refreshToken, { httpOnly: true });
-        localStorage.setItem('accessToken', res.data.data.accessToken);
-        if (localStorage.getItem('accessToken')) {
+        setUserSession(res.data.data.accessToken);
+        console.log('로그인1', getAccessToken('accessToken'));
+
+        if (getAccessToken('accessToken')) {
+          console.log('로그인2', getAccessToken('accessToken'));
           navigate('/home');
-          window.location.reload();
         }
         setIsLoginFail(false);
       } else {
@@ -75,7 +75,6 @@ const StBannerWrapper = styled.div`
   > img {
     max-width: 100%;
     position: absolute;
-    /* top: 6.8rem; */
   }
 `;
 
@@ -106,8 +105,7 @@ const StInputDesc = styled.p`
   margin-top: 1rem;
   padding-left: 0.9rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
-  // Pic_Caption2_Pretendard_Semibold_14 로 변경해야함
+  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 `;
 
 const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
@@ -121,7 +119,6 @@ const StAuthBtn = styled.button<{ isSignUp?: boolean }>`
   ${({ isSignUp }) =>
     isSignUp &&
     css`
-      /* width: 100%; */
       padding: 0rem 0.2rem;
       margin-top: 0.8rem;
       background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};

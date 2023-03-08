@@ -1,79 +1,134 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+import {
+  EMAIL_ERROR_MSG,
+  EMAIL_REGEX,
+  initialSignupInfo,
+  PASSWORD_CONFIRM_ERROR_MSG,
+  PASSWORD_ERROR_MSG,
+  PASSWORD_MAX_LENGTH,
+  PASSWORD_MIN_LENGTH,
+  PASSWORD_REGEX,
+} from '../../constant/signup';
+import { clearUserSession } from '../../lib/token';
 import { SignUpInfo } from '../../types/signup';
+import { checkIsValid } from '../../utils/checkIsValidate';
 
 const AddAccount = () => {
   const navigate = useNavigate();
+  const [signupInfo, setSignupInfo] = useState<SignUpInfo>(initialSignupInfo);
+  const isSubmitBtnDiabled =
+    !signupInfo.emailInfo.isValid || !signupInfo.passwordInfo.isValid || !signupInfo.passwordConfirmInfo.isValid;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    getValues,
-  } = useForm<SignUpInfo>({ mode: 'onChange' });
+  const handleValidation = (inputValueType: string, inputValue: string) => {
+    switch (inputValueType) {
+      case 'email':
+        checkIsValid(EMAIL_REGEX, inputValue)
+          ? setSignupInfo({
+              ...signupInfo,
+              emailInfo: { email: inputValue, isValid: true, errorMsg: null },
+            })
+          : setSignupInfo({
+              ...signupInfo,
+              emailInfo: { email: null, isValid: false, errorMsg: EMAIL_ERROR_MSG },
+            });
+        break;
 
-  const handleSubmitAccount = () => {
-    const { email, password } = getValues();
-    const signupDataInfo = { email, password };
+      case 'password':
+        checkIsValid(PASSWORD_REGEX, inputValue)
+          ? setSignupInfo({
+              ...signupInfo,
+              passwordInfo: { password: inputValue, isValid: true, errorMsg: null },
+            })
+          : setSignupInfo({
+              ...signupInfo,
+              passwordInfo: { password: null, isValid: false, errorMsg: PASSWORD_ERROR_MSG },
+            });
+        break;
+
+      case 'passwordConfirm':
+        inputValue === signupInfo.passwordInfo.password
+          ? setSignupInfo({
+              ...signupInfo,
+              passwordConfirmInfo: { isValid: true, errorMsg: null },
+            })
+          : setSignupInfo({
+              ...signupInfo,
+              passwordConfirmInfo: { isValid: false, errorMsg: PASSWORD_CONFIRM_ERROR_MSG },
+            });
+
+        break;
+    }
+  };
+
+  const handleSubmitAccount = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const finalEmail = signupInfo.emailInfo.email;
+    const finalPassword = signupInfo.passwordInfo.password;
+    const signupDataInfo = { email: finalEmail, password: finalPassword };
     navigate(`/signup/nickname`, { state: { signupDataInfo } });
   };
 
+  const handleSpace = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentInput = e.target;
+    const currentInputValue = e.target.value;
+
+    if (currentInputValue.includes(' ')) {
+      const position = currentInput.selectionStart && currentInput.selectionStart - 1;
+      e.target.value = currentInputValue.replace(' ', '');
+      currentInput.setSelectionRange(position, position);
+    }
+  };
+
+  clearUserSession();
   return (
     <StWhiteSection>
       <StWrapper>
-        <StForm onSubmit={handleSubmit(handleSubmitAccount)}>
+        <StForm onSubmit={(e) => handleSubmitAccount(e)}>
           <StTitle>아이디</StTitle>
-          <StEmailInputWrapper>
-            <StEmailInput
-              type="email"
-              {...register('email', {
-                required: true,
-                pattern: {
-                  value: /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                  message: '올바른 이메일 형식이 아닙니다!',
-                },
-              })}
-              placeholder="아이디로 이용할 이메일을 적어주세요!"
-            />
-
-            <StCheckDuplicateBtn type="button">중복 확인</StCheckDuplicateBtn>
-          </StEmailInputWrapper>
-          <StInputDesc>{errors.email ? errors.email.message : ' '}</StInputDesc>
+          <StInput
+            type="text"
+            required
+            placeholder="아이디로 이용할 이메일을 적어주세요!"
+            onBlur={(e) => {
+              handleValidation('email', e.target.value);
+            }}
+            onChange={(e) => {
+              handleSpace(e);
+            }}
+          />
+          <StInputDesc>{signupInfo.emailInfo.errorMsg}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
           <StPwdInput
             type="password"
-            {...register('password', {
-              required: true,
-              pattern: {
-                value: /^[A-za-z0-9]{10,16}$/,
-                message: '영어/숫자를 포함하여 10-16자로 입력해주세요!',
-              },
-            })}
             placeholder="비밀번호를 입력해주세요"
+            minLength={8}
+            maxLength={16}
+            onChange={(e) => {
+              handleSpace(e);
+              handleValidation('password', e.target.value);
+            }}
           />
-          <StInputDesc>{errors.password ? errors.password.message : ' '}</StInputDesc>
+          <StInputDesc>{signupInfo.passwordInfo.errorMsg}</StInputDesc>
 
           <StTitle>비밀번호 재확인</StTitle>
           <StPwdInput
             type="password"
-            {...register('passwordConfirm', {
-              required: true,
-              validate: {
-                matchesPreviousPassword: (value) => {
-                  const { password } = getValues();
-                  return password === value || '비밀번호가 틀립니다!';
-                },
-              },
-            })}
             placeholder="확인을 위해 비밀번호를 입력해주세요"
+            minLength={PASSWORD_MIN_LENGTH}
+            maxLength={PASSWORD_MAX_LENGTH}
+            onChange={(e) => {
+              handleSpace(e);
+              handleValidation('passwordConfirm', e.target.value);
+            }}
           />
-          <StInputDesc>{errors.passwordConfirm ? errors.passwordConfirm.message : ' '}</StInputDesc>
+          <StInputDesc>{signupInfo.passwordConfirmInfo.errorMsg}</StInputDesc>
 
-          <StSubmitBtn disabled={!isValid}>다음 단계로 이동</StSubmitBtn>
+          <StSubmitBtn disabled={isSubmitBtnDiabled}>다음 단계로 이동</StSubmitBtn>
         </StForm>
       </StWrapper>
     </StWhiteSection>

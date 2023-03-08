@@ -1,7 +1,10 @@
+import { AxiosResponse } from 'axios';
+
+import { UserTokenInfo } from '../../types/auth';
 import { AddAccountInfo } from '../../types/signup';
 import { client } from '../axios';
 
-export const checkDuplicateNickname = async (username: string) => {
+export const getUsernameCheck = async (username: string) => {
   try {
     const res = await client.get(`/user/name?userName=${username}`);
     return res.data;
@@ -12,12 +15,12 @@ export const checkDuplicateNickname = async (username: string) => {
 
 export const postSignupInfo = async ({ email, password }: AddAccountInfo, username: string) => {
   try {
-    const res = await client.post(`/auth`, {
+    const res = await client.post<AxiosResponse<UserTokenInfo>>(`/auth`, {
       email,
       password,
       username,
     });
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.error(error);
   }
