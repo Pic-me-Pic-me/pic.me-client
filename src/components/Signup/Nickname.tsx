@@ -19,6 +19,7 @@ const Nickname = () => {
   });
 
   const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
+
   const handleCheckNickname = async () => {
     const response = await getUsernameCheck(nickname.typedNickname);
 
@@ -64,7 +65,8 @@ const Nickname = () => {
     if (currentInputValue.length > NICKNAME_MAX_LENGTH) {
       e.target.value = currentInputValue.slice(0, NICKNAME_MAX_LENGTH);
     }
-    setNickname({ ...nickname, typedNickname: e.target.value });
+    console.log(nickname);
+    setNickname({ ...nickname, state: 'default', typedNickname: e.target.value });
   };
 
   return (
