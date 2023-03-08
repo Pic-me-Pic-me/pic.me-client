@@ -12,6 +12,7 @@ import {
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
 } from '../../constant/signup';
+import { getEmailCheck } from '../../lib/api/signup';
 import { clearUserSession } from '../../lib/token';
 import { SignUpInfo } from '../../types/signup';
 import { checkIsValid } from '../../utils/checkIsValidate';
@@ -83,23 +84,37 @@ const AddAccount = () => {
     }
   };
 
+  const handleCheckEmail = async () => {
+    const currentEmail = signupInfo?.emailInfo?.email;
+    if (currentEmail) {
+      const res = await getEmailCheck(currentEmail);
+      console.log(res);
+    }
+  };
+
   clearUserSession();
+
   return (
     <StWhiteSection>
       <StWrapper>
         <StForm onSubmit={(e) => handleSubmitAccount(e)}>
           <StTitle>아이디</StTitle>
-          <StInput
-            type="text"
-            required
-            placeholder="아이디로 이용할 이메일을 적어주세요!"
-            onBlur={(e) => {
-              handleValidation('email', e.target.value);
-            }}
-            onChange={(e) => {
-              handleSpace(e);
-            }}
-          />
+          <StEmailInputWrapper>
+            <StEmailInput
+              type="text"
+              required
+              placeholder="아이디로 이용할 이메일을 적어주세요!"
+              onBlur={(e) => {
+                handleValidation('email', e.target.value);
+              }}
+              onChange={(e) => {
+                handleSpace(e);
+              }}
+            />
+            <StCheckDuplicateBtn type="button" onClick={handleCheckEmail}>
+              중복 확인
+            </StCheckDuplicateBtn>
+          </StEmailInputWrapper>
           <StInputDesc>{signupInfo.emailInfo.errorMsg}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
