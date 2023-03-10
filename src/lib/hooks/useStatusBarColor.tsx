@@ -10,6 +10,7 @@ export const STATUS_BAR_COLOR = {
 export const STATUS_BAR_COLOR_USAGE = new Map([
   ['/', STATUS_BAR_COLOR.LANDING_PAGE],
   ['/login', STATUS_BAR_COLOR.AUTH_PAGE],
+  ['/signup', STATUS_BAR_COLOR.AUTH_PAGE],
   ['/mypage', STATUS_BAR_COLOR.AUTH_PAGE],
 ]);
 
