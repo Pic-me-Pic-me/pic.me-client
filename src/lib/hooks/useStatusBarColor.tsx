@@ -25,9 +25,6 @@ const useStatusBarColor = () => {
     const metaElement = document.getElementById('status-bar');
     if (!metaElement) return;
     (metaElement as HTMLMetaElement).content = statusBarColor;
-    // return () => {
-    //   (metaElement as HTMLMetaElement).content = STATUS_BAR_COLOR.GENERAL_PAGE;
-    // };
   }, [statusBarColor]);
 };
 
