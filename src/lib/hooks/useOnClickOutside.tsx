@@ -9,7 +9,7 @@ interface UseOnClickOutsideProps {
 
 const useOnClickOutside = ({ ref, handler }: UseOnClickOutsideProps) => {
   const handleClickOutside = (event: Event) => {
-    if (ref.current && event.target && ref.current.contains(event.target as Node)) {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
       handler(event);
     }
   };
