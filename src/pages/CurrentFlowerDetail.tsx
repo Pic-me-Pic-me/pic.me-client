@@ -1,15 +1,18 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { IcVoteShareBtn } from '../asset/icon';
 import { HeaderLayout } from '../components/Layout';
 
 const CurrentFlowerDetail = () => {
+  const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
 
   return (
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
       <StCurrentVoteInfoWrapper>
+        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
         <StVoteTitle>
           <h1>나를 닮은 꽃은?</h1>
           <span>42분 전</span>
@@ -38,6 +41,18 @@ const StCurrentVoteInfoWrapper = styled.section`
   align-items: center;
 
   margin: 0 1.8rem 0 1.8rem;
+
+  & > svg {
+    position: absolute;
+
+    width: 5.93rem;
+    height: 5.93rem;
+
+    bottom: 20rem;
+    right: 2.07rem;
+
+    cursor: pointer;
+  }
 `;
 
 const StVoteTitle = styled.article`
