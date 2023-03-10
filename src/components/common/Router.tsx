@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import Loading from './Loading';
+import StatusBarForiOS from './StatusBarForiOS';
 
 const CurrentVoteDetail = lazy(() => import('../../pages/CurrentVoteDetail'));
 const Error404 = lazy(() => import('../../pages/Error404'));
@@ -28,6 +28,7 @@ const Router = () => (
   <BrowserRouter>
     <RecoilRoot>
       <Suspense>
+        <StatusBarForiOS />
         <Routes>
           <Route path="/" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
@@ -36,7 +37,6 @@ const Router = () => (
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/result/:voteId" element={<Result />} />
           <Route path="/share" element={<Share />} />
           <Route path="/makervoting" element={<MakerVoting />} />

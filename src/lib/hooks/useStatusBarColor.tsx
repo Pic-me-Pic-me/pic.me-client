@@ -2,7 +2,7 @@ import { useLayoutEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export const STATUS_BAR_COLOR = {
-  LANDING_PAGE: '#FF736E',
+  LANDING_PAGE: '#FF6A69',
   AUTH_PAGE: '#1E1F21',
   GENERAL_PAGE: '#FFFFFF',
 };
@@ -25,6 +25,9 @@ const useStatusBarColor = () => {
     const metaElement = document.getElementById('status-bar');
     if (!metaElement) return;
     (metaElement as HTMLMetaElement).content = statusBarColor;
+    // return () => {
+    //   (metaElement as HTMLMetaElement).content = STATUS_BAR_COLOR.GENERAL_PAGE;
+    // };
   }, [statusBarColor]);
 };
 
