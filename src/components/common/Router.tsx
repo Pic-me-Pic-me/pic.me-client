@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 
 import Loading from './Loading';
 
+const CurrentFlowerDetail = lazy(() => import('../../pages/CurrentFlowerDetail'));
 const CurrentVoteDetail = lazy(() => import('../../pages/CurrentVoteDetail'));
 const Error404 = lazy(() => import('../../pages/Error404'));
 const Home = lazy(() => import('../../pages/Home'));
@@ -33,6 +34,7 @@ const Router = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/login/oauth/kakao/callback" element={<Auth />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/flower/current" element={<CurrentFlowerDetail />} />
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />
