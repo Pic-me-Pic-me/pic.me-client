@@ -16,7 +16,7 @@ const CurrentFlowerDetail = () => {
         </StVoteTitle>
         <StVoteStatus>
           <span>총 10명 중</span>
-          <span>3 명 참가</span>
+          <span>3명 참가</span>
         </StVoteStatus>
         <StFlowerTestImg
           src="https://user-images.githubusercontent.com/97586683/224237345-a6164178-7588-49de-9675-bf4b8a99d61d.jpg"
@@ -80,7 +80,7 @@ const StVoteStatus = styled.section`
   border-radius: 3.3rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
 
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
+  ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
 
   & > span:last-of-type {
     display: flex;
@@ -119,6 +119,6 @@ const StFlowerTestStatus = styled.div`
   & > span {
     text-align: center;
     color: ${({ theme }) => theme.colors.Pic_Color_White};
-    ${({ theme }) => theme.fonts.Pic_Subtitle3_Pretendard_Semibold_20}
+    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
   }
 `;
