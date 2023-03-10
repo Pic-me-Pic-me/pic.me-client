@@ -47,7 +47,7 @@ const StVoteTitle = styled.article`
   align-items: center;
 
   & > span {
-    ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
+    ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   }
 
@@ -61,7 +61,7 @@ const StVoteTitle = styled.article`
     width: 34.6rem;
     // height: 5.6rem;
 
-    ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20}
+    ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1};
   }
 `;
 
