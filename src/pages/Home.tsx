@@ -11,7 +11,6 @@ const Home = () => {
   const navigate = useNavigate();
   const setVotingForm = useSetRecoilState(votingImageState);
 
-  console.log('home', getAccessToken('accessToken'));
   useEffect(() => {
     setVotingForm({ title: '', firstImageUrl: '', secondImageUrl: '' });
   }, []);
