@@ -1,80 +1,45 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 export interface HamburgerProps {
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Hamburger = (props: HamburgerProps) => {
-  const { isOpen, setIsOpen } = props;
-
-  const sidebarRef = useRef<HTMLElement>(null);
+const Hamburger = ({ isOpen }: HamburgerProps) => {
   const navigate = useNavigate();
 
-  const onClickOutSide = (event: Event) => {
-    if (!sidebarRef.current?.contains(event.target as Node)) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', onClickOutSide, true);
-    return () => {
-      document.removeEventListener('click', onClickOutSide, true);
-    };
-  });
-
   return (
-    <>
-      <StOutsideHamburger isOpen={isOpen}>
-        <StHamburgerWrapper isOpen={isOpen}>
-          <StHamburgerMenu
-            onClick={() => {
-              navigate('/mypage');
-            }}>
-            회원 정보
-          </StHamburgerMenu>
-          <StHamburgerMenu
-            onClick={() => {
-              navigate('/library');
-            }}>
-            라이브러리
-          </StHamburgerMenu>
-        </StHamburgerWrapper>
-      </StOutsideHamburger>
-    </>
+    <StHamburgerWrapper isOpen={isOpen}>
+      <StHamburgerMenu
+        onClick={() => {
+          navigate('/mypage');
+        }}>
+        회원 정보
+      </StHamburgerMenu>
+      <StHamburgerMenu
+        onClick={() => {
+          navigate('/library');
+        }}>
+        라이브러리
+      </StHamburgerMenu>
+    </StHamburgerWrapper>
   );
 };
 
 export default Hamburger;
 
-const StOutsideHamburger = styled.div<{ isOpen?: boolean }>`
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
-  position: fixed;
-  top: 9rem;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 1;
-
-  width: 100%;
-  height: 100%;
-
-  background-color: ${(props) => (props.isOpen ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0)')};
-`;
-
 const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
   position: fixed;
   left: 0;
+  z-index: -10;
 
   width: 100%;
   height: 14.5rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 
-  transition: 0.5s ease;
+  transition: 0.3s ease;
 
   ${({ isOpen }) =>
     isOpen
@@ -82,7 +47,7 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
           top: 8.8rem;
         `
       : css`
-          top: -200%;
+          top: -100%;
 
           transition: 2s ease;
         `}
@@ -90,23 +55,15 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
 
 const StHamburgerMenu = styled.li`
   padding: 2rem 2.8rem;
+
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-  font-family: 'Pretendard', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.8rem;
-  line-height: 2.1rem;
+  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 
   & > a {
     display: block;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-    font-family: 'Pretendard', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 2.1rem;
-    text-decoration: none;
+    ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
   }
 
   cursor: pointer;
