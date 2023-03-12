@@ -31,7 +31,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   position: sticky;
 
   top: 0rem;
-  height: 8rem;
+  height: 7rem;
   padding-right: 3.8rem;
 
   width: 100%;
@@ -63,7 +63,7 @@ const StTitle = styled.div<{ isBanner?: boolean }>`
   width: 100%;
 
   & > h1 {
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
     color: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
   }
 `;

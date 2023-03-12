@@ -33,7 +33,7 @@ const StFooterWrapper = styled.footer`
   height: 21.3rem;
   padding: 3.5rem 3.1rem;
 
-  color: #5c5c5c;
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 `;
 
@@ -51,16 +51,12 @@ const StRightSection = styled.section`
   flex: 1;
 
   > span {
-    ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16};
+    ${({ theme }) => theme.fonts.Pic_Noto_SB_Title_2};
   }
 
   > p {
     padding-bottom: 1.3rem;
 
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.4rem;
-    line-height: 1.7rem;
+    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5};
   }
 `;
