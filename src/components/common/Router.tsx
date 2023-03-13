@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
+import FlowerResult from '../Result/FlowerResult';
 import StatusBarForiOS from './StatusBarForiOS';
 
 const CurrentVoteDetail = lazy(() => import('../../pages/CurrentVoteDetail'));
@@ -56,6 +57,7 @@ const Router = () => (
           </Route>
 
           <Route path="*" element={<Error404 />} />
+          <Route path="/flowerResult" element={<FlowerResult />} />
         </Routes>
       </Suspense>
     </RecoilRoot>
