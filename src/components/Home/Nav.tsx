@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcClose, IcHamburger, IcHomeLogo } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
+import useOnClickOutside from '../../lib/hooks/useOnClickOutside';
 import { clearUserSession } from '../../lib/token';
 import Modal from '../common/Modal';
 import Hamburger from './Hamburger';
 
 const Nav = () => {
   const { isShowing, toggle } = useModal();
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [hamburger, setHamburger] = useState(false);
+  const sidebarRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -24,41 +25,65 @@ const Nav = () => {
   };
 
   const handleHamburger = () => {
-    setIsOpen((isOpen) => !isOpen);
+    setHamburger((hamburger) => !hamburger);
   };
 
-  const handleReLoad = () => {
-    window.location.reload();
+  const handleClickOutside = () => {
+    setHamburger(false);
   };
+
+  useOnClickOutside({ ref: sidebarRef, handler: handleClickOutside });
+
   return (
     <>
-      <StHomeNav>
-        <StLogoBtn onClick={handleReLoad}>
-          <IcHomeLogo />
-        </StLogoBtn>
-        <StHamburgerWrapper>
-          <StLogoutBtn type="button" onClick={() => toggle()}>
-            로그아웃
-          </StLogoutBtn>
-          <Modal
-            isShowing={isShowing}
-            message="로그아웃 하시겠습니까?"
-            handleHide={toggle}
-            handleConfirm={handleLogout}
-          />
-          <StHamburgerBtn type="button" onClick={handleHamburger}>
-            {isOpen ? <IcClose width="2.13rem" height="1.4rem" /> : <IcHamburger width="2.13rem" height="1.4rem" />}
-          </StHamburgerBtn>
-        </StHamburgerWrapper>
-        <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
-      </StHomeNav>
+      <StOutsideNav isOpen={hamburger} />
+      <StNavWrapper ref={sidebarRef}>
+        <StNavBar>
+          <StLogoBtn
+            onClick={() => {
+              window.location.reload();
+            }}>
+            <IcHomeLogo />
+          </StLogoBtn>
+          <StButtonWrapper>
+            <StLogoutBtn type="button" onClick={toggle}>
+              로그아웃
+            </StLogoutBtn>
+            <Modal
+              isShowing={isShowing}
+              message="로그아웃 하시겠습니까?"
+              handleHide={toggle}
+              handleConfirm={handleLogout}
+            />
+            <StHamburgerBtn type="button" onClick={handleHamburger}>
+              {hamburger ? <IcClose /> : <IcHamburger />}
+            </StHamburgerBtn>
+          </StButtonWrapper>
+        </StNavBar>
+        <Hamburger isOpen={hamburger} />
+      </StNavWrapper>
     </>
   );
 };
 
 export default Nav;
 
-const StHomeNav = styled.nav`
+const StOutsideNav = styled.div<{ isOpen?: boolean }>`
+  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  position: fixed;
+  top: 9rem;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: ${(props) => (props.isOpen ? 'rgba(0, 0, 0, 0.7)' : 'rgba(0, 0, 0, 0)')};
+`;
+
+const StNavWrapper = styled.nav`
   display: flex;
 
   justify-content: space-between;
@@ -75,15 +100,18 @@ const StHomeNav = styled.nav`
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;
 
+const StNavBar = styled(StNavWrapper)``;
+
 const StLogoBtn = styled.a`
   cursor: pointer;
+
   > svg {
     width: 11.1rem;
     height: 5.4rem;
   }
 `;
 
-const StHamburgerWrapper = styled.div`
+const StButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   z-index: 100;
