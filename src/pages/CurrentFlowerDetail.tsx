@@ -57,7 +57,7 @@ const StFlowerTestStatus = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-item: cetner;
+  align-items: center;
 
   margin-top: 1.1rem;
 
