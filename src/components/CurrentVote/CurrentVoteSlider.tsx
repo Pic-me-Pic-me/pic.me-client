@@ -94,7 +94,21 @@ const CurrentVoteSliderWrapper = styled.article`
   overflow: hidden;
 `;
 
-const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
+const StImgUl = styled.ul.attrs<{
+  currentIdx: number;
+  dragItemWidth: number;
+  transX: number;
+  width: number;
+}>((props) => ({
+  style: {
+    left:
+      props.currentIdx === 0
+        ? `${(props.dragItemWidth * 0.05) / 10}rem`
+        : `${(props.width * 1.5) / 45 + (props.dragItemWidth * 0.1) / 45}rem`,
+    transform: `translateX(${(-props.currentIdx * props.dragItemWidth + props.transX) / 10.55}rem)`,
+    transition: `transform ${props.transX ? 0 : 300}ms ease-in -out 0s`,
+  },
+}))<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
   display: flex;
 
   align-items: center;
@@ -102,22 +116,6 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
   gap: 1.3rem;
 
   height: 43rem;
-  ${({ currentIdx, dragItemWidth, width }) =>
-    currentIdx === 0
-      ? css`
-          left: ${(dragItemWidth * 0.05) / 10}rem;
-        `
-      : css`
-          left: ${(width * 1.5) / 45 + (dragItemWidth * 0.1) / 45}rem;
-        `}
-  ${({ currentIdx, dragItemWidth, transX }) =>
-    css`
-      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10.55}rem);
-    `};
-  ${({ transX }) =>
-    css`
-      transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
-    `};
   width: ${({ width }) => (width * 1.55) / 10}rem;
   touch-action: auto;
 
