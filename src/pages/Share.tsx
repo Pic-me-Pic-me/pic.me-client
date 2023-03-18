@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { isAndroid, isIOS } from 'react-device-detect';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { IcShareBtn } from '../asset/icon';
 import { ImgShareCapture } from '../asset/image';
 import { HeaderLayout } from '../components/Layout';
+import Error404 from './Error404';
 
 const Share = () => {
   const location = useLocation();
@@ -31,6 +32,10 @@ const Share = () => {
     }
     window.location.replace('https://www.instagram.com/');
   };
+
+  if (!voteId) {
+    return <Error404 />;
+  }
 
   return (
     <>
