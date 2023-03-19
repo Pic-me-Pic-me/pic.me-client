@@ -1,24 +1,29 @@
 import styled from 'styled-components';
+import TimeAgo from 'timeago-react';
 
 interface CurrentVoteInfoLayoutProps {
   voteTitle: string;
   createdAt: string;
-  totalVoteCount: number;
-  currentVoteCount: number;
+  totalVoteCount: string;
+  currentVoteCount: string;
 }
 
 const CurrentVoteInfoLayout = (props: CurrentVoteInfoLayoutProps) => {
   const { voteTitle, createdAt, totalVoteCount, currentVoteCount } = props;
 
+  const createdDate = createdAt.slice(0, 10) + ' ' + createdAt.slice(11, 19);
+
   return (
     <>
       <StVoteTitle>
         <h1>{voteTitle}</h1>
-        <span>{createdAt}분 전</span>
+        <span>
+          <TimeAgo datetime={createdDate} locale="ko" />
+        </span>
       </StVoteTitle>
       <StVoteStatus>
-        <span>총 {totalVoteCount}명 중</span>
-        <span>{currentVoteCount}명 참가</span>
+        <span>{totalVoteCount}</span>
+        <span>{currentVoteCount}</span>
       </StVoteStatus>
     </>
   );
