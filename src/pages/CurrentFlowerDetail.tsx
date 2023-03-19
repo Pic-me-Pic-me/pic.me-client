@@ -15,7 +15,12 @@ const CurrentFlowerDetail = () => {
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
       <StCurrentVoteInfoWrapper>
         <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
-        <CurrentVoteInfoLayout voteTitle="나를 닮은 꽃은?" createdAt="42" totalVoteCount={10} currentVoteCount={3} />
+        <CurrentVoteInfoLayout
+          voteTitle="나를 닮은 꽃은?"
+          createdAt="42"
+          totalVoteCount={`총 ${10}명 중`}
+          currentVoteCount={`${3}명 참가`}
+        />
         <StickerAttachImg
           stickerAttachImgSrc="https://user-images.githubusercontent.com/97586683/224237345-a6164178-7588-49de-9675-bf4b8a99d61d.jpg"
           imgWrapperWidthPercent={100}
