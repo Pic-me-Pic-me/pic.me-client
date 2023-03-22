@@ -4,13 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
-  IcBackGround,
+  IcFlowerOnboarding,
   IcLogoSmall,
   IcOBD1,
   IcOBD2,
   IcOBD3,
   IcOBD4,
-  IcOnboardingLogo,
   IcSolution1,
   IcSolution2,
   IcSolution3,
@@ -22,26 +21,23 @@ const MakerLanding = () => {
   return (
     <StOnboarding>
       <StFirstSection>
-        <IcBackGround />
-        <StTitle>
-          <StContents>
-            친구가
+        <IcFlowerOnboarding />
+        <StContents>
+          <h1>
+            친구가 골라주는
             <br />
-            골라주는
-            <br />
-            나의 베스트 Pic!
-          </StContents>
-          <IcOnboardingLogo />
-          <p>스크롤 해주세요</p>
-          <StStartBtn
-            type="button"
-            onClick={() => {
-              navigate('/login');
-            }}>
-            시작하기
-          </StStartBtn>
-        </StTitle>
+            나의 베스트
+          </h1>
+          <StGradient />
+        </StContents>
       </StFirstSection>
+      <StStartBtn
+        type="button"
+        onClick={() => {
+          navigate('/login');
+        }}>
+        시작하기
+      </StStartBtn>
       <StSecondSection>
         <StFirstContent>
           <p>
@@ -112,13 +108,6 @@ const MakerLanding = () => {
           <h1>
             <span>나의 Pic</span>을 경험해보세요!
           </h1>
-          <StStartBtn
-            type="button"
-            onClick={() => {
-              navigate('/login');
-            }}>
-            시작하기
-          </StStartBtn>
         </StStart>
       </StThirdSection>
       <StFooter>
@@ -133,74 +122,73 @@ export default MakerLanding;
 
 const StOnboarding = styled.div`
   position: absolute;
-  top: 0;
 
   width: 100%;
-  max-width: 43rem;
-  height: 556.1rem;
+  /* max-width: 37.5rem; */
 
-  & > svg {
-    width: 100%;
-    top: 0;
-  }
+  background-color: #1e1f21;
 `;
 
 const StFirstSection = styled.section`
   width: 100%;
-  height: 94.1rem;
-  padding: 0rem 2.8rem;
+  height: 98.4rem;
 
   & > svg {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    top: 21.6rem;
+
+    width: 100%;
   }
 `;
 
-const StTitle = styled.header`
-  width: 100%;
-
-  & > p {
-    display: flex;
-    justify-content: center;
-
-    margin-top: 18.869rem;
-    margin-bottom: 2.3rem;
-
-    color: ${({ theme }) => theme.colors.Pic_Color_White};
-    ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16}
-  }
-  & > svg {
-    margin-top: 2.6rem;
-  }
-`;
-
-const StContents = styled.h1`
-  padding-top: 13.9rem;
-  margin-left: -0.245rem;
+const StContents = styled.header`
+  margin-top: 11rem;
+  margin-left: 2.3rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
 
-  font-family: 'Pretendard', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 2.88035rem;
-  line-height: 3.4rem;
+  & > h1 {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 3.5rem;
+    line-height: 131.2%;
+    letter-spacing: -0.05em;
 
-  white-space: pre-wrap;
-
-  & > svg {
-    margin-top: 2.6rem;
-    padding-right: 4.617rem;
+    margin-bottom: 1.4rem;
   }
 `;
 
+const StGradient = styled.div`
+  position: absolute;
+  width: 375px;
+  height: 257px;
+  left: 0px;
+  top: 728px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(30, 31, 33, 0) 0%,
+    rgba(30, 31, 33, 0.1) 13.02%,
+    rgba(34, 64, 124, 0.26) 26.04%,
+    rgba(30, 31, 33, 0.51) 39.06%,
+    rgba(30, 31, 33, 0.87) 55.73%,
+    #1e1f21 67.71%,
+    #1e1f21 93.75%
+  );
+`;
+
 const StStartBtn = styled.button`
+  position: fixed;
+  bottom: 9.6rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+
   width: 100%;
-  max-width: 43rem;
-  height: 5.763rem;
-  padding: 0rem;
+  max-width: 34rem;
+  height: 5.2rem;
+  padding: 0 1.7rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
@@ -211,11 +199,12 @@ const StStartBtn = styled.button`
 
 const StSecondSection = styled.section`
   width: 100%;
-  /* padding: 15.8rem 6.2rem 0rem 6.2rem; */
 `;
 
 const StFirstContent = styled.article`
+  padding-top: 9.214rem;
   & > p {
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
     text-align: center;
     & > span {
@@ -235,8 +224,9 @@ const StFirstContent = styled.article`
 const StSecondContent = styled.article`
   margin-top: 8.841rem;
 
+  ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16};
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
   & > p {
-    ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16};
     text-align: center;
     & > span {
       color: ${({ theme }) => theme.colors.Pic_Color_Coral};
@@ -315,6 +305,7 @@ const StThirdSolution = styled(StFirstSolution)`
 
 const StStart = styled.div`
   width: 100%;
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
   & > h1 {
     ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
     text-align: center;

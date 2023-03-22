@@ -2,13 +2,12 @@ import { useLayoutEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export const STATUS_BAR_COLOR = {
-  LANDING_PAGE: '#FF6A69',
   AUTH_PAGE: '#1E1F21',
   GENERAL_PAGE: '#FFFFFF',
 };
 
 export const STATUS_BAR_COLOR_USAGE = new Map([
-  ['/', STATUS_BAR_COLOR.LANDING_PAGE],
+  ['/', STATUS_BAR_COLOR.AUTH_PAGE],
   ['/login', STATUS_BAR_COLOR.AUTH_PAGE],
   ['/signup', STATUS_BAR_COLOR.AUTH_PAGE],
   ['/mypage', STATUS_BAR_COLOR.AUTH_PAGE],
