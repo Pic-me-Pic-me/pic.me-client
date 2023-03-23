@@ -99,16 +99,19 @@ const StImgUl = styled.ul.attrs<{
   dragItemWidth: number;
   transX: number;
   width: number;
-}>((props) => ({
+}>(({ currentIdx, dragItemWidth, transX, width }) => ({
   style: {
     left:
-      props.currentIdx === 0
-        ? `${(props.dragItemWidth * 0.05) / 10}rem`
-        : `${(props.width * 1.5) / 45 + (props.dragItemWidth * 0.1) / 45}rem`,
-    transform: `translateX(${(-props.currentIdx * props.dragItemWidth + props.transX) / 10.55}rem)`,
-    transition: `transform ${props.transX ? 0 : 300}ms ease-in -out 0s`,
+      currentIdx === 0 ? `${(dragItemWidth * 0.05) / 10}rem` : `${(width * 1.5) / 45 + (dragItemWidth * 0.1) / 45}rem`,
+    transform: `translateX(${(-currentIdx * dragItemWidth + transX) / 10.55}rem)`,
+    transition: `transform ${transX ? 0 : 300}ms ease-in -out 0s`,
   },
-}))<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
+}))<{
+  currentIdx: number;
+  dragItemWidth: number;
+  transX: number;
+  width: number;
+}>`
   display: flex;
 
   align-items: center;

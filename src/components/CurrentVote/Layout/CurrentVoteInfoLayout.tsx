@@ -31,7 +31,7 @@ const CurrentVoteInfoLayout = (props: CurrentVoteInfoLayoutProps) => {
 
 export default CurrentVoteInfoLayout;
 
-const StVoteTitle = styled.article`
+const StVoteTitle = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;

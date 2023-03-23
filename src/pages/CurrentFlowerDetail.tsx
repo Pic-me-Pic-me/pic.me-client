@@ -41,7 +41,7 @@ const StCurrentVoteInfoWrapper = styled.section`
   justify-content: center;
   align-items: center;
 
-  margin: 0 1.8rem 0 1.8rem;
+  margin: 0 1.8rem;
 
   & > svg {
     position: absolute;
