@@ -34,10 +34,4 @@ const StFlowerShareGuideWrapper = styled.article`
       color: ${({ theme }) => theme.colors.Pic_Color_Coral};
     }
   }
-
-  & > img {
-    margin-top: 2rem;
-
-    width: 100%;
-  }
 `;
