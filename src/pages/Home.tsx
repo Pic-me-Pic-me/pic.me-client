@@ -4,16 +4,26 @@ import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
+import MakingVoteModal from '../components/common/MakingVoteModal';
 import { Footer, Header, Nav, VoteList } from '../components/Home';
+import useModal from '../lib/hooks/useModal';
 import { votingImageState } from '../recoil/maker/atom';
 
 const Home = () => {
   const navigate = useNavigate();
   const setVotingForm = useSetRecoilState(votingImageState);
+  const { isShowing, toggle } = useModal();
 
   useEffect(() => {
     setVotingForm({ title: '', firstImageUrl: '', secondImageUrl: '' });
   }, []);
+
+  const handleNormalVote = () => {
+    navigate('/makervoting');
+  };
+  const handleFlowerVote = () => {
+    navigate('/makervoting');
+  };
 
   return (
     <>
@@ -21,14 +31,16 @@ const Home = () => {
         <Nav />
         <Header />
         <StMakeVote>사진 투표 만들기</StMakeVote>
-        <StMakerVoting
-          type="button"
-          onClick={() => {
-            navigate('/makervoting');
-          }}>
+        <StMakerVoting type="button" onClick={toggle}>
           <IcPlus />
           <p>투표 만들기</p>
         </StMakerVoting>
+        <MakingVoteModal
+          isShowing={isShowing}
+          handleNormalVote={handleNormalVote}
+          handleFlowerVote={handleFlowerVote}
+          handleHide={toggle}
+        />
       </StHomeWrapper>
       <VoteList />
       <Footer />
@@ -49,7 +61,7 @@ const StMakeVote = styled.h1`
 
 const StMakerVoting = styled.button`
   width: 100%;
-  height: 12.4rem;
+  height: 10.814rem;
   padding: 0;
   margin-top: 0.8rem;
   border: none;

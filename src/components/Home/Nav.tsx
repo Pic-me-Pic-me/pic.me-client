@@ -94,8 +94,8 @@ const StNavWrapper = styled.nav`
   z-index: 1;
 
   width: 100%;
-  height: 5.58rem;
-  margin-top: 2.093rem;
+  height: 7.674rem;
+  padding-top: 2.093rem;
   padding-left: 1.308rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
