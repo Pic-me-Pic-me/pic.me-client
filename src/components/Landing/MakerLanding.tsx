@@ -85,7 +85,7 @@ const StOnboarding = styled.div`
   position: absolute;
 
   width: 100%;
-  max-width: 37.5rem;
+  max-width: 43rem;
 
   background-color: #1e1f21;
 `;
