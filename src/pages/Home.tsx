@@ -20,6 +20,7 @@ const Home = () => {
       <StHomeWrapper>
         <Nav />
         <Header />
+        <StMakeVote>사진 투표 만들기</StMakeVote>
         <StMakerVoting
           type="button"
           onClick={() => {
@@ -38,21 +39,26 @@ const Home = () => {
 export default Home;
 
 const StHomeWrapper = styled.div`
-  padding: 2.7rem 2rem 0rem 2rem;
+  padding: 2.7rem 1.7rem 0rem 1.7rem;
+`;
+
+const StMakeVote = styled.h1`
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ theme }) => theme.fonts.Pic_Noto_SB_Title_2};
 `;
 
 const StMakerVoting = styled.button`
   width: 100%;
   height: 12.4rem;
   padding: 0;
-  margin-top: 1.5rem;
+  margin-top: 0.8rem;
   border: none;
   border-radius: 1.2rem;
   background: inherit;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
   > p {
-    padding-top: 1.6rem;
+    padding-top: 1.037rem;
     color: #5c5c5c;
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_1};
   }
 `;

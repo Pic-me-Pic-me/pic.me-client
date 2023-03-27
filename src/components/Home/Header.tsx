@@ -20,6 +20,7 @@ const Header = () => {
         </StGuideBtn>
         <Guide isShowing={isShowing} handleHide={toggle} />
       </StBannerWrapper>
+      <StMeatBall></StMeatBall>
     </>
   );
 };
@@ -31,7 +32,7 @@ const StBannerWrapper = styled.header`
   flex-direction: column;
 
   width: 100%;
-  margin-top: 8.8rem;
+  margin-top: 6.5rem;
 
   border-radius: 1.2rem;
 `;
@@ -63,4 +64,8 @@ const StGuideBtn = styled.button`
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
   }
+`;
+
+const StMeatBall = styled.div`
+  height: 4.6rem;
 `;
