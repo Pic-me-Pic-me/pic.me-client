@@ -5,77 +5,83 @@ import styled from 'styled-components';
 
 import { IcFlowerOnboarding, IcLogoSmall, IcOBD1, IcSolution1, IcSolution2, IcSolution3 } from '../../asset/icon';
 import { lottie1, lottie2, lottie3 } from '../../asset/lottie';
+import useModal from '../../lib/hooks/useModal';
+import MakerLandingModal from '../common/MakerLandingModal';
 
 const MakerLanding = () => {
   const navigate = useNavigate();
+  const { isShowing, toggle } = useModal();
   return (
-    <StOnboarding>
-      <StStartBtn
-        type="button"
-        onClick={() => {
-          navigate('/login');
-        }}>
-        시작하기
-      </StStartBtn>
-      <StFirstSection>
-        <IcFlowerOnboarding />
-        <StContents>
-          <h1>
-            친구가 골라주는
+    <>
+      <MakerLandingModal isShowing={!isShowing} handleHide={toggle} />
+      <StOnboarding>
+        <StStartBtn
+          type="button"
+          onClick={() => {
+            navigate('/login');
+          }}>
+          시작하기
+        </StStartBtn>
+        <StFirstSection>
+          <IcFlowerOnboarding />
+          <StContents>
+            <h1>
+              친구가 골라주는
+              <br />
+              나의 베스트
+            </h1>
+          </StContents>
+        </StFirstSection>
+        <StSecondSection>
+          <StFirstContent>
+            <p>
+              <span>SNS</span>에 어떤 사진 올릴지
+            </p>
+            <p>고민한 적 있지 않나요?</p>
             <br />
-            나의 베스트
-          </h1>
-        </StContents>
-      </StFirstSection>
-      <StSecondSection>
-        <StFirstContent>
-          <p>
-            <span>SNS</span>에 어떤 사진 올릴지
-          </p>
-          <p>고민한 적 있지 않나요?</p>
-          <br />
-          <IcOBD1 />
-        </StFirstContent>
-      </StSecondSection>
-      <StThirdSection>
-        <h1>
-          이에&nbsp;
-          <IcLogoSmall /> 는
-        </h1>
-        <h1>이러한 솔루션을 제안합니다!</h1>
-        <StFirstSolution>
-          <Lottie className="lotte" animationData={lottie1} loop={true} />
-          <IcSolution1 />
-          <h1>빠른 투표 생성과 공유</h1>
-          <p>제목과 사진만으로 빠르게 투표를 생성해요!</p>
-          <p>단 한번의 공유로 투표를 진행할 수 있어요!</p>
-        </StFirstSolution>
-        <StSecondSolution>
-          <Lottie className="lotte" animationData={lottie2} loop={true}></Lottie>
-          <IcSolution2 />
-          <h1>현재 활동하는 지인의 선택</h1>
-          <p> SNS 스토리에 링크를 공유해</p>
-          <p>친구의 선택을 빠르게 확인할 수 있어요!</p>
-        </StSecondSolution>
-        <StThirdSolution>
-          <Lottie className="lotte" animationData={lottie3} loop={true}></Lottie>
-          <IcSolution3 />
-          <h1>한눈에 확인할 수 있는 투표 결과</h1>
-          <p>원하는 시간에 마감하고 Pic.me만의 결과물로</p>
-          <p>한눈에 친구들의 시선을 확인할 수 있어요!</p>
-        </StThirdSolution>
-        <StStart>
-          <h1>친구의 시선으로 완성되는</h1>
+            <IcOBD1 />
+          </StFirstContent>
+        </StSecondSection>
+        <StThirdSection>
           <h1>
-            <span>나의 Pic</span>을 경험해보세요!
+            이에&nbsp;
+            <IcLogoSmall /> 는
           </h1>
-        </StStart>
-      </StThirdSection>
-      <StFooter>
-        <p>Contact Us</p>
-        <h1>with.picme@gmail.com</h1>
-      </StFooter>
-    </StOnboarding>
+          <h1>이러한 솔루션을 제안합니다!</h1>
+          <StFirstSolution>
+            <Lottie className="lotte" animationData={lottie1} loop={true} />
+            <IcSolution1 />
+            <h1>빠른 투표 생성과 공유</h1>
+            <p>제목과 사진만으로 빠르게 투표를 생성해요!</p>
+            <p>단 한번의 공유로 투표를 진행할 수 있어요!</p>
+          </StFirstSolution>
+          <StSecondSolution>
+            <Lottie className="lotte" animationData={lottie2} loop={true}></Lottie>
+            <IcSolution2 />
+            <h1>현재 활동하는 지인의 선택</h1>
+            <p> SNS 스토리에 링크를 공유해</p>
+            <p>친구의 선택을 빠르게 확인할 수 있어요!</p>
+          </StSecondSolution>
+          <StThirdSolution>
+            <Lottie className="lotte" animationData={lottie3} loop={true}></Lottie>
+            <IcSolution3 />
+            <h1>한눈에 확인할 수 있는 투표 결과</h1>
+            <p>원하는 시간에 마감하고 Pic.me만의 결과물로</p>
+            <p>한눈에 친구들의 시선을 확인할 수 있어요!</p>
+          </StThirdSolution>
+          <StStart>
+            <h1>친구의 시선으로 완성되는</h1>
+            <h1>
+              <span>나의 Pic</span>을 경험해보세요!
+            </h1>
+          </StStart>
+        </StThirdSection>
+        <StFooter>
+          <p>Contact Us</p>
+          <h1>with.picme@gmail.com</h1>
+        </StFooter>
+      </StOnboarding>
+    </>
   );
 };
 
