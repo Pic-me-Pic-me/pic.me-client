@@ -97,9 +97,6 @@ const StShareTitle = styled.header`
 
   width: 100%;
 
-  /* padding-left: 2rem;
-  padding-right: 2rem; */
-
   & > h1 {
     ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1}
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
@@ -210,8 +207,4 @@ const StShareToast = styled.div`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
 
   border-radius: 4.6rem;
-
-  /* animation-duration: 0.25s;
-  animation-timing-function: ease-out;
-  animation-name: fadeOut; */
 `;
