@@ -49,6 +49,7 @@ export { ReactComponent as IcSolution2 } from './ic_solution2.svg';
 export { ReactComponent as IcSolution3 } from './ic_solution3.svg';
 export { ReactComponent as IcStickers } from './ic_stickers.svg';
 export { ReactComponent as IcBallon } from './IcBallon.svg';
+export { ReactComponent as IcFlowerShareGuide } from './IcFlowerShareGuide.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
 export { ReactComponent as IcLogoSmall } from './IcLogoSmall.svg';
 export { ReactComponent as IcModalBG } from './IcModalBG.svg';
