@@ -53,6 +53,7 @@ export { ReactComponent as IcBlackHeaderFirst } from './IcBlackHeaderFirst.svg';
 export { ReactComponent as IcBlackHeaderLast } from './IcBlackHeaderLast.svg';
 export { ReactComponent as IcBlackHeaderSecond } from './IcBlackHeaderSecond.svg';
 export { ReactComponent as IcCheeryBlossoms } from './IcCheeryBlossoms.svg';
+export { ReactComponent as IcChoice } from './IcChoice.svg';
 export { ReactComponent as IcFlower } from './IcFlower.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
 export { ReactComponent as IcLily } from './IcLily.svg';

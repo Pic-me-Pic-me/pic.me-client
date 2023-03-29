@@ -12,3 +12,8 @@ export const TAG_LIST: string[][] = [
   ['열정적', '활달함', '따수움', '해맑음', '긍정적'],
   ['고귀함', '치명적', '강렬함', '매혹적', '화려함'],
 ];
+export const FLOWER_STICKER_ATTACH_INFO = '꽃 스티커를 붙여 카드를 완성시켜 주세요!';
+export const FLOWER_STICKER_ATTACH_SUBINFO = '키워드를 표현할 수 있는 곳에 붙이면 좋아요';
+export const STICKER_ATTACH_INFO = '그 이유를 사진에 스티커로 표현해보세요!';
+export const MAKE_MY_VOTING = '내 투표 만들러 가기';
+export const MAKE_MY_FLOWER_VOTING = '내 꽃 인상 테스트 만들기';
