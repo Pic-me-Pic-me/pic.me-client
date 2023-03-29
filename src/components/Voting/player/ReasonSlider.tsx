@@ -3,29 +3,58 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { IcAngleMenu, IcBackgroundMenu, IcFaceMenu, IcJustMenu, IcSelectRound } from '../../../asset/icon';
+import {
+  IcAngleMenu,
+  IcBackgroundMenu,
+  IcCheeryBlossoms,
+  IcFaceMenu,
+  IcJustMenu,
+  IcLily,
+  IcRose,
+  IcSelectRound,
+  IcSunFlower,
+} from '../../../asset/icon';
 import { Angle, Face, Just, Mood } from '../../../asset/lottie';
-import { REASON_MENU_ITEM_MAX_INDEX, REASON_MENU_ITEM_WIDTH } from '../../../constant/slider';
+import {
+  FLOWER_REASON_MENU_ITEM_WIDTH,
+  REASON_MENU_ITEM_MAX_INDEX,
+  REASON_MENU_ITEM_WIDTH,
+} from '../../../constant/slider';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
-const ReasonSlider = () => {
+interface ReasonSliderProps {
+  isFlowerVoting: boolean;
+}
+const ReasonSlider = (props: ReasonSliderProps) => {
+  const { isFlowerVoting } = props;
+
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [transX, setTransX] = useState<number>(0);
   const { ref, width } = useCarouselSize();
   const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
 
   const lottieList = [Face, Face, Angle, Mood, Just];
-  const menuIconList: JSX.Element[] = [
-    <div key="hidden_angle" className="hidden">
-      empty div
-    </div>,
-    <IcFaceMenu className="menu" key="face" />,
-    <IcAngleMenu className="menu" key="angle" />,
-    <IcBackgroundMenu className="menu" key="background" />,
-    <IcJustMenu className="menu" key="just" />,
-  ];
+  const menuIconList: JSX.Element[] = isFlowerVoting
+    ? [
+        <div key="hidden_angle" className="hidden">
+          empty div
+        </div>,
+        <IcCheeryBlossoms className="menu" key="cheeryBlossoms" />,
+        <IcLily className="menu" key="lily" />,
+        <IcSunFlower className="menu" key="sunflower" />,
+        <IcRose className="menu" key="rose" />,
+      ]
+    : [
+        <div key="hidden_angle" className="hidden">
+          empty div
+        </div>,
+        <IcFaceMenu className="menu" key="face" />,
+        <IcAngleMenu className="menu" key="angle" />,
+        <IcBackgroundMenu className="menu" key="background" />,
+        <IcJustMenu className="menu" key="just" />,
+      ];
   const navIconRenderList = Array(4).fill(0);
 
   useEffect(() => {
@@ -37,7 +66,8 @@ const ReasonSlider = () => {
       <StDragWReasonWrapper ref={ref}>
         <StDragWReasonUl
           currentIdx={currentIdx}
-          dragItemWidth={REASON_MENU_ITEM_WIDTH}
+          dragItemWidth={isFlowerVoting ? FLOWER_REASON_MENU_ITEM_WIDTH : REASON_MENU_ITEM_WIDTH}
+          isFlowerVoting={isFlowerVoting}
           transX={transX}
           {...picmeSliderEvent({
             onDragChange: (deltaX) => {
@@ -65,9 +95,13 @@ const ReasonSlider = () => {
               </li>
             ) : (
               <li key={idx}>
-                <Lottie className="lotte" animationData={lottieList[idx]} loop={false}>
-                  {menu}
-                </Lottie>
+                {isFlowerVoting ? (
+                  <div className="lotte">{menu}</div>
+                ) : (
+                  <Lottie className="lotte" animationData={lottieList[idx]} loop={false}>
+                    {menu}
+                  </Lottie>
+                )}
               </li>
             ),
           )}
@@ -96,12 +130,17 @@ const StReasonSliderWrapper = styled.section`
 const StDragWReasonWrapper = styled.article`
   overflow: hidden;
 `;
-const StDragWReasonUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number }>`
+const StDragWReasonUl = styled.ul<{
+  currentIdx: number;
+  dragItemWidth: number;
+  transX: number;
+  isFlowerVoting: boolean;
+}>`
   display: flex;
 
   ${({ currentIdx, dragItemWidth, transX }) =>
     css`
-      transform: translateX(${(-currentIdx * (dragItemWidth + 28) + transX) / 10}rem);
+      transform: translateX(${(-currentIdx * (dragItemWidth + 8) + transX) / 10}rem);
     `};
   ${({ transX }) =>
     css`
@@ -113,7 +152,7 @@ const StDragWReasonUl = styled.ul<{ currentIdx: number; dragItemWidth: number; t
     align-items: center;
     position: relative;
 
-    width: 19.6rem;
+    width: ${({ isFlowerVoting }) => (isFlowerVoting ? '14.2rem' : '19.6rem')};
     height: 19.6rem;
 
     & > svg.menu {
