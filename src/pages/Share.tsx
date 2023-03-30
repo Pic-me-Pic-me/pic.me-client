@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { isAndroid, isIOS } from 'react-device-detect';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { IcShareBtn } from '../asset/icon';
 import { ImgShareCapture } from '../asset/image';
 import { HeaderLayout } from '../components/Layout';
+import Error404 from './Error404';
 
 const Share = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const Share = () => {
   const [isToastOn, setIsToastOn] = useState<boolean>(false);
 
   const voteId = location.state;
+  const voteUrl = `https://with-picme.com/vote/${voteId}`;
 
   const handleToast = () => {
     setIsToastOn(true);
@@ -31,6 +33,10 @@ const Share = () => {
     window.location.replace('https://www.instagram.com/');
   };
 
+  if (!voteId) {
+    return <Error404 />;
+  }
+
   return (
     <>
       <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/home')} />
@@ -41,8 +47,8 @@ const Share = () => {
           <h2>아래 가이드 라인을 따라 나만의 투표를 공유해보세요!</h2>
         </StShareTitle>
         <StShareInfo>
-          <input type="text" defaultValue={`https://with-picme.com/vote/${voteId}`} readOnly />
-          <CopyToClipboard text={`https://with-picme.com/vote/${voteId}`}>
+          <input type="text" defaultValue={voteUrl} readOnly />
+          <CopyToClipboard text={voteUrl}>
             <button type="button" onClick={handleToast}>
               <IcShareBtn />
             </button>
