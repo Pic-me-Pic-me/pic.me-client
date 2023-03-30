@@ -15,7 +15,7 @@ const TITLE_LETTER_LIMIT = 10;
 
 const VoteCard = (props: VoteCardProps) => {
   const { voteData } = props;
-  const isFlower = true;
+  const isFlower = voteData.type === 2 ? true : false;
   const navigate = useNavigate();
 
   const time1 = voteData.createdAt.toString().slice(0, 10);
