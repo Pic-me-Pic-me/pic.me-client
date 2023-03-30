@@ -1,9 +1,24 @@
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import React from 'react';
+import Slider from 'react-slick';
 import styled from 'styled-components';
 
-import { IcMainBanner, IcNextArrow } from '../../asset/icon';
+import { IcMainBanner, IcNextArrow, IcSubBanner } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
 import Guide from './Guide';
+
+const SLIDER_SETTINGS = {
+  dots: true,
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  speed: 700,
+  autoplaySpeed: 4000,
+  cssEase: 'linear',
+};
 
 const Header = () => {
   const { isShowing, toggle } = useModal();
@@ -11,9 +26,14 @@ const Header = () => {
   return (
     <>
       <StBannerWrapper>
-        <StBannerImg>
-          <IcMainBanner />
-        </StBannerImg>
+        <Slider {...SLIDER_SETTINGS}>
+          <StBannerImg>
+            <IcMainBanner />
+          </StBannerImg>
+          <StBannerImg>
+            <IcSubBanner />
+          </StBannerImg>
+        </Slider>
         <StGuideBtn type="button" onClick={toggle}>
           <p>픽미 사용방법 A부터 Z까지</p>
           <IcNextArrow />
@@ -38,8 +58,10 @@ const StBannerWrapper = styled.header`
 `;
 
 const StBannerImg = styled.div`
+  width: 34rem;
   & > svg {
-    width: 100%;
+    width: 34rem;
+    /* width: 100%; */
     height: 100%;
     border-radius: 1.2rem;
     object-fit: fill;
