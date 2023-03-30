@@ -58,6 +58,7 @@ export { ReactComponent as IcCheeryBlossoms } from './IcCheeryBlossoms.svg';
 export { ReactComponent as IcChoice } from './IcChoice.svg';
 export { ReactComponent as IcFlower } from './IcFlower.svg';
 export { ReactComponent as IcFlowerVote } from './icFlowerVote.svg';
+export { ReactComponent as IcFlowerShareGuide } from './IcFlowerShareGuide.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
 export { ReactComponent as IcLily } from './IcLily.svg';
 export { ReactComponent as IcLogoSmall } from './IcLogoSmall.svg';
