@@ -39,7 +39,7 @@ const Router = () => (
           <Route path="/library" element={<Library />} />
           <Route path="/result/:voteId" element={<Result />} />
           <Route path="/share" element={<Share />} />
-          <Route path="/makervoting" element={<MakerVoting />} />
+          <Route path="/voting/:votingType" element={<MakerVoting />} />
           <Route path="/library" element={<Library />} />
           <Route path="/signup" element={<Signup />}>
             <Route path="" element={<AddAccount />} />
