@@ -11,6 +11,8 @@ interface VoteCardProps {
   voteData: VoteCardInfo;
 }
 
+const TITLE_LETTER_LIMIT = 10;
+
 const VoteCard = (props: VoteCardProps) => {
   const { voteData } = props;
   const isFlower = true;
@@ -22,13 +24,14 @@ const VoteCard = (props: VoteCardProps) => {
 
   timeago.register('ko', ko);
 
-  const truncate = (str: string, n: number) => (str?.length > n ? str.substring(0, n - 1) + ' ...' : str);
+  const truncate = (str: string) =>
+    str?.length > TITLE_LETTER_LIMIT ? str.substring(0, TITLE_LETTER_LIMIT - 1) + ' ...' : str;
 
   return (
     <StVoteItem onClick={() => navigate(`/current/vote/${voteData.voteId}`)} isFlower={isFlower}>
       <StVoteData isFlower={isFlower}>
         <StTitleWrapper>
-          <h1>{truncate(voteData.title, 10)}</h1>
+          <h1>{truncate(voteData.title)}</h1>
           <h2>{voteData.totalVoteCount}명 투표 중</h2>
         </StTitleWrapper>
         <h3>
