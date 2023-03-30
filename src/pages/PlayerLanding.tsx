@@ -5,6 +5,7 @@ import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import { Error } from '../components/common';
 import { FinishedLanding, VoteLanding } from '../components/Landing';
 import { LandingPlayer } from '../components/Landing/player';
+import { FLOWER_VOTING_TYPE } from '../constant/playerInfo';
 import { useGetVotingInfo } from '../lib/hooks/useGetVotingInfo';
 import { playerStickerInfoState, votingInfoState } from '../recoil/player/atom';
 
@@ -22,6 +23,7 @@ const PlayerLanding = () => {
       resetStickerInfoState();
       setVotingInfoState({
         ...votingInfo?.data,
+        isFlowerVoting: votingInfo.data.type === FLOWER_VOTING_TYPE,
       });
     }
   }, [votingInfo]);
