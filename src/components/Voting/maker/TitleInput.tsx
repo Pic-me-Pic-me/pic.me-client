@@ -9,7 +9,6 @@ interface TitleInputProps {
 const TitleInput = (props: TitleInputProps) => {
   const { votingType } = useParams() as { votingType: string };
   const { title, handleChangeInput } = props;
-  console.log(votingType);
 
   return (
     <StTitleInputWrapper>
@@ -43,7 +42,7 @@ const StTitleInput = styled.textarea`
   text-align: center;
   resize: none;
 
-  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
+  ${({ theme }) => theme.fonts.Pic_Noto_SB_Title_2};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
