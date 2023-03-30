@@ -34,7 +34,7 @@ const EndedVoting = (props: endedVotingProps) => {
   };
 
   const handleGoToResult = () => {
-    navigate(`/result/${id}`);
+    isFlower ? navigate(`/result/flower/${id}`) : navigate(`/result/${id}`);
   };
 
   return (
