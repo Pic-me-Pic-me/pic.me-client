@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcStickerOff, IcStickerOn } from '../asset/icon';
@@ -8,6 +9,8 @@ import { HeaderLayout } from '../components/Layout';
 import { FLOWER_ICON_LIST } from '../constant/FlowerIconList';
 import useGetFlowerVoteResult from '../lib/hooks/useGetFlowerVoteResult';
 import useGetUserData from '../lib/hooks/useGetUserData';
+import { stickerResultState } from '../recoil/maker/atom';
+import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 import Error404 from './Error404';
 
 export default function FlowerResult() {
@@ -15,6 +18,8 @@ export default function FlowerResult() {
   const { voteId } = useParams() as { voteId: string };
 
   const { voteResult, isLoading, isError } = useGetFlowerVoteResult(voteId);
+  const setStickerResultState = useSetRecoilState(stickerResultState);
+
   const { userInfo } = useGetUserData();
   const [isStickerOn, setIsStickerOn] = useState(true);
   const flowerInfo = voteResult?.Picture[0];
@@ -22,9 +27,17 @@ export default function FlowerResult() {
   if (isError) <Error404 />;
 
   // console.log(FLOWER_ICON_LIST[flowerIndex - 1].keywordList);
-  function handleStickerOnOff() {
+  const handleStickerOnOff = () => {
     setIsStickerOn((prev) => !prev);
-  }
+  };
+
+  useEffect(() => {
+    if (voteResult) {
+      const { Sticker: stickerList } = voteResult.Picture[0];
+      setStickerResultState([...jsonGetStickerList(stickerList)]);
+    }
+  }, [voteResult]);
+
   return (
     <>
       {/* {flowerColor={FLOWER_ICON_LIST[flowerIndex - 1].color}} */}
@@ -40,7 +53,8 @@ export default function FlowerResult() {
             <StickerAttachImg
               stickerAttachImgSrc={flowerInfo?.url as string}
               imgWrapperWidthPercent={76.8}
-              imgHight={38.372}></StickerAttachImg>
+              imgHight={38.372}
+            />
           ) : (
             <img src={flowerInfo?.url} alt="스티커없는사진" />
           )}
