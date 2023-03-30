@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IcBannerImg, IcNextArrow } from '../../asset/icon';
+import { IcMainBanner, IcNextArrow } from '../../asset/icon';
 import useModal from '../../lib/hooks/useModal';
 import Guide from './Guide';
 
@@ -12,7 +12,7 @@ const Header = () => {
     <>
       <StBannerWrapper>
         <StBannerImg>
-          <IcBannerImg />
+          <IcMainBanner />
         </StBannerImg>
         <StGuideBtn type="button" onClick={toggle}>
           <p>픽미 사용방법 A부터 Z까지</p>
