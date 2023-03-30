@@ -5,49 +5,54 @@ import styled from 'styled-components';
 import { IcStickerOff, IcStickerOn } from '../asset/icon';
 import { StickerAttachImg } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
+import { FLOWER_ICON_LIST } from '../constant/FlowerIconList';
 import useGetFlowerVoteResult from '../lib/hooks/useGetFlowerVoteResult';
+import useGetUserData from '../lib/hooks/useGetUserData';
 import Error404 from './Error404';
 
 export default function FlowerResult() {
   const navigate = useNavigate();
   const { voteId } = useParams() as { voteId: string };
-  const { voteResult, isLoading, isError } = useGetFlowerVoteResult(voteId);
-  console.log(voteResult);
-  const [isStickerOn, setIsStickerOn] = useState(true);
 
+  const { voteResult, isLoading, isError } = useGetFlowerVoteResult(voteId);
+  const { userInfo } = useGetUserData();
+  const [isStickerOn, setIsStickerOn] = useState(true);
+  const flowerInfo = voteResult?.Picture[0];
+  const flowerIndex = flowerInfo?.flower as number;
   if (isError) <Error404 />;
 
-  const keywords = ['열정적', '우아함', '활기참'];
-
+  // console.log(FLOWER_ICON_LIST[flowerIndex - 1].keywordList);
   function handleStickerOnOff() {
     setIsStickerOn((prev) => !prev);
   }
   return (
     <>
+      {/* {flowerColor={FLOWER_ICON_LIST[flowerIndex - 1].color}} */}
+      {/* <{ flowerColor: string }> */}
       <StResultWrapper>
         <HeaderLayout HeaderTitle="이지윤님의 꽃인상 카드" handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
         {isStickerOn ? <IcStickerOn onClick={handleStickerOnOff} /> : <IcStickerOff onClick={handleStickerOnOff} />}
         <StMainContentWrapper>
-          <p>“이지윤 님은 ‘벚꽃’을 가장 많이 받았어요!”</p>
+          <p>
+            {userInfo?.userName} 님은 {FLOWER_ICON_LIST[flowerIndex - 1]?.flowerKorName}을 가장 많이 받았어요!
+          </p>
           {isStickerOn ? (
             <StickerAttachImg
-              stickerAttachImgSrc={voteResult?.Picture[0]?.url}
+              stickerAttachImgSrc={flowerInfo?.url as string}
               imgWrapperWidthPercent={76.8}
               imgHight={38.372}></StickerAttachImg>
           ) : (
-            <img src={voteResult?.Picture[0]?.url} alt="스티커없는사진" />
+            <img src={flowerInfo?.url} alt="스티커없는사진" />
           )}
 
-          <h1>
-            CHERRY <br /> BLOSSOM
-          </h1>
+          <h1>{FLOWER_ICON_LIST[flowerIndex - 1]?.flowerEngName}</h1>
 
           <StKeywordSectionWrapper>
             <h2>BEST KEYWORD!</h2>
             <StKeywordsWrapper>
-              {keywords.map((content, idx) => (
+              {/* {FLOWER_ICON_LIST[flowerIndex - 1].keywordList.map((content, idx) => (
                 <StKeyWord key={idx}>{content}</StKeyWord>
-              ))}
+              ))} */}
             </StKeywordsWrapper>
           </StKeywordSectionWrapper>
         </StMainContentWrapper>
@@ -85,6 +90,8 @@ const StMainContentWrapper = styled.article`
   }
 
   > h1 {
+    width: min-content;
+
     margin-top: 1.928rem;
     ${({ theme }) => theme.fonts.Pic_Noto_B_Title_3};
     color: #fffdc2;
