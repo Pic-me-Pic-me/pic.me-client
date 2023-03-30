@@ -39,8 +39,6 @@ const StGuideModalWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
   z-index: 100000;
 
   width: 100%;
@@ -99,11 +97,7 @@ const StContent = styled.article`
   overflow-y: scroll;
 
   > svg {
-    top: 0;
-
     width: 100%;
     padding: 0rem 1.4rem 5.922rem 1.4rem;
-
-    object-fit: fill;
   }
 `;

@@ -45,11 +45,15 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
-    if (index === 0) {
-      navigate('/voting/flower');
-    }
-    if (index === 1) {
-      toggle();
+    switch (index) {
+      case 0:
+        navigate('/voting/flower');
+        break;
+      case 1:
+        toggle();
+        break;
+      default:
+        console.error(e);
     }
   };
 
@@ -66,17 +70,12 @@ const Header = () => {
                   <p>{subTitle}</p>
                   <h1>{title}</h1>
                 </div>
-                {/* <button type="button" onClick={(e) => handleClick(e, id)}> */}
                 {buttonName}
-                {/* </button> */}
                 <IcNextArrow />
               </StBannerBtn>
             </StBannerImg>
           ))}
         </Slider>
-        {/* <StGuideBtn type="button" onClick={toggle}>
-          <p>픽미 사용방법 A부터 Z까지</p>
-        </StGuideBtn> */}
         <Guide isShowing={isShowing} handleHide={toggle} />
       </StBannerWrapper>
     </>
