@@ -22,10 +22,10 @@ const Home = () => {
   }, []);
 
   const handleNormalVote = () => {
-    navigate('/makervoting');
+    navigate('/voting/normal');
   };
   const handleFlowerVote = () => {
-    navigate('/makervoting');
+    navigate('/voting/flower');
   };
 
   return (
