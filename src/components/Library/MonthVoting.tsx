@@ -33,6 +33,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
   useEffect(() => {
     if (inView) {
       getMoreItem();
+      console.log(monthlyVoteInfoList);
     }
   }, [inView]);
 
@@ -64,10 +65,20 @@ const MonthVoting = (props: voteAllInfoProps) => {
         {monthlyVoteInfoList.list.map((vote: VoteInfo, idx: number) =>
           idx === monthlyVoteInfoList.list.length - 1 ? (
             <div key={idx} ref={ref}>
-              <EndedVoting key={idx} id={vote.id} voteData={vote} handleDeleteVote={handleDeleteVote}></EndedVoting>
+              <EndedVoting
+                key={idx}
+                id={vote.id}
+                voteData={vote}
+                handleDeleteVote={handleDeleteVote}
+                voteType={vote.type}></EndedVoting>
             </div>
           ) : (
-            <EndedVoting id={vote.id} voteData={vote} key={idx} handleDeleteVote={handleDeleteVote}></EndedVoting>
+            <EndedVoting
+              id={vote.id}
+              voteData={vote}
+              key={idx}
+              handleDeleteVote={handleDeleteVote}
+              voteType={vote.type}></EndedVoting>
           ),
         )}
       </StEndedVotingListWrapper>

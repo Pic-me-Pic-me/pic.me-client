@@ -6,17 +6,18 @@ import { IcDelete, IcLibraryFlower } from '../../asset/icon';
 import { VoteInfo } from '../../types/library';
 import Modal from '../common/Modal';
 
-interface votingProps {
+interface endedVotingProps {
+  voteType: number;
   voteData: VoteInfo;
   id: string;
   handleDeleteVote: (id: string) => void;
 }
 
-const EndedVoting = (props: votingProps) => {
-  const { voteData, id, handleDeleteVote } = props;
+const EndedVoting = (props: endedVotingProps) => {
+  const { voteType, voteData, id, handleDeleteVote } = props;
   const navigate = useNavigate();
 
-  const isFlower = true;
+  const isFlower = voteType === 2 ? true : false;
   const [isShowing, setIsShowing] = useState<boolean>(false);
 
   const createdAtStr = voteData.createdAt.toString();
@@ -162,7 +163,7 @@ const StVotingDate = styled.p<{ isFlower: boolean }>`
 const StVotingPeopleNum = styled.p`
   position: absolute;
   right: 1.136rem;
-  bottom: 1.083rem;
+  bottom: 0.9rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
