@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-import FlowerResult from '../Result/FlowerResult';
 import StatusBarForiOS from './StatusBarForiOS';
 
 const CurrentFlowerDetail = lazy(() => import('../../pages/CurrentFlowerDetail'));
@@ -20,6 +19,7 @@ const KeyWordVoting = lazy(() => import('../../pages/player/flower/KeyWordVoting
 const StickerAttachment = lazy(() => import('../../pages/player/StickerAttachment'));
 const PlayerLanding = lazy(() => import('../../pages/PlayerLanding'));
 const Result = lazy(() => import('../../pages/Result'));
+const FlowerResult = lazy(() => import('../../pages/FlowerResult'));
 const Share = lazy(() => import('../../pages/Share'));
 const Signup = lazy(() => import('../../pages/Signup'));
 const Auth = lazy(() => import('../Auth/Auth'));
@@ -41,6 +41,7 @@ const Router = () => (
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/result/flower/:voteId" element={<FlowerResult />} />
           <Route path="/result/:voteId" element={<Result />} />
           <Route path="/share" element={<Share />} />
           <Route path="/makervoting" element={<MakerVoting />} />
