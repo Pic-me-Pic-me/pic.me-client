@@ -19,6 +19,8 @@ const useGetCurrentVoteList = () => {
     },
   );
 
+  console.log(data);
+
   const parseResultList = data
     ?.map((item) => item.data.result)
     .flat()

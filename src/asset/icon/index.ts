@@ -33,6 +33,7 @@ export { ReactComponent as IcImageAdd } from './ic_imageAdd.svg';
 export { ReactComponent as IcJust } from './ic_just.svg';
 export { ReactComponent as IcJustSticker } from './ic_just.svg';
 export { ReactComponent as IcSkeletonCheckRound } from './ic_landing_round.svg';
+export { ReactComponent as IcLibraryFlower } from './ic_libraryFlower.svg';
 export { ReactComponent as IcModify } from './ic_modify.svg';
 export { ReactComponent as IcMood } from './ic_mood.svg';
 export { ReactComponent as IcMoveCrop } from './ic_moveCrop.svg';
