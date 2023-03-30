@@ -42,6 +42,7 @@ export interface VoteInfo {
   voteStatus: boolean;
   voteTitle: string;
   Picture: PictureData[];
+  isFlowerVoting: boolean;
 }
 
 export interface PictureData {
@@ -69,6 +70,8 @@ export interface PlayerStickerInfo {
   location: StickerLocation[];
   emoji: number;
   imgViewInfo: NaturalImgInfo;
+  isFlowerVoting: boolean;
+  keywordIdx?: number;
 }
 
 export interface GetStickerResultInfo {
@@ -95,6 +98,7 @@ export interface StickerResultInfo {
   stickerLocation: StickerLocation[];
   emoji: number;
   count: number;
+  isFlowerVoting?: boolean;
 }
 
 export interface NaturalImgInfo {
