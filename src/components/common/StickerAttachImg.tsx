@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { FLOWER_ICON_LIST } from '../../constant/FlowerIconList';
 import { STICKER_LIST } from '../../constant/StickerIconList';
 import { stickerResultState } from '../../recoil/maker/atom';
 import { NaturalImgInfo, StickerLocation } from '../../types/vote';
@@ -24,19 +25,20 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
     setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
-
   return (
     <>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&
           imgInfo &&
-          stickerResult.map(({ stickerLocation, emoji }, idx) =>
+          stickerResult.map(({ stickerLocation, emoji, isFlowerVoting }, idx) =>
             stickerLocation.map((sticker, stickerIdx) => (
               <StEmojiIcon
                 key={`sticker${stickerIdx}_${emoji}`}
                 location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-                {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
+                {isFlowerVoting
+                  ? FLOWER_ICON_LIST[emoji].icon((54 * imgViewInfo.width) / 390)
+                  : STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
               </StEmojiIcon>
             )),
           )}

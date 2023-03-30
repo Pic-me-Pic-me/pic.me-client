@@ -48,8 +48,11 @@ const CurrentVoteBtnWrapper = styled.section`
   & > svg {
     position: absolute;
 
-    bottom: 13rem;
-    right: 3em;
+    width: 5.93rem;
+    height: 5.93rem;
+
+    bottom: 20rem;
+    right: 2.07rem;
 
     cursor: pointer;
   }

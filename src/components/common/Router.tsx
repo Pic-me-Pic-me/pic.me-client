@@ -5,6 +5,7 @@ import { RecoilRoot } from 'recoil';
 import FlowerResult from '../Result/FlowerResult';
 import StatusBarForiOS from './StatusBarForiOS';
 
+const CurrentFlowerDetail = lazy(() => import('../../pages/CurrentFlowerDetail'));
 const CurrentVoteDetail = lazy(() => import('../../pages/CurrentVoteDetail'));
 const Error404 = lazy(() => import('../../pages/Error404'));
 const Home = lazy(() => import('../../pages/Home'));
@@ -15,6 +16,7 @@ const MakerVoting = lazy(() => import('../../pages/MakerVoting'));
 const PictureVoting = lazy(() => import('../../pages/player/PictureVoting'));
 const ReasonVoting = lazy(() => import('../../pages/player/ReasonVoting'));
 const ResultVoting = lazy(() => import('../../pages/player/ResultVoting'));
+const KeyWordVoting = lazy(() => import('../../pages/player/flower/KeyWordVoting'));
 const StickerAttachment = lazy(() => import('../../pages/player/StickerAttachment'));
 const PlayerLanding = lazy(() => import('../../pages/PlayerLanding'));
 const Result = lazy(() => import('../../pages/Result'));
@@ -35,6 +37,7 @@ const Router = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/login/oauth/kakao/callback" element={<Auth />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/flower/current" element={<CurrentFlowerDetail />} />
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />
@@ -54,6 +57,9 @@ const Router = () => (
             <Route path="reason_voting" element={<ReasonVoting />} />
             <Route path="sticker_voting" element={<StickerAttachment />} />
             <Route path="voting/result" element={<ResultVoting />} />
+            <Route path="flower">
+              <Route path="keyword_voting" element={<KeyWordVoting />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Error404 />} />
