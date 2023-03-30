@@ -15,6 +15,17 @@ export interface MakerVoteInfo {
   createdDate: Date;
 }
 
+export interface MakerFlowerVoteInfo {
+  voteId: number;
+  voteStatus: boolean;
+  voteTitle: string;
+  Picture: MakerPictureData[];
+  currentVote: number;
+  createdDate: Date;
+  flower: number;
+  keywords: number[];
+}
+
 export interface VotingInfo {
   vote_id: number;
   user_id: number;
