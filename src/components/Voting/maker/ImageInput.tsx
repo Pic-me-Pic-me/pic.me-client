@@ -11,33 +11,33 @@ import ImageForm from '../../common/ImageForm';
 
 interface ImageInputProps {
   handleCropImageToggle: (idx: number) => void;
+  copyImageForm: string[];
 }
 
 const ImageInput = (props: ImageInputProps) => {
-  const { handleCropImageToggle } = props;
+  const { handleCropImageToggle, copyImageForm } = props;
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
-  const { title, imageUrl } = votingForm;
   const navigate = useNavigate();
   const { votingType } = useParams() as { votingType: string };
-  const initVotingForm = [...imageUrl];
+  const { title, imageUrl } = votingForm;
   let submitFlag = false;
 
   useEffect(() => {
     if (votingType === 'normal') {
       for (let i = 0; i < VOTING_NORMAL; i++) {
-        initVotingForm[i] = '';
+        copyImageForm[i] = '';
       }
-      setVotingForm({ ...votingForm, imageUrl: initVotingForm });
+      setVotingForm({ ...votingForm, imageUrl: copyImageForm });
     } else {
       if (imageUrl.length === 2) {
-        initVotingForm.pop();
+        copyImageForm.pop();
       } else {
         for (let i = 0; i < VOTING_FLOWER; i++) {
-          initVotingForm[i] = '';
+          copyImageForm[i] = '';
         }
       }
-      setVotingForm({ ...votingForm, imageUrl: initVotingForm });
+      setVotingForm({ ...votingForm, imageUrl: copyImageForm });
     }
   }, []);
 
@@ -93,7 +93,6 @@ const ImageInput = (props: ImageInputProps) => {
       const firstImgToFile = setDataURLtoFile(imageUrl[0], 'firstImg');
       if (firstImgToFile) {
         imageData.append('file', firstImgToFile);
-        imageData.append('title', title);
         const response = await postImageFlower(imageData);
         if (response.status === 200) {
           navigate('/share', { state: response.data });
@@ -110,10 +109,16 @@ const ImageInput = (props: ImageInputProps) => {
     <>
       <StImageInputWrapper>
         {imageUrl.map((_, idx: number) => (
-          <ImageForm key={idx} idx={idx} alt="첫번째 이미지" handleCrop={handleCropImageToggle} name="firstImg" />
+          <ImageForm
+            key={idx}
+            idx={idx}
+            alt="이미지"
+            handleCrop={handleCropImageToggle}
+            copyImageForm={copyImageForm}
+          />
         ))}
         <StImageSubmitButton type="submit" isComplete={isComplete} disabled={!isComplete} onClick={handlePostImage}>
-          투표 만들기 완료
+          선택완료
         </StImageSubmitButton>
       </StImageInputWrapper>
     </>
@@ -126,19 +131,19 @@ const StImageInputWrapper = styled.section`
   position: relative;
 
   width: 100%;
-  margin-top: 4.1rem;
+  margin-top: 0.726rem;
 `;
 const StImageSubmitButton = styled.button<{ isComplete: boolean }>`
   width: 100%;
-  height: 5.8rem;
-  margin-top: 3rem;
+  height: 5.2rem;
+  margin-top: 2.574rem;
   margin-bottom: 13.3rem;
 
   border: none;
-  border-radius: 0.9rem;
+  border-radius: 0.754rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
 
   cursor: pointer;
 
