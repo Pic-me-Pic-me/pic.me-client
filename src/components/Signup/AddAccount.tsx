@@ -11,7 +11,9 @@ import {
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
+  POSSIBLE_EMAIL_MSG,
 } from '../../constant/signup';
+import { getEmailCheck } from '../../lib/api/signup';
 import { clearUserSession } from '../../lib/token';
 import { SignUpInfo } from '../../types/signup';
 import { checkIsValid } from '../../utils/checkIsValidate';
@@ -19,20 +21,36 @@ import { checkIsValid } from '../../utils/checkIsValidate';
 const AddAccount = () => {
   const navigate = useNavigate();
   const [signupInfo, setSignupInfo] = useState<SignUpInfo>(initialSignupInfo);
+  const [isEmailAvailable, setIsEmailAvailable] = useState<boolean>(false);
   const isSubmitBtnDiabled =
-    !signupInfo.emailInfo.isValid || !signupInfo.passwordInfo.isValid || !signupInfo.passwordConfirmInfo.isValid;
+    !signupInfo.emailInfo.isValid ||
+    !signupInfo.passwordInfo.isValid ||
+    !signupInfo.passwordConfirmInfo.isValid ||
+    !isEmailAvailable;
+
+  const handleCheckEmail = async () => {
+    const res = await getEmailCheck(signupInfo.emailInfo.email as string);
+    if (res.success) {
+      setIsEmailAvailable(true);
+      setSignupInfo({
+        ...signupInfo,
+        emailInfo: { email: signupInfo.emailInfo.email, isValid: true, msg: POSSIBLE_EMAIL_MSG },
+      });
+    }
+  };
 
   const handleValidation = (inputValueType: string, inputValue: string) => {
     switch (inputValueType) {
       case 'email':
+        if (isEmailAvailable) setIsEmailAvailable((prev) => !prev);
         checkIsValid(EMAIL_REGEX, inputValue)
           ? setSignupInfo({
               ...signupInfo,
-              emailInfo: { email: inputValue, isValid: true, errorMsg: null },
+              emailInfo: { email: inputValue, isValid: true, msg: null },
             })
           : setSignupInfo({
               ...signupInfo,
-              emailInfo: { email: null, isValid: false, errorMsg: EMAIL_ERROR_MSG },
+              emailInfo: { email: null, isValid: false, msg: EMAIL_ERROR_MSG },
             });
         break;
 
@@ -89,18 +107,22 @@ const AddAccount = () => {
       <StWrapper>
         <StForm onSubmit={(e) => handleSubmitAccount(e)}>
           <StTitle>아이디</StTitle>
-          <StInput
-            type="text"
-            required
-            placeholder="아이디로 이용할 이메일을 적어주세요!"
-            onBlur={(e) => {
-              handleValidation('email', e.target.value);
-            }}
-            onChange={(e) => {
-              handleSpace(e);
-            }}
-          />
-          <StInputDesc>{signupInfo.emailInfo.errorMsg}</StInputDesc>
+          <StEmailWrapper>
+            <StInput
+              isEmailInput={true}
+              type="text"
+              required
+              placeholder="아이디로 이용할 이메일을 적어주세요!"
+              onChange={(e) => {
+                handleValidation('email', e.target.value);
+                handleSpace(e);
+              }}
+            />
+            <StCheckEmailBtn onClick={() => handleCheckEmail()} isActive={signupInfo.emailInfo.isValid} type="button">
+              중복 확인
+            </StCheckEmailBtn>
+          </StEmailWrapper>
+          <StInputDesc isEmailAvailable={isEmailAvailable}>{signupInfo.emailInfo.msg}</StInputDesc>
 
           <StTitle>비밀번호</StTitle>
           <StInput
@@ -137,7 +159,7 @@ const AddAccount = () => {
 
 const StWhiteSection = styled.section`
   width: 100%;
-  padding: 4.2rem 2rem 0rem 2rem;
+  padding: 4.8rem 2rem 0rem 2rem;
   border-radius: 1.4rem 1.4rem 0rem 0rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;
@@ -159,8 +181,22 @@ const StTitle = styled.h2`
   ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24}
 `;
 
-const StInput = styled.input`
-  width: 100%;
+const StEmailWrapper = styled.div`
+  display: flex;
+
+  justify-content: space-between;
+`;
+
+const StInput = styled.input<{ isEmailInput?: boolean }>`
+  ${({ isEmailInput }) =>
+    isEmailInput
+      ? css`
+          width: 77%;
+        `
+      : css`
+          width: 100%;
+        `}
+
   height: 6rem;
   margin-top: 1.4rem;
   padding-left: 1.9rem;
@@ -175,12 +211,43 @@ const StInput = styled.input`
   }
 `;
 
-const StInputDesc = styled.p`
-  height: 1.7rem;
-  margin-top: 0.6rem;
+const StCheckEmailBtn = styled.button<{ isActive: boolean }>`
+  width: 20.5%;
+  height: 6rem;
+  border: none;
+  border-radius: 0.6rem;
+
+  margin-top: 1.4rem;
+
+  ${({ isActive }) =>
+    isActive
+      ? css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+        `
+      : css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+        `}
 
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
-  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+
+  color: ${({ theme }) => theme.colors.Pic_Color_White};
+`;
+
+const StInputDesc = styled.p<{ isEmailAvailable?: boolean }>`
+  bottom: 0;
+
+  margin: 0.6rem 0 2.1rem 1.1rem;
+
+  ${({ isEmailAvailable }) =>
+    isEmailAvailable
+      ? css`
+          color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+        `
+      : css`
+          color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+        `}
+
+  ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
 `;
 
 const StSubmitBtn = styled.button<{ disabled: boolean }>`
