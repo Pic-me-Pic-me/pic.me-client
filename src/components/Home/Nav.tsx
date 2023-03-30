@@ -94,8 +94,9 @@ const StNavWrapper = styled.nav`
   z-index: 1;
 
   width: 100%;
-  height: 8.8rem;
-  padding: 2.7rem 0rem 0rem 1.8rem;
+  height: 7.674rem;
+  padding-top: 2.093rem;
+  padding-left: 1.308rem;
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
 `;
@@ -119,7 +120,7 @@ const StButtonWrapper = styled.div`
 
 const StLogoutBtn = styled.button`
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
 
   background: inherit;
   border: none;
