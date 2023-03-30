@@ -724,7 +724,7 @@ export const FLOWER_ICON_LIST = [
   {
     id: ROSE,
     name: '장미 Keyword',
-    color: '#3973CB',
+    color: '#FF5D5D',
     icon: (size) => (
       <svg width={size} height={size} viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

@@ -1,21 +1,24 @@
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled, { ThemeContext } from 'styled-components';
 
 import { IcChoice } from '../../../asset/icon';
 import { FLOWER_ICON_LIST } from '../../../constant/FlowerIconList';
-import { TAG_LIST } from '../../../constant/playerInfo';
+import { LILY, ROSE, TAG_LIST } from '../../../constant/playerInfo';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
 
 const KeyWordTag = () => {
   const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
+  const [selectTagIdx, setSelectTagIdx] = useState(0);
   const { emoji } = playerStickerInfo;
 
   const handleKeyWordTag = (e: React.MouseEvent<HTMLLIElement>) => {
     if (e.target instanceof HTMLLIElement) {
       const selectTag = e.target.textContent;
       if (selectTag) {
-        const selectTagIdx = TAG_LIST[emoji].indexOf(selectTag);
-        setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: selectTagIdx });
+        const currentTagIdx = TAG_LIST[emoji].indexOf(selectTag);
+        setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: currentTagIdx });
+        setSelectTagIdx(currentTagIdx);
       }
     }
   };
@@ -24,10 +27,16 @@ const KeyWordTag = () => {
     <StKeyWordTagWrapper>
       {FLOWER_ICON_LIST[emoji].icon(window.screen.width * 0.6)}
       <h5>{FLOWER_ICON_LIST[emoji].name}</h5>
-      <StKeyWordUl liColor={FLOWER_ICON_LIST[emoji].color}>
-        {TAG_LIST[emoji].map((tagData) => (
+      <StKeyWordUl liColor={FLOWER_ICON_LIST[emoji].color} flowerType={FLOWER_ICON_LIST[emoji].id}>
+        {TAG_LIST[emoji].map((tagData, idx) => (
           <li key={tagData} onClick={handleKeyWordTag}>
-            <IcChoice />
+            {selectTagIdx === idx && (
+              <IcChoice
+                stroke={
+                  FLOWER_ICON_LIST[emoji].id === ROSE || FLOWER_ICON_LIST[emoji].id === LILY ? '#ffffff' : '#FFFDC2'
+                }
+              />
+            )}
             {tagData}
           </li>
         ))}
@@ -52,7 +61,7 @@ const StKeyWordTagWrapper = styled.div`
   }
 `;
 
-const StKeyWordUl = styled.ul<{ liColor: string }>`
+const StKeyWordUl = styled.ul<{ liColor: string; flowerType: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,7 +98,8 @@ const StKeyWordUl = styled.ul<{ liColor: string }>`
       z-index: 3;
     }
     :hover {
-      color: ${({ theme }) => theme.colors.Pic_Color_White};
+      color: ${({ flowerType, theme }) =>
+        flowerType === ROSE || flowerType === LILY ? theme.colors.Pic_Color_White : theme.colors.Pic_Color_Yellow};
       background-color: ${({ liColor }) => liColor};
     }
   }
