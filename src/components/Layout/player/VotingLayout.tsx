@@ -67,9 +67,9 @@ const StPlayerVotingWrapper = styled.div<{ pageType: string }>`
   }
 
   & > header {
-    height: ${({ pageType }) => (pageType === 'PictureVoting' ? 7.2 : 5.6)}rem;
     margin-top: 2rem;
-    margin-bottom: ${({ pageType }) => (pageType === 'StickerAttachment' || pageType === 'ResultVoting' ? 1.7 : 0)}rem;
+    margin-bottom: ${({ pageType }) =>
+      pageType === 'ResultVoting' || pageType === 'ReasonVoting' ? 1.7 : pageType === 'KeyWordVoting' ? 2.7 : 0.9}rem;
     padding: 0 ${({ pageType }) => (pageType === 'StickerAttachment' ? 2.8 : 4.2)}rem;
   }
   & > footer {
@@ -84,7 +84,7 @@ const StVotingTitle = styled.h1`
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
 
-  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
+  ${({ theme }) => theme.fonts.Pic_Noto_SB_Title_2};
 
   word-break: break-all;
 `;
@@ -101,7 +101,7 @@ const StPlayerBtn = styled.button<{ isActiveBtn: boolean }>`
   border: none;
   border-radius: 0.9rem;
   background-color: ${({ theme, isActiveBtn }) =>
-    isActiveBtn ? theme.colors.Pic_Color_Coral : theme.colors.Pic_Color_Gray_Black};
+    isActiveBtn ? theme.colors.Pic_Color_Coral : theme.colors.Pic_Color_Gray_4};
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
 `;
