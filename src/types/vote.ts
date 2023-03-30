@@ -43,6 +43,7 @@ export interface VoteInfo {
   voteTitle: string;
   Picture: PictureData[];
   isFlowerVoting: boolean;
+  type?: number;
 }
 
 export interface PictureData {
