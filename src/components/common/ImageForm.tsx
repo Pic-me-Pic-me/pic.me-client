@@ -9,36 +9,34 @@ import { setImgCompress } from '../../utils/setImgCompress';
 interface ImageFormProps {
   idx: number;
   alt: string;
-  name: string;
   handleCrop: (idx: number) => void;
+  copyImageForm: string[];
 }
 const ImageForm = (props: ImageFormProps) => {
-  const { idx, alt, name, handleCrop } = props;
+  const { idx, alt, handleCrop, copyImageForm } = props;
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [isToggle, setIsToggle] = useState([true, true]);
-
   const { imageUrl } = votingForm;
+
   const handleReadFileUrl = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const fileBlob = e.target.files[0];
       const compressedImg = await setImgCompress(fileBlob);
       const reader = new FileReader();
-      const addImage = [...imageUrl];
       if (compressedImg) {
         reader.readAsDataURL(compressedImg);
         reader.onloadend = () => {
           const base64data = reader.result as string;
-          addImage[idx] = base64data;
-          setVotingForm({ ...votingForm, imageUrl: addImage });
+          copyImageForm[idx] = base64data;
+          setVotingForm({ ...votingForm, imageUrl: copyImageForm });
         };
       }
     }
   };
 
   const handleRemoveImg = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const removeImage = [...imageUrl];
-    removeImage[idx] = '';
-    setVotingForm({ ...votingForm, imageUrl: removeImage });
+    copyImageForm[idx] = '';
+    setVotingForm({ ...votingForm, imageUrl: copyImageForm });
   };
 
   const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,15 +47,15 @@ const ImageForm = (props: ImageFormProps) => {
     <StImageTextBlock>
       <StImage src={imageUrl[idx]} alt={alt} />
       {isToggle[idx] ? (
-        <StModifyImageButton type="button" value="modify" onClick={handleToggleModify}>
+        <StModifyImageButton type="button" onClick={handleToggleModify}>
           <IcModify />
         </StModifyImageButton>
       ) : (
         <StModifyBlock>
-          <StModifyDepthBtn type="button" value="remove" onClick={handleRemoveImg}>
+          <StModifyDepthBtn type="button" onClick={handleRemoveImg}>
             <IcRemoveImg />
           </StModifyDepthBtn>
-          <StModifyDepthBtn type="button" value="crop" onClick={() => handleCrop(idx)}>
+          <StModifyDepthBtn type="button" onClick={() => handleCrop(idx)}>
             <IcCropImg />
           </StModifyDepthBtn>
         </StModifyBlock>
@@ -65,7 +63,7 @@ const ImageForm = (props: ImageFormProps) => {
     </StImageTextBlock>
   ) : (
     <StImageInputLabel>
-      <StImageInput type="file" name={name} accept="image/*" onChange={handleReadFileUrl} />
+      <StImageInput type="file" accept="image/*" onChange={handleReadFileUrl} />
       <StImageTextBlock>
         <IcImageAdd />
         <StImageText>여기에 사진을 넣어주세요!</StImageText>
@@ -82,7 +80,7 @@ const StImageInputLabel = styled.label`
   flex-direction: column;
 
   width: 100%;
-  height: 52rem;
+  height: 45.3rem;
   margin-bottom: 2rem;
 
   border-radius: 1.2rem;
@@ -109,7 +107,7 @@ const StImageTextBlock = styled.div`
   position: relative;
 
   width: 100%;
-  height: 52rem;
+  height: 45.3rem;
   margin-bottom: 2rem;
 
   overflow: hidden;
@@ -118,15 +116,15 @@ const StImageText = styled.span`
   margin-top: 2.827rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5};
 `;
 const StModifyImageButton = styled.button`
   position: absolute;
   right: 2.1rem;
   bottom: 2.1rem;
 
-  width: 6rem;
-  height: 6rem;
+  width: 5.233rem;
+  height: 5.233rem;
 
   border: none;
   border-radius: 50%;
