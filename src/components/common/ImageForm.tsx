@@ -1,33 +1,63 @@
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcCropImg, IcImageAdd, IcModify, IcRemoveImg } from '../../asset/icon';
+import { votingImageState } from '../../recoil/maker/atom';
+import { setImgCompress } from '../../utils/setImgCompress';
 
 interface ImageFormProps {
-  imageUrl: string;
+  idx: number;
   alt: string;
-  toggle: boolean;
   name: string;
-  handleToggle: React.MouseEventHandler;
-  handleRemove: React.MouseEventHandler;
-  handleCrop: React.MouseEventHandler;
-  handleReadFileUrl: React.ChangeEventHandler;
+  handleCrop: (idx: number) => void;
 }
 const ImageForm = (props: ImageFormProps) => {
-  const { imageUrl, alt, toggle, handleToggle, handleRemove, handleCrop, handleReadFileUrl, name } = props;
+  const { idx, alt, name, handleCrop } = props;
+  const [votingForm, setVotingForm] = useRecoilState(votingImageState);
+  const [isToggle, setIsToggle] = useState([true, true]);
 
-  return imageUrl ? (
+  const { imageUrl } = votingForm;
+  const handleReadFileUrl = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const fileBlob = e.target.files[0];
+      const compressedImg = await setImgCompress(fileBlob);
+      const reader = new FileReader();
+      const addImage = [...imageUrl];
+      if (compressedImg) {
+        reader.readAsDataURL(compressedImg);
+        reader.onloadend = () => {
+          const base64data = reader.result as string;
+          addImage[idx] = base64data;
+          setVotingForm({ ...votingForm, imageUrl: addImage });
+        };
+      }
+    }
+  };
+
+  const handleRemoveImg = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const removeImage = [...imageUrl];
+    removeImage[idx] = '';
+    setVotingForm({ ...votingForm, imageUrl: removeImage });
+  };
+
+  const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsToggle(isToggle.splice(idx, idx, false));
+  };
+
+  return imageUrl[idx] ? (
     <StImageTextBlock>
-      <StImage src={imageUrl} alt={alt} />
-      {toggle ? (
-        <StModifyImageButton type="button" value="modify" onClick={handleToggle}>
+      <StImage src={imageUrl[idx]} alt={alt} />
+      {isToggle[idx] ? (
+        <StModifyImageButton type="button" value="modify" onClick={handleToggleModify}>
           <IcModify />
         </StModifyImageButton>
       ) : (
         <StModifyBlock>
-          <StModifyDepthBtn type="button" value="remove" onClick={handleRemove}>
+          <StModifyDepthBtn type="button" value="remove" onClick={handleRemoveImg}>
             <IcRemoveImg />
           </StModifyDepthBtn>
-          <StModifyDepthBtn type="button" value="crop" onClick={handleCrop}>
+          <StModifyDepthBtn type="button" value="crop" onClick={() => handleCrop(idx)}>
             <IcCropImg />
           </StModifyDepthBtn>
         </StModifyBlock>
