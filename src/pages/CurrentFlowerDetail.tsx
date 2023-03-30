@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -5,10 +6,15 @@ import { IcVoteShareBtn } from '../asset/icon';
 import { StickerAttachImg } from '../components/common';
 import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
 import { HeaderLayout } from '../components/Layout';
+import useGetFlowerVoteDetailData from '../lib/hooks/useGetFlowerVoteDetailData';
 
 const CurrentFlowerDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
+
+  const { flowerResult } = useGetFlowerVoteDetailData();
+
+  console.log(flowerResult);
 
   return (
     <>

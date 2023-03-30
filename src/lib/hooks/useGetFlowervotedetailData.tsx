@@ -4,9 +4,9 @@ import useSWR from 'swr';
 import { MakerVoteInfo } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
-const useGetFlowervotedetailData = () => {
+const useGetFlowerVoteDetailData = () => {
   const { data, error } = useSWR<AxiosResponse<MakerVoteInfo>>(
-    'flower/library/U2FsdGVkX19gNC8J3VE8Cp1L2u3SV4sy0oJ2hBTCBdftLY15oe1Q2u3A4l',
+    'flower/library/U2FsdGVkX1p1L2u3SFOgBFpp1L2u3SWo3OvtumaQamkABo9fBThp1L2u3Sw8we1Q2u3A4ll',
     picmeGetFetcher,
     {
       errorRetryCount: 3,
@@ -14,8 +14,8 @@ const useGetFlowervotedetailData = () => {
   );
 
   return {
-    flowerResult: data?.data,
+    flowerResult: data,
   };
 };
 
-export default useGetFlowervotedetailData;
+export default useGetFlowerVoteDetailData;
