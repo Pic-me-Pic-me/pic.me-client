@@ -1,34 +1,45 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
-import { postImage } from '../../../lib/api/voting';
+import { VOTING_FLOWER, VOTING_NORMAL } from '../../../constant/voting';
+import { postImageFlower, postImageNormal } from '../../../lib/api/voting';
 import { votingImageState } from '../../../recoil/maker/atom';
 import { setDataURLtoFile } from '../../../utils/setDataURLtoFile';
-import { setImgCompress } from '../../../utils/setImgCompress';
 import ImageForm from '../../common/ImageForm';
 
-type ToggleProps = {
-  firstToggle: boolean;
-  secondToggle: boolean;
-};
-
 interface ImageInputProps {
-  handleCropImageToggle: React.MouseEventHandler;
-  handleToggleModify: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  isToggle: ToggleProps;
+  handleCropImageToggle: (idx: number) => void;
 }
 
 const ImageInput = (props: ImageInputProps) => {
-  const { handleCropImageToggle, handleToggleModify, isToggle } = props;
-
+  const { handleCropImageToggle } = props;
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [isComplete, setIsComplete] = useState(false);
-  const { title, firstImageUrl, secondImageUrl } = votingForm;
-  const { firstToggle, secondToggle } = isToggle;
+  const { title, imageUrl } = votingForm;
   const navigate = useNavigate();
+  const { votingType } = useParams() as { votingType: string };
+  const initVotingForm = [...imageUrl];
   let submitFlag = false;
+
+  useEffect(() => {
+    if (votingType === 'normal') {
+      for (let i = 0; i < VOTING_NORMAL; i++) {
+        initVotingForm[i] = '';
+      }
+      setVotingForm({ ...votingForm, imageUrl: initVotingForm });
+    } else {
+      if (imageUrl.length === 2) {
+        initVotingForm.pop();
+      } else {
+        for (let i = 0; i < VOTING_FLOWER; i++) {
+          initVotingForm[i] = '';
+        }
+      }
+      setVotingForm({ ...votingForm, imageUrl: initVotingForm });
+    }
+  }, []);
 
   useEffect(() => {
     if (!title) {
@@ -45,41 +56,15 @@ const ImageInput = (props: ImageInputProps) => {
     return false;
   };
 
-  const handleReadFileUrl = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const fileBlob = e.target.files[0];
-      const compressedImg = await setImgCompress(fileBlob);
-      const reader = new FileReader();
-      if (compressedImg) {
-        reader.readAsDataURL(compressedImg);
-        reader.onloadend = () => {
-          const base64data = reader.result as string;
-          if (e.target.name === 'firstImg') {
-            setVotingForm({ ...votingForm, firstImageUrl: base64data });
-          } else {
-            setVotingForm({ ...votingForm, secondImageUrl: base64data });
-          }
-        };
-      }
-    }
-  };
-
-  const handleRemoveImg = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (target) {
-      if (target.value === 'firstRemove') {
-        setVotingForm({ ...votingForm, firstImageUrl: '' });
-        window.location.reload();
-      } else {
-        setVotingForm({ ...votingForm, secondImageUrl: '' });
-        window.location.reload();
-      }
-    }
-  };
-
   const handleCheckImageObj = () => {
-    if (title && firstImageUrl && secondImageUrl) {
-      setIsComplete(true);
+    if (votingType === 'normal') {
+      if (title && !imageUrl.includes('')) {
+        setIsComplete(true);
+      }
+    } else {
+      if (!imageUrl.includes('')) {
+        setIsComplete(true);
+      }
     }
   };
 
@@ -88,47 +73,45 @@ const ImageInput = (props: ImageInputProps) => {
       return;
     }
     const imageData = new FormData();
-    const firstImgToFile = setDataURLtoFile(firstImageUrl, 'firstImg');
-    const secondImgToFile = setDataURLtoFile(secondImageUrl, 'secondImg');
-    if (firstImgToFile && secondImgToFile) {
-      imageData.append('file', firstImgToFile);
-      imageData.append('file', secondImgToFile);
-      imageData.append('title', title);
-    }
-    const response = await postImage(imageData);
-    if (response.status === 200) {
-      navigate('/share', { state: response.data });
-      setVotingForm({
-        title: '',
-        firstImageUrl: '',
-        secondImageUrl: '',
-      });
+    if (votingType === 'normal') {
+      const firstImgToFile = setDataURLtoFile(imageUrl[0], 'firstImg');
+      const secondImgToFile = setDataURLtoFile(imageUrl[1], 'secondImg');
+      if (firstImgToFile && secondImgToFile) {
+        imageData.append('file', firstImgToFile);
+        imageData.append('file', secondImgToFile);
+        imageData.append('title', title);
+        const response = await postImageNormal(imageData);
+        if (response.status === 200) {
+          navigate('/share', { state: response.data });
+          setVotingForm({
+            title: '',
+            imageUrl: [],
+          });
+        }
+      }
+    } else {
+      const firstImgToFile = setDataURLtoFile(imageUrl[0], 'firstImg');
+      if (firstImgToFile) {
+        imageData.append('file', firstImgToFile);
+        imageData.append('title', title);
+        const response = await postImageFlower(imageData);
+        if (response.status === 200) {
+          navigate('/share', { state: response.data });
+          setVotingForm({
+            title: '',
+            imageUrl: [],
+          });
+        }
+      }
     }
   };
 
   return (
     <>
       <StImageInputWrapper>
-        <ImageForm
-          imageUrl={firstImageUrl}
-          alt="첫번째 이미지"
-          toggle={firstToggle}
-          handleToggle={handleToggleModify}
-          handleRemove={handleRemoveImg}
-          handleCrop={handleCropImageToggle}
-          handleReadFileUrl={handleReadFileUrl}
-          name="firstImg"
-        />
-        <ImageForm
-          imageUrl={secondImageUrl}
-          alt="두번째 이미지"
-          toggle={secondToggle}
-          handleToggle={handleToggleModify}
-          handleRemove={handleRemoveImg}
-          handleCrop={handleCropImageToggle}
-          handleReadFileUrl={handleReadFileUrl}
-          name="secondImg"
-        />
+        {imageUrl.map((_, idx: number) => (
+          <ImageForm key={idx} idx={idx} alt="첫번째 이미지" handleCrop={handleCropImageToggle} name="firstImg" />
+        ))}
         <StImageSubmitButton type="submit" isComplete={isComplete} disabled={!isComplete} onClick={handlePostImage}>
           투표 만들기 완료
         </StImageSubmitButton>

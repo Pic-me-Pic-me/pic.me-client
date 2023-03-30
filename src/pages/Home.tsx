@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
@@ -9,10 +9,13 @@ import { votingImageState } from '../recoil/maker/atom';
 
 const Home = () => {
   const navigate = useNavigate();
-  const setVotingForm = useSetRecoilState(votingImageState);
+  const [votingForm, setVotingForm] = useRecoilState(votingImageState);
+  const { imageUrl } = votingForm;
+  let initVotingForm = [...imageUrl];
 
   useEffect(() => {
-    setVotingForm({ title: '', firstImageUrl: '', secondImageUrl: '' });
+    initVotingForm = [];
+    setVotingForm({ title: '', imageUrl: initVotingForm });
   }, []);
 
   return (

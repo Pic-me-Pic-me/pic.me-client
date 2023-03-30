@@ -5,53 +5,45 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose } from '../../../asset/icon';
-import useModal from '../../../lib/hooks/useModal';
 import { votingImageState } from '../../../recoil/maker/atom';
 import { setCroppedImg } from '../../../utils/setCroppedImg';
-import Modal from '../../common/Modal';
 import { ImageCrop, ImageInput, TitleInput } from '../../Voting/maker';
 import HeaderLayout from '../HeaderLayout';
 
 const MakerVotingLayout = () => {
-  const { isShowing, toggle } = useModal();
   const navigate = useNavigate();
 
-  const [isCropToggle, setIsCropToggle] = useState({
-    firstCrop: false,
-    secondCrop: false,
-  });
-  const [isToggle, setIsToggle] = useState({
-    firstToggle: true,
-    secondToggle: true,
-  });
-
+  const [isCropToggle, setIsCropToggle] = useState([false, false]);
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | undefined>();
 
-  const { title, firstImageUrl, secondImageUrl } = votingForm;
-  const { firstCrop, secondCrop } = isCropToggle;
-  const { firstToggle, secondToggle } = isToggle;
+  const { title, imageUrl } = votingForm;
 
   const handleCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
   const handleShowCroppedImage = useCallback(async () => {
-    setIsCropToggle({ firstCrop: false, secondCrop: false });
-    setIsToggle({ firstToggle: true, secondToggle: true });
-
-    if (firstCrop) {
+    const cropImage = [...imageUrl];
+    const cropToggle = [...isCropToggle];
+    if (isCropToggle[0]) {
       try {
-        const crop = (await setCroppedImg(firstImageUrl, croppedAreaPixels, rotation)) as string;
-        setVotingForm({ ...votingForm, firstImageUrl: crop });
+        const crop = (await setCroppedImg(imageUrl[0], croppedAreaPixels, rotation)) as string;
+        cropImage[0] = crop;
+        setVotingForm({ ...votingForm, imageUrl: cropImage });
+        cropToggle[0] = false;
+        setIsCropToggle(cropToggle);
       } catch (e) {
         console.error(e);
       }
     } else {
       try {
-        const crop = (await setCroppedImg(secondImageUrl, croppedAreaPixels, rotation)) as string;
-        setVotingForm({ ...votingForm, secondImageUrl: crop });
+        const crop = (await setCroppedImg(imageUrl[1], croppedAreaPixels, rotation)) as string;
+        cropImage[1] = crop;
+        setVotingForm({ ...votingForm, imageUrl: cropImage });
+        cropToggle[1] = false;
+        setIsCropToggle(cropToggle);
       } catch (e) {
         console.error(e);
       }
@@ -63,60 +55,22 @@ const MakerVotingLayout = () => {
   };
 
   const handleCloseModal = () => {
-    setIsCropToggle({ firstCrop: false, secondCrop: false });
+    const closeModal = [...isCropToggle];
+    closeModal[0] = false;
+    closeModal[1] = false;
+    setIsCropToggle(closeModal);
   };
 
-  const handleCropImageToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (target) {
-      switch (target.value) {
-        case 'firstCrop':
-          setIsCropToggle({ firstCrop: !firstCrop, secondCrop: false });
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
-          break;
-        case 'secondCrop':
-          setIsCropToggle({ firstCrop: false, secondCrop: !secondCrop });
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
-          break;
-      }
-    }
-  };
-
-  const handleToggleModify = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLInputElement;
-    if (target) {
-      switch (target.value) {
-        case 'firstModify':
-          setIsToggle({ ...isToggle, firstToggle: !firstToggle });
-          break;
-        case 'secondModify':
-          setIsToggle({ ...isToggle, secondToggle: !secondToggle });
-          break;
-      }
-    }
-  };
-
-  const handlePrevPage = () => {
-    setVotingForm({ title: '', firstImageUrl: '', secondImageUrl: '' });
-    navigate('/home');
+  const handleCropImageToggle = (idx: number) => {
+    const newCrop = [...isCropToggle];
+    newCrop[idx] = true;
+    setIsCropToggle(newCrop);
   };
 
   return (
     <>
-      <Modal
-        isShowing={isShowing}
-        message="이 페이지를 나가면 저장되지 않습니다"
-        handleHide={toggle}
-        handleConfirm={handlePrevPage}
-      />
-      <HeaderLayout HeaderTitle="투표만들기" handleGoback={() => toggle()} />
-      {(firstCrop || secondCrop) && (
+      <HeaderLayout HeaderTitle="투표만들기" handleGoback={() => navigate('/home')} />
+      {(isCropToggle[0] || isCropToggle[1]) && (
         <StImageCropLayoutWrapper>
           <StHeader>
             <StCropTitle>편집하기</StCropTitle>
@@ -125,7 +79,7 @@ const MakerVotingLayout = () => {
             </StCloseBtn>
           </StHeader>
           <ImageCrop
-            firstCrop={firstCrop}
+            isCrop={isCropToggle}
             handleCropComplete={handleCropComplete}
             setRotation={setRotation}
             rotation={rotation}
@@ -138,11 +92,7 @@ const MakerVotingLayout = () => {
       )}
       <StMakerVotingLayoutWrapper>
         <TitleInput title={title} handleChangeInput={handleChangeInput} />
-        <ImageInput
-          handleCropImageToggle={handleCropImageToggle}
-          handleToggleModify={handleToggleModify}
-          isToggle={isToggle}
-        />
+        <ImageInput handleCropImageToggle={handleCropImageToggle} />
       </StMakerVotingLayoutWrapper>
     </>
   );
