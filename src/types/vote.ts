@@ -94,6 +94,7 @@ export interface VoteReasonInfo {
 export interface ResultSticker {
   Picture: PictureInfo;
   Sticker: GetStickerResultInfo[];
+  type: number;
 }
 export interface StickerResultInfo {
   stickerLocation: StickerLocation[];
