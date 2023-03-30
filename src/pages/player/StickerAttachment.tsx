@@ -3,10 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { IcHeaderLast } from '../../asset/icon';
+import { IcBlackHeaderLast, IcHeaderLast } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { StickerGuide } from '../../components/Voting/player';
 import StickerVoting from '../../components/Voting/player/StickerVoting';
+import {
+  FLOWER_STICKER_ATTACH_INFO,
+  FLOWER_STICKER_ATTACH_SUBINFO,
+  STICKER_ATTACH_INFO,
+} from '../../constant/playerInfo';
 import { postStickerData } from '../../lib/api/voting';
 import { playerStickerInfoState } from '../../recoil/player/atom';
 
@@ -15,6 +20,8 @@ const StickerAttachment = () => {
   const [isStickerGuide, setIsStickerGuide] = useState<boolean>(true);
   const playerStickerVotingInfo = useRecoilValue(playerStickerInfoState);
   const isActiveBtn: boolean = playerStickerVotingInfo.location.length > 0;
+
+  const { isFlowerVoting } = playerStickerVotingInfo;
 
   const handleVotingSuccess = async () => {
     if (isActiveBtn)
@@ -39,11 +46,21 @@ const StickerAttachment = () => {
 
   return (
     <div>
-      <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderLast />} />
+      {isFlowerVoting ? (
+        <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcBlackHeaderLast />} />
+      ) : (
+        <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderLast />} />
+      )}
       <VotingLayout
-        votingTitle="그 이유를 사진에 스티커로 표현해보세요!"
+        votingTitle={isFlowerVoting ? FLOWER_STICKER_ATTACH_INFO : STICKER_ATTACH_INFO}
         pageType="StickerAttachment"
-        votingSubTitle={isStickerGuide ? '최대 3회' : `${3 - playerStickerVotingInfo.location.length}회 남음`}
+        votingSubTitle={
+          isFlowerVoting
+            ? FLOWER_STICKER_ATTACH_SUBINFO
+            : isStickerGuide
+            ? '최대 3회'
+            : `${3 - playerStickerVotingInfo.location.length}회 남음`
+        }
         margin={0.9}
         btnTitle="투표 완료하기"
         isActiveBtn={isActiveBtn}
@@ -65,5 +82,8 @@ const StStickerAttachmentWrapper = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  position: relative;
+
   width: 100%;
 `;

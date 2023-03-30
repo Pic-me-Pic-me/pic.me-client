@@ -11,8 +11,7 @@ export const votingImageState = atom<VotingImageInfo>({
   key: 'votingImage',
   default: {
     title: '',
-    firstImageUrl: '',
-    secondImageUrl: '',
+    imageUrl: [],
   },
   effects_UNSTABLE: [persistAtom],
 });
@@ -56,6 +55,7 @@ export const stickerResultState = atom<StickerResultInfo[]>({
       stickerLocation: [],
       emoji: 0,
       count: 0,
+      isFlowerVoting: true,
     },
   ],
   effects_UNSTABLE: [persistAtom],
