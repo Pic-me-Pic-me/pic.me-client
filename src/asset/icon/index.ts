@@ -57,10 +57,12 @@ export { ReactComponent as IcBlackHeaderSecond } from './IcBlackHeaderSecond.svg
 export { ReactComponent as IcCheeryBlossoms } from './IcCheeryBlossoms.svg';
 export { ReactComponent as IcChoice } from './IcChoice.svg';
 export { ReactComponent as IcFlower } from './IcFlower.svg';
+export { ReactComponent as IcFlowerVote } from './IcFlowerVote.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
 export { ReactComponent as IcLily } from './IcLily.svg';
 export { ReactComponent as IcLogoSmall } from './IcLogoSmall.svg';
 export { ReactComponent as IcModalBG } from './IcModalBG.svg';
+export { ReactComponent as IcNormalVote } from './IcNormalVote.svg';
 export { ReactComponent as IcRose } from './IcRose.svg';
 export { ReactComponent as IcShareBtn } from './IcShareBtn.svg';
 export { ReactComponent as IcSunFlower } from './IcSunFlower.svg';
