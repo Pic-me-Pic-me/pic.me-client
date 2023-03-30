@@ -8,6 +8,8 @@ export { ReactComponent as IcBeforeCheckbox } from './checkbox_before.svg';
 export { ReactComponent as IcDelete } from './delete_btn.svg';
 export { ReactComponent as IcEmpty } from './emptyIcon.svg';
 export { ReactComponent as IcFaceMenu } from './face_menu.svg';
+export { ReactComponent as IcFlowerOnboarding } from './flower_onboarding.svg';
+export { ReactComponent as IcFlowerPic } from './flower_pic.svg';
 export { ReactComponent as IcGuide } from './GuideImg.svg';
 export { ReactComponent as IcHamburger } from './hamburgerIcon.svg';
 export { ReactComponent as IcOnboardingBG } from './homeback_img.svg';
@@ -58,6 +60,7 @@ export { ReactComponent as IcBlackHeaderSecond } from './IcBlackHeaderSecond.svg
 export { ReactComponent as IcCheeryBlossoms } from './IcCheeryBlossoms.svg';
 export { ReactComponent as IcChoice } from './IcChoice.svg';
 export { ReactComponent as IcFlower } from './IcFlower.svg';
+export { ReactComponent as IcFlowerShareGuide } from './IcFlowerShareGuide.svg';
 export { ReactComponent as IcGoback } from './IcGoback.svg';
 export { ReactComponent as IcLily } from './IcLily.svg';
 export { ReactComponent as IcLogoSmall } from './IcLogoSmall.svg';

@@ -11,8 +11,7 @@ export const votingImageState = atom<VotingImageInfo>({
   key: 'votingImage',
   default: {
     title: '',
-    firstImageUrl: '',
-    secondImageUrl: '',
+    imageUrl: [],
   },
   effects_UNSTABLE: [persistAtom],
 });
