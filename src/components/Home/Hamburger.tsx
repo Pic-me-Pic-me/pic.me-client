@@ -44,7 +44,7 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
   ${({ isOpen }) =>
     isOpen
       ? css`
-          top: 8.8rem;
+          top: 7.674rem;
         `
       : css`
           top: -100%;
