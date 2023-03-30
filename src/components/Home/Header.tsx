@@ -20,6 +20,8 @@ const SLIDER_SETTINGS = {
   cssEase: 'linear',
 };
 
+const SLIDER_IMAGES = [<IcMainBanner key="0" />, <IcSubBanner key="1" />];
+
 const Header = () => {
   const { isShowing, toggle } = useModal();
 
@@ -27,12 +29,9 @@ const Header = () => {
     <>
       <StBannerWrapper>
         <Slider {...SLIDER_SETTINGS}>
-          <StBannerImg>
-            <IcMainBanner />
-          </StBannerImg>
-          <StBannerImg>
-            <IcSubBanner />
-          </StBannerImg>
+          {SLIDER_IMAGES.map((item, index) => (
+            <StBannerImg key={index}>{item}</StBannerImg>
+          ))}
         </Slider>
         <StGuideBtn type="button" onClick={toggle}>
           <p>픽미 사용방법 A부터 Z까지</p>
@@ -58,10 +57,8 @@ const StBannerWrapper = styled.header`
 `;
 
 const StBannerImg = styled.div`
-  width: 34rem;
   & > svg {
-    width: 34rem;
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
     border-radius: 1.2rem;
     object-fit: fill;
