@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { IcStickerOff, IcStickerOn } from '../asset/icon';
 import { StickerAttachImg } from '../components/common';
@@ -10,6 +10,7 @@ import { FLOWER_ICON_LIST } from '../constant/FlowerIconList';
 import useGetFlowerVoteResult from '../lib/hooks/useGetFlowerVoteResult';
 import useGetUserData from '../lib/hooks/useGetUserData';
 import { stickerResultState } from '../recoil/maker/atom';
+import { MakerPictureData } from '../types/vote';
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 import Error404 from './Error404';
 
@@ -22,11 +23,10 @@ export default function FlowerResult() {
 
   const { userInfo } = useGetUserData();
   const [isStickerOn, setIsStickerOn] = useState(true);
-  const flowerInfo = voteResult?.Picture[0];
+  const flowerInfo = voteResult?.Picture[0] as MakerPictureData;
   const flowerIndex = flowerInfo?.flower as number;
   if (isError) <Error404 />;
 
-  // console.log(FLOWER_ICON_LIST[flowerIndex - 1].keywordList);
   const handleStickerOnOff = () => {
     setIsStickerOn((prev) => !prev);
   };
@@ -40,9 +40,7 @@ export default function FlowerResult() {
 
   return (
     <>
-      {/* {flowerColor={FLOWER_ICON_LIST[flowerIndex - 1].color}} */}
-      {/* <{ flowerColor: string }> */}
-      <StResultWrapper>
+      <StResultWrapper flowerColor={FLOWER_ICON_LIST[flowerIndex - 1]?.color}>
         <HeaderLayout HeaderTitle="이지윤님의 꽃인상 카드" handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
         {isStickerOn ? <IcStickerOn onClick={handleStickerOnOff} /> : <IcStickerOff onClick={handleStickerOnOff} />}
         <StMainContentWrapper>
@@ -63,10 +61,10 @@ export default function FlowerResult() {
 
           <StKeywordSectionWrapper>
             <h2>BEST KEYWORD!</h2>
-            <StKeywordsWrapper>
-              {/* {FLOWER_ICON_LIST[flowerIndex - 1].keywordList.map((content, idx) => (
+            <StKeywordsWrapper keywordCnt={FLOWER_ICON_LIST[flowerIndex - 1]?.keywordList.length}>
+              {FLOWER_ICON_LIST[flowerIndex - 1]?.keywordList.map((content, idx) => (
                 <StKeyWord key={idx}>{content}</StKeyWord>
-              ))} */}
+              ))}
             </StKeywordsWrapper>
           </StKeywordSectionWrapper>
         </StMainContentWrapper>
@@ -75,14 +73,14 @@ export default function FlowerResult() {
   );
 }
 
-const StResultWrapper = styled.main`
+const StResultWrapper = styled.main<{ flowerColor: string }>`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  background-color: #ee5761;
+  background-color: ${(props) => props.flowerColor};
 
   > svg {
     position: absolute;
@@ -116,7 +114,6 @@ const StMainContentWrapper = styled.article`
     border-radius: 1rem;
     width: 76.8%;
     height: 38.372rem;
-
     object-fit: cover;
   }
 `;
@@ -126,6 +123,8 @@ const StKeywordSectionWrapper = styled.section`
   flex-direction: column;
   align-items: center;
 
+  width: 100%;
+
   > h2 {
     margin-top: 1.1rem;
     ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_3};
@@ -133,10 +132,33 @@ const StKeywordSectionWrapper = styled.section`
   }
 `;
 
-const StKeywordsWrapper = styled.div`
+const StKeywordsWrapper = styled.div<{ keywordCnt: number }>`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 1rem;
+
+  width: 65%;
+
+  ${({ keywordCnt }) =>
+    keywordCnt === 5
+      ? css`
+          width: 60%;
+        `
+      : css`
+          width: 73.68%;
+        `}
+
+  > div {
+    ${({ keywordCnt }) =>
+      keywordCnt === 5
+        ? css`
+            width: 31.22%;
+          `
+        : css`
+            width: 23%;
+          `}
+  }
 
   gap: 0.7rem;
 `;
@@ -146,7 +168,6 @@ const StKeyWord = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 6.398rem;
   height: 2.4rem;
 
   background-color: #fffdc2;
