@@ -42,9 +42,9 @@ const VoteList = () => {
 
   return (
     <>
+      <StCurrentVote>현재 진행중인 투표</StCurrentVote>
       {voteListResult.result.length ? (
         <>
-          <StCurrentVote>현재 진행중인 투표</StCurrentVote>
           <StVoteListWrapper>
             {voteListResult.result?.map((data, i) => (
               <VoteCard voteData={data} key={i} />
@@ -55,8 +55,8 @@ const VoteList = () => {
       ) : (
         <StEmptyView>
           <IcEmpty />
-          <p>{userInfo?.userName}님 만의 투표를</p>
-          <p>만들어보세요!</p>
+          <p>{userInfo?.userName}님만의</p>
+          <p>투표를 만들어보세요!</p>
         </StEmptyView>
       )}
     </>
@@ -67,9 +67,9 @@ export default VoteList;
 
 const StCurrentVote = styled.h1`
   padding: 0rem 2rem;
-  margin: 5.1rem 0rem 1.3rem 0rem;
+  margin: 2.168rem 0rem 1.3rem 0rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
-  ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20};
+  ${({ theme }) => theme.fonts.Pic_Noto_SB_Title_2};
 `;
 
 const StVoteListWrapper = styled.main`
@@ -93,15 +93,15 @@ const StEmptyView = styled.main`
   justify-content: center;
   align-items: center;
 
-  margin: 5.1rem 0rem 19.3rem 0rem;
+  margin: 3rem 0rem 19.3rem 0rem;
 
   > svg {
-    width: 13.8rem;
-    height: 11rem;
-    margin-bottom: 1.8rem;
+    width: 6.178rem;
+    height: 4.919rem;
+    margin-bottom: 0.9rem;
   }
   > p {
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_1};
   }
 `;
