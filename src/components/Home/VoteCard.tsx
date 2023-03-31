@@ -27,8 +27,12 @@ const VoteCard = (props: VoteCardProps) => {
   const truncate = (str: string) =>
     str?.length > TITLE_LETTER_LIMIT ? str.substring(0, TITLE_LETTER_LIMIT - 1) + ' ...' : str;
 
+  const handleClick = (e: React.MouseEvent, isFlower: boolean) => {
+    isFlower ? navigate(`/current/flower/${voteData.voteId}`) : navigate(`/current/vote/${voteData.voteId}`);
+  };
+
   return (
-    <StVoteItem onClick={() => navigate(`/current/vote/${voteData.voteId}`)} isFlower={isFlower}>
+    <StVoteItem onClick={(e) => handleClick(e, isFlower)} isFlower={isFlower}>
       <StVoteData isFlower={isFlower}>
         <StTitleWrapper>
           <h1>{truncate(voteData.title)}</h1>
@@ -68,7 +72,6 @@ const StVoteItem = styled.section<{ isFlower: boolean }>`
 
   & > svg {
     position: absolute;
-    z-index: 1;
     top: 0.806rem;
     right: 0.844rem;
   }
