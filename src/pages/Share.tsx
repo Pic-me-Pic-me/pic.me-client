@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import ShareLayout from '../components/Share/Layout/ShareLayout';
 
 const Share = () => {
-  const [isFlowerVote, setIsFlowerVote] = useState<boolean>(true);
+  const location = useLocation();
+
+  const isFlowerVote = location.state.isFlowerVote;
+  console.log(isFlowerVote);
 
   return <ShareLayout isFlowerVote={isFlowerVote} />;
 };
