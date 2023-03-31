@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import styled, { ThemeContext } from 'styled-components';
+import styled from 'styled-components';
 
 import { IcChoice } from '../../../asset/icon';
 import { FLOWER_ICON_LIST } from '../../../constant/FlowerIconList';
@@ -9,8 +9,7 @@ import { playerStickerInfoState } from '../../../recoil/player/atom';
 
 const KeyWordTag = () => {
   const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
-  const [selectTagIdx, setSelectTagIdx] = useState(0);
-  const { emoji } = playerStickerInfo;
+  const { emoji, keywordIdx } = playerStickerInfo;
 
   const handleKeyWordTag = (e: React.MouseEvent<HTMLLIElement>) => {
     if (e.target instanceof HTMLLIElement) {
@@ -18,7 +17,6 @@ const KeyWordTag = () => {
       if (selectTag) {
         const currentTagIdx = TAG_LIST[emoji].indexOf(selectTag);
         setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: currentTagIdx });
-        setSelectTagIdx(currentTagIdx);
       }
     }
   };
@@ -30,7 +28,7 @@ const KeyWordTag = () => {
       <StKeyWordUl liColor={FLOWER_ICON_LIST[emoji].color} flowerType={FLOWER_ICON_LIST[emoji].id}>
         {TAG_LIST[emoji].map((tagData, idx) => (
           <li key={tagData} onClick={handleKeyWordTag}>
-            {selectTagIdx === idx && (
+            {keywordIdx === idx && (
               <IcChoice
                 stroke={
                   FLOWER_ICON_LIST[emoji].id === ROSE || FLOWER_ICON_LIST[emoji].id === LILY ? '#ffffff' : '#FFFDC2'
