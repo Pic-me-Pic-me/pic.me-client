@@ -100,8 +100,8 @@ const AddAccount = () => {
       currentInput.setSelectionRange(position, position);
     }
   };
-
   clearUserSession();
+
   return (
     <StWhiteSection>
       <StWrapper>

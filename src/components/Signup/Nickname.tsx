@@ -19,6 +19,7 @@ const Nickname = () => {
   });
 
   const [isChecked, setIsChecked] = useState<boolean[]>(Array(3).fill(false));
+
   const handleCheckNickname = async () => {
     const response = await getUsernameCheck(nickname.typedNickname);
 
