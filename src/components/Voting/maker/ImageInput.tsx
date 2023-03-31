@@ -82,7 +82,7 @@ const ImageInput = (props: ImageInputProps) => {
         imageData.append('title', title);
         const response = await postImageNormal(imageData);
         if (response.status === 200) {
-          navigate('/share', { state: response.data });
+          navigate('/share', { state: { voteId: response.data, isFlowerVote: false } });
           setVotingForm({
             title: '',
             imageUrl: [],
@@ -95,7 +95,7 @@ const ImageInput = (props: ImageInputProps) => {
         imageData.append('file', firstImgToFile);
         const response = await postImageFlower(imageData);
         if (response.status === 200) {
-          navigate('/share', { state: response.data });
+          navigate('/share', { state: { voteId: response.data, isFlowerVote: true } });
           setVotingForm({
             title: '',
             imageUrl: [],
