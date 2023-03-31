@@ -64,7 +64,7 @@ const Nickname = () => {
     if (currentInputValue.length > NICKNAME_MAX_LENGTH) {
       e.target.value = currentInputValue.slice(0, NICKNAME_MAX_LENGTH);
     }
-    setNickname({ ...nickname, typedNickname: e.target.value });
+    setNickname({ ...nickname, state: 'default', typedNickname: e.target.value });
   };
 
   return (
@@ -90,7 +90,7 @@ const Nickname = () => {
               중복 확인
             </StCheckDuplicationBtn>
           </StNicknameWrapper>
-          <StInputDesc isDuplicate={nickname.state === 'error'}>
+          <StInputDesc isNicknameAvailable={nickname.state === 'error'}>
             {nickname.state !== 'default' && (nickname.state === 'error' ? nickname.errorMsg : nickname.passMsg)}
           </StInputDesc>
 
@@ -149,14 +149,15 @@ const StInput = styled.input`
   ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
 `;
 
-const StInputDesc = styled.p<{ isDuplicate: boolean }>`
+const StInputDesc = styled.p<{ isNicknameAvailable: boolean }>`
+  height: 1.7rem;
   margin-top: 0.6rem;
+  margin-left: 1.1rem;
 
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
-  color: ${({ theme }) => theme.colors.Pic_Color_Coral};
 
-  ${({ isDuplicate }) =>
-    isDuplicate
+  ${({ isNicknameAvailable }) =>
+    isNicknameAvailable
       ? css`
           color: ${({ theme }) => theme.colors.Pic_Color_Coral};
         `
