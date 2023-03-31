@@ -114,8 +114,10 @@ const StMainContentWrapper = styled.article`
 
   > img {
     border-radius: 1rem;
-    width: 28.8rem;
+    width: 76.8%;
     height: 38.372rem;
+
+    object-fit: cover;
   }
 `;
 
