@@ -144,7 +144,7 @@ const StModifyBlock = styled.div`
   right: 2.1rem;
   bottom: 2.1rem;
 
-  width: 6rem;
+  width: 5.2rem;
   height: 12rem;
 
   border-radius: 6rem;
