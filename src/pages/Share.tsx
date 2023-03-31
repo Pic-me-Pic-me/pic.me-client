@@ -6,7 +6,6 @@ const Share = () => {
   const location = useLocation();
 
   const isFlowerVote = location.state.isFlowerVote;
-  console.log(isFlowerVote);
 
   return <ShareLayout isFlowerVote={isFlowerVote} />;
 };
