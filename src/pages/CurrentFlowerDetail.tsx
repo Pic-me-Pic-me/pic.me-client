@@ -7,6 +7,7 @@ import { IcVoteShareBtn } from '../asset/icon';
 import { StickerAttachImg } from '../components/common';
 import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
 import { HeaderLayout } from '../components/Layout';
+import { patchCurrentVoteData } from '../lib/api/voting';
 import useGetFlowerVoteDetailData from '../lib/hooks/useGetFlowerVoteDetailData';
 import { flowerPictureResultState, voteResultState } from '../recoil/maker/atom';
 
@@ -27,6 +28,12 @@ const CurrentFlowerDetail = () => {
       setFlowerPictureResult(flowerResult.Picture);
     }
   }, [flowerResult, setFlowerResult, setFlowerPictureResult]);
+
+  useEffect(() => {
+    if (flowerPictureDate[0].count === 10) {
+      patchCurrentVoteData(voteId);
+    }
+  }, []);
 
   const strCreatedDate = flowerResultData.createdDate.toString();
 
