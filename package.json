@@ -28,7 +28,7 @@
     "react-dom": "^18.2.0",
     "react-easy-crop": "^4.6.3",
     "react-hook-form": "^7.41.5",
-    "react-intersection-observer": "^9.4.1",
+    "react-intersection-observer": "^9.4.3",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
