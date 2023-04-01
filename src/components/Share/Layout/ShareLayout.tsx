@@ -21,7 +21,7 @@ const ShareLayout = (props: ShareLayoutProps) => {
 
   const [isToastOn, setIsToastOn] = useState<boolean>(false);
 
-  const voteId = location.state.voteId;
+  const voteId = location.state;
   const voteUrl = `https://with-picme.com/vote/${voteId}`;
 
   const handleToast = () => {
