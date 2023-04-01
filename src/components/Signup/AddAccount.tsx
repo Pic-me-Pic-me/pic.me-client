@@ -112,7 +112,7 @@ const AddAccount = () => {
               isEmailInput={true}
               type="text"
               required
-              placeholder="아이디로 이용할 이메일을 적어주세요!"
+              placeholder="이메일을 입력해주세요"
               onChange={(e) => {
                 handleValidation('email', e.target.value);
                 handleSpace(e);
