@@ -20,7 +20,9 @@ const CurrentFlowerDetail = () => {
   const setFlowerResult = useSetRecoilState(voteResultState);
   const setFlowerPictureResult = useSetRecoilState(flowerPictureResultState);
   const flowerResultData = useRecoilValue(voteResultState);
-  const flowerPictureDate = useRecoilValue(flowerPictureResultState);
+  const flowerPictureData = useRecoilValue(flowerPictureResultState);
+  const resetFlowerResultData = useResetRecoilState(voteResultState);
+  const resetFlowerPictureData = useResetRecoilState(flowerPictureResultState);
 
   useEffect(() => {
     if (flowerResult) {
@@ -30,9 +32,11 @@ const CurrentFlowerDetail = () => {
   }, [flowerResult, setFlowerResult, setFlowerPictureResult]);
 
   useEffect(() => {
-    if (flowerPictureDate[0].count === 10) {
+    if (flowerPictureData[0].count === 10) {
       patchCurrentVoteData(voteId);
     }
+    resetFlowerResultData();
+    resetFlowerPictureData();
   }, []);
 
   const strCreatedDate = flowerResultData.createdDate.toString();
@@ -48,11 +52,11 @@ const CurrentFlowerDetail = () => {
           voteTitle="나를 닮은 꽃은?"
           createdDate={strCreatedDate}
           totalVoteCount="총 10명 중"
-          currentVoteCount={`${flowerPictureDate[0].count}명 참가`}
+          currentVoteCount={`${flowerPictureData[0].count}명 참가`}
         />
-        <StickerAttachImg stickerAttachImgSrc={flowerPictureDate[0].url} imgWrapperWidthPercent={100} imgHight={45.3} />
+        <StickerAttachImg stickerAttachImgSrc={flowerPictureData[0].url} imgWrapperWidthPercent={100} imgHight={45.3} />
         <StFlowerTestStatus>
-          <span>현재 진행 중 ( {flowerPictureDate[0].count} / 10 )</span>
+          <span>현재 진행 중 ( {flowerPictureData[0].count} / 10 )</span>
         </StFlowerTestStatus>
       </StCurrentVoteInfoWrapper>
     </>
