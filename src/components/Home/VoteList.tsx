@@ -19,23 +19,21 @@ const VoteList = () => {
   const { voteListResult, isLoading, isError, size, setSize } = useGetCurrentVoteList();
   const { userInfo } = useGetUserData();
 
-  const getMoreItem = useCallback(async () => {
-    if (voteListResult) {
+  const getMoreItem = useCallback(() => {
+    if (voteListResult && voteListResult.result) {
       setSize((prev) => prev + 1);
-    } else {
-      return;
     }
-  }, []);
+  }, [voteListResult, setSize]);
 
   useEffect(() => {
     resetStickerInfoState();
   }, []);
 
   useEffect(() => {
-    if (inView && voteListResult.result) {
+    if (inView && voteListResult?.result) {
       getMoreItem();
     }
-  }, [inView]);
+  }, [inView, voteListResult, getMoreItem]);
 
   if (isError) return <Error404 />;
   if (isLoading) return <LandingVoteList />;
@@ -43,15 +41,13 @@ const VoteList = () => {
   return (
     <>
       <StCurrentVote>현재 진행중인 투표</StCurrentVote>
-      {voteListResult.result.length ? (
-        <>
-          <StVoteListWrapper>
-            {voteListResult.result?.map((data, i) => (
-              <VoteCard voteData={data} key={i} />
-            ))}
-            <div ref={ref} />
-          </StVoteListWrapper>
-        </>
+      {voteListResult?.result?.length ? (
+        <StVoteListWrapper>
+          {voteListResult.result.map((data, i) => (
+            <VoteCard voteData={data} key={i} />
+          ))}
+          <div ref={ref} />
+        </StVoteListWrapper>
       ) : (
         <StEmptyView>
           <IcEmpty />

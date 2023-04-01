@@ -43,7 +43,7 @@ const StLeftSection = styled.section`
   > p {
     padding-bottom: 3rem;
 
-    ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+    ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_6};
   }
 `;
 

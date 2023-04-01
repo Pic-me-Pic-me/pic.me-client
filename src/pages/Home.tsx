@@ -30,7 +30,7 @@ const Home = () => {
 
   return (
     <>
-      <StHomeWrapper>
+      {/* <StHomeWrapper>
         <Nav />
         <Header />
         <StMakeVote>사진 투표 만들기</StMakeVote>
@@ -44,7 +44,7 @@ const Home = () => {
           handleFlowerVote={handleFlowerVote}
           handleHide={toggle}
         />
-      </StHomeWrapper>
+      </StHomeWrapper> */}
       <VoteList />
       <Footer />
     </>
