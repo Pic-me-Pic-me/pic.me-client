@@ -1,33 +1,62 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcVoteShareBtn } from '../asset/icon';
 import { StickerAttachImg } from '../components/common';
 import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
 import { HeaderLayout } from '../components/Layout';
+import { patchCurrentVoteData } from '../lib/api/voting';
+import useGetFlowerVoteDetail from '../lib/hooks/useGetFlowerVoteDetail';
+import { flowerPictureResultState, voteResultState } from '../recoil/maker/atom';
 
 const CurrentFlowerDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
 
+  const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
+
+  const setFlowerResult = useSetRecoilState(voteResultState);
+  const setFlowerPictureResult = useSetRecoilState(flowerPictureResultState);
+  const flowerResultData = useRecoilValue(voteResultState);
+  const flowerPictureData = useRecoilValue(flowerPictureResultState);
+  const resetFlowerResultData = useResetRecoilState(voteResultState);
+  const resetFlowerPictureData = useResetRecoilState(flowerPictureResultState);
+
+  useEffect(() => {
+    if (flowerResult) {
+      setFlowerResult(flowerResult);
+      setFlowerPictureResult(flowerResult.Picture);
+    }
+  }, [flowerResult, setFlowerResult, setFlowerPictureResult]);
+
+  useEffect(() => {
+    if (flowerPictureData[0].count === 10) {
+      patchCurrentVoteData(voteId);
+    }
+    resetFlowerResultData();
+    resetFlowerPictureData();
+  }, []);
+
+  const strCreatedDate = flowerResultData.createdDate.toString();
+
   return (
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
       <StCurrentVoteInfoWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
+        <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: true } })} />
+
         <CurrentVoteInfoLayout
+          // voteTitle={flowerResultData.voteTitle}
           voteTitle="나를 닮은 꽃은?"
-          createdAt="42"
-          totalVoteCount={`총 ${10}명 중`}
-          currentVoteCount={`${3}명 참가`}
+          createdDate={strCreatedDate}
+          totalVoteCount="총 10명 중"
+          currentVoteCount={`${flowerPictureData[0].count}명 참가`}
         />
-        <StickerAttachImg
-          stickerAttachImgSrc="https://user-images.githubusercontent.com/97586683/224237345-a6164178-7588-49de-9675-bf4b8a99d61d.jpg"
-          imgWrapperWidthPercent={100}
-          imgHight={45.3}
-        />
+        <StickerAttachImg stickerAttachImgSrc={flowerPictureData[0].url} imgWrapperWidthPercent={100} imgHight={45.3} />
         <StFlowerTestStatus>
-          <span>현재 진행 중 ( 3 / 10 )</span>
+          <span>현재 진행 중 ( {flowerPictureData[0].count} / 10 )</span>
         </StFlowerTestStatus>
       </StCurrentVoteInfoWrapper>
     </>
