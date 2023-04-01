@@ -8,14 +8,14 @@ import { StickerAttachImg } from '../components/common';
 import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
 import { HeaderLayout } from '../components/Layout';
 import { patchCurrentVoteData } from '../lib/api/voting';
-import useGetFlowerVoteDetailData from '../lib/hooks/useGetFlowerVoteDetailData';
+import useGetFlowerVoteDetail from '../lib/hooks/useGetFlowerVoteDetail';
 import { flowerPictureResultState, voteResultState } from '../recoil/maker/atom';
 
 const CurrentFlowerDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
 
-  const { flowerResult, isLoading, isError } = useGetFlowerVoteDetailData(voteId);
+  const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
   const setFlowerResult = useSetRecoilState(voteResultState);
   const setFlowerPictureResult = useSetRecoilState(flowerPictureResultState);

@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { MakerFlowerInfo } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
-const useGetFlowerVoteDetailData = (voteId: string | undefined) => {
+const useGetFlowerVoteDetail = (voteId: string | undefined) => {
   const { data, error } = useSWR<AxiosResponse<MakerFlowerInfo>>(`flower/library/${voteId}`, picmeGetFetcher, {
     errorRetryCount: 3,
   });
@@ -16,4 +16,4 @@ const useGetFlowerVoteDetailData = (voteId: string | undefined) => {
   };
 };
 
-export default useGetFlowerVoteDetailData;
+export default useGetFlowerVoteDetail;
