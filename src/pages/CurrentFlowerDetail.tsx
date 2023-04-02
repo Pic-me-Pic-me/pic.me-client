@@ -4,7 +4,7 @@ import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcVoteShareBtn } from '../asset/icon';
-import { StickerAttachImg } from '../components/common';
+import { StickerAttachFlowerImg } from '../components/common';
 import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
 import { HeaderLayout } from '../components/Layout';
 import { patchCurrentVoteData } from '../lib/api/voting';
@@ -58,7 +58,11 @@ const CurrentFlowerDetail = () => {
           totalVoteCount="총 10명 중"
           currentVoteCount={`${flowerPictureData[0].count}명 참가`}
         />
-        <StickerAttachImg stickerAttachImgSrc={flowerPictureData[0].url} imgWrapperWidthPercent={100} imgHight={45.3} />
+        <StickerAttachFlowerImg
+          stickerAttachImgSrc={flowerPictureData[0].url}
+          imgWrapperWidthPercent={100}
+          imgHight={45.3}
+        />
         <StFlowerTestStatus>
           <span>현재 진행 중 ( {flowerPictureData[0].count} / 10 )</span>
         </StFlowerTestStatus>

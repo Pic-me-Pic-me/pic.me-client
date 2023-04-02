@@ -58,7 +58,7 @@ const ReasonSlider = (props: ReasonSliderProps) => {
   const navIconRenderList = Array(4).fill(0);
 
   useEffect(() => {
-    if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx });
+    if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx - 1 });
   }, [currentIdx]);
 
   return (
