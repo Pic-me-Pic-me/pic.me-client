@@ -23,7 +23,7 @@ const MakerLandingModal = (props: MakerLandingModalProps) => {
             </StTopWrapper>
             <StModalContent>
               <span>나를 닮은 꽃은?</span>
-              <p>테스트 참여하기</p>
+              <p>테스트 하러가기</p>
             </StModalContent>
             <StModalSubContent>친구들이 보는 내 꽃인상을 확인해보세요!</StModalSubContent>
             <StButtonWrapper>

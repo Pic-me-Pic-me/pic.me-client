@@ -152,11 +152,11 @@ const StBannerBtn = styled.button`
 
     & > p {
       color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-      ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
+      ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_6};
     }
     & > h1 {
       color: ${({ theme }) => theme.colors.Pic_Color_Gray_6};
-      ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
+      ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_6};
     }
   }
 `;
