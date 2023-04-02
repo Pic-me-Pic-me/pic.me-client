@@ -17,13 +17,13 @@ export interface MakerVoteInfo {
   createdDate: Date;
 }
 
-export interface MakerFlowerVoteInfo {
+export interface MakerFlowerInfo {
   voteId: string;
   voteStatus: boolean;
   voteTitle: string;
   currentVote: number;
   createdDate: Date;
-  Picture: MakerPictureData[];
+  Picture: FlowerPictureInfo[];
 }
 
 export interface VotingInfo {
