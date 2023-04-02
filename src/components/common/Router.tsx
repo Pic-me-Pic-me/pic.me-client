@@ -19,6 +19,7 @@ const KeyWordVoting = lazy(() => import('../../pages/player/flower/KeyWordVoting
 const StickerAttachment = lazy(() => import('../../pages/player/StickerAttachment'));
 const PlayerLanding = lazy(() => import('../../pages/PlayerLanding'));
 const Result = lazy(() => import('../../pages/Result'));
+const FlowerResult = lazy(() => import('../../pages/FlowerResult'));
 const Share = lazy(() => import('../../pages/Share'));
 const Signup = lazy(() => import('../../pages/Signup'));
 const Auth = lazy(() => import('../Auth/Auth'));
@@ -40,6 +41,7 @@ const Router = () => (
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/result/flower/:voteId" element={<FlowerResult />} />
           <Route path="/result/:voteId" element={<Result />} />
           <Route path="/share" element={<Share />} />
           <Route path="/voting/:votingType" element={<MakerVoting />} />
@@ -62,6 +64,7 @@ const Router = () => (
           </Route>
 
           <Route path="*" element={<Error404 />} />
+          <Route path="/flowerResult" element={<FlowerResult />} />
         </Routes>
       </Suspense>
     </RecoilRoot>

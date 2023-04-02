@@ -34,7 +34,7 @@ const EndedVoting = (props: endedVotingProps) => {
   };
 
   const handleGoToResult = () => {
-    navigate(`/result/${id}`);
+    isFlower ? navigate(`/result/flower/${id}`) : navigate(`/result/${id}`);
   };
 
   return (
@@ -153,10 +153,10 @@ const StVotingTitle = styled.h2`
 `;
 
 const StVotingDate = styled.p<{ isFlower: boolean }>`
+  margin-left: 1.4rem;
   position: absolute;
   bottom: 0.9rem;
 
-  margin-left: 1.4rem;
 
   ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4}
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};

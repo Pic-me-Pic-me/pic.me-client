@@ -4,8 +4,10 @@ export const FLOWER_ICON_LIST = [
   {
     id: CHEERYBLOSSOMS,
     name: '벚꽃 Keyword',
-    color: '#FF5D5D',
-    keywordList: ['청초함', '우아함', '순수함', '투명함', '단정함'],
+    flowerEngName: 'Cherry Blossom',
+    flowerKorName: '벚꽃',
+    keywordList: ['몽글함', '달달함', '아련함', '화창함', '산뜻함'],
+    color: '#EE5761',
     icon: (size) => (
       <svg width={size} height={size} viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_3702_480267)">
@@ -291,8 +293,10 @@ export const FLOWER_ICON_LIST = [
   {
     id: LILY,
     name: '백합 Keyword',
-    color: '#3973CB',
-    keywordList: ['몽글함', '달달함', '아련함', '화창함', '산뜻함'],
+    flowerEngName: 'Lily',
+    flowerKorName: '백합',
+    keywordList: ['청초함', '우아함', '순수함', '투명함', '단정함'],
+    color: '#C6DDFF',
     icon: (size) => (
       <svg width={size} height={size} viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_3702_480190)">
@@ -589,6 +593,9 @@ export const FLOWER_ICON_LIST = [
   {
     id: SUNFLOWER,
     name: '해바라기 Keyword',
+    flowerEngName: 'Sun Flower',
+    flowerKorName: '해바라기',
+    keywordList: ['열정적', '활달함', '따수움', '해맑음', '긍정적'],
     color: '#3973CB',
     keywordList: ['열정적', '활달함', '따수움', '해맑음', '긍정적'],
     icon: (size) => (
@@ -727,8 +734,9 @@ export const FLOWER_ICON_LIST = [
   {
     id: ROSE,
     name: '장미 Keyword',
-    color: '#FF5D5D',
-
+    flowerEngName: 'Rose',
+    flowerKorName: '장미',
+    color: '##801115',
     keywordList: ['고귀함', '치명적', '강렬함', '매혹적', '화려함'],
     icon: (size) => (
       <svg width={size} height={size} viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">

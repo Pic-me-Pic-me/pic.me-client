@@ -33,6 +33,7 @@ const MonthVoting = (props: voteAllInfoProps) => {
   useEffect(() => {
     if (inView) {
       getMoreItem();
+      console.log(monthlyVoteInfoList);
     }
   }, [inView]);
 

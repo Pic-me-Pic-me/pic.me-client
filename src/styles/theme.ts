@@ -101,6 +101,13 @@ const fonts = {
     line-height: 2.2rem;
     letter-spacing: -0.02em;
   `,
+  Pic_Noto_B_Title_3: css`
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 4rem;
+    line-height: 3.95rem;
+  `,
   Pic_Noto_M_Subtitle_1: css`
     font-family: 'Noto Sans';
     font-style: normal;
