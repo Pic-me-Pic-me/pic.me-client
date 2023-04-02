@@ -77,7 +77,7 @@ const StModal = styled.section`
 
 const StModalContent = styled.p`
   padding-top: 5.3rem;
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16};
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5};
 `;
 
 const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boolean }>`
