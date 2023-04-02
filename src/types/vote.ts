@@ -130,6 +130,7 @@ export interface NaturalImgInfo {
 export interface VoteCardInfo {
   voteId: number;
   title: string;
+  type: number;
   voteThumbnail: string;
   createdAt: Date;
   totalVoteCount: number;

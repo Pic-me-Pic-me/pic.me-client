@@ -182,7 +182,7 @@ const StThirdSection = styled.section`
 
   & > h1 {
     color: ${({ theme }) => theme.colors.Pic_Color_White};
-    ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
+    ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1};
     text-align: center;
   }
 `;

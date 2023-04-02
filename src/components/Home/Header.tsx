@@ -136,10 +136,11 @@ const StBannerBtn = styled.button`
   width: 100%;
   height: 6.7rem;
 
-  border: none;
-  background-color: transparent;
+  background: rgba(61, 63, 66, 0.88);
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_6};
   ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4};
+  border: none;
+  border-radius: 0 0 1.2rem 1.2rem;
 
   & > div {
     display: flex;
