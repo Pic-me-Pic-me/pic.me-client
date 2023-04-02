@@ -50,6 +50,7 @@ export default function FlowerResult() {
           </p>
           {isStickerOn ? (
             <StickerAttachImg
+              isFlowerVoting
               stickerAttachImgSrc={flowerInfo?.url as string}
               imgWrapperWidthPercent={76.8}
               imgHight={38.372}
