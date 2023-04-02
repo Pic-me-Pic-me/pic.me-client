@@ -56,7 +56,7 @@ const StVoteItem = styled.section<{ isFlower: boolean }>`
 
   width: 22.413rem;
   height: 14.43rem;
-  margin-right: 1.6rem;
+  /* margin-right: 1.6rem; */
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
@@ -77,10 +77,7 @@ const StVoteItem = styled.section<{ isFlower: boolean }>`
   }
 
   :first-child {
-    margin-left: 2rem;
-  }
-  :last-child {
-    margin-right: 2rem;
+    margin-left: 1.7rem;
   }
 `;
 
