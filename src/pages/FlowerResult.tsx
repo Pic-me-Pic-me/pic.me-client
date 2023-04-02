@@ -41,12 +41,12 @@ export default function FlowerResult() {
 
   return (
     <>
-      <StResultWrapper flowerColor={FLOWER_ICON_LIST[flowerIndex - 1]?.color}>
+      <StResultWrapper flowerColor={FLOWER_ICON_LIST[flowerIndex]?.color}>
         <HeaderLayout HeaderTitle={userHeaderTitle} handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
         {isStickerOn ? <IcStickerOn onClick={handleStickerOnOff} /> : <IcStickerOff onClick={handleStickerOnOff} />}
         <StMainContentWrapper>
           <p>
-            {userInfo?.userName} 님은 {FLOWER_ICON_LIST[flowerIndex - 1]?.flowerKorName}을 가장 많이 받았어요!
+            {userInfo?.userName} 님은 {FLOWER_ICON_LIST[flowerIndex]?.flowerKorName}을 가장 많이 받았어요!
           </p>
           {isStickerOn ? (
             <StickerAttachImg
@@ -58,13 +58,13 @@ export default function FlowerResult() {
             <img src={flowerInfo?.url} alt="스티커없는사진" />
           )}
 
-          <h1>{FLOWER_ICON_LIST[flowerIndex - 1]?.flowerEngName}</h1>
+          <h1>{FLOWER_ICON_LIST[flowerIndex]?.flowerEngName}</h1>
 
           <StKeywordSectionWrapper>
             <h2>BEST KEYWORD!</h2>
-            <StKeywordsWrapper keywordCnt={FLOWER_ICON_LIST[flowerIndex - 1]?.keywordList.length}>
-              {FLOWER_ICON_LIST[flowerIndex - 1]?.keywordList.map((content, idx) => (
-                <StKeyWord key={idx}>{content}</StKeyWord>
+            <StKeywordsWrapper keywordCnt={FLOWER_ICON_LIST[flowerIndex]?.keywordList.length}>
+              {voteResult?.Picture[0].keywords.map((keywordIndex, idx) => (
+                <StKeyWord key={idx}>{FLOWER_ICON_LIST[flowerIndex]?.keywordList[keywordIndex]}</StKeyWord>
               ))}
             </StKeywordsWrapper>
           </StKeywordSectionWrapper>
