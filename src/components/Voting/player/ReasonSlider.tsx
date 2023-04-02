@@ -35,7 +35,6 @@ const ReasonSlider = (props: ReasonSliderProps) => {
   const { ref, width } = useCarouselSize();
   const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
 
-  console.log('슬라이더', playerStickerInfo);
   const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = isFlowerVoting
     ? [
