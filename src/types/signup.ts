@@ -7,7 +7,7 @@ export interface SignUpInfo {
 export interface EmailInfo {
   email: string | null;
   isValid: boolean;
-  errorMsg: string | null;
+  msg: string | null;
 }
 export interface PasswordInfo {
   password: string | null;

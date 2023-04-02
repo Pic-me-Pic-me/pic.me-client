@@ -35,9 +35,23 @@ export const postStickerData = async (stickerInfo: PlayerStickerInfo) => {
   }
 };
 
-export const postImage = async (imageData: FormData) => {
+export const postImageNormal = async (imageData: FormData) => {
   try {
     const data = await client.post(`/vote`, imageData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+    return data.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const postImageFlower = async (imageData: FormData) => {
+  try {
+    const data = await client.post('/flower', imageData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${ACCESS_TOKEN}`,

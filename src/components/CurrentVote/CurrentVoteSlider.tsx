@@ -87,36 +87,38 @@ export default CurrentVoteSlider;
 
 const CurrentVoteSliderWrapper = styled.article`
   width: 100%;
-  height: 45.3rem;
+  height: 43.4rem;
 
   position: relative;
 
   overflow: hidden;
 `;
 
-const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: number; width: number }>`
+const StImgUl = styled.ul.attrs<{
+  currentIdx: number;
+  dragItemWidth: number;
+  transX: number;
+  width: number;
+}>(({ currentIdx, dragItemWidth, transX, width }) => ({
+  style: {
+    left:
+      currentIdx === 0 ? `${(dragItemWidth * 0.05) / 10}rem` : `${(width * 1.5) / 45 + (dragItemWidth * 0.1) / 45}rem`,
+    transform: `translateX(${(-currentIdx * dragItemWidth + transX) / 10.55}rem)`,
+    transition: `transform ${transX ? 0 : 300}ms ease-in -out 0s`,
+  },
+}))<{
+  currentIdx: number;
+  dragItemWidth: number;
+  transX: number;
+  width: number;
+}>`
   display: flex;
 
   align-items: center;
   position: absolute;
   gap: 1.3rem;
 
-  ${({ currentIdx, dragItemWidth, width }) =>
-    currentIdx === 0
-      ? css`
-          left: ${(dragItemWidth * 0.05) / 10}rem;
-        `
-      : css`
-          left: ${(width * 1.5) / 45 + (dragItemWidth * 0.1) / 45}rem;
-        `}
-  ${({ currentIdx, dragItemWidth, transX }) =>
-    css`
-      transform: translateX(${(-currentIdx * dragItemWidth + transX) / 10.55}rem);
-    `};
-  ${({ transX }) =>
-    css`
-      transition: transform ${transX ? 0 : 300}ms ease-in -out 0s;
-    `};
+  height: 43rem;
   width: ${({ width }) => (width * 1.55) / 10}rem;
   touch-action: auto;
 
@@ -124,12 +126,11 @@ const StImgUl = styled.ul<{ currentIdx: number; dragItemWidth: number; transX: n
     position: relative;
 
     width: 100%;
-
-    margin-top: 1.9rem;
   }
 `;
 const StUnselectedImg = styled.img<{ width: number }>`
   width: 100%;
+  height: 43.4rem;
 
   opacity: 0.5;
   border-radius: 1.2rem;

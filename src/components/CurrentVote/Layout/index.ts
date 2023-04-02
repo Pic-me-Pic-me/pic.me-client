@@ -1,0 +1,1 @@
+import CurrentVoteInfoLayout from './CurrentVoteInfoLayout';

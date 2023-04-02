@@ -8,14 +8,14 @@ import { votingImageState } from '../../../recoil/maker/atom';
 import CoachMark from './CoachMark';
 
 interface ImageCropProps {
-  firstCrop: boolean;
+  isCrop: boolean[];
   rotation: number;
   setRotation: React.Dispatch<React.SetStateAction<number>>;
   handleCropComplete: (croppedArea: Area, croppedAreaPixels: Area) => void;
 }
 
 const ImageCrop = (props: ImageCropProps) => {
-  const { firstCrop, handleCropComplete, setRotation, rotation } = props;
+  const { isCrop, handleCropComplete, setRotation, rotation } = props;
 
   const [isOpenPop, setIsOpenPop] = useState(true);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
@@ -25,14 +25,16 @@ const ImageCrop = (props: ImageCropProps) => {
 
   useEffect(() => {
     handleChangeImage();
-  }, [firstCrop]);
+  }, [isCrop]);
 
   useEffect(() => {
     setTimeout(() => setIsOpenPop(false), 2000);
   }, []);
 
   const handleChangeImage = () => {
-    firstCrop ? setImage(imageUrl.firstImageUrl) : setImage(imageUrl.secondImageUrl);
+    if (imageUrl.imageUrl) {
+      isCrop[0] ? setImage(imageUrl.imageUrl[0]) : setImage(imageUrl.imageUrl[1]);
+    }
   };
 
   return (

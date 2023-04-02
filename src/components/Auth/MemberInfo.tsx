@@ -57,7 +57,7 @@ const MemberInfo = () => {
         {}
         <p>{email}</p>
         <div>
-          <button type="button" onClick={() => toggle()}>
+          <button type="button" onClick={toggle}>
             회원 탈퇴하기
           </button>
           <Modal

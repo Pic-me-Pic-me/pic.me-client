@@ -14,7 +14,7 @@ const Header = () => {
         <StBannerImg>
           <IcBannerImg />
         </StBannerImg>
-        <StGuideBtn type="button" onClick={() => toggle()}>
+        <StGuideBtn type="button" onClick={toggle}>
           <p>픽미 사용방법 A부터 Z까지</p>
           <IcNextArrow />
         </StGuideBtn>
