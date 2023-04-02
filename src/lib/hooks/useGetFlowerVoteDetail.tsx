@@ -1,16 +1,16 @@
 import { AxiosResponse } from 'axios';
 import useSWR from 'swr';
 
-import { MakerFlowerInfo } from '../../types/vote';
+import { PictureInfo } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
 const useGetFlowerVoteDetail = (voteId: string | undefined) => {
-  const { data, error } = useSWR<AxiosResponse<MakerFlowerInfo>>(`flower/library/${voteId}`, picmeGetFetcher, {
+  const { data, error } = useSWR<AxiosResponse<PictureInfo>>(`vote/common/${voteId}`, picmeGetFetcher, {
     errorRetryCount: 3,
   });
 
   return {
-    flowerResult: data?.data,
+    flowerResult: data,
     isLoading: !data && !error,
     isError: error,
   };

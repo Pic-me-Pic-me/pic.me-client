@@ -23,7 +23,7 @@ export interface MakerFlowerVoteInfo {
   voteTitle: string;
   currentVote: number;
   createdDate: Date;
-  Picture: MakerPictureData[];
+  Picture: FlowerPictureInfo[];
 }
 
 export interface VotingInfo {

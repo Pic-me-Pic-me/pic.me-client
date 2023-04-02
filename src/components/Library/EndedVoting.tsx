@@ -157,7 +157,6 @@ const StVotingDate = styled.p<{ isFlower: boolean }>`
   position: absolute;
   bottom: 0.9rem;
 
-
   ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4}
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 `;

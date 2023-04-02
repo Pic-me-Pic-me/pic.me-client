@@ -37,7 +37,7 @@ const Router = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/login/oauth/kakao/callback" element={<Auth />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/flower/current" element={<CurrentFlowerDetail />} />
+          <Route path="/current/flower/:voteId" element={<CurrentFlowerDetail />} />
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />

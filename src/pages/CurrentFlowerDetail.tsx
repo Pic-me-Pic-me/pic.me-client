@@ -17,6 +17,8 @@ const CurrentFlowerDetail = () => {
 
   const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
+  console.log(flowerResult);
+
   const setFlowerResult = useSetRecoilState(voteResultState);
   const setFlowerPictureResult = useSetRecoilState(flowerPictureResultState);
   const flowerResultData = useRecoilValue(voteResultState);
