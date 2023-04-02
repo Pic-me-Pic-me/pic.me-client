@@ -62,6 +62,7 @@ export interface VoteInfo {
   voteTitle: string;
   Picture: PictureData[];
   isFlowerVoting: boolean;
+  type?: number;
 }
 
 export interface PictureData {
@@ -112,6 +113,7 @@ export interface VoteReasonInfo {
 export interface ResultSticker {
   Picture: PictureInfo;
   Sticker: GetStickerResultInfo[];
+  type: number;
 }
 export interface StickerResultInfo {
   stickerLocation: StickerLocation[];
