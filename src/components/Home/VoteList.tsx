@@ -33,7 +33,7 @@ const VoteList = () => {
     if (inView && voteListResult?.result) {
       getMoreItem();
     }
-  }, [inView, voteListResult, getMoreItem]);
+  }, [inView]);
 
   if (isError) return <Error404 />;
   if (isLoading) return <LandingVoteList />;
@@ -44,9 +44,10 @@ const VoteList = () => {
       {voteListResult?.result?.length ? (
         <StVoteListWrapper>
           {voteListResult.result.map((data, i) => (
-            <VoteCard voteData={data} key={i} />
+            <div key={i} ref={ref}>
+              <VoteCard voteData={data} />
+            </div>
           ))}
-          <div ref={ref} />
         </StVoteListWrapper>
       ) : (
         <StEmptyView>
