@@ -136,7 +136,8 @@ const StBannerBtn = styled.button`
   width: 100%;
   height: 6.7rem;
 
-  background: rgba(61, 63, 66, 0.88);
+  background: transparent;
+  backdrop-filter: blur(1.8rem);
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_6};
   ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4};
   border: none;
