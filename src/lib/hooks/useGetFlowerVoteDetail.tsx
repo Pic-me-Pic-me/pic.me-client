@@ -5,12 +5,12 @@ import { MakerVoteInfo } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
 const useGetFlowerVoteDetail = (voteId: string | undefined) => {
-  const { data, error } = useSWR<AxiosResponse<MakerVoteInfo>>(`vote/common/${voteId}`, picmeGetFetcher, {
+  const { data, error } = useSWR<AxiosResponse<MakerVoteInfo>>(`vote/${voteId}`, picmeGetFetcher, {
     errorRetryCount: 3,
   });
 
   return {
-    flowerResult: data,
+    flowerResult: data?.data,
     isLoading: !data && !error,
     isError: error,
   };

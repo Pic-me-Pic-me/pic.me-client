@@ -9,7 +9,8 @@ import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteI
 import { HeaderLayout } from '../components/Layout';
 import { patchCurrentVoteData } from '../lib/api/voting';
 import useGetFlowerVoteDetail from '../lib/hooks/useGetFlowerVoteDetail';
-import { flowerPictureResultState, voteResultState } from '../recoil/maker/atom';
+import { pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
+import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 
 const CurrentFlowerDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
@@ -20,11 +21,12 @@ const CurrentFlowerDetail = () => {
   console.log(flowerResult);
 
   const setFlowerResult = useSetRecoilState(voteResultState);
-  const setFlowerPictureResult = useSetRecoilState(flowerPictureResultState);
+  const setFlowerPictureResult = useSetRecoilState(pictureResultState);
+  const setFlowerStickerResult = useSetRecoilState(stickerResultState);
   const flowerResultData = useRecoilValue(voteResultState);
-  const flowerPictureData = useRecoilValue(flowerPictureResultState);
+  const flowerPictureData = useRecoilValue(pictureResultState);
   const resetFlowerResultData = useResetRecoilState(voteResultState);
-  const resetFlowerPictureData = useResetRecoilState(flowerPictureResultState);
+  const resetFlowerPictureData = useResetRecoilState(pictureResultState);
 
   useEffect(() => {
     if (flowerResult) {
@@ -39,6 +41,7 @@ const CurrentFlowerDetail = () => {
     }
     resetFlowerResultData();
     resetFlowerPictureData();
+    setFlowerStickerResult(jsonGetStickerList(flowerPictureData[0].Sticker));
   }, []);
 
   const strCreatedDate = flowerResultData.createdDate.toString();
@@ -50,7 +53,6 @@ const CurrentFlowerDetail = () => {
         <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: true } })} />
 
         <CurrentVoteInfoLayout
-          // voteTitle={flowerResultData.voteTitle}
           voteTitle="나를 닮은 꽃은?"
           createdDate={strCreatedDate}
           totalVoteCount="총 10명 중"
