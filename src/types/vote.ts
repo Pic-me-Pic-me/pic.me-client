@@ -15,6 +15,16 @@ export interface MakerVoteInfo {
   createdDate: Date;
 }
 
+export interface MakerFlowerInfo {
+  userName?: string;
+  voteId: number;
+  voteStatus: boolean;
+  voteTitle: string;
+  Picture: FlowerPictureInfo[];
+  currentVote: number;
+  createdDate: Date;
+}
+
 export interface VotingInfo {
   vote_id: number;
   user_id: number;
@@ -31,6 +41,15 @@ export interface CurrentPictureInfo {
   count: number;
   Sticker: GetStickerResultInfo[];
 }
+
+export interface FlowerPictureInfo {
+  pictureId?: number;
+  url: string;
+  count: number;
+  Sticker: GetStickerResultInfo[];
+  flower: number;
+  keywords: number[];
+}
 export interface VoteData {
   status: number;
   data?: VoteInfo;
@@ -43,6 +62,7 @@ export interface VoteInfo {
   voteTitle: string;
   Picture: PictureData[];
   isFlowerVoting: boolean;
+  type?: number;
 }
 
 export interface PictureData {
@@ -93,6 +113,7 @@ export interface VoteReasonInfo {
 export interface ResultSticker {
   Picture: PictureInfo;
   Sticker: GetStickerResultInfo[];
+  type: number;
 }
 export interface StickerResultInfo {
   stickerLocation: StickerLocation[];

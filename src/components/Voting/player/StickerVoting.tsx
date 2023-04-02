@@ -47,6 +47,7 @@ const StickerVoting = (props: StickerVotingProps) => {
           imgViewInfo,
           location: [...prev.location, newSticker],
           emoji,
+          isFlowerVoting,
         }));
       }
     }

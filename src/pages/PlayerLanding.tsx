@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { Error } from '../components/common';
 import { FinishedLanding, VoteLanding } from '../components/Landing';
 import { LandingPlayer } from '../components/Landing/player';
+import { FLOWER_VOTING_TYPE } from '../constant/playerInfo';
 import { useGetVotingInfo } from '../lib/hooks/useGetVotingInfo';
 import { playerStickerInfoState, votingInfoState } from '../recoil/player/atom';
 
@@ -13,6 +14,7 @@ const PlayerLanding = () => {
   const { votingInfo, isLoading, isError } = useGetVotingInfo(voteId);
 
   const setVotingInfoState = useSetRecoilState(votingInfoState);
+  const [stickerInfoState, setStickerInfoState] = useRecoilState(playerStickerInfoState);
   const resetVotingInfoState = useResetRecoilState(votingInfoState);
   const resetStickerInfoState = useResetRecoilState(playerStickerInfoState);
 
@@ -22,6 +24,11 @@ const PlayerLanding = () => {
       resetStickerInfoState();
       setVotingInfoState({
         ...votingInfo?.data,
+        isFlowerVoting: votingInfo.data.type === FLOWER_VOTING_TYPE,
+      });
+      setStickerInfoState({
+        ...stickerInfoState,
+        isFlowerVoting: votingInfo.data.type === FLOWER_VOTING_TYPE,
       });
     }
   }, [votingInfo]);

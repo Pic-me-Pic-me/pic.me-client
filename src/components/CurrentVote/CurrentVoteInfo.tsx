@@ -10,15 +10,15 @@ const CurrentVoteInfo = () => {
   const pictureResult = useRecoilValue(pictureResultState);
   const currentIdx = useRecoilValue(pictureCurrentIdx);
 
-  const { voteTitle, currentVote } = voteInfoData;
+  const { voteTitle, currentVote, createdDate } = voteInfoData;
+  const strCreatedDate = createdDate.toString();
 
   timeago.register('ko', ko);
-  const strCreateDate = voteInfoData.createdDate.toString();
 
   return (
     <CurrentVoteInfoLayout
       voteTitle={voteTitle}
-      createdAt={strCreateDate}
+      createdDate={strCreatedDate}
       totalVoteCount={`${currentVote}명 투표 중`}
       currentVoteCount={`${pictureResult[currentIdx].count}표`}
     />

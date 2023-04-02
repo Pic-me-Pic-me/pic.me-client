@@ -3,22 +3,20 @@ import TimeAgo from 'timeago-react';
 
 interface CurrentVoteInfoLayoutProps {
   voteTitle: string;
-  createdAt: string;
+  createdDate: string;
   totalVoteCount: string;
   currentVoteCount: string;
 }
 
 const CurrentVoteInfoLayout = (props: CurrentVoteInfoLayoutProps) => {
-  const { voteTitle, createdAt, totalVoteCount, currentVoteCount } = props;
-
-  const createdDate = createdAt.slice(0, 10) + ' ' + createdAt.slice(11, 19);
-
+  const { voteTitle, createdDate, totalVoteCount, currentVoteCount } = props;
+  const createdAt = createdDate.slice(0, 10) + ' ' + createdDate.slice(11, 19);
   return (
     <>
       <StVoteTitle>
         <h1>{voteTitle}</h1>
         <span>
-          <TimeAgo datetime={createdDate} locale="ko" />
+          <TimeAgo datetime={createdAt} locale="ko" />
         </span>
       </StVoteTitle>
       <StVoteStatus>

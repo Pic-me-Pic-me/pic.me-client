@@ -19,7 +19,7 @@ const CurrentVoteBtn = () => {
   return (
     <>
       <CurrentVoteBtnWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
+        <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: false } })} />
         <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
       </CurrentVoteBtnWrapper>
       <Modal
