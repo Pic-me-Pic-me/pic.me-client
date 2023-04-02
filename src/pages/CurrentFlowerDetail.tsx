@@ -52,8 +52,6 @@ const CurrentFlowerDetail = () => {
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
       <StCurrentVoteInfoWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: true } })} />
-
         <CurrentVoteInfoLayout
           voteTitle="나를 닮은 꽃은?"
           createdDate={strCreatedDate}
@@ -67,6 +65,9 @@ const CurrentFlowerDetail = () => {
         />
         <StFlowerTestStatus>
           <span>현재 진행 중 ( {flowerPictureData[0].count} / 10 )</span>
+          <div onClick={() => navigate('/share', { state: { voteId, isFlowerVote: true } })}>
+            <IcVoteShareBtn />
+          </div>
         </StFlowerTestStatus>
       </StCurrentVoteInfoWrapper>
     </>
@@ -81,38 +82,45 @@ const StCurrentVoteInfoWrapper = styled.section`
   align-items: center;
 
   margin: 0 1.8rem;
-
-  & > svg {
-    position: absolute;
-
-    width: 5.93rem;
-    height: 5.93rem;
-
-    bottom: 18.3rem;
-    right: 2.07rem;
-
-    cursor: pointer;
-
-    z-index: 1;
-  }
 `;
 
 const StFlowerTestStatus = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+
+  width: 100%;
 
   margin-top: 1.1rem;
 
-  width: 100%;
-  height: 5.2rem;
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    margin-left: 0.9rem;
 
-  border-radius: 0.75389rem;
+    width: 5.6rem;
+    min-width: 5.6rem;
+    height: 5.2rem;
+
+    border-radius: 0.75389rem;
+
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+    cursor: pointer;
+  }
+
   & > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 5.2rem;
+
     text-align: center;
+
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    border-radius: 0.75389rem;
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
   }

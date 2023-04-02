@@ -81,6 +81,6 @@ const StVoteStatus = styled.section`
     height: 2.7rem;
     background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
     border-radius: 3.3rem;
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
   }
 `;
