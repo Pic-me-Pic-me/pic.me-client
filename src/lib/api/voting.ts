@@ -44,9 +44,9 @@ export const postFlowerStickerData = async (stickerInfo: PlayerStickerInfo) => {
     emoji,
     keyword,
   };
-  console.log(flowerStickerInfo);
+
   try {
-    const { data } = await client.post('/sticker/flower', stickerInfo);
+    const { data } = await client.post('/sticker/flower', flowerStickerInfo);
     return data;
   } catch (e) {
     console.error(e);
