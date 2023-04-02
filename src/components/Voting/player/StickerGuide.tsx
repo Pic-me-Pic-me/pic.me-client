@@ -4,8 +4,7 @@ const StickerGuide = () => (
   <StStickerGuideWrapper>
     <article>
       <h2>붙이기 시작!</h2>
-      <p>!! 한번 붙이면 다시 붙일 수 없어요!!</p>
-      <p>!!기회는 3번뿐!!</p>
+      <p>화면을 터치하면 투표가 시작됩니다!</p>
     </article>
   </StStickerGuideWrapper>
 );
@@ -22,7 +21,7 @@ const StStickerGuideWrapper = styled.article`
 
     position: absolute;
     left: 5%;
-    top: 17.5rem;
+    top: 0rem;
 
     width: 90%;
     height: 52rem;
@@ -32,11 +31,11 @@ const StStickerGuideWrapper = styled.article`
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     object-fit: cover;
     & > h2 {
-      margin-bottom: 3rem;
-      ${({ theme }) => theme.fonts.Pic_Title2_Pretendard_SemiBold_20}
+      margin-bottom: 0.5rem;
+      ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1}
     }
     & > p {
-      ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+      ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
     }
   }
 

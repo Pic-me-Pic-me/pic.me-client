@@ -6,18 +6,19 @@ import { IcGoback, IcHeaderLogo } from '../../../asset/icon';
 
 interface LayoutProps {
   isSideIcon?: boolean;
+  isBackIcon?: boolean;
   handleGoback?: React.MouseEventHandler;
   IcHeaderSequence?: ReactNode;
 }
 
 const HeaderLayout = (props: LayoutProps) => {
-  const { isSideIcon, handleGoback, IcHeaderSequence } = props;
+  const { isSideIcon, isBackIcon, handleGoback, IcHeaderSequence } = props;
 
   const navigate = useNavigate();
 
   return (
     <StHeaderLayoutWrapper>
-      {!isSideIcon && <IcGoback className="back_icon" onClick={handleGoback} />}
+      {!isSideIcon && !isBackIcon && <IcGoback className="back_icon" onClick={handleGoback} />}
       <div>
         <IcHeaderLogo onClick={() => navigate('/')} />
       </div>

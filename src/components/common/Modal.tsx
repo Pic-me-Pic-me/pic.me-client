@@ -90,11 +90,7 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boole
   transform: translate(-50%, -50%);
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  font-family: 'Pretendard', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 0.9rem;
-  line-height: 1.1rem;
+  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
 
   > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};

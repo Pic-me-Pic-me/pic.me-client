@@ -6,7 +6,7 @@ import { useGetResultVoting } from '../../../lib/hooks/useGetResultVoting';
 import { stickerResultState } from '../../../recoil/maker/atom';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
-import { jsonGetStickerList } from '../../../utils/jsonGetStickerList';
+import { jsonFlowerGetStickerList } from '../../../utils/jsonGetStickerList';
 import { Error, Loading, StickerAttachImg } from '../../common';
 
 const StickerResultVoting = () => {
@@ -23,7 +23,7 @@ const StickerResultVoting = () => {
   useEffect(() => {
     if (stickerInfo) {
       const { Sticker } = stickerInfo;
-      setStickerResultState([...jsonGetStickerList(Sticker)]);
+      setStickerResultState([...jsonFlowerGetStickerList(Sticker, stickerVotingInfo.isFlowerVoting)]);
     }
   }, [stickerInfo]);
 

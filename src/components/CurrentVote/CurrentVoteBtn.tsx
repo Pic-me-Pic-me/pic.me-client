@@ -19,7 +19,7 @@ const CurrentVoteBtn = () => {
   return (
     <>
       <CurrentVoteBtnWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: voteId })} />
+        <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: false } })} />
         <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
       </CurrentVoteBtnWrapper>
       <Modal
@@ -48,8 +48,11 @@ const CurrentVoteBtnWrapper = styled.section`
   & > svg {
     position: absolute;
 
-    bottom: 13rem;
-    right: 3em;
+    width: 5.93rem;
+    height: 5.93rem;
+
+    bottom: 20rem;
+    right: 2.07rem;
 
     cursor: pointer;
   }

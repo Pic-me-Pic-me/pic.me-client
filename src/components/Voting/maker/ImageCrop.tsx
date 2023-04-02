@@ -8,51 +8,53 @@ import { votingImageState } from '../../../recoil/maker/atom';
 import CoachMark from './CoachMark';
 
 interface ImageCropProps {
-  firstCrop: boolean;
+  isCrop: boolean[];
   rotation: number;
   setRotation: React.Dispatch<React.SetStateAction<number>>;
   handleCropComplete: (croppedArea: Area, croppedAreaPixels: Area) => void;
 }
 
 const ImageCrop = (props: ImageCropProps) => {
-  const { firstCrop, handleCropComplete, setRotation, rotation } = props;
+  const { isCrop, handleCropComplete, setRotation, rotation } = props;
 
   const [isOpenPop, setIsOpenPop] = useState(true);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [image, setImage] = useState('');
   const [zoom, setZoom] = useState(1);
-  const imageUrl = useRecoilValue(votingImageState);
+  const votingState = useRecoilValue(votingImageState);
+
+  const { imageUrl } = votingState;
 
   useEffect(() => {
     handleChangeImage();
-  }, [firstCrop]);
+  }, [isCrop]);
 
   useEffect(() => {
     setTimeout(() => setIsOpenPop(false), 2000);
   }, []);
 
   const handleChangeImage = () => {
-    firstCrop ? setImage(imageUrl.firstImageUrl) : setImage(imageUrl.secondImageUrl);
+    if (imageUrl) {
+      isCrop[0] ? setImage(imageUrl[0]) : setImage(imageUrl[1]);
+    }
   };
 
   return (
     <>
       {isOpenPop && <CoachMark />}
       <StImageCropWrapper>
-        <StImageCropContainer>
-          <Cropper
-            image={image}
-            crop={crop}
-            rotation={rotation}
-            zoom={zoom}
-            aspect={3 / 4}
-            onCropChange={setCrop}
-            onZoomChange={setZoom}
-            onRotationChange={setRotation}
-            onCropComplete={handleCropComplete}
-            objectFit="horizontal-cover"
-          />
-        </StImageCropContainer>
+        <Cropper
+          image={image}
+          crop={crop}
+          rotation={rotation}
+          zoom={zoom}
+          aspect={3 / 4}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          onRotationChange={setRotation}
+          onCropComplete={handleCropComplete}
+          objectFit="horizontal-cover"
+        />
       </StImageCropWrapper>
     </>
   );
@@ -65,10 +67,10 @@ const StImageCropWrapper = styled.section`
 
   width: 100%;
   height: 100%;
-`;
-const StImageCropContainer = styled.div`
+
   .reactEasyCrop_Container {
     position: absolute;
-    top: 3.2rem;
+
+    border-radius: 1rem;
   }
 `;

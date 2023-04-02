@@ -14,7 +14,6 @@ const FinishedLanding = () => {
 
   return (
     <>
-      <Onboarding />
       <StModalWrapper>
         <StModal>
           <StTitle>
