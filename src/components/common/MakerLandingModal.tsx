@@ -101,7 +101,7 @@ const StModalContent = styled.div`
 
   & > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-    ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1}
+    ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
   }
   & > p {
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
