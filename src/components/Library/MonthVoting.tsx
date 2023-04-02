@@ -66,7 +66,6 @@ const MonthVoting = (props: voteAllInfoProps) => {
           idx === monthlyVoteInfoList.list.length - 1 ? (
             <div key={idx} ref={ref}>
               <EndedVoting
-                key={idx}
                 id={vote.id}
                 voteData={vote}
                 handleDeleteVote={handleDeleteVote}

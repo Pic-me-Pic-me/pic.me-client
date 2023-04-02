@@ -1,6 +1,8 @@
+import { CHEERYBLOSSOMS, LILY, ROSE, SUNFLOWER } from './playerInfo';
+
 export const FLOWER_ICON_LIST = [
   {
-    id: 1,
+    id: CHEERYBLOSSOMS,
     name: '벚꽃 Keyword',
     flowerEngName: 'Cherry Blossom',
     flowerKorName: '벚꽃',
@@ -289,7 +291,7 @@ export const FLOWER_ICON_LIST = [
     ),
   },
   {
-    id: 2,
+    id: LILY,
     name: '백합 Keyword',
     flowerEngName: 'Lily',
     flowerKorName: '백합',
@@ -589,12 +591,13 @@ export const FLOWER_ICON_LIST = [
     ),
   },
   {
-    id: 3,
+    id: SUNFLOWER,
     name: '해바라기 Keyword',
     flowerEngName: 'Sun Flower',
     flowerKorName: '해바라기',
     keywordList: ['열정적', '활달함', '따수움', '해맑음', '긍정적'],
     color: '#3973CB',
+    keywordList: ['열정적', '활달함', '따수움', '해맑음', '긍정적'],
     icon: (size) => (
       <svg width={size} height={size} viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -729,7 +732,7 @@ export const FLOWER_ICON_LIST = [
     ),
   },
   {
-    id: 4,
+    id: ROSE,
     name: '장미 Keyword',
     flowerEngName: 'Rose',
     flowerKorName: '장미',

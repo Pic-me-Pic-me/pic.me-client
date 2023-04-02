@@ -48,7 +48,7 @@ const EndedVoting = (props: endedVotingProps) => {
           </StDeleteBtnWrapper>
         </StImgWrapper>
         <StVotingDesc onClick={handleGoToResult} isFlower={isFlower}>
-          <StVotingTitle>{voteData.title}</StVotingTitle>
+          <StVotingTitle>{isFlower ? '나를 닮은 꽃은?' : voteData.title}</StVotingTitle>
           <StVotingDate isFlower={isFlower}>
             {createdMonth}월 {createdDate}일
           </StVotingDate>
@@ -70,6 +70,7 @@ const StVotingWrapper = styled.section`
   flex-direction: column;
 
   position: relative;
+
   margin-bottom: 4.906rem;
 
   :last-child {
@@ -115,6 +116,7 @@ const StDeleteBtnWrapper = styled.button`
   position: absolute;
   top: 0.285rem;
   right: -0.7rem;
+
   border: none;
   background-color: transparent;
 `;
@@ -122,7 +124,6 @@ const StDeleteBtnWrapper = styled.button`
 const StVotingDesc = styled.div<{ isFlower: boolean }>`
   width: 17.8rem;
   height: 8.6rem;
-
   position: relative;
 
   ${({ isFlower }) =>
@@ -155,6 +156,7 @@ const StVotingDate = styled.p<{ isFlower: boolean }>`
   margin-left: 1.4rem;
   position: absolute;
   bottom: 0.9rem;
+
 
   ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4}
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};

@@ -19,34 +19,28 @@ const MakerVotingLayout = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | undefined>();
 
   const { title, imageUrl } = votingForm;
+  const copyImageForm = [...imageUrl];
 
   const handleCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
+  const handleCropImage = async (idx: number) => {
+    try {
+      const crop = (await setCroppedImg(imageUrl[idx], croppedAreaPixels, rotation)) as string;
+      copyImageForm[idx] = crop;
+      setVotingForm({ ...votingForm, imageUrl: copyImageForm });
+      setIsCropToggle(isCropToggle.splice(0, idx, false));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const handleShowCroppedImage = useCallback(async () => {
-    const cropImage = [...imageUrl];
-    const cropToggle = [...isCropToggle];
     if (isCropToggle[0]) {
-      try {
-        const crop = (await setCroppedImg(imageUrl[0], croppedAreaPixels, rotation)) as string;
-        cropImage[0] = crop;
-        setVotingForm({ ...votingForm, imageUrl: cropImage });
-        cropToggle[0] = false;
-        setIsCropToggle(cropToggle);
-      } catch (e) {
-        console.error(e);
-      }
+      handleCropImage(0);
     } else {
-      try {
-        const crop = (await setCroppedImg(imageUrl[1], croppedAreaPixels, rotation)) as string;
-        cropImage[1] = crop;
-        setVotingForm({ ...votingForm, imageUrl: cropImage });
-        cropToggle[1] = false;
-        setIsCropToggle(cropToggle);
-      } catch (e) {
-        console.error(e);
-      }
+      handleCropImage(1);
     }
   }, [croppedAreaPixels, rotation]);
 
@@ -56,8 +50,7 @@ const MakerVotingLayout = () => {
 
   const handleCloseModal = () => {
     const closeModal = [...isCropToggle];
-    closeModal[0] = false;
-    closeModal[1] = false;
+    closeModal.forEach((_, idx) => (closeModal[idx] = false));
     setIsCropToggle(closeModal);
   };
 
@@ -69,7 +62,7 @@ const MakerVotingLayout = () => {
 
   return (
     <>
-      <HeaderLayout HeaderTitle="투표만들기" handleGoback={() => navigate('/home')} />
+      <HeaderLayout HeaderTitle="사진선택" handleGoback={() => navigate('/home')} />
       {(isCropToggle[0] || isCropToggle[1]) && (
         <StImageCropLayoutWrapper>
           <StHeader>
@@ -78,21 +71,21 @@ const MakerVotingLayout = () => {
               <IcClose />
             </StCloseBtn>
           </StHeader>
+          <StCropDescription>좌우로 위치를 옮겨보세요!</StCropDescription>
           <ImageCrop
             isCrop={isCropToggle}
             handleCropComplete={handleCropComplete}
             setRotation={setRotation}
             rotation={rotation}
           />
-          <StCropDescription>좌우로 위치를 옮겨보세요!</StCropDescription>
           <StFooter>
-            <StCropBtn onClick={handleShowCroppedImage}>완료</StCropBtn>
+            <StCropBtn onClick={handleShowCroppedImage}>편집 완료</StCropBtn>
           </StFooter>
         </StImageCropLayoutWrapper>
       )}
       <StMakerVotingLayoutWrapper>
         <TitleInput title={title} handleChangeInput={handleChangeInput} />
-        <ImageInput handleCropImageToggle={handleCropImageToggle} />
+        <ImageInput copyImageForm={copyImageForm} handleCropImageToggle={handleCropImageToggle} />
       </StMakerVotingLayoutWrapper>
     </>
   );
@@ -117,9 +110,9 @@ const StImageCropLayoutWrapper = styled.div`
 
   width: 100%;
   height: 85rem;
-  padding: 7.5rem 3.1rem 13.3rem 3.1rem;
+  padding: 2.7rem 1.8rem 13.3rem 1.8rem;
 
-  backdrop-filter: blur(7rem);
+  backdrop-filter: blur(5rem);
 
   z-index: 100;
 `;
@@ -146,28 +139,31 @@ const StCloseBtn = styled.button`
   z-index: 100;
 `;
 const StCropTitle = styled.h1`
-  ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20}
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5};
 
   text-align: center;
 `;
 const StCropDescription = styled.span`
-  margin-top: 1.6rem;
+  margin-top: 7.7rem;
+  margin-bottom: 0.7rem;
 
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5};
 `;
 const StFooter = styled.footer`
   width: 100%;
 `;
 const StCropBtn = styled.button`
   width: 100%;
-  height: 5.8rem;
+  height: 5.2rem;
   margin-top: 2.1rem;
 
   border: none;
-  border-radius: 0.9rem;
+  border-radius: 0.754rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Body1_Pretendard_Medium_16}
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
 
   cursor: pointer;
   z-index: 100;

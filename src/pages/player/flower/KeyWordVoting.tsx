@@ -21,19 +21,24 @@ const KeyWordVoting = () => {
   const handlePrevpage = () => {
     navigate(-1);
   };
+  const handleTagOverClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(e.target instanceof HTMLLIElement) && !(e.target instanceof HTMLButtonElement) && keywordIdx === undefined)
+      setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
+  };
 
   useEffect(() => {
     setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
   }, []);
+
   return (
-    <div>
+    <div onClick={handleTagOverClick}>
       <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcBlackHeaderSecond />} />
       <VotingLayout
         votingTitle={FLOWER_CONFIRM_REASON}
         votingNextLineTitle={SELECT_KEY_WORD}
         pageType="KeyWordVoting"
         btnTitle={BTN_KEY_WORD_TITLE}
-        isActiveBtn={keywordIdx ? true : false}
+        isActiveBtn={keywordIdx === undefined ? false : true}
         handlePlayer={handleVotingSuccess}>
         {
           <StKeyWordVotingWrapper>

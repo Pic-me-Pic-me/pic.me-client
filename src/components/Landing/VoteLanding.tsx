@@ -1,20 +1,28 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcFlower, IcModalBG } from '../../asset/icon';
 import { PlayerTitle } from '../../asset/image';
 import Onboarding from '../../pages/Onboarding';
-import { votingInfoState } from '../../recoil/player/atom';
+import { playerStickerInfoState, votingInfoState } from '../../recoil/player/atom';
 
 const VoteLanding = () => {
   const votingInfoAtom = useRecoilValue(votingInfoState);
-  const { voteTitle, userName, voteId, isFlowerVoting } = votingInfoAtom;
+  const { voteTitle, userName, voteId, isFlowerVoting, Picture } = votingInfoAtom;
+  const setStickerInfo = useSetRecoilState(playerStickerInfoState);
   const navigate = useNavigate();
+
+  const handleStartVoting = () => {
+    if (isFlowerVoting) {
+      setStickerInfo((prev) => ({ ...prev, pictureId: Picture[0].id, location: [], emoji: 0 }));
+      navigate(`/player/reason_voting`);
+    } else navigate(`/player/picture_voting/${voteId}`);
+  };
+
   return (
     <>
-      <Onboarding />
       <StModalWrapper>
         <StModal>
           {isFlowerVoting ? (
@@ -42,11 +50,7 @@ const VoteLanding = () => {
             </>
           )}
           <StButtonWrapper>
-            <button
-              type="button"
-              onClick={() =>
-                isFlowerVoting ? navigate(`/player/reason_voting`) : navigate(`/player/picture_voting/${voteId}`)
-              }>
+            <button type="button" onClick={handleStartVoting}>
               익명 투표 시작하기
             </button>
             <button type="button" onClick={() => navigate('/')}>
