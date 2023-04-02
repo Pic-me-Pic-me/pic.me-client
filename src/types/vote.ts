@@ -94,6 +94,12 @@ export interface PlayerStickerInfo {
   isFlowerVoting: boolean;
   keywordIdx?: number;
 }
+export interface FlowerStickerInfo {
+  pictureId: number;
+  location: StickerLocation[];
+  emoji: number;
+  keyword?: number;
+}
 
 export interface GetStickerResultInfo {
   stickerLocation: string;
