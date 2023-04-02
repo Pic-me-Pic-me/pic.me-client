@@ -4,7 +4,7 @@ export const FLOWER_ICON_LIST = [
   {
     id: CHEERYBLOSSOMS,
     name: '벚꽃 Keyword',
-    flowerEngName: 'Cherry Blossom',
+    flowerEngName: 'CHERRY BLOSSOM',
     flowerKorName: '벚꽃',
     keywordList: ['몽글함', '달달함', '아련함', '화창함', '산뜻함'],
     color: '#EE5761',
@@ -293,7 +293,7 @@ export const FLOWER_ICON_LIST = [
   {
     id: LILY,
     name: '백합 Keyword',
-    flowerEngName: 'Lily',
+    flowerEngName: 'LILY',
     flowerKorName: '백합',
     keywordList: ['청초함', '우아함', '순수함', '투명함', '단정함'],
     color: '#C6DDFF',
@@ -593,7 +593,7 @@ export const FLOWER_ICON_LIST = [
   {
     id: SUNFLOWER,
     name: '해바라기 Keyword',
-    flowerEngName: 'Sun Flower',
+    flowerEngName: 'SUN FLOWER',
     flowerKorName: '해바라기',
     keywordList: ['열정적', '활달함', '따수움', '해맑음', '긍정적'],
     color: '#3973CB',
@@ -734,7 +734,7 @@ export const FLOWER_ICON_LIST = [
   {
     id: ROSE,
     name: '장미 Keyword',
-    flowerEngName: 'Rose',
+    flowerEngName: 'ROSE',
     flowerKorName: '장미',
     color: '##801115',
     keywordList: ['고귀함', '치명적', '강렬함', '매혹적', '화려함'],
