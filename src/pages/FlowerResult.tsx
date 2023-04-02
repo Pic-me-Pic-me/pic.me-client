@@ -104,7 +104,12 @@ const StMainContentWrapper = styled.article`
   }
 
   > h1 {
-    width: min-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 52%;
+    height: 7.9rem;
 
     margin-top: 1.928rem;
     ${({ theme }) => theme.fonts.Pic_Noto_B_Title_3};
