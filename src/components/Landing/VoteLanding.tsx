@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import { IcFlower, IcModalBG } from '../../asset/icon';
 import { PlayerTitle } from '../../asset/image';
-import Onboarding from '../../pages/Onboarding';
 import { playerStickerInfoState, votingInfoState } from '../../recoil/player/atom';
 
 const VoteLanding = () => {
