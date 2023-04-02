@@ -18,31 +18,33 @@ const CurrentFlowerDetail = () => {
 
   const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
-  console.log(flowerResult);
-
   const setFlowerResult = useSetRecoilState(voteResultState);
   const setFlowerPictureResult = useSetRecoilState(pictureResultState);
   const setFlowerStickerResult = useSetRecoilState(stickerResultState);
   const flowerResultData = useRecoilValue(voteResultState);
   const flowerPictureData = useRecoilValue(pictureResultState);
+  const flowerStickerData = useRecoilValue(stickerResultState);
   const resetFlowerResultData = useResetRecoilState(voteResultState);
   const resetFlowerPictureData = useResetRecoilState(pictureResultState);
-
-  useEffect(() => {
-    if (flowerResult) {
-      setFlowerResult(flowerResult);
-      setFlowerPictureResult(flowerResult.Picture);
-    }
-  }, [flowerResult, setFlowerResult, setFlowerPictureResult]);
+  const resetFlowerStickerData = useResetRecoilState(stickerResultState);
 
   useEffect(() => {
     if (flowerPictureData[0].count === 10) {
       patchCurrentVoteData(voteId);
     }
-    resetFlowerResultData();
-    resetFlowerPictureData();
-    setFlowerStickerResult(jsonGetStickerList(flowerPictureData[0].Sticker));
-  }, []);
+  }, [flowerPictureData, voteId]);
+
+  useEffect(() => {
+    if (flowerResult) {
+      resetFlowerResultData();
+      resetFlowerPictureData();
+      resetFlowerStickerData();
+
+      setFlowerResult(flowerResult);
+      setFlowerPictureResult(flowerResult.Picture);
+      setFlowerStickerResult(jsonGetStickerList(flowerResult.Picture[0].Sticker));
+    }
+  }, [flowerResult]);
 
   const strCreatedDate = flowerResultData.createdDate.toString();
 
@@ -86,7 +88,7 @@ const StCurrentVoteInfoWrapper = styled.section`
     width: 5.93rem;
     height: 5.93rem;
 
-    bottom: 20rem;
+    bottom: 18.3rem;
     right: 2.07rem;
 
     cursor: pointer;
