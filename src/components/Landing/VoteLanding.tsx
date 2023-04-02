@@ -23,7 +23,6 @@ const VoteLanding = () => {
 
   return (
     <>
-      <Onboarding />
       <StModalWrapper>
         <StModal>
           {isFlowerVoting ? (
