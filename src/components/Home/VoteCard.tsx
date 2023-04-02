@@ -90,7 +90,7 @@ const StVoteData = styled.article<{ isFlower: boolean }>`
   justify-content: space-between;
 
   width: 8.983rem;
-  padding: 1.134rem 1.262rem 0.706rem 1.221rem;
+  padding: 1.134rem 1.562rem 0.706rem 1.221rem;
 
   border-radius: 1.047rem 0rem 0rem 1.047rem;
 
