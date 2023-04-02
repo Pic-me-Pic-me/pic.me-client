@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { IcClose } from '../../../asset/icon';
 import { votingImageState } from '../../../recoil/maker/atom';
 import { setCroppedImg } from '../../../utils/setCroppedImg';
+import { Modal } from '../../common';
 import { ImageCrop, ImageInput, TitleInput } from '../../Voting/maker';
 import HeaderLayout from '../HeaderLayout';
 
@@ -14,6 +15,7 @@ const MakerVotingLayout = () => {
   const navigate = useNavigate();
 
   const [isCropToggle, setIsCropToggle] = useState([false, false]);
+  const [isShowing, setIsShowing] = useState(false);
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | undefined>();
@@ -60,9 +62,19 @@ const MakerVotingLayout = () => {
     setIsCropToggle(newCrop);
   };
 
+  const handlePrevPage = () => {
+    setIsShowing(!isShowing);
+  };
+
   return (
     <>
-      <HeaderLayout HeaderTitle="사진선택" handleGoback={() => navigate('/home')} />
+      <Modal
+        isShowing={isShowing}
+        message="이 페이지를 나가면 저장되지 않습니다!"
+        handleHide={() => setIsShowing(!isShowing)}
+        handleConfirm={() => navigate('/home')}
+      />
+      <HeaderLayout HeaderTitle="사진선택" handleGoback={handlePrevPage} />
       {(isCropToggle[0] || isCropToggle[1]) && (
         <StImageCropLayoutWrapper>
           <StHeader>
