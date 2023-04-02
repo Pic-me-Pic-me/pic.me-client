@@ -22,6 +22,7 @@ export default function FlowerResult() {
   const setStickerResultState = useSetRecoilState(stickerResultState);
 
   const { userInfo } = useGetUserData();
+  const userHeaderTitle = userInfo?.userName + '님의 꽃인상 카드';
   const [isStickerOn, setIsStickerOn] = useState(true);
   const flowerInfo = voteResult?.Picture[0] as MakerPictureData;
   const flowerIndex = flowerInfo?.flower as number;
@@ -41,7 +42,7 @@ export default function FlowerResult() {
   return (
     <>
       <StResultWrapper flowerColor={FLOWER_ICON_LIST[flowerIndex - 1]?.color}>
-        <HeaderLayout HeaderTitle="이지윤님의 꽃인상 카드" handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
+        <HeaderLayout HeaderTitle={userHeaderTitle} handleGoback={() => navigate(-1)} isBanner></HeaderLayout>
         {isStickerOn ? <IcStickerOn onClick={handleStickerOnOff} /> : <IcStickerOff onClick={handleStickerOnOff} />}
         <StMainContentWrapper>
           <p>
@@ -143,10 +144,12 @@ const StKeywordsWrapper = styled.div<{ keywordCnt: number }>`
   ${({ keywordCnt }) =>
     keywordCnt === 5
       ? css`
-          width: 60%;
+          width: 55%;
+          gap: 1rem 3%;
         `
       : css`
           width: 73.68%;
+          gap: 1rem 2%;
         `}
 
   > div {
@@ -159,8 +162,6 @@ const StKeywordsWrapper = styled.div<{ keywordCnt: number }>`
             width: 23%;
           `}
   }
-
-  gap: 0.7rem;
 `;
 
 const StKeyWord = styled.div`

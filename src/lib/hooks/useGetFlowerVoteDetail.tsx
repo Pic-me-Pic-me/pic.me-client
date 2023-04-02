@@ -1,11 +1,11 @@
 import { AxiosResponse } from 'axios';
 import useSWR from 'swr';
 
-import { PictureInfo } from '../../types/vote';
+import { MakerVoteInfo } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
 const useGetFlowerVoteDetail = (voteId: string | undefined) => {
-  const { data, error } = useSWR<AxiosResponse<PictureInfo>>(`vote/common/${voteId}`, picmeGetFetcher, {
+  const { data, error } = useSWR<AxiosResponse<MakerVoteInfo>>(`vote/common/${voteId}`, picmeGetFetcher, {
     errorRetryCount: 3,
   });
 

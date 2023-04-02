@@ -3,7 +3,7 @@ import { recoilPersist } from 'recoil-persist';
 
 import {
   FlowerPictureInfo,
-  MakerFlowerVoteInfo,
+  MakerFlowerInfo,
   MakerPictureData,
   MakerVoteInfo,
   StickerResultInfo,
@@ -22,7 +22,7 @@ export const votingImageState = atom<VotingImageInfo>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const voteResultState = atom<MakerVoteInfo | MakerFlowerVoteInfo>({
+export const voteResultState = atom<MakerVoteInfo | MakerFlowerInfo>({
   key: 'voteResult',
   default: {
     userName: '',
