@@ -22,7 +22,8 @@ const KeyWordVoting = () => {
     navigate(-1);
   };
   const handleTagOverClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!(e.target instanceof HTMLLIElement)) setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
+    if (!(e.target instanceof HTMLLIElement) && !(e.target instanceof HTMLButtonElement) && keywordIdx === undefined)
+      setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
   };
 
   useEffect(() => {
