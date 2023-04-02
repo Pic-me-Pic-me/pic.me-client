@@ -22,7 +22,7 @@ export const votingImageState = atom<VotingImageInfo>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const voteResultState = atom<MakerVoteInfo | MakerFlowerInfo>({
+export const voteResultState = atom<MakerVoteInfo>({
   key: 'voteResult',
   default: {
     userName: '',
