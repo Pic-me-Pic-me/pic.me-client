@@ -137,10 +137,6 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
 
     transform-origin: 50% 50%;
     transform: ${({ location }) => `rotate(${location.degRate}deg)`};
-
-    :last-child {
-      display: none;
-    }
   }
   &:hover {
     & > svg:last-child {
