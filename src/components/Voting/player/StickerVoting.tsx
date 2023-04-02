@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
@@ -64,6 +64,10 @@ const StickerVoting = (props: StickerVotingProps) => {
       }));
     }
   };
+
+  useEffect(() => {
+    setStickerVotingInfo({ ...stickerVotingInfo, location: [] });
+  }, []);
 
   return (
     <>
