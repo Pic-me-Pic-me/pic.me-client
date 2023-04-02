@@ -94,7 +94,7 @@ const StVoteData = styled.article<{ isFlower: boolean }>`
 
   border-radius: 1.047rem 0rem 0rem 1.047rem;
 
-  & > h3 {
+  & > h3 > time {
     ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
     ${({ isFlower }) =>
       isFlower
