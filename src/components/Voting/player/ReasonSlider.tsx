@@ -35,6 +35,7 @@ const ReasonSlider = (props: ReasonSliderProps) => {
   const { ref, width } = useCarouselSize();
   const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
 
+  console.log('슬라이더', playerStickerInfo);
   const lottieList = [Face, Face, Angle, Mood, Just];
   const menuIconList: JSX.Element[] = isFlowerVoting
     ? [
@@ -58,7 +59,7 @@ const ReasonSlider = (props: ReasonSliderProps) => {
   const navIconRenderList = Array(4).fill(0);
 
   useEffect(() => {
-    if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx - 1 });
+    if (!playerStickerInfo.location.length) setPlayerStickerInfo({ ...playerStickerInfo, emoji: currentIdx });
   }, [currentIdx]);
 
   return (
