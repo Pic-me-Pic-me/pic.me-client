@@ -9,6 +9,7 @@ import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
 import { jsonFlowerGetStickerList } from '../../../utils/jsonGetStickerList';
 import { Error, Loading, StickerAttachImg } from '../../common';
+import StickerAttachPlayerImg from '../../common/StickerAttachPlayerImg';
 
 const StickerResultVoting = () => {
   const stickerVotingInfo = useRecoilValue(playerStickerInfoState);
@@ -20,7 +21,6 @@ const StickerResultVoting = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  console.log(stickerInfo);
 
   useEffect(() => {
     if (stickerInfo) {
@@ -32,10 +32,12 @@ const StickerResultVoting = () => {
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
 
+  console.log(stickerVotingInfo, '결과');
+
   return (
     <StStickerVotingWrapper>
       {pictureInfo && (
-        <StickerAttachImg
+        <StickerAttachPlayerImg
           stickerAttachImgSrc={pictureInfo.url}
           imgWrapperWidthPercent={90}
           imgHight={52}

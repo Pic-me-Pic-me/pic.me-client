@@ -57,7 +57,12 @@ const CurrentVoteSlider = () => {
             <li key={idx}>
               {currentIdx === idx ? (
                 <>
-                  <StickerAttachImg stickerAttachImgSrc={url} imgWrapperWidthPercent={100} imgHight={43.4} />
+                  <StickerAttachImg
+                    stickerAttachImgSrc={url}
+                    imgWrapperWidthPercent={100}
+                    imgHight={43.4}
+                    componentWidth={(width * 1.55) / 2}
+                  />
                 </>
               ) : (
                 <StUnselectedImg width={window.screen.width} src={url} alt="선택되지 않은 사진" />

@@ -10,7 +10,7 @@ const PictureVoting = () => {
   const navigate = useNavigate();
   const votingInfoAtom = useRecoilValue(votingInfoState);
 
-  const handleVotingSuccess = async () => {
+  const handleVotingSuccess = () => {
     navigate('/player/reason_voting');
   };
   const handlePrevpage = () => {

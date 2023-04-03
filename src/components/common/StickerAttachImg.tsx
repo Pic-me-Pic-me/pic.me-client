@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { FLOWER_ICON_LIST } from '../../constant/FlowerIconList';
 import { STICKER_LIST } from '../../constant/StickerIconList';
 import { stickerResultState } from '../../recoil/maker/atom';
+import { playerStickerInfoState } from '../../recoil/player/atom';
 import { NaturalImgInfo, StickerLocation } from '../../types/vote';
 import { setStickerLocationData } from '../../utils/setStickerLocationData';
 
@@ -12,25 +13,27 @@ interface StickerAttachImgProps {
   stickerAttachImgSrc: string;
   imgWrapperWidthPercent: number;
   imgHight: number;
+  componentWidth?: number;
   isFlowerVoting?: boolean;
 }
 const StickerAttachImg = (props: StickerAttachImgProps) => {
-  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, isFlowerVoting } = props;
+  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, componentWidth, isFlowerVoting } = props;
 
+  const playerStickerInfo = useRecoilValue(playerStickerInfoState);
   const stickerResult = useRecoilValue(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
+  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>({ width: 0, height: 0 });
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    setImgViewInfo({ width, height });
+    componentWidth ? setImgViewInfo({ width: componentWidth, height }) : setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
   return (
     <>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
-        {imgViewInfo &&
+        {imgViewInfo.width &&
           imgInfo &&
           stickerResult.map(({ stickerLocation, emoji }) =>
             stickerLocation.map((sticker, stickerIdx) => (

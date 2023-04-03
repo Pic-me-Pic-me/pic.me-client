@@ -47,6 +47,7 @@ const StickerAttachment = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  console.log(playerStickerVotingInfo, '스티커붙이기');
   return (
     <div>
       {isFlowerVoting ? (

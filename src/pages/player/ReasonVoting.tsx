@@ -12,11 +12,10 @@ import { pictureSelector } from '../../recoil/player/selector';
 
 const ReasonVoting = () => {
   const navigate = useNavigate();
-  const [playerStickerInfo, setStickerInfo] = useRecoilState(playerStickerInfoState);
+  const [playerStickerInfo, setPlayerStickerInfo] = useRecoilState(playerStickerInfoState);
   const pictureInfo = useRecoilValue(pictureSelector(playerStickerInfo.pictureId));
   const { isFlowerVoting } = playerStickerInfo;
 
-  console.log(playerStickerInfo);
   const handleVotingSuccess = () =>
     isFlowerVoting ? navigate('/player/flower/keyword_voting') : navigate('/player/sticker_voting');
 
@@ -24,11 +23,23 @@ const ReasonVoting = () => {
     navigate(-1);
   };
 
+  const handleImgSize = (e: React.SyntheticEvent) => {
+    const { width, height } = e.target as HTMLImageElement;
+    setPlayerStickerInfo((prev) => ({
+      ...prev,
+      pictureId: playerStickerInfo.pictureId,
+      location: [],
+      emoji: 0,
+      imgViewInfo: { width, height },
+    }));
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    setStickerInfo((prev) => ({ ...prev, pictureId: playerStickerInfo.pictureId, location: [], emoji: 0 }));
+    setPlayerStickerInfo((prev) => ({ ...prev, pictureId: playerStickerInfo.pictureId, location: [], emoji: 0 }));
   }, []);
 
+  console.log(playerStickerInfo, '이유선택');
   return (
     <div>
       {isFlowerVoting ? (
@@ -44,7 +55,7 @@ const ReasonVoting = () => {
         handlePlayer={handleVotingSuccess}>
         {
           <StReasonVotingWrpper>
-            <img src={pictureInfo?.url} alt="사진 이유고르기" />
+            <img src={pictureInfo?.url} alt="사진 이유고르기" onLoad={handleImgSize} />
             <ReasonSlider isFlowerVoting={isFlowerVoting} />
           </StReasonVotingWrpper>
         }

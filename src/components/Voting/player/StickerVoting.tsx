@@ -16,15 +16,13 @@ interface StickerVotingProps {
 const StickerVoting = (props: StickerVotingProps) => {
   const { isStickerGuide } = props;
   const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(playerStickerInfoState);
-  const { location: stickerList, emoji, isFlowerVoting } = stickerVotingInfo;
+  const { location: stickerList, emoji, isFlowerVoting, imgViewInfo } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
-
   const handleImgSize = (e: React.SyntheticEvent) => {
-    const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    setImgViewInfo({ width, height });
+    const { naturalWidth, naturalHeight } = e.target as HTMLImageElement;
+
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 

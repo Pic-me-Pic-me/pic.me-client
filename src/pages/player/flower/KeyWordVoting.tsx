@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcBlackHeaderSecond } from '../../../asset/icon';
@@ -22,14 +22,15 @@ const KeyWordVoting = () => {
     navigate(-1);
   };
   const handleTagOverClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ((!(e.target instanceof HTMLLIElement) || e.target instanceof HTMLButtonElement) && keywordIdx === undefined) {
+    if ((!(e.target instanceof HTMLLIElement) || e.target instanceof HTMLButtonElement) && keywordIdx === undefined)
       setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
-    }
   };
-
   useEffect(() => {
     setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
   }, []);
+
+  console.log(playerStickerInfo, '키워드 보기');
+
   return (
     <div onClick={handleTagOverClick}>
       <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcBlackHeaderSecond />} />
