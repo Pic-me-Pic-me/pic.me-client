@@ -30,7 +30,7 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
   };
 
   useEffect(() => {
-    isFlowerVoting && setImgViewInfo(playerStickerInfo.imgViewInfo);
+    playerStickerInfo.imgViewInfo.width && setImgViewInfo(playerStickerInfo.imgViewInfo);
   }, []);
 
   return (
