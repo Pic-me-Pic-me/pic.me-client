@@ -24,6 +24,8 @@ const StickerVoting = (props: StickerVotingProps) => {
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
+
+    console.log(naturalWidth, naturalHeight, width, height);
     setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
@@ -67,13 +69,13 @@ const StickerVoting = (props: StickerVotingProps) => {
 
   useEffect(() => {
     setStickerVotingInfo({ ...stickerVotingInfo, location: [] });
+    console.log(imgViewInfo);
   }, []);
+  console.log('컴포넌트밖', imgViewInfo);
 
   return (
     <>
       <StStickerVotingWrapper>
-        <span>{imgViewInfo?.width}</span>
-        <span>{imgViewInfo?.height}</span>
         <article>
           <StStickerImg
             onLoad={handleImgSize}
