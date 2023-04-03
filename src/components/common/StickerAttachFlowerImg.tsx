@@ -25,9 +25,12 @@ const StickerAttachFlowerImg = (props: StickerAttachImgProps) => {
     setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
+
+  console.log(imgViewInfo, '꽃');
+
   return (
     <>
-      <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
+      <StStickerAttachImgWrapper width={imgWrapperWidthPercent} onLoad={handleImgSize}>
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&
           imgInfo &&
