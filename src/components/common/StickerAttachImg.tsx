@@ -13,10 +13,11 @@ interface StickerAttachImgProps {
   stickerAttachImgSrc: string;
   imgWrapperWidthPercent: number;
   imgHight: number;
+  componentWidth?: number;
   isFlowerVoting?: boolean;
 }
 const StickerAttachImg = (props: StickerAttachImgProps) => {
-  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, isFlowerVoting } = props;
+  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, componentWidth, isFlowerVoting } = props;
 
   const playerStickerInfo = useRecoilValue(playerStickerInfoState);
   const stickerResult = useRecoilValue(stickerResultState);
@@ -25,16 +26,9 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    // console.log({ width: naturalWidth, height: naturalHeight });
-    setImgViewInfo({ width, height });
+    componentWidth ? setImgViewInfo({ width: componentWidth, height }) : setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
-
-  useEffect(() => {
-    playerStickerInfo.imgViewInfo.width && setImgViewInfo(playerStickerInfo.imgViewInfo);
-  }, []);
-  console.log(imgViewInfo, (54 * imgViewInfo.width) / 390);
-
   return (
     <>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
