@@ -36,6 +36,20 @@ export const voteResultState = atom<MakerVoteInfo>({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const flowerResultState = atom<MakerVoteInfo>({
+  key: 'flowerResult',
+  default: {
+    userName: '',
+    voteId: 0,
+    voteStatus: true,
+    voteTitle: '',
+    Picture: [],
+    currentVote: 0,
+    createdDate: new Date(),
+  },
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const pictureResultState = atom<MakerPictureData[]>({
   key: 'pictureResult',
   default: [
@@ -49,7 +63,7 @@ export const pictureResultState = atom<MakerPictureData[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const flowerPictureResultState = atom<FlowerPictureInfo[]>({
+export const flowerPictureState = atom<MakerPictureData[]>({
   key: 'flowerPictureResult',
   default: [
     {
@@ -57,12 +71,25 @@ export const flowerPictureResultState = atom<FlowerPictureInfo[]>({
       count: 0,
       pictureId: 0,
       url: '',
-      flower: 0,
-      keywords: [],
     },
   ],
   effects_UNSTABLE: [persistAtom],
 });
+
+// export const flowerPictureResultState = atom<FlowerPictureInfo[]>({
+//   key: 'flowerPictureResult',
+//   default: [
+//     {
+//       Sticker: [],
+//       count: 0,
+//       pictureId: 0,
+//       url: '',
+//       flower: 0,
+//       keywords: [],
+//     },
+//   ],
+//   effects_UNSTABLE: [persistAtom],
+// });
 
 export const pictureCurrentIdx = atom<number>({
   key: 'pictureCurrentIdx',
