@@ -29,6 +29,8 @@ const KeyWordVoting = () => {
     setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
   }, []);
 
+  console.log(playerStickerInfo, '키워드 보기');
+
   return (
     <div onClick={handleTagOverClick}>
       <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcBlackHeaderSecond />} />

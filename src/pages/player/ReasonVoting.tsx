@@ -38,6 +38,8 @@ const ReasonVoting = () => {
     window.scrollTo(0, 0);
     setPlayerStickerInfo((prev) => ({ ...prev, pictureId: playerStickerInfo.pictureId, location: [], emoji: 0 }));
   }, []);
+
+  console.log(playerStickerInfo, '이유선택');
   return (
     <div>
       {isFlowerVoting ? (
