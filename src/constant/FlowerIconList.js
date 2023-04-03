@@ -739,7 +739,7 @@ export const FLOWER_ICON_LIST = [
     name: '장미 Keyword',
     flowerEngName: 'ROSE',
     flowerKorName: '장미',
-    color: '##801115',
+    color: '#801115',
     tagColor: '#FF5D5D',
     keywordList: ['고귀함', '치명적', '강렬함', '매혹적', '화려함'],
     icon: (size) => (
