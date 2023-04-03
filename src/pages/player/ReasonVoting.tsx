@@ -16,7 +16,6 @@ const ReasonVoting = () => {
   const pictureInfo = useRecoilValue(pictureSelector(playerStickerInfo.pictureId));
   const { isFlowerVoting } = playerStickerInfo;
 
-  console.log(playerStickerInfo);
   const handleVotingSuccess = () =>
     isFlowerVoting ? navigate('/player/flower/keyword_voting') : navigate('/player/sticker_voting');
 

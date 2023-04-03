@@ -20,7 +20,6 @@ const StickerResultVoting = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  console.log(stickerInfo);
 
   useEffect(() => {
     if (stickerInfo) {
