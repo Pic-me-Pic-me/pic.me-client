@@ -21,7 +21,7 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
   const playerStickerInfo = useRecoilValue(playerStickerInfoState);
   const stickerResult = useRecoilValue(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
+  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>({ width: 0, height: 0 });
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
@@ -30,14 +30,14 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
   };
 
   useEffect(() => {
-    playerStickerInfo.imgViewInfo.width && setImgViewInfo(playerStickerInfo.imgViewInfo);
+    // playerStickerInfo.imgViewInfo.width && setImgViewInfo(playerStickerInfo.imgViewInfo);
   }, []);
 
   return (
     <>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
-        {imgViewInfo &&
+        {imgViewInfo.width &&
           imgInfo &&
           stickerResult.map(({ stickerLocation, emoji }) =>
             stickerLocation.map((sticker, stickerIdx) => (
