@@ -141,7 +141,7 @@ export const reset = css`
 export const GlobalStyle = createGlobalStyle`
 ${reset}
 .notosanskr * { 
- font-family: 'Noto Sans KR', sans-serif;
+ font-family: 'Noto Sans KR';
 }
 
 #root, body, html {
