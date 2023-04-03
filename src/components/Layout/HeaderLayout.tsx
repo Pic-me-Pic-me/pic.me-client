@@ -33,6 +33,7 @@ export default HeaderLayout;
 
 const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
+  justify-content: center;
   align-items: center;
 
   position: ${({ isBanner }) => !isBanner && 'fixed'};
@@ -42,6 +43,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   padding-right: 3.8rem;
 
   width: 100%;
+  max-width: 43rem;
 
   background: none;
 
