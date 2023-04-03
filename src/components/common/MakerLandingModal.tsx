@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { IcClose } from '../../asset/icon';
@@ -10,6 +11,7 @@ export interface MakerLandingModalProps {
 
 const MakerLandingModal = (props: MakerLandingModalProps) => {
   const { isShowing, handleHide } = props;
+  const navigate = useNavigate();
   return (
     <>
       {isShowing && (
@@ -30,7 +32,7 @@ const MakerLandingModal = (props: MakerLandingModalProps) => {
               <button type="button" onClick={handleHide}>
                 취소
               </button>
-              <button type="button" onClick={handleHide}>
+              <button type="button" onClick={() => navigate('/login')}>
                 확인
               </button>
             </StButtonWrapper>
