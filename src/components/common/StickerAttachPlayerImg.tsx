@@ -9,32 +9,24 @@ import { playerStickerInfoState } from '../../recoil/player/atom';
 import { NaturalImgInfo, StickerLocation } from '../../types/vote';
 import { setStickerLocationData } from '../../utils/setStickerLocationData';
 
-interface StickerAttachImgProps {
+interface StickerAttachPlayerImgProps {
   stickerAttachImgSrc: string;
   imgWrapperWidthPercent: number;
   imgHight: number;
   isFlowerVoting?: boolean;
 }
-const StickerAttachImg = (props: StickerAttachImgProps) => {
+const StickerAttachPlayerImg = (props: StickerAttachPlayerImgProps) => {
   const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, isFlowerVoting } = props;
 
   const playerStickerInfo = useRecoilValue(playerStickerInfoState);
+  const { imgViewInfo } = playerStickerInfo;
   const stickerResult = useRecoilValue(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>({ width: 0, height: 0 });
 
   const handleImgSize = (e: React.SyntheticEvent) => {
-    const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    // console.log({ width: naturalWidth, height: naturalHeight });
-    setImgViewInfo({ width, height });
+    const { naturalWidth, naturalHeight } = e.target as HTMLImageElement;
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
-
-  useEffect(() => {
-    playerStickerInfo.imgViewInfo.width && setImgViewInfo(playerStickerInfo.imgViewInfo);
-  }, []);
-  console.log(imgViewInfo, (54 * imgViewInfo.width) / 390);
-
   return (
     <>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
@@ -56,7 +48,7 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
     </>
   );
 };
-export default StickerAttachImg;
+export default StickerAttachPlayerImg;
 
 const StStickerAttachImgWrapper = styled.div<{ width: number }>`
   display: flex;
