@@ -19,9 +19,9 @@ const PlayerLanding = () => {
   const resetStickerInfoState = useResetRecoilState(playerStickerInfoState);
 
   useEffect(() => {
+    resetVotingInfoState();
+    resetStickerInfoState();
     if (votingInfo?.data) {
-      resetVotingInfoState();
-      resetStickerInfoState();
       setVotingInfoState({
         ...votingInfo?.data,
         isFlowerVoting: votingInfo.data.type === FLOWER_VOTING_TYPE,
