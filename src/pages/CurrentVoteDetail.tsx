@@ -34,7 +34,6 @@ const CurrentVoteDetail = () => {
     if (voteResult) {
       setVoteResult(voteResult);
       setPictureResultState(voteResult.Picture);
-      window.scrollTo(0, 0);
     }
   }, [currentIdx, voteResult]);
 

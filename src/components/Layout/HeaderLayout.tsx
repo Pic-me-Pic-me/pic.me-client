@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { IcGoback } from '../../asset/icon';
@@ -11,6 +11,10 @@ interface LayoutProps {
 
 const HeaderLayout = (props: LayoutProps) => {
   const { HeaderTitle, isBanner, handleGoback } = props;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -72,5 +76,5 @@ const StTitle = styled.div<{ isBanner?: boolean }>`
 `;
 
 const StHeaderPadding = styled.div`
-  padding-top: 7rem;
+  margin-top: 7rem;
 `;
