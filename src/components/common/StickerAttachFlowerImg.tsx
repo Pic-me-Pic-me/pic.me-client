@@ -12,26 +12,27 @@ interface StickerAttachImgProps {
   stickerAttachImgSrc: string;
   imgWrapperWidthPercent: number;
   imgHight: number;
+  imgViewInfo: NaturalImgInfo;
 }
 const StickerAttachFlowerImg = (props: StickerAttachImgProps) => {
-  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight } = props;
+  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, imgViewInfo } = props;
 
   const stickerResult = useRecoilValue(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
+  // const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    console.log(width, height, '온로드요');
-    setImgViewInfo({ width, height });
+    // console.log(width, height, '온로드요');
+    // setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
 
-  console.log(imgViewInfo, '꽃');
+  // console.log(imgViewInfo, '꽃');
 
   return (
     <>
-      <StStickerAttachImgWrapper width={imgWrapperWidthPercent} onLoad={handleImgSize}>
+      <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&
           imgInfo &&
