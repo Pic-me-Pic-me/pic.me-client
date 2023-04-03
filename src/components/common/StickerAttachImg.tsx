@@ -32,6 +32,7 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
   useEffect(() => {
     // playerStickerInfo.imgViewInfo.width && setImgViewInfo(playerStickerInfo.imgViewInfo);
   }, []);
+  console.log(imgViewInfo, (54 * imgViewInfo.width) / 390);
 
   return (
     <>
