@@ -69,9 +69,7 @@ const StickerVoting = (props: StickerVotingProps) => {
 
   useEffect(() => {
     setStickerVotingInfo({ ...stickerVotingInfo, location: [] });
-    console.log(imgViewInfo);
   }, []);
-  console.log('컴포넌트밖', imgViewInfo);
 
   return (
     <>
