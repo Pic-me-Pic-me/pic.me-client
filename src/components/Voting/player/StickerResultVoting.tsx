@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { FLOWER_VOTING_TYPE } from '../../../constant/playerInfo';
 import { useGetResultVoting } from '../../../lib/hooks/useGetResultVoting';
 import { stickerResultState } from '../../../recoil/maker/atom';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
@@ -19,6 +20,7 @@ const StickerResultVoting = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  console.log(stickerInfo);
 
   useEffect(() => {
     if (stickerInfo) {
@@ -33,7 +35,12 @@ const StickerResultVoting = () => {
   return (
     <StStickerVotingWrapper>
       {pictureInfo && (
-        <StickerAttachImg stickerAttachImgSrc={pictureInfo.url} imgWrapperWidthPercent={90} imgHight={52} />
+        <StickerAttachImg
+          stickerAttachImgSrc={pictureInfo.url}
+          imgWrapperWidthPercent={90}
+          imgHight={52}
+          isFlowerVoting={stickerInfo?.type === FLOWER_VOTING_TYPE}
+        />
       )}
     </StStickerVotingWrapper>
   );
