@@ -16,14 +16,17 @@ const KeyWordVoting = () => {
 
   const handleVotingSuccess = () => {
     keywordIdx !== undefined && navigate('/player/sticker_voting');
+
   };
 
   const handlePrevpage = () => {
     navigate(-1);
   };
   const handleTagOverClick = (e: React.MouseEvent<HTMLDivElement>) => {
+
     if ((!(e.target instanceof HTMLLIElement) || e.target instanceof HTMLButtonElement) && keywordIdx === undefined)
       setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
+    }
   };
 
   useEffect(() => {

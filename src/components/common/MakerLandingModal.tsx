@@ -23,7 +23,7 @@ const MakerLandingModal = (props: MakerLandingModalProps) => {
             </StTopWrapper>
             <StModalContent>
               <span>나를 닮은 꽃은?</span>
-              <p>테스트 참여하기</p>
+              <p>테스트 하러가기</p>
             </StModalContent>
             <StModalSubContent>친구들이 보는 내 꽃인상을 확인해보세요!</StModalSubContent>
             <StButtonWrapper>
@@ -101,7 +101,7 @@ const StModalContent = styled.div`
 
   & > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-    ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1}
+    ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
   }
   & > p {
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};

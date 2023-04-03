@@ -92,8 +92,9 @@ const StModalSubContent = styled.p<{ isFinishing?: boolean; isDeleteUser?: boole
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
 
-  > span {
+  & > span {
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+    ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12};
   }
 `;
 

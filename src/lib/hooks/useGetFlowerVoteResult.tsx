@@ -8,7 +8,6 @@ const useGetFlowerVoteResult = (voteId: string | undefined) => {
   const { data, error } = useSWR<AxiosResponse<MakerFlowerInfo>>(`flower/library/${voteId}`, picmeGetFetcher, {
     errorRetryCount: 3,
   });
-  console.log(data);
 
   return {
     voteResult: data?.data,

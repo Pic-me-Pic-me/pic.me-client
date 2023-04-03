@@ -25,7 +25,7 @@ const KeyWordTag = () => {
     <StKeyWordTagWrapper>
       {FLOWER_ICON_LIST[emoji].icon(window.screen.width * 0.6)}
       <h5>{FLOWER_ICON_LIST[emoji].name}</h5>
-      <StKeyWordUl liColor={FLOWER_ICON_LIST[emoji].color} flowerType={FLOWER_ICON_LIST[emoji].id}>
+      <StKeyWordUl liColor={FLOWER_ICON_LIST[emoji].tagColor} flowerType={FLOWER_ICON_LIST[emoji].id}>
         {TAG_LIST[emoji].map((tagData, idx) => (
           <li key={tagData} onClick={handleKeyWordTag}>
             {keywordIdx === idx && (

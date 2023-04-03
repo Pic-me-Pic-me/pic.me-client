@@ -12,9 +12,10 @@ interface StickerAttachImgProps {
   stickerAttachImgSrc: string;
   imgWrapperWidthPercent: number;
   imgHight: number;
+  isFlowerVoting?: boolean;
 }
 const StickerAttachImg = (props: StickerAttachImgProps) => {
-  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight } = props;
+  const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, isFlowerVoting } = props;
 
   const stickerResult = useRecoilValue(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
@@ -31,7 +32,7 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&
           imgInfo &&
-          stickerResult.map(({ stickerLocation, emoji, isFlowerVoting }, idx) =>
+          stickerResult.map(({ stickerLocation, emoji }) =>
             stickerLocation.map((sticker, stickerIdx) => (
               <StEmojiIcon
                 key={`sticker${stickerIdx}_${emoji}`}

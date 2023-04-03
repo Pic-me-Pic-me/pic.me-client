@@ -86,7 +86,7 @@ const fonts = {
     line-height: 1.671rem;
   `,
   Pic_Noto_B_Title_1: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 700;
     font-size: 2rem;
@@ -94,7 +94,7 @@ const fonts = {
     letter-spacing: -0.03em;
   `,
   Pic_Noto_SB_Title_2: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 600;
     font-size: 1.6rem;
@@ -102,14 +102,14 @@ const fonts = {
     letter-spacing: -0.02em;
   `,
   Pic_Noto_B_Title_3: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 700;
     font-size: 4rem;
     line-height: 3.95rem;
   `,
   Pic_Noto_M_Subtitle_1: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
     font-size: 1.2rem;
@@ -117,7 +117,7 @@ const fonts = {
     letter-spacing: -0.05em;
   `,
   Pic_Noto_SB_Subtitle_2: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 600;
     font-size: 1.2rem;
@@ -125,7 +125,7 @@ const fonts = {
     letter-spacing: -0.02em;
   `,
   Pic_Noto_M_Subtitle_3: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
     font-size: 1.6rem;
@@ -133,7 +133,7 @@ const fonts = {
     letter-spacing: -0.02em;
   `,
   Pic_Noto_M_Subtitle_4: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
     font-size: 1.2rem;
@@ -141,7 +141,7 @@ const fonts = {
     letter-spacing: -0.02em;
   `,
   Pic_Noto_M_Subtitle_5: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
     font-size: 1.4rem;
@@ -149,7 +149,7 @@ const fonts = {
     letter-spacing: -0.05em;
   `,
   Pic_Noto_SB_Subtitle_6: css`
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 600;
     font-size: 1.4rem;
