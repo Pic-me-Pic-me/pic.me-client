@@ -30,11 +30,14 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
   };
 
   useEffect(() => {
+    console.log(playerStickerInfo);
     playerStickerInfo.imgViewInfo.width && setImgViewInfo(playerStickerInfo.imgViewInfo);
   }, []);
 
   return (
     <>
+      <span>{playerStickerInfo.imgViewInfo.width}</span>
+      <span>{playerStickerInfo.imgViewInfo.height}</span>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&
