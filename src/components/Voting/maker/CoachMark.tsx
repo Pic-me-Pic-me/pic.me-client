@@ -11,7 +11,6 @@ const CoachMark = () => (
     </StGuideText>
   </StGuidePopUpWrapper>
 );
-
 export default CoachMark;
 
 const StGuidePopUpWrapper = styled.div`
@@ -26,19 +25,21 @@ const StGuidePopUpWrapper = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  background-color: #000000;
 
   z-index: 1000;
-  opacity: 0.7;
+  opacity: 0.8;
 
   svg {
+    width: 6.473rem;
+    height: 6.473rem;
     margin-bottom: 3.142rem;
   }
 `;
 
 const StGuideText = styled.p`
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Subtitle1_Pretendard_Semibold_20};
+  ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
 
   text-align: center;
 `;

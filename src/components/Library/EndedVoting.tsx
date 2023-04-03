@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { IcDelete } from '../../asset/icon';
+import { IcDelete, IcLibraryFlower } from '../../asset/icon';
 import { VoteInfo } from '../../types/library';
 import Modal from '../common/Modal';
 
-interface votingProps {
+interface endedVotingProps {
+  voteType: number;
   voteData: VoteInfo;
   id: string;
   handleDeleteVote: (id: string) => void;
 }
 
-const EndedVoting = (props: votingProps) => {
-  const { voteData, id, handleDeleteVote } = props;
+const EndedVoting = (props: endedVotingProps) => {
+  const { voteType, voteData, id, handleDeleteVote } = props;
   const navigate = useNavigate();
 
+  const isFlower = voteType === 2 ? true : false;
   const [isShowing, setIsShowing] = useState<boolean>(false);
 
   const createdAtStr = voteData.createdAt.toString();
@@ -32,7 +34,7 @@ const EndedVoting = (props: votingProps) => {
   };
 
   const handleGoToResult = () => {
-    navigate(`/result/${id}`);
+    isFlower ? navigate(`/result/flower/${id}`) : navigate(`/result/${id}`);
   };
 
   return (
@@ -40,16 +42,17 @@ const EndedVoting = (props: votingProps) => {
       <StVotingWrapper>
         <StImgWrapper>
           <StVotingPic src={voteData.url} onClick={handleGoToResult} alt="종료된 투표의 선택된 사진" />
+          {isFlower ? <IcLibraryFlower /> : null}
           <StDeleteBtnWrapper type="button" onClick={() => handleModal(isShowing)}>
             <IcDelete />
           </StDeleteBtnWrapper>
         </StImgWrapper>
-        <StVotingDesc onClick={handleGoToResult}>
-          <StVotingTitle>{voteData.title}</StVotingTitle>
-          <StVotingDate>
+        <StVotingDesc onClick={handleGoToResult} isFlower={isFlower}>
+          <StVotingTitle>{isFlower ? '나를 닮은 꽃은?' : voteData.title}</StVotingTitle>
+          <StVotingDate isFlower={isFlower}>
             {createdMonth}월 {createdDate}일
           </StVotingDate>
-          <StVotingPeopleNum>{voteData.count}명 투표 완</StVotingPeopleNum>
+          {isFlower ? null : <StVotingPeopleNum>{voteData.count}명 투표 완</StVotingPeopleNum>}
         </StVotingDesc>
       </StVotingWrapper>
       <Modal
@@ -67,6 +70,7 @@ const StVotingWrapper = styled.section`
   flex-direction: column;
 
   position: relative;
+
   margin-bottom: 4.906rem;
 
   :last-child {
@@ -78,9 +82,18 @@ const StVotingWrapper = styled.section`
 const StImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   margin: 0;
   padding: 0;
+
+  > svg {
+    position: absolute;
+    z-index: 4;
+
+    margin-top: 1.045rem;
+    margin-left: 1.097rem;
+  }
 `;
 
 const StVotingPic = styled.img`
@@ -103,43 +116,55 @@ const StDeleteBtnWrapper = styled.button`
   position: absolute;
   top: 0.285rem;
   right: -0.7rem;
+
   border: none;
   background-color: transparent;
 `;
 
-const StVotingDesc = styled.div`
+const StVotingDesc = styled.div<{ isFlower: boolean }>`
   width: 17.8rem;
   height: 8.6rem;
-
   position: relative;
 
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+  ${({ isFlower }) =>
+    isFlower
+      ? css`
+          background-color: #ff5e67;
+        `
+      : css`
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
+        `};
+
   border-radius: 0rem 0rem 1.141rem 1.141rem;
 `;
 
 const StVotingTitle = styled.h2`
-  margin-top: 1.3rem;
+  width: 12.687rem;
+  height: 3.814rem;
+
+  margin-top: 1.1rem;
   margin-left: 1.4rem;
 
   overflow: hidden;
   text-overflow: ellipsis;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
-  ${({ theme }) => theme.fonts.Pic_Body2_Pretendard_Bold_16}
+  ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_6}
 `;
 
-const StVotingDate = styled.p`
-  margin-top: 0.6rem;
-  margin-left: 1.426rem;
+const StVotingDate = styled.p<{ isFlower: boolean }>`
+  margin-left: 1.4rem;
+  position: absolute;
+  bottom: 0.9rem;
 
-  color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4}
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_5};
 `;
 
 const StVotingPeopleNum = styled.p`
   position: absolute;
   right: 1.136rem;
-  bottom: 1.083rem;
+  bottom: 0.9rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   ${({ theme }) => theme.fonts.Pic_Caption1_Pretendard_Semibold_12}

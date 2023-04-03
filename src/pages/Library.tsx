@@ -70,7 +70,6 @@ const StMonthVotingInfo = styled.article`
   flex-direction: column;
 
   width: 100%;
-
   margin-top: 3.3rem;
 
   overflow-y: scroll;
@@ -87,6 +86,7 @@ const StEmptyView = styled.main`
   > p {
     margin-top: 3.429rem;
     margin-bottom: 43.7rem;
+
     ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
   }

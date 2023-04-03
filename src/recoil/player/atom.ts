@@ -19,16 +19,18 @@ export const votingInfoState = atom<VoteInfo>({
       { id: 1, url: PictureId1 },
       { id: 2, url: PictureId2 },
     ],
+    isFlowerVoting: true,
   },
   effects_UNSTABLE: [persistAtom],
 });
 export const playerStickerInfoState = atom<PlayerStickerInfo>({
   key: 'playerStickerInfo',
   default: {
-    pictureId: 0,
+    pictureId: 1,
     location: [],
     emoji: 0,
     imgViewInfo: { width: 0, height: 0 },
+    isFlowerVoting: true,
   },
   effects_UNSTABLE: [persistAtom],
 });

@@ -44,7 +44,7 @@ const StHamburgerWrapper = styled.ul<{ isOpen?: boolean }>`
   ${({ isOpen }) =>
     isOpen
       ? css`
-          top: 8.8rem;
+          top: 7.674rem;
         `
       : css`
           top: -100%;
@@ -57,13 +57,13 @@ const StHamburgerMenu = styled.li`
   padding: 2rem 2.8rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-  ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_3};
 
   & > a {
     display: block;
 
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-    ${({ theme }) => theme.fonts.Pic_Subtitle2_Pretendard_Medium_18};
+    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_3};
   }
 
   cursor: pointer;

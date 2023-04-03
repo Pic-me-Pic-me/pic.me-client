@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IcCancel } from '../../../asset/icon';
+import { FLOWER_ICON_LIST } from '../../../constant/FlowerIconList';
 import { STICKER_LIST } from '../../../constant/StickerIconList';
 import { playerStickerInfoState } from '../../../recoil/player/atom';
 import { pictureSelector } from '../../../recoil/player/selector';
@@ -15,7 +16,7 @@ interface StickerVotingProps {
 const StickerVoting = (props: StickerVotingProps) => {
   const { isStickerGuide } = props;
   const [stickerVotingInfo, setStickerVotingInfo] = useRecoilState(playerStickerInfoState);
-  const { location: stickerList, emoji } = stickerVotingInfo;
+  const { location: stickerList, emoji, isFlowerVoting } = stickerVotingInfo;
   const pictureInfo = useRecoilValue(pictureSelector(stickerVotingInfo.pictureId));
   const stickerImgRef = useRef<HTMLImageElement>(null);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
@@ -28,7 +29,12 @@ const StickerVoting = (props: StickerVotingProps) => {
   };
 
   const handleAttachSticker = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (stickerImgRef.current && stickerList.length !== 3 && imgInfo && imgViewInfo) {
+    if (
+      stickerImgRef.current &&
+      ((!isFlowerVoting && stickerList.length !== 3) || (isFlowerVoting && !stickerList.length)) &&
+      imgInfo &&
+      imgViewInfo
+    ) {
       const { offsetX, offsetY } = e.nativeEvent;
       if (offsetY - 27 >= 0 || offsetX - 27 >= 0) {
         const newSticker: StickerLocation = {
@@ -41,6 +47,7 @@ const StickerVoting = (props: StickerVotingProps) => {
           imgViewInfo,
           location: [...prev.location, newSticker],
           emoji,
+          isFlowerVoting,
         }));
       }
     }
@@ -58,6 +65,10 @@ const StickerVoting = (props: StickerVotingProps) => {
     }
   };
 
+  useEffect(() => {
+    setStickerVotingInfo({ ...stickerVotingInfo, location: [] });
+  }, []);
+
   return (
     <>
       <StStickerVotingWrapper>
@@ -74,7 +85,9 @@ const StickerVoting = (props: StickerVotingProps) => {
             imgInfo &&
             stickerList.map((sticker, idx) => (
               <StEmojiIcon key={`sticker.x${idx}`} location={setStickerLocationData(sticker, imgViewInfo, imgInfo)}>
-                {STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
+                {isFlowerVoting
+                  ? FLOWER_ICON_LIST[emoji].icon((54 * imgViewInfo.width) / 390)
+                  : STICKER_LIST[emoji].icon((54 * imgViewInfo.width) / 390)}
                 <IcCancel onClick={handleDeleteSticker} data-sticker={`${idx}`} />
               </StEmojiIcon>
             ))}
@@ -124,10 +137,6 @@ const StEmojiIcon = styled.div<{ location: StickerLocation }>`
 
     transform-origin: 50% 50%;
     transform: ${({ location }) => `rotate(${location.degRate}deg)`};
-
-    :last-child {
-      display: none;
-    }
   }
   &:hover {
     & > svg:last-child {
