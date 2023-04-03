@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcFlowerOnboarding, IcLogoSmall, IcOBD1, IcSolution1, IcSolution2, IcSolution3 } from '../../asset/icon';
+import { IcFlowerOnboarding, IcLogoSmall, IcOBD1 } from '../../asset/icon';
 import { lottie1, lottie2, lottie3 } from '../../asset/lottie';
 import useModal from '../../lib/hooks/useModal';
 import MakerLandingModal from '../common/MakerLandingModal';
@@ -49,22 +49,22 @@ const MakerLanding = () => {
           </h1>
           <h1>이러한 솔루션을 제안합니다!</h1>
           <StFirstSolution>
-            <Lottie className="lotte" animationData={lottie1} loop={true} />
-            <IcSolution1 />
+            <Lottie className="lottie" animationData={lottie1} loop={true} />
+            <span>solution 1</span>
             <h1>빠른 투표 생성과 공유</h1>
             <p>제목과 사진만으로 빠르게 투표를 생성해요!</p>
             <p>단 한번의 공유로 투표를 진행할 수 있어요!</p>
           </StFirstSolution>
           <StSecondSolution>
-            <Lottie className="lotte" animationData={lottie2} loop={true}></Lottie>
-            <IcSolution2 />
+            <Lottie className="lottie" animationData={lottie2} loop={true}></Lottie>
+            <span>solution 2</span>
             <h1>현재 활동하는 지인의 선택</h1>
             <p> SNS 스토리에 링크를 공유해</p>
             <p>친구의 선택을 빠르게 확인할 수 있어요!</p>
           </StSecondSolution>
           <StThirdSolution>
-            <Lottie className="lotte" animationData={lottie3} loop={true}></Lottie>
-            <IcSolution3 />
+            <Lottie className="lottie" animationData={lottie3} loop={true}></Lottie>
+            <span>solution 3</span>
             <h1>한눈에 확인할 수 있는 투표 결과</h1>
             <p>원하는 시간에 마감하고 Pic.me만의 결과물로</p>
             <p>한눈에 친구들의 시선을 확인할 수 있어요!</p>
@@ -193,12 +193,20 @@ const StFirstSolution = styled.article`
 
   text-align: center;
 
-  & > svg {
-    padding-top: 2.043rem;
-    padding-bottom: 1.821rem;
+  & > .lottie {
+    padding-bottom: 2.621rem;
+  }
+
+  & > span {
+    padding: 0.8rem 2.4rem 0.7rem 2.26rem;
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+    ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
+    border-radius: 2rem;
   }
 
   & > h1 {
+    padding-top: 2.28rem;
     padding-bottom: 1.8rem;
     ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1};
     color: ${({ theme }) => theme.colors.Pic_Color_Coral};
