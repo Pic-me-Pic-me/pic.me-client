@@ -32,7 +32,7 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&
           imgInfo &&
-          stickerResult.map(({ stickerLocation, emoji }, idx) =>
+          stickerResult.map(({ stickerLocation, emoji }) =>
             stickerLocation.map((sticker, stickerIdx) => (
               <StEmojiIcon
                 key={`sticker${stickerIdx}_${emoji}`}
