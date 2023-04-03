@@ -24,7 +24,7 @@ const HeaderLayout = (props: LayoutProps) => {
           <h1>{HeaderTitle}</h1>
         </StTitle>
       </StHeader>
-      <StHeaderPadding />
+      {!isBanner && <StHeaderPadding />}
     </>
   );
 };
@@ -35,7 +35,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
 
-  position: fixed;
+  position: ${({ isBanner }) => !isBanner && 'fixed'};
 
   top: 0rem;
   height: 7rem;
