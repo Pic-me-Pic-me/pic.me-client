@@ -50,6 +50,8 @@ export { ReactComponent as IcSkeletonMenu } from './ic_skeleton_menu.svg';
 export { ReactComponent as IcSolution1 } from './ic_solution1.svg';
 export { ReactComponent as IcSolution2 } from './ic_solution2.svg';
 export { ReactComponent as IcSolution3 } from './ic_solution3.svg';
+export { ReactComponent as IcStickerOff } from './ic_stickerOff.svg';
+export { ReactComponent as IcStickerOn } from './ic_stickerOn.svg';
 export { ReactComponent as IcStickers } from './ic_stickers.svg';
 export { ReactComponent as IcBallon } from './IcBallon.svg';
 export { ReactComponent as IcBlackHeaderFirst } from './IcBlackHeaderFirst.svg';

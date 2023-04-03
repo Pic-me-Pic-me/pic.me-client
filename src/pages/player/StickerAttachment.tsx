@@ -12,7 +12,7 @@ import {
   FLOWER_STICKER_ATTACH_SUBINFO,
   STICKER_ATTACH_INFO,
 } from '../../constant/playerInfo';
-import { postStickerData } from '../../lib/api/voting';
+import { postFlowerStickerData, postStickerData } from '../../lib/api/voting';
 import { playerStickerInfoState } from '../../recoil/player/atom';
 
 const StickerAttachment = () => {
@@ -26,7 +26,10 @@ const StickerAttachment = () => {
   const handleVotingSuccess = async () => {
     if (isActiveBtn)
       try {
-        const { data } = await postStickerData(playerStickerVotingInfo);
+        const { data } = isFlowerVoting
+          ? await postFlowerStickerData(playerStickerVotingInfo)
+          : await postStickerData(playerStickerVotingInfo);
+
         navigate('/player/voting/result');
       } catch (e) {
         console.error(e);

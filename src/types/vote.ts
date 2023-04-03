@@ -3,6 +3,8 @@ export interface MakerPictureData {
   url: string;
   count: number;
   Sticker: GetStickerResultInfo[];
+  flower?: number;
+  keywords?: number[];
 }
 
 export interface MakerVoteInfo {
@@ -16,13 +18,12 @@ export interface MakerVoteInfo {
 }
 
 export interface MakerFlowerInfo {
-  userName?: string;
-  voteId: number;
+  voteId: string;
   voteStatus: boolean;
   voteTitle: string;
-  Picture: FlowerPictureInfo[];
   currentVote: number;
   createdDate: Date;
+  Picture: FlowerPictureInfo[];
 }
 
 export interface VotingInfo {
@@ -92,6 +93,12 @@ export interface PlayerStickerInfo {
   imgViewInfo: NaturalImgInfo;
   isFlowerVoting: boolean;
   keywordIdx?: number;
+}
+export interface FlowerStickerInfo {
+  pictureId: number;
+  location: StickerLocation[];
+  emoji: number;
+  keyword?: number;
 }
 
 export interface GetStickerResultInfo {

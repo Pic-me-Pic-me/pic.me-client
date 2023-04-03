@@ -1,8 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-TDVJBP7');
+    </script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/picme.svg" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css" />
+    <!-- <link href="https://webfontworld.github.io/pretendard/Pretendard.css" rel="stylesheet" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" />
     <title>Pic.me</title>
     <meta
       name="viewport"
@@ -39,6 +64,9 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <style>
+      @import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
+    </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -53,7 +81,7 @@
       src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
       integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
       crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQJ8S02C84"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQJ8S02C84"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -62,9 +90,9 @@
       gtag('js', new Date());
 
       gtag('config', 'G-CQJ8S02C84');
-    </script>
+    </script> -->
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QB0TK0CGB9"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-QB0TK0CGB9"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -73,9 +101,18 @@
       gtag('js', new Date());
 
       gtag('config', 'G-QB0TK0CGB9');
-    </script>
+    </script> -->
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TDVJBP7"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

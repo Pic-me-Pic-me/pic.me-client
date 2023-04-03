@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { client } from '../axios';
-import { PlayerStickerInfo, VoteResultData } from './../../types/vote';
+import { FlowerStickerInfo, PlayerStickerInfo, VoteResultData } from './../../types/vote';
 
 const ACCESS_TOKEN = localStorage.getItem('accessToken');
 
@@ -29,6 +29,24 @@ export const getCurrentVoteData = async (resCursorId: number) => {
 export const postStickerData = async (stickerInfo: PlayerStickerInfo) => {
   try {
     const { data } = await client.post('/sticker', stickerInfo);
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const postFlowerStickerData = async (stickerInfo: PlayerStickerInfo) => {
+  const { pictureId, location, emoji, keywordIdx: keyword } = stickerInfo;
+
+  const flowerStickerInfo: FlowerStickerInfo = {
+    pictureId,
+    location,
+    emoji,
+    keyword,
+  };
+
+  try {
+    const { data } = await client.post('/sticker/flower', flowerStickerInfo);
     return data;
   } catch (e) {
     console.error(e);

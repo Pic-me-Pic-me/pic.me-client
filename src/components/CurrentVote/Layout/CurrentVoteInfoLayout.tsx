@@ -16,7 +16,7 @@ const CurrentVoteInfoLayout = (props: CurrentVoteInfoLayoutProps) => {
       <StVoteTitle>
         <h1>{voteTitle}</h1>
         <span>
-          <TimeAgo datetime={createdAt} locale="ko" />
+          <StTimeAgo datetime={createdAt} locale="ko" />
         </span>
       </StVoteTitle>
       <StVoteStatus>
@@ -35,11 +35,6 @@ const StVoteTitle = styled.header`
   justify-content: center;
   align-items: center;
 
-  & > span {
-    ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
-  }
-
   & > h1 {
     display: flex;
     flex-direction: column;
@@ -48,10 +43,14 @@ const StVoteTitle = styled.header`
     margin: 0.6rem 0 0.285rem 0;
 
     width: 34.6rem;
-    // height: 5.6rem;
 
     ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1};
   }
+`;
+
+const StTimeAgo = styled(TimeAgo)`
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5};
+  color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
 `;
 
 const StVoteStatus = styled.section`
@@ -69,7 +68,9 @@ const StVoteStatus = styled.section`
   border-radius: 3.3rem;
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
 
-  ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
+  & > span {
+    ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
+  }
 
   & > span:last-of-type {
     display: flex;
@@ -80,6 +81,6 @@ const StVoteStatus = styled.section`
     height: 2.7rem;
     background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
     border-radius: 3.3rem;
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    color: ${({ theme }) => theme.colors.Pic_Color_White};
   }
 `;
