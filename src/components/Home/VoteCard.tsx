@@ -56,7 +56,7 @@ const StVoteItem = styled.section<{ isFlower: boolean }>`
 
   width: 22.413rem;
   height: 14.43rem;
-  margin-right: 1.6rem;
+  /* margin-right: 1.6rem; */
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
@@ -77,10 +77,7 @@ const StVoteItem = styled.section<{ isFlower: boolean }>`
   }
 
   :first-child {
-    margin-left: 2rem;
-  }
-  :last-child {
-    margin-right: 2rem;
+    margin-left: 1.7rem;
   }
 `;
 
@@ -90,11 +87,11 @@ const StVoteData = styled.article<{ isFlower: boolean }>`
   justify-content: space-between;
 
   width: 8.983rem;
-  padding: 1.134rem 1.262rem 0.706rem 1.221rem;
+  padding: 1.134rem 1.562rem 0.706rem 1.221rem;
 
   border-radius: 1.047rem 0rem 0rem 1.047rem;
 
-  & > h3 {
+  & > h3 > time {
     ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
     ${({ isFlower }) =>
       isFlower

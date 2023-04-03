@@ -58,6 +58,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:4.6.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:8.0.0"],\
             ["lottie-react", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:2.3.1"],\
+            ["pretendard", "npm:1.3.6"],\
             ["prettier", "npm:2.8.1"],\
             ["qs", "npm:6.11.0"],\
             ["react", "npm:18.2.0"],\
@@ -13744,6 +13745,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:4.6.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:8.0.0"],\
             ["lottie-react", "virtual:ae8024992f226d9bc51f2d408ff60be6582058c507adb6e3af2ae75397505c808b103ac321178e3ad0d0da2b75163edde093da7bba62fcc713b6506201b9baf2#npm:2.3.1"],\
+            ["pretendard", "npm:1.3.6"],\
             ["prettier", "npm:2.8.1"],\
             ["qs", "npm:6.11.0"],\
             ["react", "npm:18.2.0"],\
@@ -15555,6 +15557,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/prelude-ls-npm-1.2.1-3e4d272a55-cd192ec0d0.zip/node_modules/prelude-ls/",\
           "packageDependencies": [\
             ["prelude-ls", "npm:1.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["pretendard", [\
+        ["npm:1.3.6", {\
+          "packageLocation": "./.yarn/cache/pretendard-npm-1.3.6-3e46d9676f-5621dc4b62.zip/node_modules/pretendard/",\
+          "packageDependencies": [\
+            ["pretendard", "npm:1.3.6"]\
           ],\
           "linkType": "HARD"\
         }]\

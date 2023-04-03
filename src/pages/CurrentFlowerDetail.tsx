@@ -4,7 +4,7 @@ import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcVoteShareBtn } from '../asset/icon';
-import { StickerAttachImg } from '../components/common';
+import { StickerAttachFlowerImg } from '../components/common';
 import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
 import { HeaderLayout } from '../components/Layout';
 import { patchCurrentVoteData } from '../lib/api/voting';
@@ -18,31 +18,33 @@ const CurrentFlowerDetail = () => {
 
   const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
-  console.log(flowerResult);
-
   const setFlowerResult = useSetRecoilState(voteResultState);
   const setFlowerPictureResult = useSetRecoilState(pictureResultState);
   const setFlowerStickerResult = useSetRecoilState(stickerResultState);
   const flowerResultData = useRecoilValue(voteResultState);
   const flowerPictureData = useRecoilValue(pictureResultState);
+  const flowerStickerData = useRecoilValue(stickerResultState);
   const resetFlowerResultData = useResetRecoilState(voteResultState);
   const resetFlowerPictureData = useResetRecoilState(pictureResultState);
-
-  useEffect(() => {
-    if (flowerResult) {
-      setFlowerResult(flowerResult);
-      setFlowerPictureResult(flowerResult.Picture);
-    }
-  }, [flowerResult, setFlowerResult, setFlowerPictureResult]);
+  const resetFlowerStickerData = useResetRecoilState(stickerResultState);
 
   useEffect(() => {
     if (flowerPictureData[0].count === 10) {
       patchCurrentVoteData(voteId);
     }
-    resetFlowerResultData();
-    resetFlowerPictureData();
-    setFlowerStickerResult(jsonGetStickerList(flowerPictureData[0].Sticker));
-  }, []);
+  }, [flowerPictureData, voteId]);
+
+  useEffect(() => {
+    if (flowerResult) {
+      resetFlowerResultData();
+      resetFlowerPictureData();
+      resetFlowerStickerData();
+
+      setFlowerResult(flowerResult);
+      setFlowerPictureResult(flowerResult.Picture);
+      setFlowerStickerResult(jsonGetStickerList(flowerResult.Picture[0].Sticker));
+    }
+  }, [flowerResult]);
 
   const strCreatedDate = flowerResultData.createdDate.toString();
 
@@ -50,17 +52,22 @@ const CurrentFlowerDetail = () => {
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
       <StCurrentVoteInfoWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: true } })} />
-
         <CurrentVoteInfoLayout
           voteTitle="나를 닮은 꽃은?"
           createdDate={strCreatedDate}
           totalVoteCount="총 10명 중"
           currentVoteCount={`${flowerPictureData[0].count}명 참가`}
         />
-        <StickerAttachImg stickerAttachImgSrc={flowerPictureData[0].url} imgWrapperWidthPercent={100} imgHight={45.3} />
+        <StickerAttachFlowerImg
+          stickerAttachImgSrc={flowerPictureData[0].url}
+          imgWrapperWidthPercent={100}
+          imgHight={45.3}
+        />
         <StFlowerTestStatus>
           <span>현재 진행 중 ( {flowerPictureData[0].count} / 10 )</span>
+          <div onClick={() => navigate('/share', { state: { voteId, isFlowerVote: true } })}>
+            <IcVoteShareBtn />
+          </div>
         </StFlowerTestStatus>
       </StCurrentVoteInfoWrapper>
     </>
@@ -75,38 +82,45 @@ const StCurrentVoteInfoWrapper = styled.section`
   align-items: center;
 
   margin: 0 1.8rem;
-
-  & > svg {
-    position: absolute;
-
-    width: 5.93rem;
-    height: 5.93rem;
-
-    bottom: 20rem;
-    right: 2.07rem;
-
-    cursor: pointer;
-
-    z-index: 1;
-  }
 `;
 
 const StFlowerTestStatus = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+
+  width: 100%;
 
   margin-top: 1.1rem;
 
-  width: 100%;
-  height: 5.2rem;
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    margin-left: 0.9rem;
 
-  border-radius: 0.75389rem;
+    width: 5.6rem;
+    min-width: 5.6rem;
+    height: 5.2rem;
+
+    border-radius: 0.75389rem;
+
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+    cursor: pointer;
+  }
+
   & > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 5.2rem;
+
     text-align: center;
+
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
+    border-radius: 0.75389rem;
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
   }

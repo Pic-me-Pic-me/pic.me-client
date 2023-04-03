@@ -19,8 +19,10 @@ const CurrentVoteBtn = () => {
   return (
     <>
       <CurrentVoteBtnWrapper>
-        <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: false } })} />
         <StCompleteVoteBtn onClick={() => setIsModalShowing(true)}>투표 마감</StCompleteVoteBtn>
+        <div>
+          <IcVoteShareBtn onClick={() => navigate('/share', { state: { voteId, isFlowerVote: false } })} />
+        </div>
       </CurrentVoteBtnWrapper>
       <Modal
         isShowing={isModalShowing}
@@ -45,22 +47,28 @@ const CurrentVoteBtnWrapper = styled.section`
   align-items: center;
 
   padding: 2rem;
-  & > svg {
-    position: absolute;
 
-    width: 5.93rem;
-    height: 5.93rem;
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    bottom: 20rem;
-    right: 2.07rem;
+    margin-left: 0.9rem;
 
+    width: 5.6rem;
+    min-width: 5.6rem;
+    height: 5.2rem;
+
+    border-radius: 0.75389rem;
+
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
     cursor: pointer;
   }
 `;
 
 const StCompleteVoteBtn = styled.button`
   width: 100%;
-  height: 6rem;
+  height: 5.2rem;
 
   color: ${({ theme }) => theme.colors.Pic_Color_White};
   background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};

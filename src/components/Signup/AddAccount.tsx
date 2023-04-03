@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import {
+  DUPLICATE_EMAIL_MSG,
   EMAIL_ERROR_MSG,
   EMAIL_REGEX,
   initialSignupInfo,
@@ -35,6 +36,11 @@ const AddAccount = () => {
       setSignupInfo({
         ...signupInfo,
         emailInfo: { email: signupInfo.emailInfo.email, isValid: true, msg: POSSIBLE_EMAIL_MSG },
+      });
+    } else {
+      setSignupInfo({
+        ...signupInfo,
+        emailInfo: { email: signupInfo.emailInfo.email, isValid: true, msg: DUPLICATE_EMAIL_MSG },
       });
     }
   };
