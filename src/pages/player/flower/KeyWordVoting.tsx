@@ -25,10 +25,10 @@ const KeyWordVoting = () => {
     if ((!(e.target instanceof HTMLLIElement) || e.target instanceof HTMLButtonElement) && keywordIdx === undefined)
       setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
   };
-
   useEffect(() => {
     setPlayerStickerInfo({ ...playerStickerInfo, keywordIdx: undefined });
   }, []);
+
   return (
     <div onClick={handleTagOverClick}>
       <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcBlackHeaderSecond />} />

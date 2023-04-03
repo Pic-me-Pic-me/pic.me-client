@@ -1,7 +1,13 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { MakerPictureData, MakerVoteInfo, StickerResultInfo } from '../../types/vote';
+import {
+  FlowerPictureInfo,
+  MakerFlowerInfo,
+  MakerPictureData,
+  MakerVoteInfo,
+  StickerResultInfo,
+} from '../../types/vote';
 import { VotingImageInfo } from '../../types/votingImage';
 
 //페이지가 변경되더라도 상태관리를 유지
@@ -11,8 +17,7 @@ export const votingImageState = atom<VotingImageInfo>({
   key: 'votingImage',
   default: {
     title: '',
-    firstImageUrl: '',
-    secondImageUrl: '',
+    imageUrl: [],
   },
   effects_UNSTABLE: [persistAtom],
 });
@@ -44,6 +49,21 @@ export const pictureResultState = atom<MakerPictureData[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const flowerPictureResultState = atom<FlowerPictureInfo[]>({
+  key: 'flowerPictureResult',
+  default: [
+    {
+      Sticker: [],
+      count: 0,
+      pictureId: 0,
+      url: '',
+      flower: 0,
+      keywords: [],
+    },
+  ],
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const pictureCurrentIdx = atom<number>({
   key: 'pictureCurrentIdx',
   default: 0,
@@ -56,6 +76,7 @@ export const stickerResultState = atom<StickerResultInfo[]>({
       stickerLocation: [],
       emoji: 0,
       count: 0,
+      isFlowerVoting: true,
     },
   ],
   effects_UNSTABLE: [persistAtom],

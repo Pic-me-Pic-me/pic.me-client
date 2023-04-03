@@ -1,36 +1,55 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { IcModalBG } from '../../asset/icon';
+import { IcFlower, IcModalBG } from '../../asset/icon';
 import { PlayerTitle } from '../../asset/image';
-import Onboarding from '../../pages/Onboarding';
-import { votingInfoState } from '../../recoil/player/atom';
+import { playerStickerInfoState, votingInfoState } from '../../recoil/player/atom';
 
 const VoteLanding = () => {
   const votingInfoAtom = useRecoilValue(votingInfoState);
-  const { voteTitle, userName, voteId } = votingInfoAtom;
+  const { voteTitle, userName, voteId, isFlowerVoting, Picture } = votingInfoAtom;
+  const setStickerInfo = useSetRecoilState(playerStickerInfoState);
   const navigate = useNavigate();
+
+  const handleStartVoting = () => {
+    if (isFlowerVoting) {
+      setStickerInfo((prev) => ({ ...prev, pictureId: Picture[0].id, location: [], emoji: 0 }));
+      navigate(`/player/reason_voting`);
+    } else navigate(`/player/picture_voting/${voteId}`);
+  };
+
   return (
     <>
-      <Onboarding />
       <StModalWrapper>
         <StModal>
-          <StTitle>
-            <div>
-              <h1>{voteTitle}</h1>
-            </div>
-          </StTitle>
-          <StContent>
-            <IcModalBG fill="#FF5E67" />
-            <StDescription>
-              <p>{userName}님의 사진</p>
-              <p>2개 중 1개를 골라주세요!</p>
-            </StDescription>
-          </StContent>
+          {isFlowerVoting ? (
+            <StContent>
+              <IcFlower />
+              <StDescription>
+                <p>{userName}님의 꽃인상을</p>
+                <p>선택해주세요!</p>
+              </StDescription>
+            </StContent>
+          ) : (
+            <>
+              <StTitle>
+                <div>
+                  <h1>{voteTitle}</h1>
+                </div>
+              </StTitle>
+              <StContent>
+                <IcModalBG fill="#FF5E67" />
+                <StDescription>
+                  <p>{userName}님의 사진</p>
+                  <p>2개 중 1개를 골라주세요!</p>
+                </StDescription>
+              </StContent>
+            </>
+          )}
           <StButtonWrapper>
-            <button type="button" onClick={() => navigate(`/player/picture_voting/${voteId}`)}>
+            <button type="button" onClick={handleStartVoting}>
               익명 투표 시작하기
             </button>
             <button type="button" onClick={() => navigate('/')}>
@@ -69,7 +88,7 @@ const StModal = styled.section`
   flex-direction: column;
 
   width: 100%;
-  height: 54.8rem;
+  height: fit-content;
   padding: 4.9rem 1.8rem 2.3rem 1.8rem;
   margin: auto;
 

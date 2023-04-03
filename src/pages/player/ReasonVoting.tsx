@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { IcHeaderSecond } from '../../asset/icon';
+import { IcBlackHeaderFirst, IcHeaderSecond } from '../../asset/icon';
 import { HeaderLayout, VotingLayout } from '../../components/Layout/player';
 import { ReasonSlider } from '../../components/Voting/player';
+import { CONFIRM_REASON, FLOWER_VOTING_TITLE, SELECT_REASON, VOTING_TITLE } from '../../constant/playerInfo';
 import { playerStickerInfoState } from '../../recoil/player/atom';
 import { pictureSelector } from '../../recoil/player/selector';
 
@@ -13,10 +14,12 @@ const ReasonVoting = () => {
   const navigate = useNavigate();
   const [playerStickerInfo, setStickerInfo] = useRecoilState(playerStickerInfoState);
   const pictureInfo = useRecoilValue(pictureSelector(playerStickerInfo.pictureId));
+  const { isFlowerVoting } = playerStickerInfo;
 
-  const handleVotingSuccess = async () => {
-    navigate('/player/sticker_voting');
-  };
+  console.log(playerStickerInfo);
+  const handleVotingSuccess = () =>
+    isFlowerVoting ? navigate('/player/flower/keyword_voting') : navigate('/player/sticker_voting');
+
   const handlePrevpage = () => {
     navigate(-1);
   };
@@ -28,17 +31,21 @@ const ReasonVoting = () => {
 
   return (
     <div>
-      <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderSecond />} />
+      {isFlowerVoting ? (
+        <HeaderLayout isBackIcon={true} IcHeaderSequence={<IcBlackHeaderFirst />} />
+      ) : (
+        <HeaderLayout handleGoback={handlePrevpage} IcHeaderSequence={<IcHeaderSecond />} />
+      )}
       <VotingLayout
-        votingTitle="사진을 선택한 이유를 골라주세요"
+        votingTitle={isFlowerVoting ? FLOWER_VOTING_TITLE : VOTING_TITLE}
         pageType="ReasonVoting"
-        btnTitle="이유 확정하기"
+        btnTitle={isFlowerVoting ? CONFIRM_REASON : SELECT_REASON}
         isActiveBtn={true}
         handlePlayer={handleVotingSuccess}>
         {
           <StReasonVotingWrpper>
             <img src={pictureInfo?.url} alt="사진 이유고르기" />
-            <ReasonSlider />
+            <ReasonSlider isFlowerVoting={isFlowerVoting} />
           </StReasonVotingWrpper>
         }
       </VotingLayout>

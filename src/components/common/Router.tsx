@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 
 import StatusBarForiOS from './StatusBarForiOS';
 
+const CurrentFlowerDetail = lazy(() => import('../../pages/CurrentFlowerDetail'));
 const CurrentVoteDetail = lazy(() => import('../../pages/CurrentVoteDetail'));
 const Error404 = lazy(() => import('../../pages/Error404'));
 const Home = lazy(() => import('../../pages/Home'));
@@ -14,9 +15,11 @@ const MakerVoting = lazy(() => import('../../pages/MakerVoting'));
 const PictureVoting = lazy(() => import('../../pages/player/PictureVoting'));
 const ReasonVoting = lazy(() => import('../../pages/player/ReasonVoting'));
 const ResultVoting = lazy(() => import('../../pages/player/ResultVoting'));
+const KeyWordVoting = lazy(() => import('../../pages/player/flower/KeyWordVoting'));
 const StickerAttachment = lazy(() => import('../../pages/player/StickerAttachment'));
 const PlayerLanding = lazy(() => import('../../pages/PlayerLanding'));
 const Result = lazy(() => import('../../pages/Result'));
+const FlowerResult = lazy(() => import('../../pages/FlowerResult'));
 const Share = lazy(() => import('../../pages/Share'));
 const Signup = lazy(() => import('../../pages/Signup'));
 const Auth = lazy(() => import('../Auth/Auth'));
@@ -34,12 +37,14 @@ const Router = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/login/oauth/kakao/callback" element={<Auth />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/current/flower/:voteid" element={<CurrentFlowerDetail />} />
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/result/flower/:voteId" element={<FlowerResult />} />
           <Route path="/result/:voteId" element={<Result />} />
           <Route path="/share" element={<Share />} />
-          <Route path="/makervoting" element={<MakerVoting />} />
+          <Route path="/voting/:votingType" element={<MakerVoting />} />
           <Route path="/library" element={<Library />} />
           <Route path="/signup" element={<Signup />}>
             <Route path="" element={<AddAccount />} />
@@ -53,9 +58,13 @@ const Router = () => (
             <Route path="reason_voting" element={<ReasonVoting />} />
             <Route path="sticker_voting" element={<StickerAttachment />} />
             <Route path="voting/result" element={<ResultVoting />} />
+            <Route path="flower">
+              <Route path="keyword_voting" element={<KeyWordVoting />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Error404 />} />
+          <Route path="/flowerResult" element={<FlowerResult />} />
         </Routes>
       </Suspense>
     </RecoilRoot>

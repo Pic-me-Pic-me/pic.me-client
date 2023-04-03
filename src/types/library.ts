@@ -4,6 +4,7 @@ export interface VoteInfo {
   count: number;
   url: string;
   createdAt: Date;
+  type: number;
 }
 
 export interface EndedVoteInfo {

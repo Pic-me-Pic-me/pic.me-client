@@ -4,11 +4,8 @@ import useSWRInfinite from 'swr/infinite';
 import { VoteResultData } from '../../types/vote';
 import { picmeGetFetcher } from '../axios';
 
-const getKey = (cursorIdx: number, voteListData: AxiosResponse<VoteResultData>) => {
-  if (cursorIdx === 0) return `vote/list/${cursorIdx}`;
-  if (voteListData.data) return `vote/list/${voteListData.data.resCursorId}`;
-  return null;
-};
+const getKey = (cursorIdx: number, voteListData: AxiosResponse<VoteResultData>) =>
+  cursorIdx === 0 ? `vote/list/${cursorIdx}` : voteListData.data ? `vote/list/${voteListData.data.resCursorId}` : null;
 
 const useGetCurrentVoteList = () => {
   const { data, isLoading, error, size, setSize } = useSWRInfinite<AxiosResponse<VoteResultData>>(
@@ -19,14 +16,11 @@ const useGetCurrentVoteList = () => {
     },
   );
 
-  const parseResultList = data
-    ?.map((item) => item.data.result)
-    .flat()
-    .filter((result) => result);
+  const parseResultList = data?.flatMap((item) => item.data.result).filter((result) => result);
 
   return {
     voteListResult: {
-      result: parseResultList ? parseResultList : [],
+      result: parseResultList ?? [],
     },
     isLoading,
     isError: error,
