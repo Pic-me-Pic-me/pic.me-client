@@ -140,6 +140,9 @@ export const reset = css`
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
 
 #root, body, html {
     max-width: 43rem;
