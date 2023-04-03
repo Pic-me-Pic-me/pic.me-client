@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -26,7 +26,8 @@ const CurrentFlowerDetail = () => {
   const resetFlowerResultData = useResetRecoilState(flowerResultState);
   const resetFlowerPictureData = useResetRecoilState(flowerPictureState);
   const resetFlowerStickerData = useResetRecoilState(stickerResultState);
-
+  // 여기서 ref 걸었는데 -> client Width로 되더라고?!
+  const voteInfoWrapperRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (flowerPictureData[0].count === 10) {
       patchCurrentVoteData(voteId);
@@ -50,7 +51,7 @@ const CurrentFlowerDetail = () => {
   return (
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
-      <StCurrentVoteInfoWrapper>
+      <StCurrentVoteInfoWrapper ref={voteInfoWrapperRef}>
         <CurrentVoteInfoLayout
           voteTitle="나를 닮은 꽃은?"
           createdDate={strCreatedDate}
@@ -61,6 +62,10 @@ const CurrentFlowerDetail = () => {
           stickerAttachImgSrc={flowerPictureData[0].url}
           imgWrapperWidthPercent={100}
           imgHight={45.3}
+          imgViewInfo={{
+            width: voteInfoWrapperRef.current?.clientWidth ? voteInfoWrapperRef.current?.clientWidth : 0,
+            height: 453,
+          }}
         />
         <StFlowerTestStatus>
           <span>현재 진행 중 ( {flowerPictureData[0].count} / 10 )</span>
