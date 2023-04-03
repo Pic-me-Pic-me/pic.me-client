@@ -13,12 +13,15 @@ const HeaderLayout = (props: LayoutProps) => {
   const { HeaderTitle, isBanner, handleGoback } = props;
 
   return (
-    <StHeader isBanner={isBanner}>
-      <IcGoback onClick={handleGoback} />
-      <StTitle isBanner={isBanner}>
-        <h1>{HeaderTitle}</h1>
-      </StTitle>
-    </StHeader>
+    <>
+      <StHeader isBanner={isBanner}>
+        <IcGoback onClick={handleGoback} />
+        <StTitle isBanner={isBanner}>
+          <h1>{HeaderTitle}</h1>
+        </StTitle>
+      </StHeader>
+      <StHeaderPadding />
+    </>
   );
 };
 
@@ -28,7 +31,7 @@ const StHeader = styled.header<{ isBanner?: boolean }>`
   display: flex;
   align-items: center;
 
-  position: sticky;
+  position: fixed;
 
   top: 0rem;
   height: 7rem;
@@ -66,4 +69,8 @@ const StTitle = styled.div<{ isBanner?: boolean }>`
     ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
     color: ${({ theme, isBanner }) => (isBanner ? theme.colors.Pic_Color_Gray_6 : theme.colors.Pic_Color_Gray_3)};
   }
+`;
+
+const StHeaderPadding = styled.div`
+  padding-top: 7rem;
 `;
