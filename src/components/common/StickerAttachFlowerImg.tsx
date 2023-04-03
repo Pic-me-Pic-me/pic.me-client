@@ -22,6 +22,7 @@ const StickerAttachFlowerImg = (props: StickerAttachImgProps) => {
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
+    console.log(width, height, '온로드요');
     setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
