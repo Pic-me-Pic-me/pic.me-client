@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { FLOWER_ICON_LIST } from '../../constant/FlowerIconList';
 import { STICKER_LIST } from '../../constant/StickerIconList';
 import { stickerResultState } from '../../recoil/maker/atom';
+import { playerStickerInfoState } from '../../recoil/player/atom';
 import { NaturalImgInfo, StickerLocation } from '../../types/vote';
 import { setStickerLocationData } from '../../utils/setStickerLocationData';
 
@@ -17,6 +18,7 @@ interface StickerAttachImgProps {
 const StickerAttachImg = (props: StickerAttachImgProps) => {
   const { stickerAttachImgSrc, imgWrapperWidthPercent, imgHight, isFlowerVoting } = props;
 
+  const playerStickerInfo = useRecoilValue(playerStickerInfoState);
   const stickerResult = useRecoilValue(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
   const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
@@ -26,6 +28,11 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
     setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
+
+  useEffect(() => {
+    isFlowerVoting && setImgViewInfo(playerStickerInfo.imgViewInfo);
+  }, []);
+
   return (
     <>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
