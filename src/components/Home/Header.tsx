@@ -65,13 +65,17 @@ const Header = () => {
             <StBannerImg key={id}>
               {bannerImg}
               <StBannerBtn type="button" onClick={(e) => handleClick(e, id)}>
-                {buttonImg}
-                <div>
-                  <p>{subTitle}</p>
-                  <h1>{title}</h1>
-                </div>
-                {buttonName}
-                <IcNextArrow />
+                <StLeftSection>
+                  {buttonImg}
+                  <div>
+                    <p>{subTitle}</p>
+                    <h1>{title}</h1>
+                  </div>
+                </StLeftSection>
+                <StRightSection>
+                  <p>{buttonName}</p>
+                  <IcNextArrow />
+                </StRightSection>
               </StBannerBtn>
             </StBannerImg>
           ))}
@@ -132,7 +136,7 @@ const StBannerBtn = styled.button`
   bottom: 0;
 
   padding-left: 1rem;
-  padding-right: 2.5rem;
+  padding-right: 1.5rem;
   width: 100%;
   height: 6.7rem;
 
@@ -142,11 +146,17 @@ const StBannerBtn = styled.button`
   ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4};
   border: none;
   border-radius: 0 0 1.2rem 1.2rem;
+`;
+
+const StLeftSection = styled.div`
+  display: flex;
 
   & > div {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.2rem;
+
     padding-left: 1rem;
     padding-right: 3.6rem;
 
@@ -155,8 +165,18 @@ const StBannerBtn = styled.button`
       ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_6};
     }
     & > h1 {
-      color: ${({ theme }) => theme.colors.Pic_Color_Gray_6};
-      ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_6};
+      color: ${({ theme }) => theme.colors.Pic_Color_White};
+      ${({ theme }) => theme.fonts.Pic_Noto_SB_Subtitle_2};
     }
+  }
+`;
+
+const StRightSection = styled.div`
+  display: flex;
+  gap: 0.782rem;
+
+  & > p {
+    color: ${({ theme }) => theme.colors.Pic_Color_Gray_6};
+    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_4};
   }
 `;
