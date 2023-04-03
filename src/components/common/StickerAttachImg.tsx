@@ -28,6 +28,9 @@ const StickerAttachImg = (props: StickerAttachImgProps) => {
   };
   return (
     <>
+      <span>{imgViewInfo?.width}</span>
+      <span>{imgViewInfo?.height}</span>
+
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
         <StStickerAttachImg onLoad={handleImgSize} height={imgHight} src={stickerAttachImgSrc} alt="선택된 사진" />
         {imgViewInfo &&

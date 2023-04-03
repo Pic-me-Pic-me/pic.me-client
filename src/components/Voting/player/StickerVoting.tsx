@@ -72,6 +72,8 @@ const StickerVoting = (props: StickerVotingProps) => {
   return (
     <>
       <StStickerVotingWrapper>
+        <span>{imgViewInfo?.width}</span>
+        <span>{imgViewInfo?.height}</span>
         <article>
           <StStickerImg
             onLoad={handleImgSize}
