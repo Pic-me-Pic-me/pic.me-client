@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import { IcStickerOff, IcStickerOn } from '../asset/icon';
-import { StickerAttachImg } from '../components/common';
+import { StickerAttachFlowerImg } from '../components/common';
 import { HeaderLayout } from '../components/Layout';
 import { FLOWER_ICON_LIST } from '../constant/FlowerIconList';
 import useGetFlowerVoteResult from '../lib/hooks/useGetFlowerVoteResult';
@@ -26,7 +26,6 @@ export default function FlowerResult() {
   const [isStickerOn, setIsStickerOn] = useState(true);
   const flowerInfo = voteResult?.Picture[0] as MakerPictureData;
   const flowerIndex = flowerInfo?.flower as number;
-  if (isError) <Error404 />;
 
   const handleStickerOnOff = () => {
     setIsStickerOn((prev) => !prev);
@@ -39,6 +38,8 @@ export default function FlowerResult() {
     }
   }, [voteResult]);
 
+  if (isError) <Error404 />;
+
   return (
     <>
       <StResultWrapper flowerColor={FLOWER_ICON_LIST[flowerIndex]?.color}>
@@ -49,11 +50,14 @@ export default function FlowerResult() {
             {userInfo?.userName} 님은 {FLOWER_ICON_LIST[flowerIndex]?.flowerKorName}을 가장 많이 받았어요!
           </p>
           {isStickerOn ? (
-            <StickerAttachImg
-              isFlowerVoting
+            <StickerAttachFlowerImg
               stickerAttachImgSrc={flowerInfo?.url as string}
               imgWrapperWidthPercent={76.8}
               imgHight={38.372}
+              imgViewInfo={{
+                width: (window.screen.width * 288) / 375,
+                height: 383.72,
+              }}
             />
           ) : (
             <img src={flowerInfo?.url} alt="스티커없는사진" />

@@ -19,17 +19,11 @@ const StickerAttachFlowerImg = (props: StickerAttachImgProps) => {
 
   const stickerResult = useRecoilValue(stickerResultState);
   const [imgInfo, setImgInfo] = useState<NaturalImgInfo>();
-  // const [imgViewInfo, setImgViewInfo] = useState<NaturalImgInfo>();
 
   const handleImgSize = (e: React.SyntheticEvent) => {
     const { naturalWidth, naturalHeight, width, height } = e.target as HTMLImageElement;
-    // console.log(width, height, '온로드요');
-    // setImgViewInfo({ width, height });
     setImgInfo({ width: naturalWidth, height: naturalHeight });
   };
-
-  // console.log(imgViewInfo, '꽃');
-
   return (
     <>
       <StStickerAttachImgWrapper width={imgWrapperWidthPercent}>
