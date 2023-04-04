@@ -46,7 +46,7 @@ const ShareLayout = (props: ShareLayoutProps) => {
   return (
     <>
       <HeaderLayout HeaderTitle="투표 링크 공유" handleGoback={() => navigate('/home')} />
-      {isToastOn && <StShareToast>링크가 복사되었습니다!</StShareToast>}
+      <StShareToast style={{ opacity: isToastOn ? 1 : 0 }}>링크가 복사되었습니다!</StShareToast>
       <StShareWrapper>
         <StShareTitle>
           <h1>가이드 라인</h1>
@@ -207,4 +207,6 @@ const StShareToast = styled.div`
   background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
 
   border-radius: 4.6rem;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
 `;
