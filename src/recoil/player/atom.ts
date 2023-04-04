@@ -14,7 +14,7 @@ export const votingInfoState = atom<VoteInfo>({
     userName: 'Happhee',
     voteId: 1,
     voteStatus: true,
-    voteTitle: '햅히를 픽미해주세요💛',
+    voteTitle: '',
     Picture: [
       { id: 1, url: PictureId1 },
       { id: 2, url: PictureId2 },

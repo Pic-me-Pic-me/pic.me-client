@@ -3,30 +3,45 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { IcFlower } from '../../asset/icon';
 import { PlayerTitle } from '../../asset/image';
-import Onboarding from '../../pages/Onboarding';
 import { votingInfoState } from '../../recoil/player/atom';
 
 const FinishedLanding = () => {
   const votingInfoAtom = useRecoilValue(votingInfoState);
-  const { voteTitle } = votingInfoAtom;
+  const { voteTitle, isFlowerVoting } = votingInfoAtom;
   const navigate = useNavigate();
 
   return (
     <>
       <StModalWrapper>
         <StModal>
-          <StTitle>
-            <div>
-              <h1>{voteTitle}</h1>
-            </div>
-          </StTitle>
-          <StDescription>
-            <p>이 투표는 마감되었습니다!</p>
-          </StDescription>
-          <button type="button" onClick={() => navigate('/')}>
-            Pic.me! 에서 내 투표 만들기
-          </button>
+          {isFlowerVoting ? (
+            <>
+              <IcFlower />
+              <StDescription>
+                <p>해당 투표는</p>
+                <p>마감되었습니다!</p>
+              </StDescription>
+              <button type="button" onClick={() => navigate('/')}>
+                홈으로 가기
+              </button>
+            </>
+          ) : (
+            <>
+              <StTitle>
+                <div>
+                  <h1>{voteTitle}</h1>
+                </div>
+              </StTitle>
+              <StDescription>
+                <p>이 투표는 마감되었습니다!</p>
+              </StDescription>
+              <button type="button" onClick={() => navigate('/')}>
+                Pic.me! 에서 내 투표 만들기
+              </button>
+            </>
+          )}
         </StModal>
       </StModalWrapper>
     </>

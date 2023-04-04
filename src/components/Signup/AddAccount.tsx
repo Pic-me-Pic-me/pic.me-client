@@ -124,7 +124,7 @@ const AddAccount = () => {
                 handleSpace(e);
               }}
             />
-            <StCheckEmailBtn onClick={() => handleCheckEmail()} isActive={signupInfo.emailInfo.isValid} type="button">
+            <StCheckEmailBtn onClick={() => handleCheckEmail()} disabled={!signupInfo.emailInfo.isValid} type="button">
               중복 확인
             </StCheckEmailBtn>
           </StEmailWrapper>
@@ -217,7 +217,7 @@ const StInput = styled.input<{ isEmailInput?: boolean }>`
   }
 `;
 
-const StCheckEmailBtn = styled.button<{ isActive: boolean }>`
+const StCheckEmailBtn = styled.button<{ disabled: boolean }>`
   width: 20.5%;
   height: 6rem;
   border: none;
@@ -225,13 +225,13 @@ const StCheckEmailBtn = styled.button<{ isActive: boolean }>`
 
   margin-top: 1.4rem;
 
-  ${({ isActive }) =>
-    isActive
+  ${({ disabled }) =>
+    disabled
       ? css`
-          background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
         `
       : css`
-          background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+          background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
         `}
 
   ${({ theme }) => theme.fonts.Pic_Caption2_Pretendard_Semibold_14};
