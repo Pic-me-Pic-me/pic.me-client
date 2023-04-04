@@ -5,18 +5,24 @@ import styled from 'styled-components';
 
 import { IcFlower } from '../../asset/icon';
 import { PlayerTitle } from '../../asset/image';
+import { FLOWER_VOTING_ERROR_MESSAGE } from '../../constant/playerInfo';
 import { votingInfoState } from '../../recoil/player/atom';
 
-const FinishedLanding = () => {
+interface FinishedLandingProps {
+  errorMessage?: string;
+}
+const FinishedLanding = (props: FinishedLandingProps) => {
+  const { errorMessage } = props;
+
   const votingInfoAtom = useRecoilValue(votingInfoState);
-  const { voteTitle, isFlowerVoting } = votingInfoAtom;
+  const { voteTitle } = votingInfoAtom;
   const navigate = useNavigate();
 
   return (
     <>
       <StModalWrapper>
         <StModal>
-          {isFlowerVoting ? (
+          {errorMessage === FLOWER_VOTING_ERROR_MESSAGE ? (
             <>
               <IcFlower />
               <StDescription>
@@ -157,7 +163,7 @@ const StTitle = styled.header`
   }
 `;
 
-const StDescription = styled.p`
+const StDescription = styled.section`
   margin-top: 2.5rem;
   margin-bottom: 3.4rem;
   & > p {
