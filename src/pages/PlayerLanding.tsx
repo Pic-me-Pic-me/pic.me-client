@@ -37,7 +37,8 @@ const PlayerLanding = () => {
   if (isError) return <Error />;
 
   if (votingInfo?.status === 200 && votingInfo.data) return <VoteLanding />;
-  return <FinishedLanding />;
+  if (votingInfo?.status === 400) return <FinishedLanding voteInfo={votingInfo.data} />;
+  return null;
 };
 
 export default PlayerLanding;
