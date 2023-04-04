@@ -208,5 +208,5 @@ const StShareToast = styled.div`
 
   border-radius: 4.6rem;
   opacity: 0;
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.25s ease-in-out;
 `;
