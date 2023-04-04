@@ -26,7 +26,6 @@ const CurrentFlowerDetail = () => {
   const resetFlowerResultData = useResetRecoilState(flowerResultState);
   const resetFlowerPictureData = useResetRecoilState(flowerPictureState);
   const resetFlowerStickerData = useResetRecoilState(stickerResultState);
-  // 여기서 ref 걸었는데 -> client Width로 되더라고?!
   const voteInfoWrapperRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (flowerPictureData[0].count === 10) {
