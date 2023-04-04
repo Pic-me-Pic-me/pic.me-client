@@ -165,6 +165,8 @@ const StCropDescription = styled.span`
 `;
 const StFooter = styled.footer`
   width: 100%;
+
+  z-index: 10;
 `;
 const StCropBtn = styled.button`
   width: 100%;

@@ -17,7 +17,7 @@ interface ImageCropProps {
 const ImageCrop = (props: ImageCropProps) => {
   const { isCrop, handleCropComplete, setRotation, rotation } = props;
 
-  const [isOpenPop, setIsOpenPop] = useState(true);
+  const [isOpenPop, setIsOpenPop] = useState(false);
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [image, setImage] = useState('');
   const [zoom, setZoom] = useState(1);
@@ -30,6 +30,7 @@ const ImageCrop = (props: ImageCropProps) => {
   }, [isCrop]);
 
   useEffect(() => {
+    setIsOpenPop(true);
     setTimeout(() => setIsOpenPop(false), 2000);
   }, []);
 
@@ -41,7 +42,7 @@ const ImageCrop = (props: ImageCropProps) => {
 
   return (
     <>
-      {isOpenPop && <CoachMark />}
+      <CoachMark isOpenPop={isOpenPop} />
       <StImageCropWrapper>
         <Cropper
           image={image}
@@ -67,6 +68,8 @@ const StImageCropWrapper = styled.section`
 
   width: 100%;
   height: 100%;
+
+  z-index: 100;
 
   .reactEasyCrop_Container {
     position: absolute;

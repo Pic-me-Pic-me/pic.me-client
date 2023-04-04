@@ -2,15 +2,22 @@ import styled from 'styled-components';
 
 import { IcHand, IcMoveCrop } from '../../../asset/icon';
 
-const CoachMark = () => (
-  <StGuidePopUpWrapper>
-    <IcHand />
-    <IcMoveCrop />
-    <StGuideText>
-      사진을 좌우, 상하로 움직여 <br /> 위치를 조정해보세요!
-    </StGuideText>
-  </StGuidePopUpWrapper>
-);
+interface CoachMarkProps {
+  isOpenPop: boolean;
+}
+
+const CoachMark = (props: CoachMarkProps) => {
+  const { isOpenPop } = props;
+  return (
+    <StGuidePopUpWrapper style={{ opacity: isOpenPop ? 0.8 : 0, zIndex: isOpenPop ? 1000 : 0 }}>
+      <IcHand />
+      <IcMoveCrop />
+      <StGuideText>
+        사진을 좌우, 상하로 움직여 <br /> 위치를 조정해보세요!
+      </StGuideText>
+    </StGuidePopUpWrapper>
+  );
+};
 export default CoachMark;
 
 const StGuidePopUpWrapper = styled.div`
@@ -27,8 +34,8 @@ const StGuidePopUpWrapper = styled.div`
 
   background-color: #000000;
 
-  z-index: 1000;
   opacity: 0.8;
+  transition: opacity 0.25s ease-out;
 
   svg {
     width: 6.473rem;
