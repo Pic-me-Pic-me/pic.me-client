@@ -1,22 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { IcFlower } from '../../asset/icon';
 import { PlayerTitle } from '../../asset/image';
-import { FLOWER_VOTING_ERROR_MESSAGE } from '../../constant/playerInfo';
-import { votingInfoState } from '../../recoil/player/atom';
+import { VoteInfo } from '../../types/vote';
 
 interface FinishedLandingProps {
-  errorMessage?: string;
+  voteInfo: VoteInfo;
 }
-const FinishedLanding = (props: FinishedLandingProps) => {
-  const { errorMessage } = props;
 
-  const votingInfoAtom = useRecoilValue(votingInfoState);
-  const { voteTitle } = votingInfoAtom;
+const FinishedLanding = (props: FinishedLandingProps) => {
+  const { voteInfo } = props;
+  const { type, voteTitle } = voteInfo;
   const navigate = useNavigate();
+  const isFlowerVoting = type === 2 ? true : false;
 
   return (
     <>

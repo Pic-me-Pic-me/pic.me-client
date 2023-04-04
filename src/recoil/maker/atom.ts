@@ -26,7 +26,7 @@ export const voteResultState = atom<MakerVoteInfo>({
   key: 'voteResult',
   default: {
     userName: '',
-    voteId: 0,
+    voteId: '',
     voteStatus: true,
     voteTitle: '',
     Picture: [],
@@ -40,7 +40,7 @@ export const flowerResultState = atom<MakerVoteInfo>({
   key: 'flowerResult',
   default: {
     userName: '',
-    voteId: 0,
+    voteId: '',
     voteStatus: true,
     voteTitle: '',
     Picture: [],

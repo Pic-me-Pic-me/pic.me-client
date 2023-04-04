@@ -11,7 +11,7 @@ export interface MakerPictureData {
 
 export interface MakerVoteInfo {
   userName?: string;
-  voteId: number;
+  voteId: string;
   voteStatus: boolean;
   voteTitle: string;
   Picture: MakerPictureData[];
@@ -60,7 +60,7 @@ export interface VoteData {
 
 export interface VoteInfo {
   userName: string;
-  voteId: number;
+  voteId: string;
   voteStatus: boolean;
   voteTitle: string;
   Picture: PictureData[];

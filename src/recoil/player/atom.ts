@@ -12,7 +12,7 @@ export const votingInfoState = atom<VoteInfo>({
   key: 'votingInfo',
   default: {
     userName: 'Happhee',
-    voteId: 1,
+    voteId: '',
     voteStatus: true,
     voteTitle: '',
     Picture: [
