@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 export interface MakerPictureData {
   pictureId: number;
   url: string;
@@ -146,4 +148,7 @@ export interface VoteCardInfo {
 export interface VoteResultData {
   result: VoteCardInfo[];
   resCursorId: string;
+}
+export interface VotingAxiosResponse<T> extends AxiosResponse {
+  message: string;
 }
