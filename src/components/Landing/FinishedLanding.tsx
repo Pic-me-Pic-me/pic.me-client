@@ -20,7 +20,7 @@ const FinishedLanding = (props: FinishedLandingProps) => {
     <>
       <StModalWrapper>
         <StModal>
-          {errorMessage === FLOWER_VOTING_ERROR_MESSAGE ? (
+          {isFlowerVoting ? (
             <>
               <IcFlower />
               <StDescription>
@@ -161,7 +161,7 @@ const StTitle = styled.header`
   }
 `;
 
-const StDescription = styled.section`
+const StDescription = styled.p`
   margin-top: 2.5rem;
   margin-bottom: 3.4rem;
   & > p {
