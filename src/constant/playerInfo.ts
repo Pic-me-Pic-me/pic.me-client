@@ -23,3 +23,5 @@ export const SUNFLOWER = 3;
 export const ROSE = 4;
 export const GENERAL_VOTING_TYPE = 1;
 export const FLOWER_VOTING_TYPE = 2;
+export const GENERAL_VOTING_ERROR_MESSAGE = '이미 투표가 끝났습니다.';
+export const FLOWER_VOTING_ERROR_MESSAGE = '이미 꽃 투표가 끝났습니다.';
