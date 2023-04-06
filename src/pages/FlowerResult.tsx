@@ -47,7 +47,7 @@ export default function FlowerResult() {
         {isStickerOn ? <IcStickerOn onClick={handleStickerOnOff} /> : <IcStickerOff onClick={handleStickerOnOff} />}
         <StMainContentWrapper>
           <p>
-            {userInfo?.userName} 님은 {FLOWER_ICON_LIST[flowerIndex]?.flowerKorName}을 가장 많이 받았어요!
+            {userInfo?.userName} 님은 {FLOWER_ICON_LIST[flowerIndex]?.flowerKorName} 가장 많이 받았어요!
           </p>
           {isStickerOn ? (
             <StickerAttachFlowerImg
