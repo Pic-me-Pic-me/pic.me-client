@@ -12,6 +12,7 @@ import Terms from './Terms';
 const Nickname = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  let submitFlag = false;
 
   const [nickname, setNickname] = useState<NicknameInfo>({
     typedNickname: '',
@@ -35,9 +36,21 @@ const Nickname = () => {
     }
   };
 
+  const handleSubmitCheck = () => {
+    if (submitFlag) {
+      return submitFlag;
+    }
+    submitFlag = true;
+    return false;
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     let signUpData;
+
+    if (handleSubmitCheck()) {
+      return;
+    }
     if (nickname.state === 'pass') {
       if (getAccessToken('kakaoAccessToken')) {
         const uid: number = location.state.uid;
