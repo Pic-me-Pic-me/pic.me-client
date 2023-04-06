@@ -28,6 +28,7 @@ const AddAccount = () => {
     !signupInfo.passwordInfo.isValid ||
     !signupInfo.passwordConfirmInfo.isValid ||
     !isEmailAvailable;
+  let submitFlag = true;
 
   const handleCheckEmail = async () => {
     const res = await getEmailCheck(signupInfo.emailInfo.email as string);
@@ -87,8 +88,18 @@ const AddAccount = () => {
     }
   };
 
+  const handleSubmitCheck = () => {
+    if (submitFlag) {
+      return submitFlag;
+    }
+    submitFlag = true;
+    return false;
+  };
+
   const handleSubmitAccount = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (handleSubmitCheck()) return;
 
     const finalEmail = signupInfo.emailInfo.email;
     const finalPassword = signupInfo.passwordInfo.password;
