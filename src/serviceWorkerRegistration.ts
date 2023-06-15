@@ -25,7 +25,6 @@ export function register(config?: Config) {
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       console.log(swUrl);
-      Notification.requestPermission();
       // 알림 권한 받기 전
       if (Notification.permission === 'default') {
         // 요청하기
