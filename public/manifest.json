@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "Pic.me_logo.png",
+      "src": "Pic.me_192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "Pic.me_logo.png",
+      "src": "Pic.me_512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
