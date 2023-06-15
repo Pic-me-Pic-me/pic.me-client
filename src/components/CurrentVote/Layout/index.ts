@@ -1,1 +1,1 @@
-import CurrentVoteInfoLayout from './CurrentVoteInfoLayout';
+export { default as CurrentVoteInfoLayout } from './CurrentVoteInfoLayout';
