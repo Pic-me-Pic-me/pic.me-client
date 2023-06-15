@@ -25,25 +25,7 @@ export function register(config?: Config) {
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       console.log(swUrl);
-      // 알림 권한 받기 전
-      if (Notification.permission === 'default') {
-        // 요청하기
-        Notification.requestPermission().then((perm) => {
-          if (Notification.permission === 'granted') {
-            regWorker().catch((err) => console.error(err));
-          } else {
-            alert('Please allow notifications.');
-          }
-        });
-      }
-      // 승인 - GRANTED
-      else if (Notification.permission === 'granted') {
-        regWorker().catch((err) => console.error(err));
-      }
-      // 거부 - DENIED
-      else {
-        alert('알림 권한을 허용해주세요!');
-      }
+
       // if (isLocalhost) {
       //   // This is running on localhost. Let's check if a service worker still exists or not.
       //   checkValidServiceWorker(swUrl, config);
@@ -56,46 +38,6 @@ export function register(config?: Config) {
     });
   }
 }
-async function regWorker() {
-  // (B1) YOUR PUBLIC KEY - CHANGE TO YOUR OWN!
-  const publicKey = 'YOUR-PUBLIC-KEY';
-
-  const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-  // (B2) REGISTER SERVICE WORKER
-  navigator.serviceWorker
-    .register(swUrl, { scope: '/' })
-    .then((registration) => {
-      console.log('Service worker registration succeeded:', registration);
-    })
-    .catch((err) => {
-      console.log('Service worker registration failed:', err);
-    });
-  // (B3) SUBSCRIBE TO PUSH SERVER
-  navigator.serviceWorker.ready.then((reg) => {
-    reg.pushManager
-      .subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: publicKey,
-      })
-      .then(
-        // (B3-1) OK - TEST PUSH NOTIFICATION
-        (sub) => {
-          fetch('/mypush', {
-            method: 'POST',
-            body: JSON.stringify(sub),
-            headers: { 'content-type': 'application/json' },
-          })
-            .then((res) => res.text())
-            .then((txt) => console.log(txt))
-            .catch((err) => console.error(err));
-        },
-
-        // (B3-2) ERROR!
-        (err) => console.error(err),
-      );
-  });
-}
-
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
