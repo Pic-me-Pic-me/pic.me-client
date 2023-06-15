@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { StickerAttachImg } from '../../../components/common';
 import { useCarouselSize } from '../../../lib/hooks/useCarouselSize';
@@ -8,7 +8,7 @@ import { pictureCurrentIdx, pictureResultState, stickerResultState } from '../..
 import { jsonGetStickerList } from '../../../utils/jsonGetStickerList';
 import { modifySliderRange, picmeSliderEvent } from '../../../utils/picmeSliderEvent';
 
-const OriginvotePicture = () => {
+const OriginVotePicture = () => {
   const [transX, setTransX] = useState<number>(0);
 
   const setStickerResultState = useSetRecoilState(stickerResultState);
@@ -88,7 +88,7 @@ const OriginvotePicture = () => {
   );
 };
 
-export default OriginvotePicture;
+export default OriginVotePicture;
 
 const CurrentVoteSliderWrapper = styled.article`
   width: 100%;

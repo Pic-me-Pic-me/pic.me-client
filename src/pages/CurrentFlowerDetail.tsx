@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -15,6 +15,8 @@ import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 const CurrentFlowerDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isFlower = location.state;
 
   const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
@@ -43,6 +45,7 @@ const CurrentFlowerDetail = () => {
       setFlowerResult(flowerResult);
       setFlowerPictureResult(flowerResult.Picture);
       setFlowerStickerResult(jsonGetStickerList(flowerResult.Picture[0].Sticker));
+      console.log(isFlower);
     }
   }, [flowerResult]);
 

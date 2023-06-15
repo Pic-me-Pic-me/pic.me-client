@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -13,6 +13,8 @@ import Error404 from './Error404';
 const CurrentVoteDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isFlower = location.state;
 
   const { voteResult, isLoading, isError } = useGetCurrentVote(voteId);
 
@@ -34,6 +36,7 @@ const CurrentVoteDetail = () => {
     if (voteResult) {
       setVoteResult(voteResult);
       setPictureResultState(voteResult.Picture);
+      console.log(isFlower);
     }
   }, [currentIdx, voteResult]);
 
