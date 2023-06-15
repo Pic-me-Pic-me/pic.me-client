@@ -13,33 +13,88 @@ type Config = {
 
 export function register(config?: Config) {
   //서비스 워커가 존재하면 실행
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  // if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     // 보안상의 이유로 navigator 설정
     console.log(publicUrl.origin, window.location.origin, '등록');
     if (publicUrl.origin !== window.location.origin) {
       return;
     }
-
+    // 윈도우 로드 되었을떄, 알림 설정 확인 및 token 부여
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-
-      console.log(isLocalhost);
-      if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
-
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => {
-          console.log('This web app is being served cache-first by a service ');
+      console.log(swUrl);
+      Notification.requestPermission();
+      // 알림 권한 받기 전
+      if (Notification.permission === 'default') {
+        // 요청하기
+        Notification.requestPermission().then((perm) => {
+          if (Notification.permission === 'granted') {
+            regWorker().catch((err) => console.error(err));
+          } else {
+            alert('Please allow notifications.');
+          }
         });
-      } else {
-        // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
       }
+      // 승인 - GRANTED
+      else if (Notification.permission === 'granted') {
+        regWorker().catch((err) => console.error(err));
+      }
+      // 거부 - DENIED
+      else {
+        alert('알림 권한을 허용해주세요!');
+      }
+      // if (isLocalhost) {
+      //   // This is running on localhost. Let's check if a service worker still exists or not.
+      //   checkValidServiceWorker(swUrl, config);
+      //   navigator.serviceWorker.ready.then(() => {
+      //     console.log('This web app is being served cache-first by a service ');
+      //   });
+      // } else {
+      //   registerValidSW(swUrl, config);
+      // }
     });
   }
+}
+async function regWorker() {
+  // (B1) YOUR PUBLIC KEY - CHANGE TO YOUR OWN!
+  const publicKey = 'YOUR-PUBLIC-KEY';
+
+  const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+  // (B2) REGISTER SERVICE WORKER
+  navigator.serviceWorker
+    .register(swUrl, { scope: '/' })
+    .then((registration) => {
+      console.log('Service worker registration succeeded:', registration);
+    })
+    .catch((err) => {
+      console.log('Service worker registration failed:', err);
+    });
+  // (B3) SUBSCRIBE TO PUSH SERVER
+  navigator.serviceWorker.ready.then((reg) => {
+    reg.pushManager
+      .subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: publicKey,
+      })
+      .then(
+        // (B3-1) OK - TEST PUSH NOTIFICATION
+        (sub) => {
+          fetch('/mypush', {
+            method: 'POST',
+            body: JSON.stringify(sub),
+            headers: { 'content-type': 'application/json' },
+          })
+            .then((res) => res.text())
+            .then((txt) => console.log(txt))
+            .catch((err) => console.error(err));
+        },
+
+        // (B3-2) ERROR!
+        (err) => console.error(err),
+      );
+  });
 }
 
 function registerValidSW(swUrl: string, config?: Config) {
@@ -56,22 +111,14 @@ function registerValidSW(swUrl: string, config?: Config) {
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              // At this point, the updated precached content has been fetched,
-              // but the previous service worker will still serve the older
-              // content until all client tabs are closed.
               console.log(
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://cra.link/PWA.',
               );
-
-              // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
               }
             } else {
-              // At this point, everything has been precached.
-              // It's the perfect time to display a
-              // "Content is cached for offline use." message.
               console.log('Content is cached for offline use.');
 
               // Execute callback
@@ -98,7 +145,6 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
         console.log(navigator.serviceWorker);
         navigator.serviceWorker.ready
           .then((registration) => {
-            console.log(registration, '여기');
             registration.unregister().then(() => {
               window.location.reload();
             });
