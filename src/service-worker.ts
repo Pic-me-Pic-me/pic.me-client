@@ -104,6 +104,7 @@ self.addEventListener('push', (event: PushEvent) => {
   event.waitUntil(
     self.registration.showNotification(message.title, {
       body: message.body,
+      icon: '../build/Pic.me_logo.ico',
     }),
   );
 });
