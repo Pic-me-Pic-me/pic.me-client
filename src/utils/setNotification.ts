@@ -1,3 +1,8 @@
+declare global {
+  interface Window {
+    safari?: any;
+  }
+}
 export const regisertWorker = async () => {
   // (B1) YOUR PUBLIC KEY - CHANGE TO YOUR OWN!
   const publicKey = 'YOUR-PUBLIC-KEY';
@@ -15,7 +20,7 @@ export const regisertWorker = async () => {
   // (B3) SUBSCRIBE TO PUSH SERVER
   navigator.serviceWorker.ready.then((reg) => {
     console.log(reg);
-    console.log(window);
+    console.log(window.safari);
     // reg.pushManager
     //   .subscribe({
     //     userVisibleOnly: true,
