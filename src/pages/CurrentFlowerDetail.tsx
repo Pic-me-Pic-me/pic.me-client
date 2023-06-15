@@ -9,7 +9,7 @@ import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteI
 import { HeaderLayout } from '../components/Layout';
 import { patchCurrentVoteData } from '../lib/api/voting';
 import useGetFlowerVoteDetail from '../lib/hooks/useGetFlowerVoteDetail';
-import { flowerPictureState, flowerResultState, stickerResultState } from '../recoil/maker/atom';
+import { flowerResultState, pictureResultState, stickerResultState } from '../recoil/maker/atom';
 import { jsonGetStickerList } from '../utils/jsonGetStickerList';
 
 const CurrentFlowerDetail = () => {
@@ -19,12 +19,12 @@ const CurrentFlowerDetail = () => {
   const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
   const setFlowerResult = useSetRecoilState(flowerResultState);
-  const setFlowerPictureResult = useSetRecoilState(flowerPictureState);
+  const setFlowerPictureResult = useSetRecoilState(pictureResultState);
   const setFlowerStickerResult = useSetRecoilState(stickerResultState);
   const flowerResultData = useRecoilValue(flowerResultState);
-  const flowerPictureData = useRecoilValue(flowerPictureState);
+  const flowerPictureData = useRecoilValue(pictureResultState);
   const resetFlowerResultData = useResetRecoilState(flowerResultState);
-  const resetFlowerPictureData = useResetRecoilState(flowerPictureState);
+  const resetFlowerPictureData = useResetRecoilState(pictureResultState);
   const resetFlowerStickerData = useResetRecoilState(stickerResultState);
   const voteInfoWrapperRef = useRef<HTMLElement>(null);
   useEffect(() => {

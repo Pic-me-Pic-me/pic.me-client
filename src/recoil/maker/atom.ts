@@ -63,34 +63,6 @@ export const pictureResultState = atom<MakerPictureData[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const flowerPictureState = atom<MakerPictureData[]>({
-  key: 'flowerPictureResult',
-  default: [
-    {
-      Sticker: [],
-      count: 0,
-      pictureId: 0,
-      url: '',
-    },
-  ],
-  effects_UNSTABLE: [persistAtom],
-});
-
-// export const flowerPictureResultState = atom<FlowerPictureInfo[]>({
-//   key: 'flowerPictureResult',
-//   default: [
-//     {
-//       Sticker: [],
-//       count: 0,
-//       pictureId: 0,
-//       url: '',
-//       flower: 0,
-//       keywords: [],
-//     },
-//   ],
-//   effects_UNSTABLE: [persistAtom],
-// });
-
 export const pictureCurrentIdx = atom<number>({
   key: 'pictureCurrentIdx',
   default: 0,
