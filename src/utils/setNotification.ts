@@ -5,7 +5,7 @@ export const regisertWorker = async () => {
   const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
   // (B2) REGISTER SERVICE WORKER
   navigator.serviceWorker
-    .register(swUrl, { scope: '/' })
+    .register(swUrl)
     .then((registration) => {
       console.log('Service worker registration succeeded:', registration);
     })
@@ -14,6 +14,7 @@ export const regisertWorker = async () => {
     });
   // (B3) SUBSCRIBE TO PUSH SERVER
   navigator.serviceWorker.ready.then((reg) => {
+    console.log(reg);
     reg.pushManager
       .subscribe({
         userVisibleOnly: true,
