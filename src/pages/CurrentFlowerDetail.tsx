@@ -27,6 +27,7 @@ const CurrentFlowerDetail = () => {
   const resetFlowerPictureData = useResetRecoilState(pictureResultState);
   const resetFlowerStickerData = useResetRecoilState(stickerResultState);
   const voteInfoWrapperRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     if (flowerPictureData[0].count === 10) {
       patchCurrentVoteData(voteId);
