@@ -56,6 +56,10 @@ registerRoute(
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 
+type PushMessage = {
+  title: string;
+  body: string;
+};
 const _version = 'v2';
 const cacheName = 'v2';
 const cacheList = ['Picme', 'PWA'];
@@ -69,6 +73,7 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
+
 self.addEventListener('install', () => {
   self.skipWaiting();
   caches.open(cacheName).then((cache) => {
@@ -92,5 +97,13 @@ self.addEventListener('activate', (event) => {
   );
   consoleMessage('ACTIVE');
 });
+self.addEventListener('push', (event: PushEvent) => {
+  consoleMessage(event + '');
 
-// Any other custom service worker logic can go here.
+  const message = event.data?.json() as PushMessage;
+  event.waitUntil(
+    self.registration.showNotification(message.title, {
+      body: message.body,
+    }),
+  );
+});
