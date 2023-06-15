@@ -5,15 +5,11 @@ import styled from 'styled-components';
 
 import { IcFlowerOnboarding, IcLogoSmall, IcOBD1 } from '../../asset/icon';
 import { lottie1, lottie2, lottie3 } from '../../asset/lottie';
-import useModal from '../../lib/hooks/useModal';
-import MakerLandingModal from '../common/MakerLandingModal';
 
 const MakerLanding = () => {
   const navigate = useNavigate();
-  const { isShowing, toggle } = useModal();
   return (
     <>
-      <MakerLandingModal isShowing={!isShowing} handleHide={toggle} />
       <StOnboarding>
         <StStartBtn
           type="button"

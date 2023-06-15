@@ -24,19 +24,19 @@ const SLIDER_SETTINGS = {
 const SLIDER_IMAGES = [
   {
     id: 0,
-    bannerImg: <IcMainBanner />,
-    title: '친구들이 보는 ‘나를 닮은 꽃’은?',
-    subTitle: 'EVENT',
-    buttonImg: <IcFlowerVote />,
-    buttonName: '투표 만들기',
-  },
-  {
-    id: 1,
     bannerImg: <IcSubBanner />,
     title: '픽미 사용방법 A부터 Z까지',
     subTitle: '공지',
     buttonImg: <IcNormalVote />,
     buttonName: '알아보기',
+  },
+  {
+    id: 1,
+    bannerImg: <IcMainBanner />,
+    title: '친구들이 보는 ‘나를 닮은 꽃’은?',
+    subTitle: 'EVENT',
+    buttonImg: <IcFlowerVote />,
+    buttonName: '투표 만들기',
   },
 ];
 
@@ -47,10 +47,10 @@ const Header = () => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
     switch (index) {
       case 0:
-        navigate('/voting/flower');
+        toggle();
         break;
       case 1:
-        toggle();
+        navigate('/voting/flower');
         break;
       default:
         console.error(e);
