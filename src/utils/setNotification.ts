@@ -15,26 +15,27 @@ export const regisertWorker = async () => {
   // (B3) SUBSCRIBE TO PUSH SERVER
   navigator.serviceWorker.ready.then((reg) => {
     console.log(reg);
-    reg.pushManager
-      .subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: publicKey,
-      })
-      .then(
-        // (B3-1) OK - TEST PUSH NOTIFICATION
-        (sub) => {
-          fetch('/mypush', {
-            method: 'POST',
-            body: JSON.stringify(sub),
-            headers: { 'content-type': 'application/json' },
-          })
-            .then((res) => res.text())
-            .then((txt) => console.log(txt))
-            .catch((err) => console.error(err));
-        },
+    console.log(window);
+    // reg.pushManager
+    //   .subscribe({
+    //     userVisibleOnly: true,
+    //     applicationServerKey: publicKey,
+    //   })
+    //   .then(
+    //     // (B3-1) OK - TEST PUSH NOTIFICATION
+    //     (sub) => {
+    //       fetch('/mypush', {
+    //         method: 'POST',
+    //         body: JSON.stringify(sub),
+    //         headers: { 'content-type': 'application/json' },
+    //       })
+    //         .then((res) => res.text())
+    //         .then((txt) => console.log(txt))
+    //         .catch((err) => console.error(err));
+    // },
 
-        // (B3-2) ERROR!
-        (err) => console.error(err),
-      );
+    // (B3-2) ERROR!
+    // (err) => console.error(err),
+    //   );
   });
 };
