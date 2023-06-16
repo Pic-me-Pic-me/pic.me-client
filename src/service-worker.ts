@@ -1,15 +1,15 @@
 /// <reference lib="webworker" />
 
-// import { clientsClaim } from 'workbox-core';
+import { clientsClaim } from 'workbox-core';
 // import { ExpirationPlugin } from 'workbox-expiration';
-// import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching';
+import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching';
 // import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+// import { StaleWhileRevalidate } from 'workbox-strategies';
 
 declare const self: ServiceWorkerGlobalScope;
 
-// clientsClaim();
-// precacheAndRoute(self.__WB_MANIFEST);
+clientsClaim();
+precacheAndRoute(self.__WB_MANIFEST);
 
 // const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$');
 // registerRoute(
