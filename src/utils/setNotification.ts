@@ -17,7 +17,8 @@ export const regisertWorker = async () => {
   //   console.log('Service worker registration failed:', err);
   // });
   console.log(registration);
-  if (registration) {
+  alert(registration.active);
+  if (registration && registration.active) {
     // (B3)서버에 구독하기
     const subscription = await registration.pushManager.subscribe({
       applicationServerKey: publicKey,
