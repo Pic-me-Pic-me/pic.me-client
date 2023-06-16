@@ -7,7 +7,7 @@ export const regisertWorker = async (setNotificationPermission?: SetterOrUpdater
   const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
   // (B2) 서비스 워커 등록 및 확인
   const registration = await navigator.serviceWorker.register(swUrl);
-  if (setNotificationPermission && registration.active) setNotificationPermission(true);
+  if (setNotificationPermission) setNotificationPermission(true);
 
   alert(registration.active);
   if (registration && registration.active) {

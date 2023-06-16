@@ -29,7 +29,7 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
     }
     // 승인 - GRANTED
     else if (Notification.permission === 'granted') {
-      regisertWorker().catch((err) => console.error(err));
+      regisertWorker(setNotificationPermission).catch((err) => console.error(err));
     }
     // 거부 - DENIED
     else {
