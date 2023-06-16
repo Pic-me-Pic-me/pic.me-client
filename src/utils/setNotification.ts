@@ -19,8 +19,10 @@ export const regisertWorker = async () => {
     });
   // (B3) SUBSCRIBE TO PUSH SERVER
   navigator.serviceWorker.ready.then((reg) => {
-    console.log(reg);
+    console.log(reg, reg.pushManager);
     console.log(window.safari);
+    // if (window.safari) {
+    // }
     // reg.pushManager
     //   .subscribe({
     //     userVisibleOnly: true,
