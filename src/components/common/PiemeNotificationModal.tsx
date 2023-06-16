@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { notificationPermission } from '../../recoil/picme/atom';
@@ -12,7 +12,7 @@ export interface MakingVoteModalProps {
 
 const PicmeNotificationModal = (props: MakingVoteModalProps) => {
   const { isShowing, handleHide } = props;
-  const setNotificationPermission = useSetRecoilState(notificationPermission);
+  const [isNotificationPermission, setNotificationPermission] = useRecoilState(notificationPermission);
 
   const handlePermission = async () => {
     console.log('권한 요청 중...', Notification.permission);
@@ -22,7 +22,7 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
       // 요청하기
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
-        regisertWorker().catch((err) => console.error(err));
+        regisertWorker(setNotificationPermission).catch((err) => console.error(err));
       } else {
         alert('Please allow notifications.');
       }
@@ -39,22 +39,24 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
 
   return (
     <>
-      <StModalWrapper>
-        <StModal>
-          <StModalContent>
-            <p>픽미 알림</p>
-          </StModalContent>
-          <StModalSubContent>픽미가 제공하는 알림을 허용하시겠습니까?</StModalSubContent>
-          <StButtonWrapper>
-            <button type="button" onClick={handleHide}>
-              거부
-            </button>
-            <button type="button" onClick={handlePermission}>
-              허용
-            </button>
-          </StButtonWrapper>
-        </StModal>
-      </StModalWrapper>
+      {!isNotificationPermission && (
+        <StModalWrapper>
+          <StModal>
+            <StModalContent>
+              <p>픽미 알림</p>
+            </StModalContent>
+            <StModalSubContent>픽미가 제공하는 알림을 허용하시겠습니까?</StModalSubContent>
+            <StButtonWrapper>
+              <button type="button" onClick={handleHide}>
+                거부
+              </button>
+              <button type="button" onClick={handlePermission}>
+                허용
+              </button>
+            </StButtonWrapper>
+          </StModal>
+        </StModalWrapper>
+      )}
     </>
   );
 };
