@@ -13,6 +13,6 @@ root.render(
   </CookiesProvider>,
 );
 
-serviceWorkerRegistration.register();
+// serviceWorkerRegistration.register();
 
 reportWebVitals();
