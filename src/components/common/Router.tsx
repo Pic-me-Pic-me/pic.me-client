@@ -6,6 +6,7 @@ import StatusBarForiOS from './StatusBarForiOS';
 
 const CurrentFlowerDetail = lazy(() => import('../../pages/CurrentFlowerDetail'));
 const CurrentVoteDetail = lazy(() => import('../../pages/CurrentVoteDetail'));
+const CurrentVoteStatus = lazy(() => import('../../pages/CurrentVoteStatus'));
 const Error404 = lazy(() => import('../../pages/Error404'));
 const Home = lazy(() => import('../../pages/Home'));
 const Library = lazy(() => import('../../pages/Library'));
@@ -39,6 +40,7 @@ const Router = () => (
           <Route path="/home" element={<Home />} />
           <Route path="/current/flower/:voteid" element={<CurrentFlowerDetail />} />
           <Route path="/current/vote/:voteid" element={<CurrentVoteDetail />} />
+          <Route path="/status/:voteid" element={<CurrentVoteStatus />} />
           <Route path="/myPage" element={<MemberInfo />} />
           <Route path="/library" element={<Library />} />
           <Route path="/result/flower/:voteId" element={<FlowerResult />} />
