@@ -20,7 +20,7 @@ export const registerWorker = async (setNotificationPermission?: SetterOrUpdater
     console.log(JSON.stringify(subscription));
 
     await axios
-      .post('https://with-picme-test-api.site/alarm/register', JSON.stringify(subscription))
+      .post('https://with-picme-test-api.site/alarm/register', subscription)
       .then((res) => res.data)
       .then((txt) => console.log(txt))
       .catch((err) => console.error(err));
