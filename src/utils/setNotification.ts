@@ -20,15 +20,7 @@ export const registerWorker = async (setNotificationPermission?: SetterOrUpdater
     console.log(JSON.stringify(subscription));
 
     await axios
-      .post('https://with-picme-test-api.site/alarm/register', {
-        endpoint:
-          'https://fcm.googleapis.com/fcm/send/fpXesUpN8GM:APA91bFAMWS7om8l0VsAEPmQQaqS2RThzlvVC3KQYR1yCAKg7eSkrP0bhk2nm2tw0imK-FDTP-bsI-LJiA1RejxF-WNx8ifVT_Xd4tAXdbnSKdHLjitzNflXBrYBzEV7y9fCUjuNPu-G',
-        expirationTime: null,
-        keys: {
-          p256dh: 'BEJG2Q0x-NX5gnPWp_n87QRUarBoqcJtKcIa2yeYHGoPRUYnpQx_qzAM-ONpNHO5t2gwJgDy6AbP2FP2ROYY1pw',
-          auth: 'd52vwwW4lKfButCXgT0LQQ',
-        },
-      })
+      .post('https://with-picme-test-api.site/alarm/register', JSON.stringify(subscription))
       .then((res) => res.data)
       .then((txt) => console.log(txt))
       .catch((err) => console.error(err));
