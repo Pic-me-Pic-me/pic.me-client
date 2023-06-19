@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -9,14 +9,14 @@ import CurrentVoteInfoLayout from '../../components/CurrentVote/Layout/CurrentVo
 import { HeaderLayout } from '../../components/Layout';
 import { patchCurrentVoteData } from '../../lib/api/voting';
 import useGetFlowerVoteDetail from '../../lib/hooks/useGetFlowerVoteDetail';
+import Error404 from '../../pages/Error404';
 import { flowerResultState, pictureResultState, stickerResultState } from '../../recoil/maker/atom';
 import { jsonGetStickerList } from '../../utils/jsonGetStickerList';
+import { LandingCurrentVote, LandingHeader } from '../Landing/maker';
 
 const FlowerVoteStatus = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
-  const location = useLocation();
-  const isFlower = location.state;
 
   const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
@@ -45,11 +45,19 @@ const FlowerVoteStatus = () => {
       setFlowerResult(flowerResult);
       setFlowerPictureResult(flowerResult.Picture);
       setFlowerStickerResult(jsonGetStickerList(flowerResult.Picture[0].Sticker));
-      console.log(isFlower);
     }
   }, [flowerResult]);
 
   const strCreatedDate = flowerResultData.createdDate.toString();
+
+  if (isLoading)
+    return (
+      <>
+        <LandingHeader />
+        <LandingCurrentVote />
+      </>
+    );
+  if (isError) return <Error404 />;
 
   return (
     <>
