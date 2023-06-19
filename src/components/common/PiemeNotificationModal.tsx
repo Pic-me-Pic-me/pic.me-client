@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { notificationPermission } from '../../recoil/picme/atom';
-import { regisertWorker } from '../../utils/setNotification';
+import { registerWorker } from '../../utils/setNotification';
 
 export interface MakingVoteModalProps {
   isShowing: boolean;
@@ -22,14 +22,14 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
       // 요청하기
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
-        regisertWorker(setNotificationPermission).catch((err) => console.error(err));
+        registerWorker(setNotificationPermission).catch((err) => console.error(err));
       } else {
         alert('Please allow notifications.');
       }
     }
     // 승인 - GRANTED
     else if (Notification.permission === 'granted') {
-      regisertWorker(setNotificationPermission).catch((err) => console.error(err));
+      registerWorker(setNotificationPermission).catch((err) => console.error(err));
     }
     // 거부 - DENIED
     else {
@@ -39,7 +39,7 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
 
   return (
     <>
-      {!isNotificationPermission && (
+      {true && (
         <StModalWrapper>
           <StModal>
             <StModalContent>
