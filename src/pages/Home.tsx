@@ -14,12 +14,12 @@ const Home = () => {
   const navigate = useNavigate();
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const { imageUrl } = votingForm;
-  let initVotingForm = [...imageUrl];
+  // let initVotingForm = [...imageUrl];
   const { isShowing, toggle } = useModal();
 
   useEffect(() => {
-    initVotingForm = [];
-    setVotingForm({ title: '', imageUrl: initVotingForm });
+    // initVotingForm = [];
+    // setVotingForm({ title: '', imageUrl: initVotingForm });
   }, []);
 
   const handleNormalVote = () => {
