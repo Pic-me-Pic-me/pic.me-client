@@ -4,7 +4,7 @@ import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist();
 
 export const notificationPermission = atom<boolean>({
-  key: 'votingImage',
+  key: 'notificationPermission',
   default: false,
   effects_UNSTABLE: [persistAtom],
 });

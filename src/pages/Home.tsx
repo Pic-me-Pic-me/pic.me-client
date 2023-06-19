@@ -48,7 +48,7 @@ const Home = () => {
           handleHide={toggle}
         />
       </StHomeWrapper>
-      <VoteList />
+      {/* <VoteList /> */}
       <Footer />
     </>
   );
