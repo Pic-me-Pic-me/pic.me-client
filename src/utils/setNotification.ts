@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { SetterOrUpdater } from 'recoil';
+
+import { client } from '../lib/axios';
 
 export const registerWorker = async (setNotificationPermission?: SetterOrUpdater<boolean>) => {
   // (B1) 공유키
@@ -19,8 +20,8 @@ export const registerWorker = async (setNotificationPermission?: SetterOrUpdater
     });
     console.log(JSON.stringify(subscription));
 
-    await axios
-      .post('https://with-picme-test-api.site/alarm/register', subscription)
+    await client
+      .post('alarm/register', subscription)
       .then((res) => res.data)
       .then((txt) => console.log(txt))
       .catch((err) => console.error(err));
