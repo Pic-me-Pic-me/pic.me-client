@@ -1,14 +1,12 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import { OriginVoteStatus } from '../components/CurrentVote';
+import { FlowerVoteStatus, OriginVoteStatus } from '../components/CurrentVote';
 
 const CurrentVoteStatus = () => {
-  const { voteid: voteId } = useParams<{ voteid: string }>();
-  const navigate = useNavigate();
   const location = useLocation();
   const isFlower = location.state;
 
-  return <>{isFlower ? <></> : <OriginVoteStatus />}</>;
+  return <>{isFlower ? <FlowerVoteStatus /> : <OriginVoteStatus />}</>;
 };
 
 export default CurrentVoteStatus;

@@ -28,9 +28,7 @@ const VoteCard = (props: VoteCardProps) => {
     str?.length > TITLE_LETTER_LIMIT ? str.substring(0, TITLE_LETTER_LIMIT - 1) + ' ...' : str;
 
   const handleClick = (e: React.MouseEvent, isFlower: boolean) => {
-    isFlower
-      ? navigate(`/current/flower/${voteData.voteId}`, { state: isFlower })
-      : navigate(`/current/vote/${voteData.voteId}`, { state: isFlower });
+    navigate(`/status/${voteData.voteId}`, { state: isFlower });
   };
 
   return (

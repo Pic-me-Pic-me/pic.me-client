@@ -3,16 +3,16 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { IcVoteShareBtn } from '../asset/icon';
-import { StickerAttachFlowerImg } from '../components/common';
-import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
-import { HeaderLayout } from '../components/Layout';
-import { patchCurrentVoteData } from '../lib/api/voting';
-import useGetFlowerVoteDetail from '../lib/hooks/useGetFlowerVoteDetail';
-import { flowerResultState, pictureResultState, stickerResultState } from '../recoil/maker/atom';
-import { jsonGetStickerList } from '../utils/jsonGetStickerList';
+import { IcVoteShareBtn } from '../../asset/icon';
+import { StickerAttachFlowerImg } from '../../components/common';
+import CurrentVoteInfoLayout from '../../components/CurrentVote/Layout/CurrentVoteInfoLayout';
+import { HeaderLayout } from '../../components/Layout';
+import { patchCurrentVoteData } from '../../lib/api/voting';
+import useGetFlowerVoteDetail from '../../lib/hooks/useGetFlowerVoteDetail';
+import { flowerResultState, pictureResultState, stickerResultState } from '../../recoil/maker/atom';
+import { jsonGetStickerList } from '../../utils/jsonGetStickerList';
 
-const CurrentFlowerDetail = () => {
+const FlowerVoteStatus = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
   const location = useLocation();
@@ -80,7 +80,7 @@ const CurrentFlowerDetail = () => {
     </>
   );
 };
-export default CurrentFlowerDetail;
+export default FlowerVoteStatus;
 
 const StCurrentVoteInfoWrapper = styled.section`
   display: flex;
