@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
 import MakingVoteModal from '../components/common/MakingVoteModal';
+import PicmeNotificationModal from '../components/common/PiemeNotificationModal';
 import { Footer, Header, Nav, VoteList } from '../components/Home';
 import useModal from '../lib/hooks/useModal';
 import { votingImageState } from '../recoil/maker/atom';
@@ -30,6 +31,8 @@ const Home = () => {
 
   return (
     <>
+      {<PicmeNotificationModal isShowing={isShowing} handleHide={toggle} />}
+
       <StHomeWrapper>
         <Nav />
         <Header />
