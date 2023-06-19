@@ -2,8 +2,8 @@ import { useRecoilValue } from 'recoil';
 import * as timeago from 'timeago.js';
 import ko from 'timeago.js/lib/lang/ko';
 
-import { pictureCurrentIdx, pictureResultState, voteResultState } from '../../recoil/maker/atom';
-import { CurrentVoteInfoLayout } from './Layout';
+import { pictureCurrentIdx, pictureResultState, voteResultState } from '../../../recoil/maker/atom';
+import { CurrentVoteInfoLayout } from '../Layout';
 
 const CurrentVoteInfo = () => {
   const voteInfoData = useRecoilValue(voteResultState);

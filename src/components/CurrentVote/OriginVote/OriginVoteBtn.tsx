@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IcVoteShareBtn } from '../../asset/icon';
-import { patchCurrentVoteData } from '../../lib/api/voting';
-import { Modal } from '../common';
+import { IcVoteShareBtn } from '../../../asset/icon';
+import { patchCurrentVoteData } from '../../../lib/api/voting';
+import { Modal } from '../../common';
 
-const CurrentVoteBtn = () => {
+const OriginVoteBtn = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const CurrentVoteBtn = () => {
   );
 };
 
-export default CurrentVoteBtn;
+export default OriginVoteBtn;
 
 const CurrentVoteBtnWrapper = styled.section`
   position: relative;
