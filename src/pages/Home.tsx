@@ -31,8 +31,7 @@ const Home = () => {
 
   return (
     <>
-      {<PicmeNotificationModal isShowing={isShowing} handleHide={toggle} />}
-
+      <PicmeNotificationModal isShowing={isShowing} handleHide={toggle} />
       <StHomeWrapper>
         <Nav />
         <Header />
@@ -41,12 +40,12 @@ const Home = () => {
           <IcPlus />
           <p>투표 만들기</p>
         </StMakerVoting>
-        <MakingVoteModal
+        {/* <MakingVoteModal
           isShowing={isShowing}
           handleNormalVote={handleNormalVote}
           handleFlowerVote={handleFlowerVote}
           handleHide={toggle}
-        />
+        /> */}
       </StHomeWrapper>
       {/* <VoteList /> */}
       <Footer />
