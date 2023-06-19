@@ -18,7 +18,7 @@ const MakerLanding = () => {
   console.log(notificationInfo);
   return (
     <>
-      {!notificationInfo && !isShowing && <PicmeNotificationModal isShowing={isShowing} handleHide={toggle} />}
+      {<PicmeNotificationModal isShowing={isShowing} handleHide={toggle} />}
       <StOnboarding>
         <StStartBtn
           type="button"
