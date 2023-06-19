@@ -17,7 +17,7 @@ export const registerWorker = async (setNotificationPermission?: SetterOrUpdater
       applicationServerKey: process.env.REACT_APP_PUBLIC_SUBSCRIBE_KEY,
       userVisibleOnly: true,
     });
-    console.log(subscription);
+    console.log(JSON.stringify(subscription));
 
     await axios
       .post('https://with-picme-test-api.site/alarm/register', {
