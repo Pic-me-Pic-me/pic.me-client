@@ -28,6 +28,8 @@ const AddAccount = () => {
     !signupInfo.passwordInfo.isValid ||
     !signupInfo.passwordConfirmInfo.isValid ||
     !isEmailAvailable;
+
+  console.log(isSubmitBtnDiabled);
   let submitFlag = true;
 
   const handleCheckEmail = async () => {
@@ -122,7 +124,7 @@ const AddAccount = () => {
   return (
     <StWhiteSection>
       <StWrapper>
-        <StForm onSubmit={(e) => handleSubmitAccount(e)}>
+        <StForm onSubmit={(e) => handleSubmitAccount(e)} id="addAccount">
           <StTitle>아이디</StTitle>
           <StEmailWrapper>
             <StInput
@@ -167,7 +169,9 @@ const AddAccount = () => {
           />
           <StInputDesc>{signupInfo.passwordConfirmInfo.errorMsg}</StInputDesc>
 
-          <StSubmitBtn disabled={isSubmitBtnDiabled}>다음 단계로 이동</StSubmitBtn>
+          <StSubmitBtn disabled={isSubmitBtnDiabled} type="submit" form="addAccount">
+            다음 단계로 이동
+          </StSubmitBtn>
         </StForm>
       </StWrapper>
     </StWhiteSection>
