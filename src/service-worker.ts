@@ -13,6 +13,7 @@ type PushMessage = {
   title: string;
   body: string;
 };
+
 const _version = 'v2';
 const cacheName = 'v2';
 const cacheList = ['Picme', 'PWA'];
