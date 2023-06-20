@@ -29,7 +29,6 @@ const AddAccount = () => {
     !signupInfo.passwordConfirmInfo.isValid ||
     !isEmailAvailable;
 
-  console.log(isSubmitBtnDiabled);
   let submitFlag = true;
 
   const handleCheckEmail = async () => {
@@ -101,9 +100,9 @@ const AddAccount = () => {
   const handleSubmitAccount = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(handleSubmitCheck(), signupInfo);
+    // console.log(handleSubmitCheck(), signupInfo);
 
-    if (handleSubmitCheck()) return;
+    // if (handleSubmitCheck()) return;
 
     const finalEmail = signupInfo.emailInfo.email;
     const finalPassword = signupInfo.passwordInfo.password;
