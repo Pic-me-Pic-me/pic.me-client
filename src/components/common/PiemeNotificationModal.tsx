@@ -1,39 +1,57 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { IcClose } from '../../asset/icon';
+import { notificationPermission } from '../../recoil/picme/atom';
+import { registerWorker } from '../../utils/setNotification';
 
-export interface MakerLandingModalProps {
+export interface MakingVoteModalProps {
   isShowing: boolean;
   handleHide: React.MouseEventHandler;
 }
 
-const MakerLandingModal = (props: MakerLandingModalProps) => {
+const PicmeNotificationModal = (props: MakingVoteModalProps) => {
   const { isShowing, handleHide } = props;
-  const navigate = useNavigate();
+  const [isNotificationPermission, setNotificationPermission] = useRecoilState(notificationPermission);
+
+  const handlePermission = async () => {
+    console.log('권한 요청 중...', Notification.permission);
+
+    // 알림 권한 받기 전
+    if (Notification.permission === 'default') {
+      // 요청하기
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
+        registerWorker(setNotificationPermission).catch((err) => console.error(err));
+      } else {
+        alert('Please allow notifications.');
+      }
+    }
+    // 승인 - GRANTED
+    else if (Notification.permission === 'granted') {
+      registerWorker(setNotificationPermission).catch((err) => console.error(err));
+    }
+    // 거부 - DENIED
+    else {
+      alert('알림 권한을 허용해주세요!');
+    }
+  };
+
   return (
     <>
-      {isShowing && (
+      {isNotificationPermission !== 'activated' && (
         <StModalWrapper>
           <StModal>
-            <StTopWrapper>
-              <p>신학기 봄 이벤트</p>
-              <button type="button" onClick={handleHide}>
-                <IcClose />
-              </button>
-            </StTopWrapper>
             <StModalContent>
-              <span>나를 닮은 꽃은?</span>
-              <p>테스트 하러가기</p>
+              <p>픽미 알림</p>
             </StModalContent>
-            <StModalSubContent>친구들이 보는 내 꽃인상을 확인해보세요!</StModalSubContent>
+            <StModalSubContent>픽미가 제공하는 알림을 허용하시겠습니까?</StModalSubContent>
             <StButtonWrapper>
               <button type="button" onClick={handleHide}>
-                취소
+                거부
               </button>
-              <button type="button" onClick={() => navigate('/login')}>
-                확인
+              <button type="button" onClick={handlePermission}>
+                허용
               </button>
             </StButtonWrapper>
           </StModal>
@@ -43,7 +61,7 @@ const MakerLandingModal = (props: MakerLandingModalProps) => {
   );
 };
 
-export default MakerLandingModal;
+export default PicmeNotificationModal;
 
 const StModalWrapper = styled.div`
   display: flex;
@@ -75,13 +93,7 @@ const StModal = styled.section`
 
   background-color: ${({ theme }) => theme.colors.Pic_Color_White};
   border-radius: 1rem;
-`;
 
-const StTopWrapper = styled.div`
-  & > p {
-    color: ${({ theme }) => theme.colors.Pic_Color_Gray_3};
-    ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_1}
-  }
   & > button {
     background: inherit;
     border: none;
@@ -98,13 +110,9 @@ const StTopWrapper = styled.div`
 `;
 
 const StModalContent = styled.div`
-  padding-top: 1.8rem;
-  padding-bottom: 0.9rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
 
-  & > span {
-    color: ${({ theme }) => theme.colors.Pic_Color_Coral};
-    ${({ theme }) => theme.fonts.Pic_Title1_Pretendard_Bold_24};
-  }
   & > p {
     color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
     ${({ theme }) => theme.fonts.Pic_Noto_B_Title_1}
@@ -113,27 +121,37 @@ const StModalContent = styled.div`
 
 const StModalSubContent = styled.p`
   color: ${({ theme }) => theme.colors.Pic_Color_Gray_2};
-  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_1}
+  ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_5}
 `;
 
 const StButtonWrapper = styled.div`
   display: flex;
   gap: 0.8rem;
-  padding-top: 2.2rem;
+
+  padding-top: 2.1rem;
   width: 100%;
 
-  > button {
+  & > button {
+    position: relative;
+
     width: 100%;
-    height: 5.2rem;
+    height: 5.6rem;
 
     background: inherit;
-    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_4};
+    background-color: ${({ theme }) => theme.colors.Pic_Color_Gray_Black};
     color: ${({ theme }) => theme.colors.Pic_Color_White};
     ${({ theme }) => theme.fonts.Pic_Noto_M_Subtitle_3}
     border: none;
     border-radius: 1rem;
+
+    & > svg {
+      position: absolute;
+      top: 1.1rem;
+      left: 1.6rem;
+    }
   }
-  button:last-child {
+
+  & > button:last-child {
     background-color: ${({ theme }) => theme.colors.Pic_Color_Coral};
   }
 `;
