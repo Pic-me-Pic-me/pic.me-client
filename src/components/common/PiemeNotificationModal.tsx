@@ -39,7 +39,7 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
 
   return (
     <>
-      {isNotificationPermission !== 'activated' && (
+      {!isNotificationPermission && (
         <StModalWrapper>
           <StModal>
             <StModalContent>
