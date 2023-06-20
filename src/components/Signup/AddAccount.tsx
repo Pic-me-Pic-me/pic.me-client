@@ -101,6 +101,8 @@ const AddAccount = () => {
   const handleSubmitAccount = (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log(handleSubmitCheck(), signupInfo);
+
     if (handleSubmitCheck()) return;
 
     const finalEmail = signupInfo.emailInfo.email;
