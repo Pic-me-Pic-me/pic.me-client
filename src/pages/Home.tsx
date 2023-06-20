@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -15,7 +15,9 @@ const Home = () => {
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const { imageUrl } = votingForm;
   // let initVotingForm = [...imageUrl];
+  console.log(imageUrl);
   const { isShowing, toggle } = useModal();
+  const [isNotification, setIsNotification] = useState(true);
 
   useEffect(() => {
     // initVotingForm = [];
@@ -31,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <PicmeNotificationModal isShowing={isShowing} handleHide={toggle} />
+      <PicmeNotificationModal isShowing={isNotification} handleHide={() => setIsNotification((prev) => !prev)} />
       <StHomeWrapper>
         <Nav />
         <Header />
@@ -40,12 +42,12 @@ const Home = () => {
           <IcPlus />
           <p>투표 만들기</p>
         </StMakerVoting>
-        {/* <MakingVoteModal
+        <MakingVoteModal
           isShowing={isShowing}
           handleNormalVote={handleNormalVote}
           handleFlowerVote={handleFlowerVote}
           handleHide={toggle}
-        /> */}
+        />
       </StHomeWrapper>
       <VoteList />
       <Footer />
