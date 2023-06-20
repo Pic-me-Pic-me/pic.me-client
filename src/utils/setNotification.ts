@@ -9,7 +9,7 @@ export const registerWorker = async (setNotificationPermission?: SetterOrUpdater
   const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
   // (B2) 서비스 워커 등록 및 확인
   const registration = await navigator.serviceWorker.register(swUrl);
-  if (setNotificationPermission) setNotificationPermission(true);
+  if (registration?.active && setNotificationPermission) setNotificationPermission(true);
 
   if (registration.active) {
     // (B3)서버에 구독하기
