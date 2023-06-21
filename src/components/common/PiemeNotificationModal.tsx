@@ -12,7 +12,7 @@ export interface MakingVoteModalProps {
 
 const PicmeNotificationModal = (props: MakingVoteModalProps) => {
   const { isShowing, handleHide } = props;
-  const [isNotificationPermission, setNotificationPermission] = useRecoilState(notificationPermission);
+  const [notificationState, setNotificationPermission] = useRecoilState(notificationPermission);
 
   const handlePermission = async () => {
     console.log('권한 요청 중...', Notification.permission);
@@ -38,22 +38,22 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
   };
   useEffect(() => {
     const timer = setInterval(() => {
-      console.log(isNotificationPermission);
+      console.log(notificationState);
       if (Notification.permission === 'granted')
         registerWorker(setNotificationPermission).catch((err) => console.error(err));
     }, 1000);
 
-    if (isNotificationPermission === 'activate') {
+    if (notificationState === 'activate') {
       clearInterval(timer);
     }
-    console.log(isNotificationPermission);
+    console.log(notificationState);
 
     return () => clearInterval(timer);
-  }, [isNotificationPermission]);
+  }, [notificationState]);
 
   return (
     <>
-      {!isNotificationPermission && (
+      {notificationState === 'default' && (
         <StModalWrapper>
           <StModal>
             <StModalContent>

@@ -5,6 +5,6 @@ const { persistAtom } = recoilPersist();
 
 export const notificationPermission = atom<string>({
   key: 'notificationPermission',
-  default: 'init',
+  default: 'default',
   effects_UNSTABLE: [persistAtom],
 });
