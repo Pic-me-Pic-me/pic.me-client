@@ -14,7 +14,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "baseUrl": "./src",
   "include": ["src", "**/*.ts", "**/*.tsx", "src/asset/asset.d.ts", "webpack.config.js"],
