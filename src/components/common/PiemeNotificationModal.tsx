@@ -38,19 +38,22 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
   };
   useEffect(() => {
     const timer = setInterval(() => {
+      console.log(isNotificationPermission);
       if (Notification.permission === 'granted')
         registerWorker(setNotificationPermission).catch((err) => console.error(err));
     }, 1000);
 
-    if (isNotificationPermission) {
+    if (isNotificationPermission === 'activate') {
       clearInterval(timer);
     }
+    console.log(isNotificationPermission);
+
     return () => clearInterval(timer);
   }, [isNotificationPermission]);
 
   return (
     <>
-      {Notification.permission === 'default' && (
+      {!isNotificationPermission && (
         <StModalWrapper>
           <StModal>
             <StModalContent>
