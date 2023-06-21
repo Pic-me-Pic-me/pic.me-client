@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -22,7 +22,7 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
       // 요청하기
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
-        registerWorker(setNotificationPermission).catch((err) => console.error(err));
+        // registerWorker(setNotificationPermission).catch((err) => console.error(err));
       } else {
         alert('Please allow notifications.');
       }
@@ -36,6 +36,17 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
       alert('알림 권한을 허용해주세요!');
     }
   };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (Notification.permission === 'granted')
+        registerWorker(setNotificationPermission).catch((err) => console.error(err));
+    }, 1000);
+
+    if (isNotificationPermission) {
+      clearInterval(timer);
+    }
+    return () => clearInterval(timer);
+  }, [isNotificationPermission]);
 
   return (
     <>

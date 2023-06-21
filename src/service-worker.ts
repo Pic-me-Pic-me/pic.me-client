@@ -1,11 +1,9 @@
 /// <reference lib="webworker" />
 
-import { SetterOrUpdater } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { clientsClaim } from 'workbox-core';
 // import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute } from 'workbox-precaching';
-
-import { client } from './lib/axios';
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -20,7 +18,6 @@ type PushMessage = {
 const _version = 'v2';
 const cacheName = 'v2';
 const cacheList = ['Picme', 'PWA'];
-
 const consoleMessage = (message: string) => {
   console.log(`Service Worker ${_version} : ${message}`);
 };
@@ -52,7 +49,6 @@ self.addEventListener('activate', (event) => {
       ),
     ),
   );
-  console.log(navigator);
   consoleMessage('ACTIVE');
 });
 self.addEventListener('push', (event: PushEvent) => {
