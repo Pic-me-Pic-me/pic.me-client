@@ -15,12 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
     }
   },
-  "baseUrl": "./src",
   "include": ["src", "**/*.ts", "**/*.tsx", "src/asset/asset.d.ts", "webpack.config.js"],
   "types": ["node", "jest", "@testing-library/jest-dom"],
   "exclude": ["node_modules"]
