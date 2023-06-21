@@ -22,7 +22,7 @@ const PicmeNotificationModal = (props: MakingVoteModalProps) => {
       // 요청하기
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
-        // registerWorker(setNotificationPermission).catch((err) => console.error(err));
+        registerWorker(setNotificationPermission).catch((err) => console.error(err));
       } else {
         alert('Please allow notifications.');
       }
