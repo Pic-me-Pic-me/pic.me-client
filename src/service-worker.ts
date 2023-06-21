@@ -52,7 +52,7 @@ self.addEventListener('activate', (event) => {
       ),
     ),
   );
-  console.log(navigator.serviceWorker);
+  console.log(navigator);
   consoleMessage('ACTIVE');
 });
 self.addEventListener('push', (event: PushEvent) => {
