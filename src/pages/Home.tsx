@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcPlus } from '../asset/icon';
 import MakingVoteModal from '../components/common/MakingVoteModal';
+import PicmeNotificationModal from '../components/common/PiemeNotificationModal';
 import { Footer, Header, Nav, VoteList } from '../components/Home';
 import useModal from '../lib/hooks/useModal';
 import { votingImageState } from '../recoil/maker/atom';
@@ -13,12 +14,14 @@ const Home = () => {
   const navigate = useNavigate();
   const [votingForm, setVotingForm] = useRecoilState(votingImageState);
   const { imageUrl } = votingForm;
-  let initVotingForm = [...imageUrl];
+  // let initVotingForm = [...imageUrl];
+  console.log(imageUrl);
   const { isShowing, toggle } = useModal();
+  const [isNotification, setIsNotification] = useState(true);
 
   useEffect(() => {
-    initVotingForm = [];
-    setVotingForm({ title: '', imageUrl: initVotingForm });
+    // initVotingForm = [];
+    // setVotingForm({ title: '', imageUrl: initVotingForm });
   }, []);
 
   const handleNormalVote = () => {
@@ -30,6 +33,7 @@ const Home = () => {
 
   return (
     <>
+      <PicmeNotificationModal isShowing={isNotification} handleHide={() => setIsNotification((prev) => !prev)} />
       <StHomeWrapper>
         <Nav />
         <Header />
