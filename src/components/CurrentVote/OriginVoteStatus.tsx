@@ -3,12 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { CurrentVoteBtn, CurrentVoteInfo, CurrentVoteSlider } from '../components/CurrentVote';
-import { LandingCurrentVote, LandingHeader } from '../components/Landing/maker';
-import { HeaderLayout } from '../components/Layout';
-import useGetCurrentVote from '../lib/hooks/useGetCurrentVote';
-import { pictureCurrentIdx, pictureResultState, stickerResultState, voteResultState } from '../recoil/maker/atom';
-import Error404 from './Error404';
+import { OriginVoteBtn, OriginVoteInfo, OriginVotePicture } from '../../components/CurrentVote/OriginVote';
+import { LandingCurrentVote, LandingHeader } from '../../components/Landing/maker';
+import { HeaderLayout } from '../../components/Layout';
+import useGetCurrentVote from '../../lib/hooks/useGetCurrentVote';
+import Error404 from '../../pages/Error404';
+import { pictureCurrentIdx, pictureResultState, stickerResultState, voteResultState } from '../../recoil/maker/atom';
 
 const CurrentVoteDetail = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
@@ -50,9 +50,9 @@ const CurrentVoteDetail = () => {
     <>
       <HeaderLayout HeaderTitle="현재 진행 중인 투표" handleGoback={() => navigate('/home')} />
       <CurrentVoteDetailWrapper>
-        <CurrentVoteInfo />
-        <CurrentVoteSlider />
-        <CurrentVoteBtn />
+        <OriginVoteInfo />
+        <OriginVotePicture />
+        <OriginVoteBtn />
       </CurrentVoteDetailWrapper>
     </>
   );
