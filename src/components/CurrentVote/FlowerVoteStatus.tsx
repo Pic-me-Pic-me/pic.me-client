@@ -3,30 +3,33 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { IcVoteShareBtn } from '../asset/icon';
-import { StickerAttachFlowerImg } from '../components/common';
-import CurrentVoteInfoLayout from '../components/CurrentVote/Layout/CurrentVoteInfoLayout';
-import { HeaderLayout } from '../components/Layout';
-import { patchCurrentVoteData } from '../lib/api/voting';
-import useGetFlowerVoteDetail from '../lib/hooks/useGetFlowerVoteDetail';
-import { flowerPictureState, flowerResultState, stickerResultState } from '../recoil/maker/atom';
-import { jsonGetStickerList } from '../utils/jsonGetStickerList';
+import { IcVoteShareBtn } from '../../asset/icon';
+import { StickerAttachFlowerImg } from '../../components/common';
+import CurrentVoteInfoLayout from '../../components/CurrentVote/Layout/CurrentVoteInfoLayout';
+import { HeaderLayout } from '../../components/Layout';
+import { patchCurrentVoteData } from '../../lib/api/voting';
+import useGetFlowerVoteDetail from '../../lib/hooks/useGetFlowerVoteDetail';
+import Error404 from '../../pages/Error404';
+import { flowerResultState, pictureResultState, stickerResultState } from '../../recoil/maker/atom';
+import { jsonGetStickerList } from '../../utils/jsonGetStickerList';
+import { LandingCurrentVote, LandingHeader } from '../Landing/maker';
 
-const CurrentFlowerDetail = () => {
+const FlowerVoteStatus = () => {
   const { voteid: voteId } = useParams<{ voteid: string }>();
   const navigate = useNavigate();
 
   const { flowerResult, isLoading, isError } = useGetFlowerVoteDetail(voteId);
 
   const setFlowerResult = useSetRecoilState(flowerResultState);
-  const setFlowerPictureResult = useSetRecoilState(flowerPictureState);
+  const setFlowerPictureResult = useSetRecoilState(pictureResultState);
   const setFlowerStickerResult = useSetRecoilState(stickerResultState);
   const flowerResultData = useRecoilValue(flowerResultState);
-  const flowerPictureData = useRecoilValue(flowerPictureState);
+  const flowerPictureData = useRecoilValue(pictureResultState);
   const resetFlowerResultData = useResetRecoilState(flowerResultState);
-  const resetFlowerPictureData = useResetRecoilState(flowerPictureState);
+  const resetFlowerPictureData = useResetRecoilState(pictureResultState);
   const resetFlowerStickerData = useResetRecoilState(stickerResultState);
   const voteInfoWrapperRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     if (flowerPictureData[0].count === 10) {
       patchCurrentVoteData(voteId);
@@ -46,6 +49,15 @@ const CurrentFlowerDetail = () => {
   }, [flowerResult]);
 
   const strCreatedDate = flowerResultData.createdDate.toString();
+
+  if (isLoading)
+    return (
+      <>
+        <LandingHeader />
+        <LandingCurrentVote />
+      </>
+    );
+  if (isError) return <Error404 />;
 
   return (
     <>
@@ -76,7 +88,7 @@ const CurrentFlowerDetail = () => {
     </>
   );
 };
-export default CurrentFlowerDetail;
+export default FlowerVoteStatus;
 
 const StCurrentVoteInfoWrapper = styled.section`
   display: flex;

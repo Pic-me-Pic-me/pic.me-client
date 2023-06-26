@@ -38,6 +38,7 @@ export interface VotingInfo {
   maximum_vote: number;
   created_date: Date;
 }
+
 export interface CurrentPictureInfo {
   pictureId?: number;
   url: string;
@@ -45,14 +46,11 @@ export interface CurrentPictureInfo {
   Sticker: GetStickerResultInfo[];
 }
 
-export interface FlowerPictureInfo {
-  pictureId?: number;
-  url: string;
-  count: number;
-  Sticker: GetStickerResultInfo[];
+export interface FlowerPictureInfo extends CurrentPictureInfo {
   flower: number;
   keywords: number[];
 }
+
 export interface VoteData {
   status: number;
   data?: VoteInfo;
