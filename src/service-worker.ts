@@ -1,8 +1,6 @@
 /// <reference lib="webworker" />
 
-import { useSetRecoilState } from 'recoil';
 import { clientsClaim } from 'workbox-core';
-// import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute } from 'workbox-precaching';
 
 declare const self: ServiceWorkerGlobalScope;

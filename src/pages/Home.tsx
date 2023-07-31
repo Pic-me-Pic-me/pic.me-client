@@ -33,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <PicmeNotificationModal isShowing={isNotification} handleHide={() => setIsNotification((prev) => !prev)} />
+      {/* <PicmeNotificationModal isShowing={isNotification} handleHide={() => setIsNotification((prev) => !prev)} /> */}
       <StHomeWrapper>
         <Nav />
         <Header />
